@@ -1,6 +1,6 @@
 const gmliveExp = new RegExp(/([`]{3})gmlive([^```]*)([`]{3})/g);
 
-const parse = function(msg) {
+const read = function(msg) {
   if (gmliveExp.test(msg.content)) {
 
       // Delete the old message
@@ -27,4 +27,4 @@ const parse = function(msg) {
   }
 };
 
-module.exports.parse = parse;
+module.exports.read = read;

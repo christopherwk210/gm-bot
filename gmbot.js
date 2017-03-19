@@ -60,7 +60,7 @@ bot.on('message', msg => {
 	}else{
 		parseMessage.run(msg);
 		prettifier.clean(msg);
-		gmlive.parse(msg);
+		gmlive.read(msg);
 	}
 });
 
