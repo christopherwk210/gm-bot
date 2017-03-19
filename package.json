@@ -1,0 +1,40 @@
+{
+  "name": "gmbot",
+  "version": "10.0.1",
+  "description": "A bot to be used by /r/gamemaker",
+  "main": "./gmbot",
+  "scripts": {
+    "docs": "node docs/generator/generator.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mintypython/GMBot"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "client",
+    "node",
+    "discordapp"
+  ],
+  "author": "Nicholas Kiley",
+  "homepage": "https://github.com/mintypython/GMBot",
+  "dependencies": {
+    "discord.js": "^10.0.1",
+    "superagent": "^2.3.0",
+    "tweetnacl": "^0.14.3",
+    "ws": "^1.1.1"
+  },
+  "peerDependencies": {
+    "node-opus": "^0.2.1",
+    "opusscript": "^0.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.8.0",
+    "fs-extra": "^0.30.0",
+    "jsdoc-to-markdown": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}
