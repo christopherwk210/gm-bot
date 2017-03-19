@@ -6,7 +6,7 @@ const pm = require('./pm');
 const ids = require('./ids.json');
 const parseMessage = require('./parse-message.js');
 const prettifier = require('./prettifier.js');
-
+const gmlive = require('./gmlive.js');
 
 const badlinks = [
 	"dropboxx\\.ga",
@@ -60,6 +60,7 @@ bot.on('message', msg => {
 	}else{
 		parseMessage.run(msg);
 		prettifier.clean(msg);
+		gmlive.parse(msg);
 	}
 });
 
