@@ -35,9 +35,21 @@ bot.on('ready', () => {
 });
 
 bot.on('guildMemberAdd', member => {
-	member.sendMessage('Hey welcome to /r/gamemaker here\'s a welcome message.');
+	member.sendMessage(
+		"__**Welcome to the /r/GameMaker Discord server!**__\n\n" +
+		"Thanks for joining! **Please read the #announcements channel thoroughly for our code of conduct**.\n\n "+
+	"If you've come to our server to show off a GameMaker project, swing by #showcase. If you'd like help using GameMaker, please use #help. We hope you'll also spend time in #lounge getting to know other members.\n\n" +
+		"Instructions for using `GameMakerBot` are on our #announcements channel. If you need any help, please contact the server admins.\n\n" +
+		"`This is an automated message.`"
+	);
 });
 
+bot.on("voiceStateUpdate", (oldMember,newMember) => {
+	if(newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes("voip")) {
+		var role = newMember.guild.roles.find("name", "voip_text");
+		newMember.addRole(role);
+	}
+});
 //When message is received
 bot.on('message', msg => {
 

@@ -18,17 +18,54 @@ const run = function (msg) {
 
     if (msg.content.startsWith(prefix)) {
         switch (command.toUpperCase()) {
+            case "RESOURCES":
+                msg.author.sendMessage(
+                    "Here's your requested resources list: \n" +
+                    "```" +
+                    "www.resource1.com - A description to it\n" +
+                    "www.resource1.com - A description to it\n" +
+                    "```");
+                break;
+            case "HELP":
+                let command = "all";
+
+                switch (command) {
+                    case "all":
+                        msg.author.sendMessage(
+                            "Hi, I'm GameMakerBot. Here are my available commands: \n" +
+                            "```" +
+                            "!help      - outputs this message \n\n" +
+                            "!role      - toggles a role on and off \n" +
+                            "             usage: !role [role] \n" +
+                            "             available roles: 'voip' \n\n" +
+                            "!resources - outputs a list of trusted resources to assist with your GameMaker Studio journey\n\n" +
+                            "!docs      - outputs the URL to the documentation of a GML function \n" +
+                            "             usage: !docs [function_name] [optional: version] \n" +
+                            "             available versions: 'gms1','gms2'; defaults to 'gms2' \n" +
+                            "             example: !docs draw_sprite\n" +
+                            "             example: !docs draw_sprite gms2\n" +
+                            "             example: !docs draw_sprite gms1\n\n" +
+                            "```\n\n" +
+                            "I can also assist you with your code formatting and auto generate GMLive snippets for you.\n\n\n"
+                        )
+                            .then(() => msg.author.sendMessage("**!!This is how you add code blocks to your messages in Discord:**", {file: "http://www.kyleaskew.com/gmbot-code-2.png"}))
+                            .then(() => msg.author.sendMessage("**To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**", {file: "http://www.kyleaskew.com/gmbot-code-2.png"}))
+                            .then(() => msg.author.sendMessage("**To generate a GMLive snippet in your message use the `gmlive` syntax:**", {file: "http://www.kyleaskew.com/gmbot-code-3.png"}));
+
+                        break;
+                }
+
+                break;
             case "ROLE":
                 toggleRole(msg, args.slice(1));
                 break;
-            case "HELP":
+            case "DOCS":
                 let version = "gms2";
-                let input = args.length;
 
                 if (args.length > 2) {
                     version = args[2];
                 } else if (args.length == 1) {
-                    msg.author.sendMessage("You did not include a function name");
+                    msg.author.sendMessage("You did not include a function name. Type `!help` for help with commands.");
                     break;
                 }
 
@@ -37,18 +74,18 @@ const run = function (msg) {
                         if (validate.gml.gms1(args[1])) {
                             helpUrlGMS1(msg, args[1]);
                         } else {
-                            msg.author.sendMessage(args[1] + " was not a recognized GMS1 function");
+                            msg.author.sendMessage("`" + args[1] + "` was not a recognized GMS1 function. Type `!help` for help with commands.");
                         }
                         break;
                     case "gms2":
                         if (validate.gml.gms2(args[1])) {
                             helpUrlGMS2(msg, args[1]);
                         } else {
-                            msg.author.sendMessage(args[1] + " was not a recognized GMS2 function");
+                            msg.author.sendMessage("`" + args[1] + "` was not a recognized GMS2 function. Type `!help` for help with commands.");
                         }
                         break;
                     default:
-                        msg.author.sendMessage(vet + " was not a valid option");
+                        msg.author.sendMessage("`" + version + "` was not a valid option. Type `!help` for help with commands.");
                         break;
                 }
                 break;
@@ -69,12 +106,9 @@ function helpUrlGMS2(msg, fn) {
             for (var i = 0; i < SearchTitles.length; i++) {
                 if (SearchTitles[i] == fn) {
                     msg.channel.sendMessage('Here\'s the GMS2 documentation for ' + fn);
-                    msg.channel.sendMessage('http://docs2.yoyogames.com/' + SearchFiles[i]);
+                    msg.channel.sendMessage(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i]));
                     found = true;
                 }
-            }
-            if (!found) {
-                pm.pm(ids.net8floz, msg, "The function " + fn + " was not found in gms2");
             }
         }));
     });
@@ -93,9 +127,6 @@ function helpUrlGMS1(msg, fn) {
                     found = true;
                 }
             }
-            if (!found) {
-                pm.pm(ids.net8floz, msg, "The function " + fn + " was not found in gms1");
-            }
         }));
     });
 }
@@ -105,7 +136,7 @@ function helpUrlGMS1(msg, fn) {
  */
 function toggleRole(msg, roleName) {
     if (!roleName.length) {
-        msg.author.sendMessage("You forgot to include a role to toggle.");
+        msg.author.sendMessage("You forgot to include a role to toggle. Type `!help` for help with commands.");
         return;
     }
 
@@ -116,7 +147,7 @@ function toggleRole(msg, roleName) {
             ducky(msg.author);
             break;
         case "noone":
-            msg.author.sendMessage("That is not a valid role");
+            msg.author.sendMessage("That is not a valid role. Type `!help` for help with commands.");
             break;
         default:
             if (msg.member.roles.has(role.id)) {

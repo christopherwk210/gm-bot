@@ -4,9 +4,7 @@ const beautifyOptions = require("./jsbeautify.json");
 
 const clean = function(msg) {
     // Test for the correct code block
-    console.log("Is clean");
     if (cleanCodeExp.test(msg.content)) {
-        console.log("is triggered");
         // Delete the old message
         msg.delete()
             .then(msg => console.log(`Deleted message from ${msg.author}`))
@@ -21,11 +19,9 @@ const clean = function(msg) {
         // Loop through the matches
         for (var i = 0; i < code.length; i++) {
             // Replace all code with pretty code
-            var rawCode = code[i].substr(13,code[i].length - 16);
-            var originalCode = rawCode;
+            var originalCode = code[i].substr(13,code[i].length - 16);
             var prettyCode = Beautify(originalCode, beautifyOptions);
             res = res.replace(originalCode, prettyCode);
-            console.log("Looping");
         }
 
         // Replace the language with javascript
