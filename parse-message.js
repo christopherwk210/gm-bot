@@ -52,8 +52,8 @@ const run = function (msg) {
                             .then(() => msg.author.sendFile('http://www.kyleaskew.com/gmbot-code-1.png'), err => console.log(err))
                             .then(() => msg.author.sendMessage("**To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**"), err => console.log(err))
                             .then(() => msg.author.sendFile('http://www.kyleaskew.com/gmbot-code-2.png'), err => console.log(err))
-                            .then(() => msg.author.sendMessage("**To generate a GMLive snippet in your message use the `gmlive` syntax:**"), err => console.log(err));
-                            .then(() => msg.author.sendFile('http://www.kyleaskew.com/gmbot-code-3.png'), err => console.log(err))
+                            .then(() => msg.author.sendMessage("**To generate a GMLive snippet in your message use the `gmlive` syntax:**"), err => console.log(err))
+                            .then(() => msg.author.sendFile('http://www.kyleaskew.com/gmbot-code-3.png'), err => console.log(err));
                         break;
                 }
 
