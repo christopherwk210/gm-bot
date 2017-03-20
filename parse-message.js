@@ -48,9 +48,9 @@ const run = function (msg) {
                             "```\n\n" +
                             "I can also assist you with your code formatting and auto generate GMLive snippets for you.\n\n\n"
                         )
-                            .then(() => msg.author.sendMessage("**!!This is how you add code blocks to your messages in Discord:**", {file: "http://www.kyleaskew.com/gmbot-code-2.png"}))
-                            .then(() => msg.author.sendMessage("**To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**", {file: "http://www.kyleaskew.com/gmbot-code-2.png"}))
-                            .then(() => msg.author.sendMessage("**To generate a GMLive snippet in your message use the `gmlive` syntax:**", {file: "http://www.kyleaskew.com/gmbot-code-3.png"}));
+                            .then(() => msg.author.sendMessage("**!!This is how you add code blocks to your messages in Discord:**", {file: "http://www.kyleaskew.com/gmbot-code-2.png"}), err => console.log(err))
+                            .then(() => msg.author.sendMessage("**To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**", {file: "http://www.kyleaskew.com/gmbot-code-2.png"}), err => console.log(err))
+                            .then(() => msg.author.sendMessage("**To generate a GMLive snippet in your message use the `gmlive` syntax:**", {file: "http://www.kyleaskew.com/gmbot-code-3.png"}), err => console.log(err));
 
                         break;
                 }
