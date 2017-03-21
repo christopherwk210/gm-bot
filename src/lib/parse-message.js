@@ -9,6 +9,7 @@ const concat = require('concat-stream');
 const pm = require('./pm');
 const ids = require('../assets/json/ids.json');
 const validate = require('./validate.js');
+const roleControl = require('./roleControl.js');
 
 // Project data
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
@@ -93,7 +94,7 @@ I can also assist you with your code formatting and auto generate GMLive snippet
 
             break;
         case "ROLE":
-          toggleRole(msg, args.slice(1));
+          roleControl.control.toggleRole(msg, args.slice(1));
           break;
         case "DOCS":
           let version = "gms2";
@@ -125,7 +126,6 @@ I can also assist you with your code formatting and auto generate GMLive snippet
               break;
           }
           break;
-
       }
 
       msg.delete();
@@ -169,62 +169,6 @@ function helpUrlGMS1(msg, fn) {
             }
         }));
     });
-}
-
-/**
- *    TOGGLE ROLE
- */
-function toggleRole(msg, roleName) {
-    if (!roleName.length) {
-        msg.author.sendMessage("You forgot to include a role to toggle. Type `!help` for help with commands.");
-        return;
-    }
-
-    let role = getRole(msg.guild.roles, roleName);
-
-    switch (role) {
-        case "ducky":
-            ducky(msg.author);
-            break;
-        case "noone":
-            msg.author.sendMessage("That is not a valid role. Type `!help` for help with commands.");
-            break;
-        default:
-            if (msg.member.roles.has(role.id)) {
-                msg.member.removeRole(role);
-                msg.author.sendMessage("Role " + role.name + " was removed.");
-            } else {
-                msg.member.addRole(role);
-                msg.author.sendMessage("Role " + role.name + " has been granted.");
-            }
-            break;
-    }
-}
-
-/**
- *    GET ROLE
- */
-function getRole(roles, roleName) {
-    switch (roleName[0].toUpperCase()) {
-        case "VOIP":
-            return roles.find("name", "voip_text");
-            break;
-        case "QUACK":
-        case "DUCKY":
-            return "ducky";
-            break;
-        default:
-            return "noone";
-            break;
-    }
-}
-
-/**
- *    RUBBER DUCKY FAILURE
- */
-function ducky(author) {
-    let responses = ["Cute.  No.", "Nice try.", "No way.", "Nope."];
-    return author.sendMessage(responses[Math.floor(Math.random() * responses.length)]);
 }
 
 module.exports.run = run;
