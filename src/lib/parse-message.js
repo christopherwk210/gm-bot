@@ -25,7 +25,14 @@ const run = function (msg) {
     if (msg.content.startsWith(prefix)) {
       switch (command.toUpperCase()) {
         case "WELCOME":
-          msg.author.sendMessage(welcome);
+          msg.author.sendEmbed({
+        		color: 26659,
+        		description: welcome,
+        		timestamp: new Date(),
+        		footer: {
+        			text: 'This is an automated message'
+        		}
+        	}).catch(err => console.log(err));
           break;
         case "RESOURCES":
           msg.author.sendMessage(resources);

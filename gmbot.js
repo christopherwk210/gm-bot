@@ -33,7 +33,14 @@ bot.on('ready', () => {
 
 // Send welcome message to new members
 bot.on('guildMemberAdd', member => {
-	member.sendMessage(welcome);
+	member.sendEmbed({
+		color: 26659,
+		description: welcome,
+		timestamp: new Date(),
+		footer: {
+			text: 'This is an automated message'
+		}
+	}).catch(err => console.log(err));
 });
 
 // Automatically add voip_text role to users who join voip
