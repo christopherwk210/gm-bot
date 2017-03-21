@@ -4,6 +4,11 @@ const concat = require('concat-stream');
 const pm = require('./pm');
 const ids = require('./ids.json');
 const validate = require('./validate.js');
+const welcome = "\n\n__**Welcome to the /r/GameMaker Discord server!**__\n\n" +
+    "Thanks for joining! **Please read the #announcements channel thoroughly for our code of conduct**.\n\n" +
+    "If you've come to our server to show off a GameMaker project, swing by **#showcase**. If you'd like help using GameMaker, please use **#help**. We hope you'll also spend time in **#lounge** getting to know other members.\n\n" +
+    "You've been sent this message by our **server bot**. It can help you with your **code formatting**, delegate **roles**, and even **look up GML documentation** for you. Simply type `!help` in this private message, or in one of the server channels, to learn how to use the bot.\n\n" +
+    "`This is an automated message.`";
 
 const run = function (msg) {
     //Clean punctuation and symbols from messages
@@ -18,6 +23,9 @@ const run = function (msg) {
 
     if (msg.content.startsWith(prefix)) {
         switch (command.toUpperCase()) {
+            case "WELCOME":
+                    msg.author.sendMessage(welcome);
+                break;
             case "RESOURCES":
                 msg.author.sendMessage(
                     "Here's your requested resources list: \n" +
@@ -48,12 +56,12 @@ const run = function (msg) {
                             "```\n\n" +
                             "I can also assist you with your code formatting and auto generate GMLive snippets for you.\n\n\n"
                         )
-                            .then(() => msg.author.sendMessage("**!!This is how you add code blocks to your messages in Discord:**"), err => console.log(err))
-                            .then(() => msg.author.sendFile('http://www.kyleaskew.com/gmbot-code-1.png'), err => console.log(err))
+                            .then(() => msg.author.sendMessage("**This is how you add code blocks to your messages in Discord:**"), err => console.log(err))
+                            .then(() => msg.author.sendFile('./gmbot-code-1.png'), err => console.log(err))
                             .then(() => msg.author.sendMessage("**To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**"), err => console.log(err))
-                            .then(() => msg.author.sendFile('http://www.kyleaskew.com/gmbot-code-2.png'), err => console.log(err))
+                            .then(() => msg.author.sendFile('./gmbot-code-2.png'), err => console.log(err))
                             .then(() => msg.author.sendMessage("**To generate a GMLive snippet in your message use the `gmlive` syntax:**"), err => console.log(err))
-                            .then(() => msg.author.sendFile('http://www.kyleaskew.com/gmbot-code-3.png'), err => console.log(err));
+                            .then(() => msg.author.sendFile('./gmbot-code-3.png'), err => console.log(err));
                         break;
                 }
 
@@ -111,6 +119,10 @@ function helpUrlGMS2(msg, fn) {
                     msg.channel.sendMessage(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i]));
                     found = true;
                 }
+            }
+
+            if(!found){
+                msg.author.sendMessage("`" + fn + "` was not a recognized GMS2 function. Type `!help` for help with commands.");
             }
         }));
     });
