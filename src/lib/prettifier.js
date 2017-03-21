@@ -31,6 +31,10 @@ const clean = function(msg) {
     msg.channel.sendMessage(res)
       .then(msg => console.log(`Sent message: ${msg.content}`))
       .catch(console.error);
+
+    return true;
+  } else {
+    return false;
   }
 };
 

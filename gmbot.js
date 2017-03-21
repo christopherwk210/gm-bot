@@ -72,8 +72,9 @@ bot.on('message', msg => {
 		msg.channel.sendMessage("Heads up! @" + msg.author.username + " tried to post a malicious link. A log of this event has been recorded.");
 	} else {
 		parseMessage.run(msg);
-		prettifier.clean(msg);
-		gmlive.read(msg);
+		if (!prettifier.clean(msg)) {
+			gmlive.read(msg);
+		}
 	}
 });
 
