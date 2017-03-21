@@ -4,6 +4,7 @@
   "description": "A bot to be used by /r/gamemaker",
   "main": "./gmbot",
   "scripts": {
+    "start": "node gmbot.js",
     "docs": "node docs/generator/generator.js"
   },
   "repository": {
@@ -20,7 +21,7 @@
   "author": "Nicholas Kiley",
   "homepage": "https://github.com/mintypython/GMBot",
   "dependencies": {
-    "discord.js": "^10.0.1",
+    "discord.js": "^11.0.0",
     "superagent": "^2.3.0",
     "tweetnacl": "^0.14.3",
     "ws": "^1.1.1"

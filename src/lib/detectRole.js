@@ -1,5 +1,3 @@
-
-
 const detectRole = function(member, guild, roleName){
 	if(guild) {
 		var adminRole = guild.roles.find("name", roleName);

@@ -1,12 +1,12 @@
 //Initialize bot
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const detectRole = require('./detectRole');
-const pm = require('./pm');
-const ids = require('./ids.json');
-const parseMessage = require('./parse-message.js');
-const prettifier = require('./prettifier.js');
-const gmlive = require('./gmlive.js');
+const detectRole = require('./src/lib/detectRole');
+const pm = require('./src/lib/pm');
+const ids = require('./src/assets/json/ids.json');
+const parseMessage = require('./src/lib/parse-message.js');
+const prettifier = require('./src/lib/prettifier.js');
+const gmlive = require('./src/lib/gmlive.js');
 
 const badlinks = [
 	"dropboxx\\.ga",
@@ -32,7 +32,7 @@ const welcome = "\n__**Welcome to the /r/GameMaker Discord server!**__\n\n" +
 
 var auth;
 try {
-	auth = require("./auth.json");
+	auth = require("./src/assets/json/auth.json");
 } catch (e){
 	console.log("No auth.json found. Please see auth.example.json.\n"+e.stack);
 	process.exit();
