@@ -1,10 +1,10 @@
-const pm = function(id, msg, message){
-	if(msg.guild){
+const pm = function(id, msg, message) {
+	if (msg.guild) {
 		var user = msg.guild.members.get(id);
-		if(user){
+		if (user) {
 			user.sendMessage(message);
 			console.log("PM'd user.");
-		}else{
+		} else {
 			console.log("User not found!");
 		}
 	}

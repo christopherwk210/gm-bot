@@ -2,7 +2,6 @@ const gmliveExp = new RegExp(/([`]{3})gmlive([^```]*)([`]{3})/g);
 
 const read = function(msg) {
   if (gmliveExp.test(msg.content)) {
-
       // Delete the old message
       msg.delete()
           .then(msg => console.log(`Deleted message from ${msg.author}`))
