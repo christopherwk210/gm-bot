@@ -1,7 +1,5 @@
-
-
-const detectRole = function(member, guild, roleName){
-	if(guild) {
+const detectRole = function (member, guild, roleName) {
+	if (guild) {
 		var adminRole = guild.roles.find("name", roleName);
 		return member.roles.has(adminRole);
 	}
