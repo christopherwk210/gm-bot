@@ -6,10 +6,10 @@ const pm = require('./pm');
 const ids = require('../assets/json/ids.json');
 const roleControl = require('./roleControl.js');
 const docs = require('./docs.js');
+const handleResources = require('./resources');
 
 // Project data
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
-const resources = fs.readFileSync('./src/assets/markdown/resources.md', 'utf8');
 const help = {
   all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8')
 };
@@ -38,7 +38,7 @@ const run = function (msg) {
         	}).catch(err => console.log(err));
           break;
         case "RESOURCES":
-          msg.author.sendMessage(resources);
+          handleResources.run(msg, args);
           break;
         case "HELP":
           let command = "all";
