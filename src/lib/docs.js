@@ -4,7 +4,7 @@ const http = require('http');
 const concat = require('concat-stream');
 const gms1 = require('./searchdat-gms1');
 
-const control = { 
+const control = {
     run: function (msg, args) {
         let version = "gms2";
 
