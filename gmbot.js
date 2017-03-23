@@ -17,6 +17,9 @@ const ids = require('./src/assets/json/ids.json');
 const badlinks = require('./src/assets/json/bad-links.json');
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 
+// Temp user storage
+let users = [];
+
 // Import authorization token
 var auth;
 try {
@@ -29,6 +32,15 @@ try {
 // Bot connected status
 bot.on('ready', () => {
 	console.log("Squaring to go, captain.");
+
+	// Fetch net and toph
+	bot.fetchUser(ids.net8floz).then(user => {
+		users.push(user);
+	}, err => console.log(err));
+
+	bot.fetchUser(ids.topherlicious).then(user => {
+		users.push(user);
+	}, err => console.log(err));
 });
 
 // Send welcome message to new members
@@ -83,6 +95,13 @@ bot.on('message', msg => {
 */
 process.on('unhandledRejection', (reason) => {
   console.log('Unhandled promise.  Reason: ' + reason);
+});
+
+process.on('uncaughtException', (err) => {
+  console.log(err);
+	users.forEach(user => {
+		user.sendMessage('GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n' + err);
+	});
 });
 
 // Login the bot using the auth token from auth.json

@@ -11,7 +11,7 @@ const control = {
         if (args.length > 2) {
           version = args[2];
         } else if (args.length == 1) {
-          msg.author.sendMessage("You did not include a function name. Type `!help` for help with commands.").catch(err => console.log(err));
+          msg.author.sendMessage("You did not include a function name. Type `!help` for help with commands.");
           return;
         }
 
@@ -20,18 +20,18 @@ const control = {
             if (validate.gml.gms1(args[1])) {
                 this.helpUrlGMS1(msg, args[1]);
             } else {
-                msg.author.sendMessage("`" + args[1] + "` was not a recognized GMS1 function. Type `!help` for help with commands.").catch(err => console.log(err));
+                msg.author.sendMessage("`" + args[1] + "` was not a recognized GMS1 function. Type `!help` for help with commands.");
             }
             break;
         case "gms2":
             if (validate.gml.gms2(args[1])) {
                 this.helpUrlGMS2(msg, args[1]);
             } else {
-                msg.author.sendMessage("`" + args[1] + "` was not a recognized GMS2 function. Type `!help` for help with commands.").catch(err => console.log(err));
+                msg.author.sendMessage("`" + args[1] + "` was not a recognized GMS2 function. Type `!help` for help with commands.");
             }
             break;
         default:
-            msg.author.sendMessage("`" + version + "` was not a valid option. Type `!help` for help with commands.").catch(err => console.log(err));
+            msg.author.sendMessage("`" + version + "` was not a valid option. Type `!help` for help with commands.");
             break;
         }
     },
@@ -43,7 +43,7 @@ const control = {
           vm.runInThisContext(remoteSrc, 'remote_modules/searchdat.js');
           for (var i = 0; i < SearchTitles.length; i++) {
             if (SearchTitles[i] == fn) {
-              msg.channel.sendMessage('Here\'s the GMS2 documentation for ' + fn);
+              msg.channel.sendMessage('Here\'s the GMS2 documentation for ' + fn).catch(err => console.log(err));
               msg.channel.sendMessage(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i]));
               found = true;
               break;
@@ -51,7 +51,7 @@ const control = {
           }
 
           if (!found) {
-            msg.author.sendMessage("`" + fn + "` was not a recognized GMS2 function. Type `!help` for help with commands.").catch(err => console.log(err));
+            msg.author.sendMessage("`" + fn + "` was not a recognized GMS2 function. Type `!help` for help with commands.");
           }
         }));
       });
@@ -59,8 +59,8 @@ const control = {
     helpUrlGMS1: (msg, fn) => {
       for (var i = 0; i < gms1.titles.length; i++) {
         if (gms1.titles[i] == fn) {
-          msg.channel.sendMessage('Here\'s the GMS1 documentation for ' + fn);
-          msg.channel.sendMessage(encodeURI('http://docs.yoyogames.com/' + gms1.files[i]));
+          msg.channel.sendMessage('Here\'s the GMS1 documentation for ' + fn).catch(err => console.log(err));
+          msg.channel.sendMessage(encodeURI('http://docs.yoyogames.com/' + gms1.files[i])).catch(err => console.log(err));
           found = true;
           break;
         }
