@@ -1,5 +1,10 @@
 const control = {
   toggleRole: function(msg, roleName) {
+    if ((msg.guild === null) || (msg.guild === undefined)) {
+      msg.author.sendMessage('`!role` does not work inside direct messages.');
+      return;
+    }
+
     let role = this.getRole(msg.guild.roles, roleName);
 
     switch (role) {
