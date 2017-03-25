@@ -1,9 +1,8 @@
 const run = function(msg, args) {
   if ((msg.member) && (msg.member.roles)) {
     if (msg.member.roles.find('name', 'admin')) {
-      if (args[1]) {
-        msg.channel.sendMessage(args[1]).catch(err => console.log(err));
-      }
+      let saying = msg.content.replace('!say ', '');
+      msg.channel.sendMessage(saying).catch(err => console.log(err));
     }
   }
 };
