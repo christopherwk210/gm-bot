@@ -15,6 +15,9 @@ const control = {
         msg.author.sendMessage("That is not a valid role");
         break;
       default:
+        if (role === undefined) {
+          return;
+        }
         if (msg.member.roles.has(role.id)) {
           msg.member.removeRole(role);
           msg.author.sendMessage("Role " + role.name + " was removed.");
