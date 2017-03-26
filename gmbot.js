@@ -59,7 +59,15 @@ bot.on('guildMemberAdd', member => {
 bot.on("voiceStateUpdate", (oldMember, newMember) => {
 	if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes("voip")) {
 		var role = newMember.guild.roles.find("name", "voip_text");
-		newMember.addRole(role);
+		if (role === undefined) {
+			return;
+		}
+		try {
+			newMember.addRole(role);
+		} catch(e) {
+			console.log('An error occurred trying to auto-add the voip_text role on user joining the voip channel');
+		}
+		
 	}
 });
 
