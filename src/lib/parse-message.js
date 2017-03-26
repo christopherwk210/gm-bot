@@ -29,6 +29,7 @@ const run = function (msg) {
     if (msg.content.startsWith(prefix)) {
       switch (command.toUpperCase()) {
         case "WELCOME":
+          msg.delete();
           msg.author.sendEmbed({
         		color: 26659,
         		description: welcome,
@@ -39,9 +40,11 @@ const run = function (msg) {
         	}).catch(err => console.log(err));
           break;
         case "RESOURCES":
+          msg.delete();
           handleResources.run(msg, args);
           break;
         case "HELP":
+          msg.delete();
           let command = "all";
 
           switch (command) {
@@ -53,17 +56,18 @@ const run = function (msg) {
           }
           break;
         case "ROLE":
+          msg.delete();
           roleControl.control.toggleRole(msg, args.slice(1));
           break;
         case "DOCS":
+          msg.delete();
           docs.control.run(msg, args);
           break;
         case "SAY":
+          msg.delete();
           say.run(msg, args);
           break;
       }
-
-      msg.delete();
     }
 
 };
