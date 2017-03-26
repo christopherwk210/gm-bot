@@ -1,5 +1,10 @@
 const control = {
   toggleRole: function(msg, roleName) {
+    if ((msg.guild === null) || (msg.guild === undefined)) {
+      msg.author.sendMessage('`!role` does not work inside direct messages.');
+      return;
+    }
+
     let role = this.getRole(msg.guild.roles, roleName);
 
     switch (role) {
@@ -10,6 +15,11 @@ const control = {
         msg.author.sendMessage("That is not a valid role");
         break;
       default:
+      
+        if (role === undefined) {
+          return;
+        }
+
         if (msg.member.roles.has(role.id)) {
           msg.member.removeRole(role);
           msg.author.sendMessage("Role " + role.name + " was removed.");
@@ -27,7 +37,7 @@ const control = {
 
     switch (roleName[0].toUpperCase()) {
       case "VOIP":
-        return roles.find("name", "voip_text");
+        return roles.find("name", "voip");
         break;
       case "QUACK":
       case "DUCKY":

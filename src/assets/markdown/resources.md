@@ -1,4 +1,4 @@
-Here's your requested resources list:
+Here's a helpful resources list:
 
 ```
 GameMaker subreddit, and our parent community
