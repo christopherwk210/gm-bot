@@ -11,6 +11,7 @@ const pm = require('./src/lib/pm');
 const parseMessage = require('./src/lib/parse-message');
 const prettifier = require('./src/lib/prettifier');
 const gmlive = require('./src/lib/gmlive');
+const express = require('./src/express/express');
 
 // Project  data
 const ids = require('./src/assets/json/ids.json');
@@ -113,3 +114,6 @@ process.on('uncaughtException', (err) => {
 
 // Login the bot using the auth token from auth.json
 bot.login(auth.token);
+
+// Express setup
+express.run();
