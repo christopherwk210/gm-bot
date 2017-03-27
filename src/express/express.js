@@ -4,7 +4,11 @@ var app = express();
 
 const run = function(bot) {
   app.get('/', function (req, res) {
-    res.send(JSON.stringify(bot.guilds.find('name', '/r/GameMaker')));
+    let channels = bot.channels.findAll('type','text');
+    for (var i = 0; i < channels.length; i++) {
+      console.log(channels[i].guild);
+    }
+    res.send('echo');
   });
 
   app.listen(8080, function () {
