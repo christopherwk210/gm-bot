@@ -8,6 +8,8 @@ let hash = '$2a$10$6eizgdtLgfW/zyT8yjud6ua80187t8M2z0r7Wgc0NhfA12rS82P.u';
 
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
+  if ( req.path == '//login') return next();
+
   if (req.headers.auth === hash) {
     next();
   } else {
@@ -16,6 +18,12 @@ app.use(function(req, res, next) {
 });
 
 const run = function(bot) {
+
+  app.get('//validate', function (req, res) {
+    res.send({
+      status: 'OK'
+    });
+  });
 
   app.post('//login', function (req, res) {
     let password;
