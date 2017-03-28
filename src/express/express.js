@@ -1,9 +1,11 @@
 // Express libs
 var express = require('express');
 var app = express();
+var cors = require('cors');
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const run = function(bot) {
   app.get('//text_channels', function (req, res) {
