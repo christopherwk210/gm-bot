@@ -3,8 +3,8 @@ var express = require('express');
 var app = express();
 
 const run = function(bot) {
-  app.get('/gmbot/text_channels', function (req, res) {
-    let channels = bot.guilds.findAll('name','/r/GameMaker').channels.findAll('type');
+  app.get('/text_channels', function (req, res) {
+    let channels = bot.guilds.findAll('name','/r/GameMaker').channels.findAll('type', 'text');
     let sendData = {
       channels: []
     };
