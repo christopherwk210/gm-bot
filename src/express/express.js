@@ -25,7 +25,7 @@ const run = function(bot) {
     let message;
     try {
       channelId = req.params.channelid;
-      message = req.body.message.test;
+      message = req.body.message;
     } catch(e) {
       res.status(400).send('Response error');
       return;
@@ -35,7 +35,7 @@ const run = function(bot) {
     for (let i = 0; i < channels.length; i++) {
       if (channels[i].id === channelId) {
         channels[i].sendMessage(message).then(msg => {
-          console.log(err);
+          // console.log(msg);
         }, err => console.log(err));
         res.send('Message sent.');
         return;
