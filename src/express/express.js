@@ -2,10 +2,42 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
+
+let hash = '$2a$10$6eizgdtLgfW/zyT8yjud6ua80187t8M2z0r7Wgc0NhfA12rS82P.u';
 
 app.use(bodyParser.json());
+app.use((res, req, next) => {
+  console.log(req.headers);
+  next();
+});
 
 const run = function(bot) {
+
+  app.post('//login', function (req, res) {
+    let password;
+    try {
+      password = req.body.password;
+    } catch(e) {
+      res.status(400).send({
+        error: 'Bad request'
+      });
+      return;
+    }
+
+    bcrypt.compare(password, hash, function(err, result) {
+      if (result) {
+        res.send({
+          hash: hash
+        });
+      } else {
+        res.status(401).send({
+          error: 'Unauthorized'
+        });
+      }
+    });
+  });
+
   app.get('//text_channels', function (req, res) {
     let channels = bot.guilds.find('name','/r/GameMaker').channels.findAll('type', 'text');
     let sendData = {
@@ -52,9 +84,7 @@ const run = function(bot) {
   });
 
   app.listen(8080, function () {
-    console.log({
-      error:'Express server listening on 8080.'
-    });
+    console.log('Express server listening on 8080.');
   });
 };
 
