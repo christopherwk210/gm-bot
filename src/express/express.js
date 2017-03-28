@@ -7,7 +7,7 @@ var bcrypt = require('bcrypt');
 let hash = '$2a$10$6eizgdtLgfW/zyT8yjud6ua80187t8M2z0r7Wgc0NhfA12rS82P.u';
 
 app.use(bodyParser.json());
-app.use((res, req, next) => {
+app.use(function(res, req, next) {
   console.log(req.headers);
   next();
 });
