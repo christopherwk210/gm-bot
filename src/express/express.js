@@ -18,7 +18,6 @@ const run = function(bot) {
       });
     }
     res.send(JSON.stringify(sendData));
-    res.send('echo');
   });
 
   app.post('//text_channel_message/:channelid', function (req, res) {
