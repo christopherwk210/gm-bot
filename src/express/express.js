@@ -21,8 +21,26 @@ const run = function(bot) {
   });
 
   app.post('//text_channel_message/:channelid', function (req, res) {
-    console.log(req);
-    res.send(JSON.stringify(req.body));
+    let channelId;
+    let message;
+    try {
+      channelId = req.params.channelid;
+      message = req.body.message.test;
+    } catch(e) {
+      res.status(400).send('Response error');
+      return;
+    }
+
+    let channels = bot.guilds.find('name','/r/GameMaker').channels.findAll('type', 'text');
+    for (let i = 0; i < channels.length; i++) {
+      if (channels[i].id === channelId) {
+        channels[i].sendMessage(message).catch(err => console.log);
+        res.send('Message sent.');
+        return;
+      }
+    }
+
+    res.status(404).send('Text channel not found.');
   });
 
   app.listen(8080, function () {
