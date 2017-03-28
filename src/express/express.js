@@ -34,7 +34,9 @@ const run = function(bot) {
     let channels = bot.guilds.find('name','/r/GameMaker').channels.findAll('type', 'text');
     for (let i = 0; i < channels.length; i++) {
       if (channels[i].id === channelId) {
-        channels[i].sendMessage(message).catch(err => console.log);
+        channels[i].sendMessage(message).then(msg => {
+          console.log(err);
+        }, err => console.log(err));
         res.send('Message sent.');
         return;
       }
