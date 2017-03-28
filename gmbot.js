@@ -74,7 +74,7 @@ bot.on("voiceStateUpdate", (oldMember, newMember) => {
 bot.on('message', msg => {
 
 	// Don't respond to bots
-	if (msg.author.bot || detectRole.detectRole(msg.member, msg.guild, "Admins")) {
+	if (msg.author.bot) {
 		return;
 	}
 
