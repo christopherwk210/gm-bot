@@ -3,10 +3,12 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
+var cors = require('cors');
 
 let hash = '$2a$10$6eizgdtLgfW/zyT8yjud6ua80187t8M2z0r7Wgc0NhfA12rS82P.u';
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(function(req, res, next) {
   if ( req.path == '//login') return next();
 
