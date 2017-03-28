@@ -27,7 +27,9 @@ const run = function(bot) {
       channelId = req.params.channelid;
       message = req.body.message;
     } catch(e) {
-      res.status(400).send('Response error');
+      res.status(400).send({
+        error: 'Response error'
+      });
       return;
     }
 
@@ -37,16 +39,22 @@ const run = function(bot) {
         channels[i].sendMessage(message).then(msg => {
           // console.log(msg);
         }, err => console.log(err));
-        res.send('Message sent.');
+        res.send({
+          msg: message
+        });
         return;
       }
     }
 
-    res.status(404).send('Text channel not found.');
+    res.status(404).send({
+      error:'Text channel not found.'
+    });
   });
 
   app.listen(8080, function () {
-    console.log('Express server listening on 8080.');
+    console.log({
+      error:'Express server listening on 8080.'
+    });
   });
 };
 
