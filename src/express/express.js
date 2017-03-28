@@ -3,9 +3,18 @@ var express = require('express');
 var app = express();
 
 const run = function(bot) {
-  app.get('/', function (req, res) {
-    console.log(bot.guilds.findAll('name','/r/GameMaker'));
-    res.send('echo');
+  app.get('/text_channels', function (req, res) {
+    let channels = bot.guilds.findAll('name','/r/GameMaker').channels.findAll('type');
+    let sendData = {
+      channels: []
+    };
+    for (let i = 0; i < channels.length; i++) {
+      sendData.channels.push({
+        id: channels[i].id,
+        name: channels[i].name
+      });
+    }
+    res.send(JSON.stringify(sendData));
   });
 
   app.listen(8080, function () {
