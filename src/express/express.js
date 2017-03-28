@@ -1,6 +1,9 @@
 // Express libs
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 const run = function(bot) {
   app.get('//text_channels', function (req, res) {
@@ -16,6 +19,11 @@ const run = function(bot) {
     }
     res.send(JSON.stringify(sendData));
     res.send('echo');
+  });
+
+  app.post('//text_channel_message/:channelid', function (req, res) {
+    console.log(req);
+    res.send(JSON.stringify(req.body));
   });
 
   app.listen(8080, function () {
