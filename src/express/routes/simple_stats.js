@@ -7,8 +7,8 @@ module.exports = function(app, bot) {
       name: channel.name,
       memberCount: channel.memberCount,
       iconUrl: channel.iconUrl,
-      status: channel.user.presence.status,
-      game: channel.user.presence.game
+      status: bot.user.presence.status,
+      game: bot.user.presence.game
     };
 
     res.send(data);
