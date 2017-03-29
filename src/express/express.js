@@ -10,7 +10,8 @@ var bodyParser = require('body-parser'),
 var validate = require('./routes/validate'),
     login = require('./routes/login'),
     textChannels = require('./routes/text_channels'),
-    textChannelMessage = require('./routes/text_channel_message');
+    textChannelMessage = require('./routes/text_channel_message'),
+    simpleStats = require('./routes/simple_stats');
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -23,6 +24,7 @@ const run = function(bot) {
   login(app);
   textChannels(app, bot);
   textChannelMessage(app, bot);
+  simpleStats(app, bot);
 
   // Run the server
   app.listen(8080, function () {
