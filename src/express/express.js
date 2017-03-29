@@ -4,13 +4,13 @@ var express = require('express'),
 
 // Middlewares
 var bodyParser = require('body-parser'),
-    bcrypt = require('bcrypt'),
     cors = require('cors');
 
 // Routes
-var validate = require('./routes/validate');
-
-let hash = '$2a$10$6eizgdtLgfW/zyT8yjud6ua80187t8M2z0r7Wgc0NhfA12rS82P.u';
+var validate = require('./routes/validate'),
+    login = require('./routes/login'),
+    textChannels = require('./routes/text_channels'),
+    textChannelMessage = require('./routes/text_channel_message');
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -18,77 +18,13 @@ app.use(cors());
 app.use(require('./middlewares/auth'));
 
 const run = function(bot) {
+  // Use each route
   validate(app);
+  login(app);
+  textChannels(app, bot);
+  textChannelMessage(app, bot);
 
-  app.post('//login', function (req, res) {
-    let password;
-    try {
-      password = req.body.password;
-    } catch(e) {
-      res.status(400).send({
-        error: 'Bad request'
-      });
-      return;
-    }
-
-    bcrypt.compare(password, hash, function(err, result) {
-      if (result) {
-        res.send({
-          hash: hash
-        });
-      } else {
-        res.status(401).send({
-          error: 'Unauthorized'
-        });
-      }
-    });
-  });
-
-  app.get('//text_channels', function (req, res) {
-    let channels = bot.guilds.find('name','/r/GameMaker').channels.findAll('type', 'text');
-    let sendData = {
-      channels: []
-    };
-    for (let i = 0; i < channels.length; i++) {
-      sendData.channels.push({
-        id: channels[i].id,
-        name: channels[i].name
-      });
-    }
-    res.send(JSON.stringify(sendData));
-  });
-
-  app.post('//text_channel_message/:channelid', function (req, res) {
-    let channelId;
-    let message;
-    try {
-      channelId = req.params.channelid;
-      message = req.body.message;
-    } catch(e) {
-      res.status(400).send({
-        error: 'Response error'
-      });
-      return;
-    }
-
-    let channels = bot.guilds.find('name','/r/GameMaker').channels.findAll('type', 'text');
-    for (let i = 0; i < channels.length; i++) {
-      if (channels[i].id === channelId) {
-        channels[i].sendMessage(message).then(msg => {
-          // console.log(msg);
-        }, err => console.log(err));
-        res.send({
-          msg: message
-        });
-        return;
-      }
-    }
-
-    res.status(404).send({
-      error:'Text channel not found.'
-    });
-  });
-
+  // Run the server
   app.listen(8080, function () {
     console.log('Express server listening on 8080.');
   });
