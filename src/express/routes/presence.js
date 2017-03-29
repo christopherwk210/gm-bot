@@ -12,9 +12,7 @@ module.exports = function(app, bot) {
     }
 
     let user = bot.user;
-    if (game && (game.length !== 0)) {
-      user.setGame(game);
-    }
+    user.setGame(game);
     user.setStatus(status);
     res.send(user.presence);
   });
