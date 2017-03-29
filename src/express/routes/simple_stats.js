@@ -5,9 +5,10 @@ module.exports = function(app, bot) {
     let data = {
       id: channel.id,
       name: channel.name,
-      owner: channel.owner,
       memberCount: channel.memberCount,
-      iconUrl: channel.iconUrl
+      iconUrl: channel.iconUrl,
+      status: channel.user.presence.status,
+      game: channel.user.presence.game
     };
 
     res.send(data);
