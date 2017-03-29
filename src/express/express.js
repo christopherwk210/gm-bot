@@ -1,31 +1,24 @@
 // Express libs
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var bcrypt = require('bcrypt');
-var cors = require('cors');
+var express = require('express'),
+    app = express();
+
+// Middlewares
+var bodyParser = require('body-parser'),
+    bcrypt = require('bcrypt'),
+    cors = require('cors');
+
+// Routes
+var validate = require('./routes/validate');
 
 let hash = '$2a$10$6eizgdtLgfW/zyT8yjud6ua80187t8M2z0r7Wgc0NhfA12rS82P.u';
 
+// Apply middlewares
 app.use(bodyParser.json());
 app.use(cors());
-app.use(function(req, res, next) {
-  if ( req.path == '//login') return next();
-
-  if (req.headers.auth === hash) {
-    next();
-  } else {
-    res.status(401).send('Unauthorized');
-  }
-});
+app.use(require('./middlewares/auth'));
 
 const run = function(bot) {
-
-  app.get('//validate', function (req, res) {
-    res.send({
-      status: 'OK'
-    });
-  });
+  validate(app);
 
   app.post('//login', function (req, res) {
     let password;
