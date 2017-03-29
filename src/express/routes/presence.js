@@ -12,7 +12,7 @@ module.exports = function(app, bot) {
     }
 
     let user = bot.user;
-    if (game.length !== 0) {
+    if (game.length === 0) {
       user.setGame(null);
     } else {
       user.setGame(game);      
