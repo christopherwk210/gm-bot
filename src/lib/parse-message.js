@@ -7,7 +7,6 @@ const ids = require('../assets/json/ids.json');
 const roleControl = require('./roleControl.js');
 const docs = require('./docs.js');
 const handleResources = require('./resources');
-const say = require('./say');
 
 // Project data
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
@@ -61,10 +60,6 @@ const run = function (msg) {
           break;
         case "DOCS":
           docs.control.run(msg, args);
-          msg.delete();
-          break;
-        case "SAY":
-          say.run(msg, args);
           msg.delete();
           break;
       }
