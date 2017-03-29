@@ -12,12 +12,15 @@ module.exports = function(app, bot) {
     }
 
     let user = bot.user;
-    if (game.length === 0) {
-      user.setGame(null);
-    } else {
-      user.setGame(game);      
-    }
-    user.setStatus(status);
-    res.send(user.presence);
+    
+    user.setStatus(status).then(() => {
+      if (game.length === 0) {
+        game = null;
+      }
+
+      user.setGame(game).then(user => {
+        res.send(user.presence);
+      });
+    });
   });
 };
