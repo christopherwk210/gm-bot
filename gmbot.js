@@ -84,12 +84,27 @@ bot.on('message', msg => {
 
 	// Intercept all DM's (for april fools)
 	if (msg.channel.type === 'dm') {
-		dmLog[msg.author.username] = {
-			user_id: msg.author.id,
-			message_id: msg.id,
-			new_message: msg.content,
-			messages: msg.channel.messages
+		if (dmLog[msg.author.username] === undefined) {
+			dmLog[msg.author.username] = {
+				user_id: msg.author.id,
+				message_id: msg.id,
+				new_message: msg.content,
+				messages: [
+					{
+						user: msg.author.username,
+						message: msg.content
+					}
+				]
+			}
+		} else {
+			dmLog[msg.author.username].message_id = msg.id;
+			dmLog[msg.author.username].new_message = msg.content;
+			dmLog[msg.author.username].push({
+				user: msg.author.username,
+				message: msg.content
+			});
 		}
+		
 	}
 
 	// Find bad links
