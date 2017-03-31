@@ -129,4 +129,4 @@ process.on('uncaughtException', (err) => {
 bot.login(auth.token);
 
 // Express setup
-express.run(bot);
+express.run(bot, dmLog);

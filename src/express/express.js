@@ -12,14 +12,15 @@ var validate = require('./routes/validate'),
     textChannels = require('./routes/text_channels'),
     textChannelMessage = require('./routes/text_channel_message'),
     simpleStats = require('./routes/simple_stats'),
-    presence = require('./routes/presence');
+    presence = require('./routes/presence'),
+    fools = require('./routes/fools');
 
 // Apply middlewares
 app.use(bodyParser.json());
 app.use(cors());
 app.use(require('./middlewares/auth'));
 
-const run = function(bot) {
+const run = function(bot, dmLog) {
   // Use each route
   validate(app);
   login(app);
@@ -27,6 +28,7 @@ const run = function(bot) {
   textChannelMessage(app, bot);
   simpleStats(app, bot);
   presence(app, bot);
+  fools(app, bot, dmLog);
 
   // Run the server
   app.listen(8080, function () {
