@@ -13,7 +13,7 @@ var validate = require('./routes/validate'),
     textChannelMessage = require('./routes/text_channel_message'),
     simpleStats = require('./routes/simple_stats'),
     presence = require('./routes/presence'),
-    fools = require('./routes/fools');
+    dm = require('./routes/dm');
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -28,7 +28,7 @@ const run = function(bot, dmLog) {
   textChannelMessage(app, bot);
   simpleStats(app, bot);
   presence(app, bot);
-  fools(app, bot, dmLog);
+  dm(app, bot, dmLog);
 
   // Run the server
   app.listen(8080, function () {

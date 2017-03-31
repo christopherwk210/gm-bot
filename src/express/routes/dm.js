@@ -1,9 +1,9 @@
 module.exports = function(app, bot, dmLog) {
-  app.get('//fools', function (req, res) {
+  app.get('//dm', function (req, res) {
     res.send(dmLog);
   });
 
-  app.post('//fools/:userid', function (req, res) {
+  app.post('//dm/:userid', function (req, res) {
     let userId;
     let message;
     try {

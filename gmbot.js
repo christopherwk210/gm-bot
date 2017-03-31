@@ -21,7 +21,7 @@ const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 // Temp user storage
 let users = [];
 
-// April Fools!
+// Keep dm log history in memory
 let dmLog = {};
 
 // Import authorization token
@@ -82,7 +82,7 @@ bot.on('message', msg => {
 		return;
 	}
 
-	// Intercept all DM's (for april fools)
+	// Intercept all DM's
 	if (msg.channel.type === 'dm') {
 		if (dmLog[msg.author.username] === undefined) {
 			dmLog[msg.author.username] = {
@@ -104,7 +104,6 @@ bot.on('message', msg => {
 				message: msg.content
 			});
 		}
-		
 	}
 
 	// Find bad links
