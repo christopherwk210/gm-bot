@@ -5,6 +5,30 @@ const bot = new Discord.Client();
 // Node libs
 const fs = require("fs");
 
+// Database setup
+const Datastore = require('nedb');
+let db = {};
+
+// Admin db
+db.admins = new Datastore({
+	filename:'./src/data/admins.db',
+	autoload: true,
+	onload: function() {
+		// Auto compact every 12 hours
+		db.admins.persistence.setAutocompactionInterval(3600000 * 12);
+	}
+});
+
+// Voip log db
+db.voip = new Datastore({
+	filename:'./src/data/voip.db',
+	autoload: true,
+	onload: function() {
+		// Auto compact every 4 hours
+		db.voip.persistence.setAutocompactionInterval(3600000 * 4);
+	}
+});
+
 // Project libs
 const detectRole = require('./src/lib/detectRole');
 const pm = require('./src/lib/pm');
@@ -116,4 +140,4 @@ process.on('uncaughtException', (err) => {
 bot.login(auth.token);
 
 // Express setup
-express.run(bot);
+express.run(bot, db);

@@ -12,14 +12,20 @@ var validate = require('./routes/validate'),
     textChannels = require('./routes/text_channels'),
     textChannelMessage = require('./routes/text_channel_message'),
     simpleStats = require('./routes/simple_stats'),
-    presence = require('./routes/presence');
+    presence = require('./routes/presence'),
+    adminUsers = require('./routes/admin_users');
 
 // Apply middlewares
 app.use(bodyParser.json());
 app.use(cors());
 app.use(require('./middlewares/auth'));
 
-const run = function(bot) {
+/**
+ * Init the express server providing needed references
+ * @param {*} bot Bot client reference
+ * @param {*} db In memory database
+ */
+const run = function(bot, db) {
   // Use each route
   validate(app);
   login(app);
@@ -27,6 +33,7 @@ const run = function(bot) {
   textChannelMessage(app, bot);
   simpleStats(app, bot);
   presence(app, bot);
+  adminUsers(app, db);
 
   // Run the server
   app.listen(8080, function () {
