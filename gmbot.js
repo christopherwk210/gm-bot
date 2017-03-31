@@ -99,7 +99,7 @@ bot.on('message', msg => {
 		} else {
 			dmLog[msg.author.username].message_id = msg.id;
 			dmLog[msg.author.username].new_message = msg.content;
-			dmLog[msg.author.username].push({
+			dmLog[msg.author.username].messages.push({
 				user: msg.author.username,
 				message: msg.content
 			});
