@@ -86,7 +86,7 @@ bot.on('message', msg => {
 	if (msg.channel.type === 'dm') {
 		dmLog[msg.author.username] = {
 			user_id: msg.author.id,
-			message_id: mgs.id,
+			message_id: msg.id,
 			new_message: msg.content,
 			messages: msg.channel.messages
 		}
