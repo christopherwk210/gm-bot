@@ -44,16 +44,11 @@ module.exports = function(app, bot, dmLog) {
           success: true
         });
       });
-      
     }, err => {
       console.log(err);
       res.status(500).send({
         error: err
       });
-    });
-
-    res.status(404).send({
-      error:'User not found.'
     });
   });
 };
