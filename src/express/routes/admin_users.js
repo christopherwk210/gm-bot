@@ -2,6 +2,18 @@ const Datastore = require('nedb');
 const bcrypt = require('bcrypt');
 
 module.exports = function(app, db) {
+  app.get('//admin_users', function (req, res) {
+    db.admins.find({}, function(err, docs) {
+      if (err !== null) {
+        res.status(500).send({
+          error: 'Internal server error'
+        });
+      }
+
+      res.send(docs);
+    });
+  });
+
   app.post('//admin_users', function (req, res) {
     let name, password;
     try {
@@ -15,6 +27,12 @@ module.exports = function(app, db) {
     }
 
     db.admins.find({ name: name }, function(err, docs) {
+      if (err !== null) {
+        res.status(500).send({
+          error: 'Internal server error'
+        });
+      }
+
       if (docs.length === 0) {
         bcrypt.hash(password, 10, function(err, hash) {
           db.admins.insert({
