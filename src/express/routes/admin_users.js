@@ -68,4 +68,29 @@ module.exports = function(app, db) {
     });
 
   });
+
+  app.delete('//admin_users/:id', function (req, res) {
+    let id;
+    try {
+      id = req.params.id;
+    } catch(e) {
+      res.status(400).send({
+        error: 'Bad request'
+      });
+      return;
+    }
+
+    db.remove({ _id: 'id2' }, {}, function (err, numRemoved) {
+      if (err !== null) {
+        res.status(500).send({
+          error: 'Could not remove'
+        });
+        return;
+      }
+
+      res.send({
+        removed: numRemoved
+      });
+    });
+  });
 };
