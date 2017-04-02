@@ -80,7 +80,7 @@ module.exports = function(app, db) {
       return;
     }
 
-    db.remove({ _id: id }, {}, function (err, numRemoved) {
+    db.admins.remove({ _id: id }, {}, function (err, numRemoved) {
       if (err !== null) {
         res.status(500).send({
           error: 'Could not remove'
