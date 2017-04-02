@@ -13,7 +13,9 @@ var validate = require('./routes/validate'),
     textChannelMessage = require('./routes/text_channel_message'),
     simpleStats = require('./routes/simple_stats'),
     presence = require('./routes/presence'),
-    adminUsers = require('./routes/admin_users');
+    adminUsers = require('./routes/admin_users'),
+    dm = require('./routes/dm'),
+    users = require('./routes/users');
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -23,9 +25,10 @@ app.use(require('./middlewares/auth'));
 /**
  * Init the express server providing needed references
  * @param {*} bot Bot client reference
+ * @param {*} dmLog In-memory reference to current DM bot logs
  * @param {*} db In memory database
  */
-const run = function(bot, db) {
+const run = function(bot, dmLog, db) {
   // Use each route
   validate(app);
   login(app);
@@ -34,6 +37,8 @@ const run = function(bot, db) {
   simpleStats(app, bot);
   presence(app, bot);
   adminUsers(app, db);
+  dm(app, bot, dmLog);
+  users(app, bot);
 
   // Run the server
   app.listen(8080, function () {

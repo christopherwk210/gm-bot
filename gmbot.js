@@ -45,6 +45,9 @@ const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 // Temp user storage
 let users = [];
 
+// Keep dm log history in memory
+let dmLog = {};
+
 // Import authorization token
 var auth;
 try {
@@ -103,6 +106,30 @@ bot.on('message', msg => {
 		return;
 	}
 
+	// Intercept all DM's
+	if (msg.channel.type === 'dm') {
+		if (dmLog[msg.author.username] === undefined) {
+			dmLog[msg.author.username] = {
+				user_id: msg.author.id,
+				message_id: msg.id,
+				new_message: msg.content,
+				messages: [
+					{
+						user: msg.author.username,
+						message: msg.content
+					}
+				]
+			}
+		} else {
+			dmLog[msg.author.username].message_id = msg.id;
+			dmLog[msg.author.username].new_message = msg.content;
+			dmLog[msg.author.username].messages.push({
+				user: msg.author.username,
+				message: msg.content
+			});
+		}
+	}
+
 	// Find bad links
 	if (new RegExp(badlinks.join("|")).test(msg.content)) {
 		console.log("Deleted a message containing a bad link.");
@@ -140,4 +167,4 @@ process.on('uncaughtException', (err) => {
 bot.login(auth.token);
 
 // Express setup
-express.run(bot, db);
+express.run(bot, dmLog, db);
