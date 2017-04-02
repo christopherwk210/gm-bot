@@ -34,19 +34,31 @@ module.exports = function(app, db) {
       return;
     }
 
-    bcrypt.hash(password, 10, function(err, hash) {
-      db.admins.find({ _id: id, password: hash }, function(err, docs) {
-        if (err !== null) {
-          console.log(err);
-          res.status(500).send({
-            error: 'Server error'
+    db.admins.findOne({ _id: id, password: password }, function(err, docs) {
+      if (err !== null) {
+        console.log(err);
+        res.status(500).send({
+          error: 'Server error'
+        });
+      } else {
+        if (docs === null) {
+          res.status(404).send({
+            error: 'Not found'
           });
         } else {
-          res.send({
-            documents: docs
+          bcrypt.compare(password, docs.password, function(err, res) {
+            if (err !== null) {
+              res.status(500).send({
+                error: 'Server error'
+              });
+            } else {
+              res.send({
+                valid: res
+              });
+            }
           });
         }
-      });
+      }
     });
   });
 
