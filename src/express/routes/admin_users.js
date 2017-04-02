@@ -47,7 +47,7 @@ module.exports = function(app, db) {
           });
         } else {
           bcrypt.compare(password, docs.password, function(err, result) {
-            if (err !== null) {
+            if (err !== undefined) {
               res.status(500).send({
                 error: 'Server error'
               });
