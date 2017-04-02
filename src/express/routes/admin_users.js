@@ -106,7 +106,33 @@ module.exports = function(app, db) {
         });
       }
     });
+  });
 
+  app.patch('//admin_users', function (req, res) {
+    let id, password;
+    try {
+      id = req.body.id;
+      password = req.body.password;
+    } catch(e) {
+      res.status(400).send({
+        error: 'Bad request'
+      });
+      return;
+    }
+
+    bcrypt.hash(password, 10, function(err, hash) {
+      db.admins.update({ _id: id }, { password: hash }, {}, function(err, numReplaced) {
+        if (err !== undefined) {
+          res.status(500).send({
+            error: 'Server error'
+          });
+        } else {
+          res.send({
+            updated: numReplaced
+          });
+        }
+      });
+    });
   });
 
   app.delete('//admin_users/:id', function (req, res) {
