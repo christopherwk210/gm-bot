@@ -14,21 +14,30 @@ module.exports = function(app, db) {
       return;
     }
 
-    bcrypt.hash(password, 10, function(err, hash) {
-      db.admins.insert({
-        name: name,
-        password: hash
-      }, function (err, newDoc) {
-        if (err === null) {
-          res.status(500).send({
-            error: 'Server error'
+    db.admins.find({ name: name }, function(err, docs) {
+      if (docs.length === 0) {
+        bcrypt.hash(password, 10, function(err, hash) {
+          db.admins.insert({
+            name: name,
+            password: hash
+          }, function (err, newDoc) {
+            if (err !== null) {
+              res.status(500).send({
+                error: 'Server error'
+              });
+            } else {
+              res.send({
+                document: newDoc
+              });
+            }
           });
-        } else {
-          res.send({
-            document: newDoc
-          });
-        }
-      });
+        });
+      } else {
+        res.status(400).send({
+          duplicate: true,
+          error: 'User already exists'
+        });
+      }
     });
 
   });
