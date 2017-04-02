@@ -34,7 +34,7 @@ module.exports = function(app, db) {
       return;
     }
 
-    db.admins.findOne({ _id: id, password: password }, function(err, docs) {
+    db.admins.findOne({ _id: id }, function(err, docs) {
       if (err !== null) {
         console.log(err);
         res.status(500).send({
