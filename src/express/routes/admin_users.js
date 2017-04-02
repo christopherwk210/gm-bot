@@ -10,7 +10,15 @@ module.exports = function(app, db) {
         });
       }
 
-      res.send(docs);
+      let adminList = [];
+      for (let i = 0; i < docs.length; i++) {
+        adminList.push({
+          id: docs[i]._id,
+          name: docs[i].name
+        });
+      }
+
+      res.send(adminList);
     });
   });
 
