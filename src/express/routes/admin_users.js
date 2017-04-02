@@ -22,6 +22,34 @@ module.exports = function(app, db) {
     });
   });
 
+  app.post('//admin_users/validate', function (req, res) {
+    let id, password;
+    try {
+      id = req.body.id;
+      password = req.body.password;
+    } catch(e) {
+      res.status(400).send({
+        error: 'Bad request'
+      });
+      return;
+    }
+
+    bcrypt.hash(password, 10, function(err, hash) {
+      db.admins.find({ _id: id, password: hash }, function(err, docs) {
+        if (err !== null) {
+          console.log(err);
+          res.status(500).send({
+            error: 'Server error'
+          });
+        } else {
+          res.send({
+            documents: docs
+          });
+        }
+      });
+    });
+  });
+
   app.post('//admin_users', function (req, res) {
     let name, password;
     try {
