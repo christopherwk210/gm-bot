@@ -22,6 +22,7 @@ module.exports = function(app, db) {
             password: hash
           }, function (err, newDoc) {
             if (err !== null) {
+              console.log(err);
               res.status(500).send({
                 error: 'Server error'
               });
