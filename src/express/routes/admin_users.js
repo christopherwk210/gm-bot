@@ -46,14 +46,14 @@ module.exports = function(app, db) {
             error: 'Not found'
           });
         } else {
-          bcrypt.compare(password, docs.password, function(err, res) {
+          bcrypt.compare(password, docs.password, function(err, result) {
             if (err !== null) {
               res.status(500).send({
                 error: 'Server error'
               });
             } else {
               res.send({
-                valid: res
+                valid: result
               });
             }
           });
