@@ -121,8 +121,8 @@ module.exports = function(app, db) {
     }
 
     bcrypt.hash(password, 10, function(err, hash) {
-      db.admins.update({ _id: id }, { password: hash }, {}, function(err, numReplaced) {
-        if (err !== undefined) {
+      db.admins.update({ _id: id }, { $set: {password: hash} }, {}, function(err, numReplaced) {
+        if (err !== null) {
           res.status(500).send({
             error: 'Server error'
           });
