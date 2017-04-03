@@ -1,11 +1,13 @@
-let pswd = require('../static/admin_password.json');
+const key = require('../static/key.json');
 
 module.exports = function(req, res, next) {
   if (req.path == '//login') return next();
 
-  if (req.headers.auth === pswd.hash) {
-    next();
-  } else {
-    res.status(401).send('Unauthorized');
-  }
+  jwt.verify(req.headers.auth, key.secret, function(err, decoded) {
+    if (err) {
+      res.status(401).send('Unauthorized');      
+    } else {
+      next();
+    }
+  });
 }
