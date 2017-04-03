@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const key = require('../static/key.json');
 
-module.exports = function(app) {
+module.exports = function(app, db) {
   app.post('//login', function (req, res) {
     let name, password;
     try {

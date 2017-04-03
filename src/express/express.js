@@ -31,7 +31,7 @@ app.use(require('./middlewares/auth'));
 const run = function(bot, dmLog, db) {
   // Use each route
   validate(app);
-  login(app);
+  login(app, db);
   textChannels(app, bot);
   textChannelMessage(app, bot);
   simpleStats(app, bot);
