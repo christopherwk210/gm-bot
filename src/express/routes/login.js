@@ -34,7 +34,7 @@ module.exports = function(app, db) {
               });
             } else {
               if (result) {
-                jwt.sign({ user: name }, key.secret, { expiresIn: '1h' }, function(err, token) {
+                jwt.sign({ user: name }, key.secret, { expiresIn: '24h' }, function(err, token) {
                   if (err) {
                     res.status(500).send({
                       error: 'Server error'
