@@ -5,6 +5,7 @@
   "main": "./gmbot",
   "scripts": {
     "start": "node gmbot.js",
+    "seed": "node seed.js",
     "docs": "node docs/generator/generator.js"
   },
   "repository": {
