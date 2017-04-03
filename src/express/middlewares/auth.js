@@ -1,4 +1,5 @@
 const key = require('../static/key.json');
+const jwt = require('jsonwebtoken');
 
 module.exports = function(req, res, next) {
   if (req.path == '//login') return next();
