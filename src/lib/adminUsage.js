@@ -4,7 +4,12 @@ const path = require('path');
 module.exports.log = function(user, time, message) {
   time = convertTimestamp(time);
   let logString = `${time}, ${user}: ${message}`;
+	let dir = path.join(__dirname, '..', '..', 'logs');
   let file = path.join(__dirname, '..', '..', 'logs', 'adminUsage.log');
+
+	if (!fs.existsSync(dir)){
+		fs.mkdirSync(dir);
+	}
 
 	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, function (err) {
 		if (err) {
