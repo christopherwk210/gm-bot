@@ -1,5 +1,6 @@
 const Datastore = require('nedb');
 const bcrypt = require('bcrypt');
+const adminUsage = require('../../lib/adminUsage');
 
 module.exports = function(app, db) {
   app.get('//admin_users', function (req, res) {
@@ -93,6 +94,7 @@ module.exports = function(app, db) {
                 error: 'Server error'
               });
             } else {
+              adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Created new admin ' + name);
               res.send({
                 document: newDoc
               });
