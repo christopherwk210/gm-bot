@@ -9,14 +9,14 @@ module.exports.log = function(user, time, message) {
 	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, function (err) {
 		if (err) {
 			console.log(err);
+		} else {
+			fs.appendFile(file, logString + '\n', function (err) {
+				if (err) {
+					console.log(err);
+				}
+			});
 		}
 	});
-
-  fs.appendFile(file, logString + '\n', function (err) {
-    if (err) {
-			console.log(err);
-		}
-  });
 };
 
 /** https://gist.github.com/kmaida/6045266 */
