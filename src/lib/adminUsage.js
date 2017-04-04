@@ -1,29 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports.log = function(user, time, message) {
-  time = convertTimestamp(time);
-  let logString = `${time}, ${user}: ${message}`;
-	let dir = path.join(__dirname, '..', '..', 'logs');
-  let file = path.join(__dirname, '..', '..', 'logs', 'adminUsage.log');
-
-	if (!fs.existsSync(dir)){
-		fs.mkdirSync(dir);
-	}
-
-	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, function (err) {
-		if (err) {
-			console.log(err);
-		} else {
-			fs.appendFile(file, logString + '\n', function (err) {
-				if (err) {
-					console.log(err);
-				}
-			});
-		}
-	});
-};
-
 /** https://gist.github.com/kmaida/6045266 */
 function convertTimestamp(timestamp) {
   var d = new Date(timestamp),
@@ -51,3 +28,28 @@ function convertTimestamp(timestamp) {
 		
 	return time;
 }
+
+const log = function(user, time, message) {
+  time = convertTimestamp(time);
+  let logString = `${time}, ${user}: ${message}`;
+	let dir = path.join(__dirname, '..', '..', 'logs');
+  let file = path.join(__dirname, '..', '..', 'logs', 'adminUsage.log');
+
+	if (!fs.existsSync(dir)){
+		fs.mkdirSync(dir);
+	}
+
+	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, function (err) {
+		if (err) {
+			console.log(err);
+		} else {
+			fs.appendFile(file, logString + '\n', function (err) {
+				if (err) {
+					console.log(err);
+				}
+			});
+		}
+	});
+};
+
+module.exports.log = log;
