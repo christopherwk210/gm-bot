@@ -39,7 +39,7 @@ const log = function(user, time, message) {
 		fs.mkdirSync(dir);
 	}
 
-	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, function (err) {
+	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, (err) => {
 		if (err) {
 			console.log(err);
 		} else {
