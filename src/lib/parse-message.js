@@ -40,7 +40,7 @@ const run = function (msg) {
           break;
         case "RESOURCES":
           handleResources.run(msg, args);
-          msg.delete();
+          msg.delete().catch(console.error);;
           break;
         case "HELP":
           let command = "all";
@@ -52,15 +52,15 @@ const run = function (msg) {
               .catch(err => console.log(err));
               break;
           }
-          msg.delete();
+          msg.delete().catch(console.error);;
           break;
         case "ROLE":
           roleControl.control.toggleRole(msg, args.slice(1));
-          msg.delete();
+          msg.delete().catch(console.error);;
           break;
         case "DOCS":
           docs.control.run(msg, args);
-          msg.delete();
+          msg.delete().catch(console.error);;
           break;
       }
     }
