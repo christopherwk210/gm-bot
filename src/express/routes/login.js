@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const key = require('../static/key.json');
+const adminUsage = require('../../lib/adminUsage');
 
 module.exports = function(app, db) {
   app.post('//login', function (req, res) {
@@ -40,6 +41,7 @@ module.exports = function(app, db) {
                       error: 'Server error'
                     });
                   } else {
+                    adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Logged in');
                     res.send({
                       token: token
                     });
