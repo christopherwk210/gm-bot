@@ -8,6 +8,7 @@ module.exports = function(req, res, next) {
     if (err) {
       res.status(401).send('Unauthorized');      
     } else {
+      req.adminRequest = {};
       req.adminRequest.user = decoded.user;
       req.adminRequest.time = Date.now();
       next();
