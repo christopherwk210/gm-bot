@@ -41,7 +41,7 @@ module.exports = function(app, db) {
                       error: 'Server error'
                     });
                   } else {
-                    adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Logged in');
+                    adminUsage.log(name, Date.now(), 'Logged in');
                     res.send({
                       token: token
                     });
