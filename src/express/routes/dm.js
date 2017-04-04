@@ -1,3 +1,5 @@
+const adminUsage = require('../../lib/adminUsage');
+
 module.exports = function(app, bot, dmLog) {
   app.get('//dm', function (req, res) {
     res.send(dmLog);
@@ -40,6 +42,7 @@ module.exports = function(app, bot, dmLog) {
           }
         }
 
+        adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Sent a DM to ' + user.username + ': ' + message);
         res.send({
           success: true
         });

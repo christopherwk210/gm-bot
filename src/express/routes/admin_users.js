@@ -94,7 +94,7 @@ module.exports = function(app, db) {
                 error: 'Server error'
               });
             } else {
-              adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Created new admin ' + name);
+              adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Created new admin: ' + name);
               res.send({
                 document: newDoc
               });
@@ -129,6 +129,7 @@ module.exports = function(app, db) {
             error: 'Server error'
           });
         } else {
+          adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Changed password for admin: ' + id);
           res.send({
             updated: numReplaced
           });
@@ -156,6 +157,7 @@ module.exports = function(app, db) {
         return;
       }
 
+      adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Deleted admin: ' + id);
       res.send({
         removed: numRemoved
       });

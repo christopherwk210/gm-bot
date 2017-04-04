@@ -1,3 +1,5 @@
+const adminUsage = require('../../lib/adminUsage');
+
 module.exports = function(app, bot) {  
   app.post('//text_channel_message/:channelid', function (req, res) {
     let channelId;
@@ -18,6 +20,8 @@ module.exports = function(app, bot) {
         channels[i].sendMessage(message).then(msg => {
           // console.log(msg);
         }, err => console.log(err));
+
+        adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Sent a message to channel ' + channelId + ': ' + message);
         res.send({
           msg: message
         });

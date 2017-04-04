@@ -1,3 +1,5 @@
+const adminUsage = require('../../lib/adminUsage');
+
 module.exports = function(app, bot) {
   app.post('//presence', function (req, res) {
     let status, game;
@@ -23,6 +25,7 @@ module.exports = function(app, bot) {
         name: game
       }
     }).then(user => {
+      adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Changed presence to: ' + user.presence);
       res.send(user.presence);
     });
   });
