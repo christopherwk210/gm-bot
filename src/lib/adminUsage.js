@@ -6,7 +6,13 @@ module.exports.log = function(user, time, message) {
   let logString = `${time}, ${user}: ${message}`;
   let file = path.join(__dirname, '..', '..', 'logs', 'adminUsage.log');
 
-  fs.appendFile(file, logString, function (err) {
+	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, function (err) {
+		if (err) {
+			console.log(err);
+		}
+	});
+
+  fs.appendFile(file, logString + '\n', function (err) {
     if (err) {
 			console.log(err);
 		}
