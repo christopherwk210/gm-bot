@@ -48,7 +48,6 @@ const run = function (msg) {
           switch (command) {
             case "all":
               msg.author.sendMessage(help.all)
-              .then(() => msg.author.sendFile('./src/assets/images/help.all.png').catch(err => console.log(err)), err => console.log(err))
               .catch(err => console.log(err));
               break;
           }
