@@ -36,6 +36,7 @@ const parseMessage = require('./src/lib/parse-message');
 const prettifier = require('./src/lib/prettifier');
 const gmlive = require('./src/lib/gmlive');
 const express = require('./src/express/express');
+const adkVoice = require('./src/lib/voipUsage.js');
 
 // Project  data
 const ids = require('./src/assets/json/ids.json');
@@ -85,6 +86,7 @@ bot.on('guildMemberAdd', member => {
 
 // Automatically add voip_text role to users who join voip
 bot.on("voiceStateUpdate", (oldMember, newMember) => {
+	adkVoice.adkVoice(oldMember, newMember);
 	try {
 		if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes("voip")) {
 			var role = newMember.guild.roles.find("name", "voip");
