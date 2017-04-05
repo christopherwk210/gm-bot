@@ -15,7 +15,8 @@ var validate = require('./routes/validate'),
     presence = require('./routes/presence'),
     adminUsers = require('./routes/admin_users'),
     dm = require('./routes/dm'),
-    users = require('./routes/users');
+    users = require('./routes/users'),
+    voip = require('./routes/voip');
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -39,6 +40,7 @@ const run = function(bot, dmLog, db) {
   adminUsers(app, db);
   dm(app, bot, dmLog);
   users(app, bot);
+  voip(app, db);
 
   // Run the server
   app.listen(8080, function () {
