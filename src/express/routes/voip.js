@@ -7,7 +7,7 @@ module.exports = function(app, db) {
           error: 'Server Error'
         });
       } else {
-        res.send(dosc);
+        res.send(docs);
       }
     });
   });
