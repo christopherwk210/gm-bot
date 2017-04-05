@@ -9,7 +9,13 @@
         code by ariak
 */
 
-const adkVoice = function(om, nm) { // old and new 'GuildMember' type
+/**
+ * Manage voice tracking (Use in voiceStatusUpdate)
+ * @param {*} om Old member
+ * @param {*} nm New member
+ * @param {*} db Database reference
+ */
+const adkVoice = function(om, nm, db) {
     // console.log('voice event :' + om.selfMute + ":" + nm.selfMute + ':' + om.selfDeaf + ':' + nm.selfDeaf);   // debug: strange om.selfMute / Deaf behaviour
     if  (   !(om.selfMute !== nm.selfMute || om.selfDeaf !== nm.selfDeaf) ||                // exclude selfmute/death - read as 'dont act upon changes'
             typeof(om.selfMute) === 'undefined' || typeof(om.selfDeaf) === 'undefined' ) {  // see Note '!!!' 
@@ -47,7 +53,14 @@ const adkVoice = function(om, nm) { // old and new 'GuildMember' type
             deaf: nm.serverDeaf,
         }
         // [push to DB-server here]
-        console.log(dataBlob);      // debug    
+        // console.log(dataBlob);      // debug
+        db.voip.insert(dataBlob, function (err, newDoc) {
+            if (err) {
+                console.log('adk could not save to database.');
+            } else {
+                console.log('Voip stat successfully logged by adk.');
+            }
+        });
     }
 }
 

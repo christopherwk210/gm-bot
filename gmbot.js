@@ -86,7 +86,9 @@ bot.on('guildMemberAdd', member => {
 
 // Automatically add voip_text role to users who join voip
 bot.on("voiceStateUpdate", (oldMember, newMember) => {
-	adkVoice.adkVoice(oldMember, newMember);
+	// Log voip usage
+	adkVoice.adkVoice(oldMember, newMember, db);
+	
 	try {
 		if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes("voip")) {
 			var role = newMember.guild.roles.find("name", "voip");
