@@ -15,7 +15,7 @@ db.admins = new Datastore({
 	autoload: true,
 	onload: function() {
 		// Auto compact every 12 hours
-		db.admins.persistence.setAutocompactionInterval(3600000 * 12);
+		db.admins.persistence.setAutocompactionInterval(3600000 * 24);
 	}
 });
 
@@ -25,7 +25,17 @@ db.voip = new Datastore({
 	autoload: true,
 	onload: function() {
 		// Auto compact every 4 hours
-		db.voip.persistence.setAutocompactionInterval(3600000 * 4);
+		db.voip.persistence.setAutocompactionInterval(3600000 * 12);
+	}
+});
+
+// Profile log db
+db.profile = new Datastore({
+	filename:'./src/data/profile.db',
+	autoload: true,
+	onload: function() {
+		// Auto compact every 4 hours
+		db.voip.persistence.setAutocompactionInterval(3600000 * 24);
 	}
 });
 
@@ -73,7 +83,10 @@ bot.on('ready', () => {
 	}, err => console.log(err));
 
 	let guildCollection = bot.guilds.find('name','/r/GameMaker');
-	adkProfile.adkProfile(guildCollection);
+	adkProfile.adkProfile(guildCollection, db);
+	setInterval(() => {
+		adkProfile.adkProfile(guildCollection, db);
+	}, 3600000);
 });
 
 // Send welcome message to new members
