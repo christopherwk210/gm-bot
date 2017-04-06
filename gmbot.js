@@ -102,6 +102,18 @@ bot.on("voiceStateUpdate", (oldMember, newMember) => {
 	}
 });
 
+bot.on('messageUpdate', (oldmsg, newmsg) => {
+	// Don't respond to bots
+	if (newmsg.author.bot) {
+		return;
+	}
+
+	// Catch clean-code and gmlive
+	if (!prettifier.clean(newmsg)) {
+		gmlive.read(newmsg);
+	}
+});
+
 // When message is received
 bot.on('message', msg => {
 
