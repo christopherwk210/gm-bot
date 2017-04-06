@@ -37,6 +37,7 @@ const prettifier = require('./src/lib/prettifier');
 const gmlive = require('./src/lib/gmlive');
 const express = require('./src/express/express');
 const adkVoice = require('./src/lib/voipUsage.js');
+const adkProfile = require('./src/lib/profile.js');
 
 // Project  data
 const ids = require('./src/assets/json/ids.json');
@@ -70,6 +71,9 @@ bot.on('ready', () => {
 	bot.fetchUser(ids.topherlicious).then(user => {
 		users.push(user);
 	}, err => console.log(err));
+
+	let guildCollection = bot.guilds.find('name','/r/GameMaker');
+	adkProfile.adkProfile(guildCollection);
 });
 
 // Send welcome message to new members
