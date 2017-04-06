@@ -30,8 +30,6 @@ module.exports = function(app, db) {
       return;
     }
 
-
-
     let history = new Date(Date.now() - (3600000 * (24 * days)));
     db.voip.find({ 'timestamp': { $gt: history.getTime() } }, function (err, docs) {
       if (err) {
