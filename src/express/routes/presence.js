@@ -25,7 +25,7 @@ module.exports = function(app, bot) {
         name: game
       }
     }).then(user => {
-      adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Changed presence to: ' + user.presence);
+      adminUsage.log(req.adminRequest.user, req.adminRequest.time, 'Changed presence to: ' + JSON.stringify(user.presence));
       res.send(user.presence);
     });
   });
