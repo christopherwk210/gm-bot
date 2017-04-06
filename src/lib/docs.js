@@ -57,6 +57,8 @@ const control = {
       });
     },
     helpUrlGMS1: (msg, fn) => {
+      let found = false;
+
       for (var i = 0; i < gms1.titles.length; i++) {
         if (gms1.titles[i] == fn) {
           msg.channel.sendMessage('Here\'s the GMS1 documentation for ' + fn).catch(err => console.log(err));
