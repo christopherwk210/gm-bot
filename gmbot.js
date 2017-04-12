@@ -169,32 +169,31 @@ bot.on('message', msg => {
 			});
 		}
 	} else {
-
-		if (msg.member.highestRole === '@everyone') {
-			var attachments = msg.attachments.array();
-			if (attachments.length !== 0) {
-				attachments.forEach(attachment => {
-					if (attachment.height !== undefined) {
-						//User has uploaded an image
-						if ((imageLog[msg.author.id] === undefined) || (imageLog[msg.author.id] === 0)) {
-							imageLog[msg.author.id] = 1;
-							imageLog.timers[msg.author.id] = setTimeout(() => {
-								imageLog[msg.author.id] = 0;
-							}, imageTimer);
-						} else {
-							if (imageLog[msg.author.id] >= imageCap) {
-								msg.delete();
-								msg.author.sendMessage('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
+		if (msg.member) {
+			if (msg.member.highestRole === '@everyone') {
+				var attachments = msg.attachments.array();
+				if (attachments.length !== 0) {
+					attachments.forEach(attachment => {
+						if (attachment.height !== undefined) {
+							//User has uploaded an image
+							if ((imageLog[msg.author.id] === undefined) || (imageLog[msg.author.id] === 0)) {
+								imageLog[msg.author.id] = 1;
+								imageLog.timers[msg.author.id] = setTimeout(() => {
+									imageLog[msg.author.id] = 0;
+								}, imageTimer);
 							} else {
-								imageLog[msg.author.id]++;
+								if (imageLog[msg.author.id] >= imageCap) {
+									msg.delete();
+									msg.author.sendMessage('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
+								} else {
+									imageLog[msg.author.id]++;
+								}
 							}
 						}
-					}
-				});
+					});
+				}
 			}
-
 		}
-
 	}
 
 	// Find bad links
