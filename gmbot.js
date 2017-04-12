@@ -173,17 +173,17 @@ bot.on('message', msg => {
 		// if (msg.member.highestRole === '@everyone') {
 		if (msg.member.displayName === 'topherlicious') {
 			var attachments = msg.attachments.array();
-			if (att.length !== 0) {
+			if (attachments.length !== 0) {
 				attachments.forEach(attachment => {
 					if (attachment.height !== undefined) {
 						//User has uploaded an image
 						if (imageLog[msg.author.id] === undefined) {
 							imageLog[msg.author.id] = 1;
 							imageLog.timers[msg.author.id] = setTimeout(() => {
-								imageLog[msg.author.id] = undefined;
+								imageLog[msg.author.id] = 1;
 							}, imageTimer);
 						} else {
-							if (imageLog[msg.author.id] > imageCap) {
+							if (imageLog[msg.author.id] >= imageCap) {
 								msg.author.sendMessage('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
 								msg.delete();
 							} else {
