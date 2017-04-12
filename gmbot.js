@@ -170,21 +170,15 @@ bot.on('message', msg => {
 		}
 	} else {
 
-		// if (msg.member.highestRole === '@everyone') {
-		if (msg.member.displayName === 'topherlicious') {
+		if (msg.member.highestRole === '@everyone') {
 			var attachments = msg.attachments.array();
-
 			if (attachments.length !== 0) {
 				attachments.forEach(attachment => {
 					if (attachment.height !== undefined) {
-
-						console.log(imageLog);
-
 						//User has uploaded an image
 						if ((imageLog[msg.author.id] === undefined) || (imageLog[msg.author.id] === 0)) {
 							imageLog[msg.author.id] = 1;
 							imageLog.timers[msg.author.id] = setTimeout(() => {
-								console.log('Reset image');
 								imageLog[msg.author.id] = 0;
 							}, imageTimer);
 						} else {
@@ -195,9 +189,6 @@ bot.on('message', msg => {
 								imageLog[msg.author.id]++;
 							}
 						}
-
-						console.log(imageLog);
-
 					}
 				});
 			}
