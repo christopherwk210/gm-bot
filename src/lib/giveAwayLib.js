@@ -140,8 +140,10 @@ let lib = {
   },
   reply_list: function(msg){
     let valid = '';
-    for (let g in data){
-      valid += g+', ';
+    for (let g in data) {
+      if (data.hasOwnProperty(g)) {
+        valid += g+', ';
+      }
     }
     valid = valid.substr(0,valid.length-2); // remove last two charcters ', ';
     let reply = 'Here is a list of valid giveaways: '+ valid + '.\nType `!giveaway <name>` to sign up.';
