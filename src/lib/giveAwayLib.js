@@ -18,7 +18,7 @@ let db;
 let lib = {
   init: function(db) {
     db = db;
-    db.admins.find({}, function(err, docs) {
+    db.giveAway.find({}, function(err, docs) {
       if (err !== null) {
         console.log(err);
       } else {
