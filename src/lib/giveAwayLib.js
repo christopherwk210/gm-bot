@@ -148,9 +148,16 @@ let lib = {
     msg.channel.send(reply);
   },
   pushDB: function() {                       // internal async push to DB or JSON
-    fs.writeFile(fpath,JSON.stringify(data), (err) => {
-      if (err)  console.log('[GA] JSON push error: ' + e);
-      else      console.log('[GA] successfully pushed to JSON'); 
+    db.giveAway.remove({}, { multi: true }, function (err, numRemoved) {
+      if (err !== null) {
+        db.insert(data, function (err, newDoc) {
+          if (err !== null) {
+            console.log('Error saving giveaway data to DB!');
+          }
+        });
+      } else {
+        console.log('Error removing old give away db');
+      }
     });
   }
 }
