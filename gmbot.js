@@ -39,6 +39,16 @@ db.profile = new Datastore({
 	}
 });
 
+// Givew away log db
+db.giveAway = new Datastore({
+	filename:'./src/data/giveAway.db',
+	autoload: true,
+	onload: function() {
+		// Auto compact every 4 hours
+		db.voip.persistence.setAutocompactionInterval(3600000 * 24);
+	}
+});
+
 // Project libs
 const detectRole = require('./src/lib/detectRole');
 const pm = require('./src/lib/pm');
@@ -48,6 +58,8 @@ const gmlive = require('./src/lib/gmlive');
 const express = require('./src/express/express');
 const adkVoice = require('./src/lib/voipUsage.js');
 const adkProfile = require('./src/lib/profile.js');
+const giveAways = require('./src/lib/giveAwayLib.js');
+giveAways.init(db);
 
 // Project  data
 const ids = require('./src/assets/json/ids.json');
@@ -66,6 +78,8 @@ let imageLog = {
 };
 imageCap = 3; 							//3 images within
 imageTimer = 1000 * 60 * 5 	//5 minutes
+
+let profileInterval = undefined;
 
 // Import authorization token
 var auth;
@@ -90,10 +104,13 @@ bot.on('ready', () => {
 	}, err => console.log(err));
 
 	let guildCollection = bot.guilds.find('name','/r/GameMaker');
-	adkProfile.adkProfile(guildCollection, db);
-	setInterval(() => {
+
+	if (profileInterval === undefined) {
 		adkProfile.adkProfile(guildCollection, db);
-	}, 3600000);
+		profileInterval = setInterval(() => {
+			adkProfile.adkProfile(guildCollection, db);
+		}, 3600000);
+	}
 });
 
 // Send welcome message to new members
@@ -170,7 +187,7 @@ bot.on('message', msg => {
 		}
 	} else {
 		if (msg.member) {
-			if (msg.member.highestRole === '@everyone') {
+			if ((msg.member.highestRole === '@everyone') || (msg.member.highestRole === 'voip')) {
 				var attachments = msg.attachments.array();
 				if (attachments.length !== 0) {
 					attachments.forEach(attachment => {
