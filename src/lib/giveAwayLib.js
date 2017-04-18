@@ -22,7 +22,7 @@ let lib = {
       if (err !== null) {
         console.log(err);
       } else {
-        console.log(docs);
+        // console.log(docs);
         data = docs;
       }
     });
