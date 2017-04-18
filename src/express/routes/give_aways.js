@@ -18,8 +18,8 @@ module.exports = function(app, db) {
       return;
     }
 
-    let res = giveAways.create(name, start, end);
-    if (res) {
+    let result = giveAways.create(name, start, end);
+    if (result) {
       res.send({
         status: 'OK'
       });
