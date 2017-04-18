@@ -16,8 +16,8 @@ let data;
 let db;
 
 let lib = {
-  init: function(db) {
-    db = db;
+  init: function(database) {
+    db = database;
     db.giveAway.find({}, function(err, docs) {
       if (err !== null) {
         console.log(err);
@@ -148,6 +148,15 @@ let lib = {
     valid = valid.substr(0,valid.length-2); // remove last two charcters ', ';
     let reply = 'Here is a list of valid giveaways: '+ valid + '.\nType `!giveaway <name>` to sign up.';
     msg.channel.send(reply);
+  },
+  getGiveAways: function() {
+    let valid = [];
+    for (let g in data) {
+      if (data.hasOwnProperty(g)) {
+        valid.push(g);
+      }
+    }
+    return valid;
   },
   pushDB: function() {                       // internal async push to DB or JSON
     db.giveAway.remove({}, { multi: true }, function (err, numRemoved) {

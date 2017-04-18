@@ -17,7 +17,8 @@ var validate = require('./routes/validate'),
     dm = require('./routes/dm'),
     users = require('./routes/users'),
     voip = require('./routes/voip'),
-    profile = require('./routes/profile');
+    profile = require('./routes/profile'),
+    giveAways = require('./routes/give_aways');
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -43,6 +44,7 @@ const run = function(bot, dmLog, db) {
   users(app, bot);
   voip(app, db);
   profile(app, db);
+  giveAways(app, db)
 
   // Run the server
   app.listen(8080, function () {
