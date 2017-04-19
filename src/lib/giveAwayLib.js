@@ -12,20 +12,12 @@
 const fs = require('fs'),
       serverName = '/r/GameMaker';
 
-let data;
-let db;
+let data = require('../assets/json/giveAwaysData.json');
+let fpath = './src/assets/json/giveAwaysData.json';
 
 let lib = {
   init: function(database) {
-    db = database;
-    db.giveAway.find({}, function(err, docs) {
-      if (err !== null) {
-        console.log(err);
-      } else {
-        // console.log(docs);
-        data = docs;
-      }
-    });
+
   },
   message: function(msg, command) {
     let activeGAs = Object.keys(data),
@@ -170,16 +162,9 @@ let lib = {
     return valid;
   },
   pushDB: function() {                       // internal async push to DB or JSON
-    db.giveAway.remove({}, { multi: true }, function (err, numRemoved) {
-      if (typeof(err) != null) {
-        db.giveAway.insert(data, function (err, newDoc) {
-          if (typeof(err) != null) {
-            console.log('Error saving giveaway data to DB!');
-          }
-        });
-      } else {
-        console.log('Error removing old give away db: ' + err);
-      }
+    fs.writeFile(fpath, JSON.stringify(data), (err) => {
+      if (err)  console.log('[GA] JSON push error: ' + e);
+      else      console.log('[GA] successfully pushed to JSON'); 
     });
   }
 }
