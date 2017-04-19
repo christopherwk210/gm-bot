@@ -91,7 +91,7 @@ let lib = {
     let p = data[name].realParticipants,
         l = p.length,
         w = data[name].winners;
-    count = Math.min([p.length,count]);       // may not excede l;
+    count = Math.min(p.length,count);       // may not excede l;
 
     let i=0; while (i < count){               // ariak special loop
         let r = Math.trunc(Math.random()*l);  // determine winner index
