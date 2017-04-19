@@ -66,6 +66,10 @@ const run = function (msg) {
           giveAways.message(msg, args);
           msg.delete();
           break;
+        case "BGMHAMMER":
+          msg.channel.sendMessage(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(err => console.log(err));
+          msg.delete();
+          break;
       }
     }
 
