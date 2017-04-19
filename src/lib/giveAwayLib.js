@@ -12,8 +12,22 @@
 const fs = require('fs'),
       serverName = '/r/GameMaker';
 
-let data = require('../data/giveAwaysData.json');
+let data;
 let fpath = './src/data/giveAwaysData.json';
+
+// Create giveAway json if it doesn't exists
+fs.open(fpath,'r',function(err, fd){
+	if (err) {
+		fs.writeFile(fpath, '{}', function(err) {
+			if(err) {
+				console.log(err);
+			}
+      data = require('../data/giveAwaysData.json');
+		});
+	} else {
+    data = require('../data/giveAwaysData.json');
+	}
+});
 
 let lib = {
   message: function(msg, command) {
