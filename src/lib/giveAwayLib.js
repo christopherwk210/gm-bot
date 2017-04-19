@@ -12,8 +12,8 @@
 const fs = require('fs'),
       serverName = '/r/GameMaker';
 
-let data = require('../assets/json/giveAwaysData.json');
-let fpath = './src/assets/json/giveAwaysData.json';
+let data = require('../data/giveAwaysData.json');
+let fpath = './src/data/giveAwaysData.json';
 
 let lib = {
   message: function(msg, command) {
