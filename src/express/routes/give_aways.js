@@ -29,4 +29,21 @@ module.exports = function(app, db) {
       });
     }
   });
+
+  app.delete('//give_aways/:ga', function (req, res) {
+    let ga;
+    try {
+      ga = req.params.ga;
+    } catch(e) {
+      res.status(400).send({
+        error: 'Bad request'
+      });
+      return;
+    }
+
+    giveAways.delete(ga);
+    res.send({
+      status: 'OK'
+    });
+  });
 };
