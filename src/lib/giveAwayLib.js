@@ -64,7 +64,6 @@ let lib = {
     ga.participants.push(userID);
     lib.reply_success(msg,name);
     lib.pushDB();
-    lib.draw(name,1,[userID]); // DEBUG ONLY!
     return true;
   },
   draw: function(name, count, blacklist) {     // draw a give away winner
@@ -166,9 +165,9 @@ let lib = {
   },
   pushDB: function() {                       // internal async push to DB or JSON
     db.giveAway.remove({}, { multi: true }, function (err, numRemoved) {
-      if (err !== null) {
+      if (err != null) {
         db.insert(data, function (err, newDoc) {
-          if (err !== null) {
+          if (err != null) {
             console.log('Error saving giveaway data to DB!');
           }
         });
