@@ -80,7 +80,7 @@ let lib = {
       console.log('[GA] Drawing Error: ' + err_msg);
       return false;
     }
-    data[name].participants = lib.blacklist_purge(data[name].participants, blacklist);
+    // data[name].participants = lib.blacklist_purge(data[name].participants, blacklist);
     if (data[name].participants.length === 0) { // check length after purge
       err_msg = "GA has no participants";
       console.log('[GA] Drawing Error: ' + err_msg);
@@ -88,14 +88,17 @@ let lib = {
     }
     
     // determine all winners
-    let p = data[name].participants,
+    let p = data[name].realParticipants,
         l = p.length,
         w = data[name].winners;
     count = Math.min([p.length,count]);       // may not excede l;
 
     let i=0; while (i < count){               // ariak special loop
         let r = Math.trunc(Math.random()*l);  // determine winner index
-        w.push(p[r]);                         // push to winners
+        w.push({
+          userID: p[r].userID,
+          userName: p[r].userName
+        });                         // push to winners
         p.splice(r,1);                        // remove winner for further draws
         --l;
     ++i}

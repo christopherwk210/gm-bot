@@ -5,6 +5,20 @@ module.exports = function(app, db) {
     res.send(giveAways.getGiveAways());
   });
 
+  app.post('//give_aways/draw', function (req, res) {
+    let name;
+    try {
+      name = req.body.name;
+    } catch(e) {
+      res.status(400).send({
+        error: 'Bad request'
+      });
+      return;
+    }
+
+    res.send(giveAways.draw(name, 1, []));
+  });
+
   app.post('//give_aways', function (req, res) {
     let name, start, end;
     try {
