@@ -58,7 +58,7 @@ let lib = {
     else if (ga.end < tnow)                 err_msg = "giveaway " + name + " sign up period has concluded as of" + moment.unix(ga.end).format('LLL');
     else if (our_guild === undefined)       err_msg = 'Give aways on r/discord are only for members!'; // OVERKILL - PART OF GMBOT MSG PARSING
     else if (ga.participants.indexOf(userID) !== -1) err_msg = 'no duplicate entries!'
-    else if (our_guild.member(msg.author).highestRole.name === 'Admin') err_msg = '_Jon stares at you disapprovingly_';
+    else if (our_guild.member(msg.author).highestRole.name === 'admins') err_msg = '_Jon stares at you disapprovingly_';
 
     if (err_msg !== 0) {
       lib.reply_error(msg,err_msg);
