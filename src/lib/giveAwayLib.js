@@ -67,14 +67,14 @@ let lib = {
     lib.draw(name,1,[userID]); // DEBUG ONLY!
     return true;
   },
-  draw: function(name, count, blacklist){     // draw a give away winner
+  draw: function(name, count, blacklist) {     // draw a give away winner
     if (data[name] === undefined){
       err_msg = "GA doesnt exist";
       console.log('[GA] Drawing Error: ' + err_msg);
       return false;
     }
     data[name].participants = lib.blacklist_purge(data[name].participants, blacklist);
-    if (data[name].participants.length === 0){ // check length after purge
+    if (data[name].participants.length === 0) { // check length after purge
       err_msg = "GA has no participants";
       console.log('[GA] Drawing Error: ' + err_msg);
       return false;
@@ -111,8 +111,8 @@ let lib = {
     lib.pushDB();
     return true; // report success to express API
   },
-  delete: function(name){                     // attempt to delete a give away!
-    if (data[name] !== undefined){
+  delete: function(name) {                     // attempt to delete a give away!
+    if (data[name] !== undefined) {
       delete data[name];
       lib.pushDB();
       console.log('[GA] deleted ' + name);
@@ -153,7 +153,13 @@ let lib = {
     let valid = [];
     for (let g in data) {
       if (data.hasOwnProperty(g)) {
-        valid.push(g);
+        valid.push({
+          giveAway: g,
+          start: data[g].start,
+          end: data[g].end,
+          participants: data[g].participants,
+          winners: data[g].winners
+        });
       }
     }
     return valid;
@@ -167,7 +173,7 @@ let lib = {
           }
         });
       } else {
-        console.log('Error removing old give away db');
+        console.log('Error removing old give away db: ' + err);
       }
     });
   }
