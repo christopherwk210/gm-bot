@@ -134,7 +134,7 @@ let lib = {
     return returnList;
   },
   reply_error: function(msg,err_msg){
-    let reply = 'GiveAway Signup Error: '+err_msg;
+    let reply = 'Signup Error: '+err_msg;
     msg.author.sendMessage(reply)
       .then(message => console.log('[GA] Error sent to User: '+ msg.author.username + ', userID: ' + msg.author.id + ', Error: '+ err_msg))
       .catch(console.error);
