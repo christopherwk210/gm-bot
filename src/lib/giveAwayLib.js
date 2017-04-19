@@ -62,6 +62,10 @@ let lib = {
 
     // All checks passed: append and update file
     ga.participants.push(userID);
+    ga.realParticipants.push({
+      userID: userID,
+      userName: msg.author.username
+    });
     lib.reply_success(msg,name);
     lib.pushDB();
     return true;
@@ -105,6 +109,7 @@ let lib = {
       start: start,
       end: end,
       participants: [],
+      realParticipants: [],
       winners: []
     }
     lib.pushDB();
@@ -165,7 +170,7 @@ let lib = {
   },
   pushDB: function() {                       // internal async push to DB or JSON
     db.giveAway.remove({}, { multi: true }, function (err, numRemoved) {
-      if (err != null) {
+      if (typeof(err) != null) {
         db.insert(data, function (err, newDoc) {
           if (err != null) {
             console.log('Error saving giveaway data to DB!');
