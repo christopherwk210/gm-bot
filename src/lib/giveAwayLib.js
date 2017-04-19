@@ -53,10 +53,9 @@ let lib = {
         //there might be smarter ways to grab "our guild" - eg passing the constant from the bot client once!
     
     // Logic Checks
-    if      (ga === undefined)              err_msg = "giveaway " + name + " doesn't exist!";
-    else if (ga.start > tnow)               err_msg = "giveaway " + name + " will open for signups at " + moment.unix(ga.start).format('LLL');
-    else if (ga.end < tnow)                 err_msg = "giveaway " + name + " sign up period has concluded as of" + moment.unix(ga.end).format('LLL');
-    else if (our_guild === undefined)       err_msg = 'Give aways on r/discord are only for members!'; // OVERKILL - PART OF GMBOT MSG PARSING
+    if      (ga === undefined)              err_msg = "a giveaway for " + name + " doesn't exist!";
+    else if (ga.start > tnow)               err_msg = "the " + name + " giveaway will open for signups at " + moment.unix(ga.start).format('LLL');
+    else if (ga.end < tnow)                 err_msg = "the " + name + " giveaway sign up period has concluded as of " + moment.unix(ga.end).format('LLL');
     else if (ga.participants.indexOf(userID) !== -1) err_msg = 'no duplicate entries!'
     // else if (our_guild.member(msg.author).highestRole.name === 'admins') err_msg = '_Jon stares at you disapprovingly_';
 
@@ -142,7 +141,7 @@ let lib = {
       .catch(console.error);
   },
   reply_success: function(msg,selectedGA){
-    let reply = "Thank you for signing up for the giveaway " + selectedGA + ".";
+    let reply = "Thank you for signing up for the " + selectedGA + " giveaway.";
     msg.author.sendMessage(reply)
       //.then(message => console.log('[GA] User: '+ msg.author.username + ', userID: ' + msg.author.id + ', signed up for '+ selectedGA))
       .catch(console.error);
