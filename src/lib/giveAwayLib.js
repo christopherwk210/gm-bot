@@ -162,6 +162,7 @@ let lib = {
           start: data[g].start,
           end: data[g].end,
           participants: data[g].participants,
+          realParticipants: data[g].realParticipants,
           winners: data[g].winners
         });
       }
@@ -170,10 +171,9 @@ let lib = {
   },
   pushDB: function() {                       // internal async push to DB or JSON
     db.giveAway.remove({}, { multi: true }, function (err, numRemoved) {
-      console.log(err);
       if (typeof(err) != null) {
         db.giveAway.insert(data, function (err, newDoc) {
-          if (err != null) {
+          if (typeof(err) != null) {
             console.log('Error saving giveaway data to DB!');
           }
         });
