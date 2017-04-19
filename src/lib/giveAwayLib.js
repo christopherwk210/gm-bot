@@ -174,10 +174,7 @@ let lib = {
     return valid;
   },
   pushDB: function() {                       // internal async push to DB or JSON
-    fs.writeFileSync(fpath, JSON.stringify(data), (err) => {
-      if (err)  console.log('[GA] JSON push error: ' + e);
-      else      console.log('[GA] successfully pushed to JSON'); 
-    });
+    fs.writeFileSync(fpath, JSON.stringify(data));
   }
 }
 module.exports = lib;
