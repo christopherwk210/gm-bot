@@ -12,6 +12,8 @@
 const fs = require('fs'),
       serverName = '/r/GameMaker';
 
+const moment = require('moment');
+
 let data;
 let fpath = './src/data/giveAwaysData.json';
 
@@ -34,7 +36,7 @@ let lib = {
     let activeGAs = Object.keys(data),
         activeGACount = activeGAs.length;
     if (activeGACount === 0){
-      lib.reply_error(msg,'no currently active giveaways')
+      lib.reply_error(msg,'no currently active giveaways.')
     } else if (activeGACount === 1){
       lib.signup(msg,activeGAs[0]);                   // default to first and only GA
     } else {                                          // if multiple GA:
@@ -51,12 +53,12 @@ let lib = {
         //there might be smarter ways to grab "our guild" - eg passing the constant from the bot client once!
     
     // Logic Checks
-    if      (ga === undefined)              err_msg = "giveaway " + name + " doesn't exist";
-    //else if (ga.start > tnow)               err_msg = "giveaway " + name + " will open for signups at " + moment.unix(ga.start).format('LLL');
-    //else if (ga.end < tnow)                 err_msg = "giveaway " + name + " sign up period has concluded as of" + moment.unix(ga.end).format('LLL');
+    if      (ga === undefined)              err_msg = "giveaway " + name + " doesn't exist!";
+    else if (ga.start > tnow)               err_msg = "giveaway " + name + " will open for signups at " + moment.unix(ga.start).format('LLL');
+    else if (ga.end < tnow)                 err_msg = "giveaway " + name + " sign up period has concluded as of" + moment.unix(ga.end).format('LLL');
     else if (our_guild === undefined)       err_msg = 'Give aways on r/discord are only for members!'; // OVERKILL - PART OF GMBOT MSG PARSING
-    else if (ga.participants.indexOf(userID) !== -1) err_msg = 'no duplicate entries'
-    //else if (our_guild.member(msg.author).highestRole.name === 'Admin') err_msg = '_Jon stares at you disapprovingly_';
+    else if (ga.participants.indexOf(userID) !== -1) err_msg = 'no duplicate entries!'
+    else if (our_guild.member(msg.author).highestRole.name === 'Admin') err_msg = '_Jon stares at you disapprovingly_';
 
     if (err_msg !== 0) {
       lib.reply_error(msg,err_msg);
