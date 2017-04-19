@@ -95,11 +95,13 @@ let lib = {
 
     let i=0; while (i < count){               // ariak special loop
         let r = Math.trunc(Math.random()*l);  // determine winner index
+        console.log(r, p[r])
         w.push({
           userID: p[r].userID,
           userName: p[r].userName
         });                         // push to winners
         p.splice(r,1);                        // remove winner for further draws
+        data[name].participants.splice(r,1);                        // remove winner for further draws
         --l;
     ++i}
     console.log('winners: '+ w);
