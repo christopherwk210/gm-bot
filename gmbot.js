@@ -39,16 +39,6 @@ db.profile = new Datastore({
 	}
 });
 
-// Givew away log db
-db.giveAway = new Datastore({
-	filename:'./src/data/giveAway.db',
-	autoload: true,
-	onload: function() {
-		// Auto compact every 4 hours
-		db.voip.persistence.setAutocompactionInterval(3600000 * 24);
-	}
-});
-
 // Project libs
 const detectRole = require('./src/lib/detectRole');
 const pm = require('./src/lib/pm');
@@ -59,7 +49,6 @@ const express = require('./src/express/express');
 const adkVoice = require('./src/lib/voipUsage.js');
 const adkProfile = require('./src/lib/profile.js');
 const giveAways = require('./src/lib/giveAwayLib.js');
-giveAways.init(db);
 
 // Project  data
 const ids = require('./src/assets/json/ids.json');

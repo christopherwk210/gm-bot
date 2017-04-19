@@ -16,9 +16,6 @@ let data = require('../assets/json/giveAwaysData.json');
 let fpath = './src/assets/json/giveAwaysData.json';
 
 let lib = {
-  init: function(database) {
-
-  },
   message: function(msg, command) {
     let activeGAs = Object.keys(data),
         activeGACount = activeGAs.length;
