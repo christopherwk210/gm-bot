@@ -171,7 +171,7 @@ let lib = {
   pushDB: function() {                       // internal async push to DB or JSON
     db.giveAway.remove({}, { multi: true }, function (err, numRemoved) {
       if (typeof(err) != null) {
-        db.insert(data, function (err, newDoc) {
+        db.giveAway.insert(data, function (err, newDoc) {
           if (err != null) {
             console.log('Error saving giveaway data to DB!');
           }
