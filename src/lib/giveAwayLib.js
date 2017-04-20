@@ -59,7 +59,7 @@ let lib = {
     else if (tnow < parseInt(ga.start))  {             err_msg = "the " + name + " giveaway hasn't opened for signups yet!" }
     else if (tnow > parseInt(ga.end))    {             err_msg = "the " + name + " giveaway signup period has concluded!" }
     else if (ga.participants.indexOf(userID) !== -1) {err_msg = 'no duplicate entries!';}
-    else if (our_guild.member(msg.author).highestRole.name === 'admins') {err_msg = '_Jon stares at you disapprovingly_';}
+    // else if (our_guild.member(msg.author).highestRole.name === 'admins') {err_msg = '_Jon stares at you disapprovingly_';}
 
     if (err_msg !== 0) {
       lib.reply_error(msg,err_msg);
