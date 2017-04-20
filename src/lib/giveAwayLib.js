@@ -51,8 +51,6 @@ let lib = {
         userID = msg.author.id,
         our_guild = msg.client.guilds.find('name',serverName); // returns our guild, OR undefined if not author is not part of it!
         //there might be smarter ways to grab "our guild" - eg passing the constant from the bot client once!
-    
-    console.log(ga, tnow);
 
     // Logic Checks
     if      (ga === undefined) {             err_msg = "a giveaway for " + name + " doesn't exist!"; }
@@ -97,7 +95,6 @@ let lib = {
 
     let i=0; while (i < count){               // ariak special loop
         let r = Math.trunc(Math.random()*l);  // determine winner index
-        console.log(r, p[r])
         w.push({
           userID: p[r].userID,
           userName: p[r].userName
