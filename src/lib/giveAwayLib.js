@@ -52,6 +52,8 @@ let lib = {
         our_guild = msg.client.guilds.find('name',serverName); // returns our guild, OR undefined if not author is not part of it!
         //there might be smarter ways to grab "our guild" - eg passing the constant from the bot client once!
     
+    console.log(ga, tnow);
+
     // Logic Checks
     if      (ga === undefined)              err_msg = "a giveaway for " + name + " doesn't exist!";
     else if (ga.start > tnow)               err_msg = "the " + name + " giveaway will open for signups at " + moment.unix(ga.start).format('LLL');
