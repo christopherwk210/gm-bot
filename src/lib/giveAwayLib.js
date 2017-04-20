@@ -55,10 +55,10 @@ let lib = {
     console.log(ga, tnow);
 
     // Logic Checks
-    if      (ga === undefined)              err_msg = "a giveaway for " + name + " doesn't exist!";
-    else if (ga.start > tnow)               err_msg = "the " + name + " giveaway will open for signups at " + moment.unix(ga.start).format('LLL');
-    else if (ga.end < tnow)                 err_msg = "the " + name + " giveaway sign up period has concluded as of " + moment.unix(ga.end).format('LLL');
-    else if (ga.participants.indexOf(userID) !== -1) err_msg = 'no duplicate entries!'
+    if      (ga === undefined) {             err_msg = "a giveaway for " + name + " doesn't exist!"; }
+    else if (ga.start > tnow)  {             err_msg = "the " + name + " giveaway will open for signups at " + moment.unix(ga.start).format('LLL'); }
+    else if (ga.end < tnow)    {             err_msg = "the " + name + " giveaway sign up period has concluded as of " + moment.unix(ga.end).format('LLL'); }
+    else if (ga.participants.indexOf(userID) !== -1) {err_msg = 'no duplicate entries!';}
     // else if (our_guild.member(msg.author).highestRole.name === 'admins') err_msg = '_Jon stares at you disapprovingly_';
 
     if (err_msg !== 0) {
