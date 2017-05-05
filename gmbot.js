@@ -97,8 +97,6 @@ bot.on('ready', () => {
 
 	let guildCollection = bot.guilds.find('name','/r/GameMaker');
 
-	roles = guildCollection.roles;
-
 	if (profileInterval === undefined) {
 		adkProfile.adkProfile(guildCollection, db);
 		profileInterval = setInterval(() => {
