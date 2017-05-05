@@ -4,11 +4,10 @@ const assemble = function(msg, args) {
       if (args.length === 1) {
         if (msg.guild) {
           let ducks = msg.guild.roles.find('name', 'rubber duckies');
-          console.log(ducks);
-          // ducks.setMentionable(true).then(r => {
-          //   msg.channel.sendMessage('@rubber_duckies assemble!').catch(console.error);;
-          //   ducks.setMentionable(false).catch(console.error);
-          // }).catch(console.error);
+          ducks.setMentionable(true).then(r => {
+            msg.channel.sendMessage('@rubber_duckies assemble!').catch(console.error);;
+            ducks.setMentionable(false).catch(console.error);
+          }).catch(console.error);
         }
       }  
     }
