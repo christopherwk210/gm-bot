@@ -47,11 +47,20 @@ const run = function (msg) {
         case "HELP":
           let command = "all";
 
+          if ((msg.member) && (msg.member.roles)) {
+            if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins') || msg.member.roles.find('name', 'rubber duckies')) {
+              command = 'ducks';
+            }
+          }
+
           switch (command) {
             case "all":
               msg.author.sendMessage(help.all)
               .catch(err => console.log(err));
               break;
+            case 'ducks':
+              msg.author.sendMessage(help.all)
+              .catch(err => console.log(err));
           }
           msg.delete();
           break;
@@ -67,12 +76,9 @@ const run = function (msg) {
           giveAways.message(msg, args);
           msg.delete();
           break;
+        case "QUACKQUACKQUACK":
         case "ASSEMBLE":
           assemble.assemble(msg, args);
-          msg.delete();
-          break;
-        case "QUACKQUACKQUACK":
-          assemble.assemble(msg, ['QUACKQUACKQUACK']);
           msg.delete();
           break;
         case "BGMHAMMER":
