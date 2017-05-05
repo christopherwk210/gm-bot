@@ -13,7 +13,8 @@ const assemble = require('./assemble');
 // Project data
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 const help = {
-  all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8')
+  all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
+  ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8')
 };
 
 const run = function (msg) {
@@ -59,7 +60,7 @@ const run = function (msg) {
               .catch(err => console.log(err));
               break;
             case 'ducks':
-              msg.author.sendMessage(help.all)
+              msg.author.sendMessage(help.ducks)
               .catch(err => console.log(err));
           }
           msg.delete();
