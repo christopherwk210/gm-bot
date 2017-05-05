@@ -3,8 +3,8 @@ const assemble = function(msg, args) {
     if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins') || msg.member.roles.find('name', 'rubber duckies')) {
       if (args.length === 1) {
         if (msg.guild) {
-          let ducks = msg.guild.roles.find('name', 'rubber ducks');
-          console.log(msg.guild.roles);
+          let ducks = msg.guild.roles.find('name', 'rubber duckies');
+          console.log(ducks);
           // ducks.setMentionable(true).then(r => {
           //   msg.channel.sendMessage('@rubber_duckies assemble!').catch(console.error);;
           //   ducks.setMentionable(false).catch(console.error);
