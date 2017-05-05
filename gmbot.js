@@ -55,6 +55,9 @@ const ids = require('./src/assets/json/ids.json');
 const badlinks = require('./src/assets/json/bad-links.json');
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 
+// Store roles
+let roles;
+
 // Temp user storage
 let users = [];
 
@@ -93,6 +96,8 @@ bot.on('ready', () => {
 	}, err => console.log(err));
 
 	let guildCollection = bot.guilds.find('name','/r/GameMaker');
+
+	roles = guildCollection.roles;
 
 	if (profileInterval === undefined) {
 		adkProfile.adkProfile(guildCollection, db);
