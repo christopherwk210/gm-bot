@@ -7,8 +7,7 @@ const assemble = function(msg, args) {
           ducks.setMentionable(true).then(r => {
             msg.channel.sendMessage(`${r} assemble!`).then(m => {
               r.setMentionable(false).catch(console.error);
-            }).catch(console.error);;
-            // r.setMentionable(false).catch(console.error);
+            }).catch(console.error);
           }).catch(console.error);
         }
       }  
