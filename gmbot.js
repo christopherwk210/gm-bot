@@ -155,6 +155,10 @@ bot.on('message', msg => {
 		return;
 	}
 
+	if (msg.author.username === 'AndrewBGM') {
+		msg.react('😩').catch(console.error);
+	}
+
 	// Intercept all DM's
 	if (msg.channel.type === 'dm') {
 		if (dmLog[msg.author.username] === undefined) {
