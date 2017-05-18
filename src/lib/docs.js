@@ -15,15 +15,17 @@ const control = {
           return;
         }
 
+        version = version.toUpperCase();
+
         switch (version) {
-          case "gms1":
+          case "GMS1":
             if (validate.gml.gms1(args[1])) {
                 this.helpUrlGMS1(msg, args[1]);
             } else {
                 msg.author.sendMessage("`" + args[1] + "` was not a recognized GMS1 function. Type `!help` for help with commands.");
             }
             break;
-        case "gms2":
+        case "GMS2":
             if (validate.gml.gms2(args[1])) {
                 this.helpUrlGMS2(msg, args[1]);
             } else {
