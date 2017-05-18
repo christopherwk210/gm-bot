@@ -23,8 +23,6 @@ if (condition) {
 }
 \`\`\`
 
-I can also assist you with your code formatting and auto generate GMLive snippets for you:
-
 **To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**
 \`\`\`clean-code
 if (condition) {
@@ -33,9 +31,6 @@ perform_action();
 \`\`\`
 
 **To generate a GMLive snippet in your message use the** `gmlive` **syntax:**
-GMLive is a web-based tool to easily share and test GML code. We recommend it for testing snippets of code.
-GMLive was written by @YellowAfterlife. You can read more here: https://yal.cc/introducing-gmlive/
-
 \`\`\`gmlive
 #define main
 if (true) {
