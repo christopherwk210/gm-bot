@@ -159,6 +159,10 @@ bot.on('message', msg => {
 		//msg.react('😩').catch(console.error);
 	}
 
+	if (msg.content.indexOf('<@295327000372051968>') !== -1) {
+		msg.react('👋').catch(console.error);
+	}
+
 	// Intercept all DM's
 	if (msg.channel.type === 'dm') {
 		if (dmLog[msg.author.username] === undefined) {
