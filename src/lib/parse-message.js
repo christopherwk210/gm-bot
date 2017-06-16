@@ -48,8 +48,8 @@ const run = function (msg) {
           msg.delete();
           break;
         case "BIRTHDAY":
-          birthday.run(msg, args);
-          msg.delete();
+          //birthday.run(msg, args);
+          //msg.delete();
           break;
         case "HELP":
           let command = "all";

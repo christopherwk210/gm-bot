@@ -3,3 +3,4 @@
 
 **You can assign the birthday role**
 Using `!birthday @usernamehere` will give the user mentioned the birthday role, and then remove it automatically after 24 hours.
++++++++++++++++++++++++++++++++

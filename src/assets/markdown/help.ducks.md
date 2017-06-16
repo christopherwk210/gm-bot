@@ -12,3 +12,4 @@ Use `!welcome` to view the message that is automatically sent to new users that 
 
 **You can access a secret emoji**
 Use `!bgmhammer` to access a super ultra secret emoji.
++++++++++++++++++++++++++++++++
