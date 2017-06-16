@@ -6,7 +6,10 @@ const run = function(msg, args) {
         let id = args[1].replace(/([<>@])/g, '');
         let user = msg.member.guild.members.get(id);
         if (user) {
-          console.log(msg.member.guild.roles);
+          //console.log(msg.member.guild.roles);
+	msg.member.guild.roles.forEach(role => {
+		console.log(role.name);
+	});
           // user.addRole( msg.member.guild.roles.get('name', 'it\'s my birthday! 🎂') );
         } else {
           msg.author.sendMessage('An error occurred with your request... Did you mention a valid user?');
