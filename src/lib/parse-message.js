@@ -15,7 +15,8 @@ const assemble = require('./assemble');
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 const help = {
   all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
-  ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8')
+  ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8'),
+  admins: fs.readFileSync('./src/assets/markdown/help.admins.md', 'utf8')
 };
 
 const run = function (msg) {
@@ -54,19 +55,24 @@ const run = function (msg) {
           let command = "all";
 
           if ((msg.member) && (msg.member.roles)) {
-            if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins') || msg.member.roles.find('name', 'rubber duckies')) {
+            if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins')) {
+              command = 'admins';
+            } else if (msg.member.roles.find('name', 'rubber duckies')) {
               command = 'ducks';
             }
           }
 
           switch (command) {
+            case 'admins':
+              msg.author.sendMessage(help.admins)
+              .catch(err => console.log(err));
+            case 'ducks':
+              msg.author.sendMessage(help.ducks)
+              .catch(err => console.log(err));
             case "all":
               msg.author.sendMessage(help.all)
               .catch(err => console.log(err));
               break;
-            case 'ducks':
-              msg.author.sendMessage(help.ducks)
-              .catch(err => console.log(err));
           }
           msg.delete();
           break;
