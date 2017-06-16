@@ -12,7 +12,11 @@ const run = function(msg, args) {
               birthdayRole = role.id;
             }
           });
-          user.addRole( birthdayRole );
+          user.addRole( birthdayRole ).then(res => {
+            console.log(res);
+          }, err => {
+            console.log(err);
+          });
         } else {
           msg.author.sendMessage('An error occurred with your request... Did you mention a valid user?');
         }
