@@ -25,9 +25,7 @@ if (condition) {
 
 **To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**
 \`\`\`clean-code
-if (condition) {
-perform_action();
-}
+if (condition) { perform_action(); }
 \`\`\`
 
 **To generate a GMLive snippet in your message use the** `gmlive` **syntax:**
@@ -54,3 +52,6 @@ Use `!welcome` to view the message that is automatically sent to new users that 
 
 **You can access a secret emoji**
 Use `!bgmhammer` to access a super ultra secret emoji.
+
+**You can assign the birthday role**
+Using `!birthday @usernamehere` will give the user the birthday role, and then remove it automatically after 24 hours.

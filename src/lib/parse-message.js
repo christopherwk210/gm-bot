@@ -7,6 +7,7 @@ const ids = require('../assets/json/ids.json');
 const roleControl = require('./roleControl.js');
 const docs = require('./docs.js');
 const handleResources = require('./resources');
+const birthday = require('./birthday');
 const giveAways = require('./giveAwayLib.js');
 const assemble = require('./assemble');
 
@@ -43,6 +44,10 @@ const run = function (msg) {
           break;
         case "RESOURCES":
           handleResources.run(msg, args);
+          msg.delete();
+          break;
+        case "BIRTHDAY":
+          birthday.run(msg, args);
           msg.delete();
           break;
         case "HELP":
