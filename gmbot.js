@@ -161,7 +161,7 @@ bot.on('message', msg => {
 
 	if (msg.content.toUpperCase() === 'MM') {
 		msg.react('🇲').catch(console.error);
-		msg.react('Ⓜ️').catch(console.error);
+		msg.react('Ⓜ').catch(console.error);
 	}
 
 	if (msg.content.indexOf('<@295327000372051968>') !== -1) {
