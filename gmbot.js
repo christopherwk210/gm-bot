@@ -160,8 +160,8 @@ bot.on('message', msg => {
 	}
 
 	if (msg.content.toUpperCase() === 'MM') {
-		msg.react(':m:').catch(console.error);
-		msg.react(':regional_indicator_m:').catch(console.error);
+		msg.react('🇲').catch(console.error);
+		msg.react('Ⓜ️').catch(console.error);
 	}
 
 	if (msg.content.indexOf('<@295327000372051968>') !== -1) {
