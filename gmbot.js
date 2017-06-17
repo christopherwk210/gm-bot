@@ -159,6 +159,11 @@ bot.on('message', msg => {
 		//msg.react('😩').catch(console.error);
 	}
 
+	if (msg.content.toUpperCase() === 'MM') {
+		msg.react(':m:').catch(console.error);
+		msg.react(':regional_indicator_m:').catch(console.error);
+	}
+
 	if (msg.content.indexOf('<@295327000372051968>') !== -1) {
 		msg.react('👋').catch(console.error);
 	}
