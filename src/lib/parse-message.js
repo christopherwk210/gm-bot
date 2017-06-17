@@ -93,6 +93,17 @@ const run = function (msg) {
           assemble.assemble(msg, args);
           msg.delete();
           break;
+        // case "STREAMWATCHER":
+        //   try {
+        //     if (msg.member) {
+        //       var role = msg.member.guild.roles.find("name", "pixelduck");
+        //       msg.member.addRole(role);
+        //     }
+        //   } catch(e) {
+        //     console.log('An error occurred trying to add the stream watcher role');
+        //   }
+        //   msg.delete();
+        //   break;
         case "BGMHAMMER":
           msg.channel.sendMessage(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(err => console.log(err));
           msg.delete();
