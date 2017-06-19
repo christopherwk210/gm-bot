@@ -6,7 +6,7 @@ Hi, I'm GameMakerBot. Here are my available commands:
              usage: !role [role]
              available roles: 'voip', 'streamy'
 
-You can also toggle the `streamy` role by doing `!streamy`.
+You can also toggle the streamy role by typing '!streamy' (without quotes).
 
 !resources - outputs a list of trusted resources to assist with your GameMaker Studio journey
 
