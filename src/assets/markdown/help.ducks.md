@@ -11,5 +11,8 @@ Typing `!resources @usernamehere` will DM that user a list of resources, as if t
 Use `!welcome` to view the message that is automatically sent to new users that join the server.
 
 **You can access a secret emoji**
-Use `!bgmhammer` to access a super ultra secret emoji.
+Use `!bgmhammer` to access a super ultra secret emoji. (Anyone can actually access this hehe)
+
+**You can toggle the streamy role in like, a bunch of ways**
+Anyone can actually toggle the streamy role in a bunch of ways: `!role streamy`, `!streamy`, `!streamwatcher`, `!letmewatchsomestreams`, `!allaboardthestreamboat`, and `melikeystream`.
 +++++++++++++++++++++++++++++++
