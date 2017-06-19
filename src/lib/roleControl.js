@@ -39,6 +39,15 @@ const control = {
       case "VOIP":
         return roles.find("name", "voip");
         break;
+      case "STREAMY":
+        let streamerRole;
+        roles.forEach(role => {
+          if (role.name.indexOf('stream') !== -1) {
+            streamerRole = role;
+          }
+        });
+        return streamerRole;
+        break;
       case "QUACK":
       case "DUCKY":
         return "ducky";
