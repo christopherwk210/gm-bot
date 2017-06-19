@@ -6,19 +6,19 @@ const run = function(msg, args) {
     msg.member.guild.roles.forEach(role => {
       if (role.name.indexOf('stream') !== -1) {
         streamerRole = role.id;
-        alreadyHas = true;
+        alreadyHas = msg.member.roles.exists('name', role.name);
       }
     });
 
     if (alreadyHas) {
       msg.member.removeRole(streamerRole).then(res => {
-        //console.log(res)
+        //console.log('add')
       }, err => {
         //console.log(err)
       });
     } else {
       msg.member.addRole( streamerRole ).then(res => {
-        //console.log(res);
+        //console.log('add');
       }, err => {
         //console.log(err);
       });
