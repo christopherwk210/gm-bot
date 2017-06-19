@@ -93,6 +93,7 @@ const run = function (msg) {
         case "STREAMY":
         case "LETMEWATCHSOMESTREAMS":
         case "ALLABOARDTHESTREAMBOAT":
+        case "MELIKEYSTREAM":
           streamer.run(msg, args);
           msg.delete();
           break;
