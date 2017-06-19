@@ -8,6 +8,7 @@ const roleControl = require('./roleControl.js');
 const docs = require('./docs.js');
 const handleResources = require('./resources');
 const birthday = require('./birthday');
+const streamer = require('./streamer');
 const giveAways = require('./giveAwayLib.js');
 const assemble = require('./assemble');
 
@@ -86,6 +87,13 @@ const run = function (msg) {
           break;
         case "GIVEAWAY":
           giveAways.message(msg, args);
+          msg.delete();
+          break;
+        case "STREAMWATCHER":
+        case "STREAMY":
+        case "LETMEWATCHSOMESTREAMS":
+        case "ALLABOARDTHESTREAMBOAT":
+          streamer.run(msg, args);
           msg.delete();
           break;
         case "QUACKQUACKQUACK":
