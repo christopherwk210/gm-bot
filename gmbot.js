@@ -165,7 +165,7 @@ bot.on('message', msg => {
 		}, () => {});
 	}
 
-	if (msg.content === ':gift: :skull:') {
+	if (msg.content.indexOf('🎁 💀') === 0) {
 		msg.channel.sendMessage('<@277615099034730506>').catch(console.error);
 	}
 
