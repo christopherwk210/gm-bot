@@ -81,6 +81,7 @@ const run = function (msg) {
           roleControl.control.toggleRole(msg, args.slice(1));
           msg.delete();
           break;
+        case "DOC":
         case "DOCS":
           docs.control.run(msg, args);
           msg.delete();
