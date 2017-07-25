@@ -20,6 +20,17 @@ const help = {
   admins: fs.readFileSync('./src/assets/markdown/help.admins.md', 'utf8')
 };
 
+var choose = function(a) {
+  if (!a) {
+    return;
+  }
+  
+  // http://stackoverflow.com/a/4550514
+  var rand = a[Math.floor(Math.random() * a.length)];
+  
+  return rand;
+}
+
 const run = function (msg) {
     //Clean punctuation and symbols from messages
     //let mes = msg.content.replace(/['!"#$%&\\'()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g,"").toUpperCase();
@@ -96,6 +107,29 @@ const run = function (msg) {
         case "ALLABOARDTHESTREAMBOAT":
         case "MELIKEYSTREAM":
           streamer.run(msg, args);
+          msg.delete();
+          break;
+        case "TOPH":
+        case "TOPHY":
+        case "TOPHIE":
+        case "TOPHER":
+        case "TOPHERLICIOUS":
+        case "WHOSYOURDADDY":
+          msg.channel.sendMessage(
+            choose([
+              'Paging',
+              'Get in here',
+              'Come in',
+              'Oi, where are ya',
+              'Where art thou',
+              'You\'ve been summoned',
+              'Yo',
+              'Someone needs ya',
+              'You\'re presence is requested',
+              'For some reason, ' + msg.author.username + ' thinks you should be here',
+              msg.author.username + ' has summoned the great and all powerful'
+            ]) + ' <@144913457429348352>'
+          ).catch(err => console.log(err));
           msg.delete();
           break;
         case "QUACKQUACKQUACK":

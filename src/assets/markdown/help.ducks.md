@@ -18,4 +18,7 @@ Send a message that starts with 🎁 💀 and watch the magic happen.
 
 **You can toggle the streamy role in like, a bunch of ways**
 Anyone can actually toggle the streamy role in a bunch of ways: `!role streamy`, `!streamy`, `!streamwatcher`, `!letmewatchsomestreams`, `!allaboardthestreamboat`, and `!melikeystream`.
+
+**You can ping topherlicious using a bot command**
+Topherlicious is pingable by anyone with any of the following: `!toph`, `!tophy`, `!tophie`, `!topher`, `!topherlicious`, and `!whosyourdaddy`.
 +++++++++++++++++++++++++++++++
