@@ -4,9 +4,13 @@ const assemble = function(msg, args) {
       if (args.length === 1) {
         if (msg.guild) {
           let ducks = msg.guild.roles.find('name', 'rubber duckies');
+          let artducks = msg.guild.roles.find('name', 'art duckies');
           ducks.setMentionable(true).then(r => {
-            msg.channel.sendMessage(`${r} assemble!`).then(m => {
-              r.setMentionable(false).catch(console.error);
+            artducks.setMentionable(true).then(a => {
+              msg.channel.sendMessage(`${r} ${a} assemble!`).then(m => {
+                r.setMentionable(false).catch(console.error);
+                a.setMentionable(false).catch(console.error);
+              }).catch(console.error);
             }).catch(console.error);
           }).catch(console.error);
         }
