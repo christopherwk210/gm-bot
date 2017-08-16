@@ -7,7 +7,7 @@ const assemble = function(msg, args) {
           let artducks = msg.guild.roles.find('name', 'art duckies');
           ducks.setMentionable(true).then(r => {
             artducks.setMentionable(true).then(a => {
-              msg.channel.sendMessage(`${r} ${a} assemble!`).then(m => {
+              msg.channel.sendMessage(`${r} and ${a} assemble!`).then(m => {
                 r.setMentionable(false).catch(console.error);
                 a.setMentionable(false).catch(console.error);
               }).catch(console.error);
