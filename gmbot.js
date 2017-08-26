@@ -163,6 +163,12 @@ bot.on('message', msg => {
 		msg.react('🇲').then(() => {
 			msg.react('Ⓜ').catch(console.error);
 		}, () => {});
+	} else if (msg.content.toUpperCase() === 'HMM') {
+		msg.react('🇭').then(() => {
+			msg.react('🇲').then(() => {
+				msg.react('Ⓜ').catch(console.error);
+			}, () => {});
+		}, () => {});
 	}
 
 	if (msg.content.indexOf('🎁 💀') === 0) {
