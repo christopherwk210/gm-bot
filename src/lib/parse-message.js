@@ -11,6 +11,7 @@ const birthday = require('./birthday');
 const streamer = require('./streamer');
 const giveAways = require('./giveAwayLib.js');
 const assemble = require('./assemble');
+const cmm = require('./commandment');
 
 // Project data
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
@@ -130,6 +131,10 @@ const run = function (msg) {
               msg.author.username + ' has summoned the great and all powerful'
             ]) + ' <@144913457429348352>'
           ).catch(err => console.log(err));
+          msg.delete();
+          break;
+        case "COMMANDMENT":
+          cmm.run(msg, args);
           msg.delete();
           break;
         case "QUACKQUACKQUACK":
