@@ -18,18 +18,14 @@ Hi, I'm GameMakerBot. Here are my available commands:
 !commandment - outputs a GIF version of one of Pixelated Pope's GameMaker commandments
                usage: !commandment [roman numeral | "list"]
                Using "list" will DM you a list of available commandments
-               example: !commandment I
                example: !commandment XII
                example: !commandment list
 
 You can also toggle the streamy role by typing '!streamy' (without quotes).
 ```
-
 **This is how you add code blocks to your messages in Discord:**
 \`\`\`
-if (condition) {
-  perform_action();
-}
+if (condition) { perform_action(); }
 \`\`\`
 
 I can also assist you with your code formatting and auto generate GMLive snippets for you:
