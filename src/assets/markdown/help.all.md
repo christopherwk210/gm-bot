@@ -1,21 +1,28 @@
 Hi, I'm GameMakerBot. Here are my available commands:
 ```
-!help      - outputs this message
+!help        - outputs this message
 
-!role      - toggles a role on and off
-             usage: !role [role]
-             available roles: 'voip', 'streamy'
+!role        - toggles a role on and off
+               usage: !role [role]
+               available roles: 'voip', 'streamy'
+
+!resources   - outputs a list of trusted resources to assist with your GameMaker Studio journey
+
+!docs        - outputs the URL to the documentation of a GML function
+               usage: !docs [function_name] [optional: version]
+               available versions: 'gms1','gms2'; defaults to 'gms2'
+               example: !docs draw_sprite
+               example: !docs draw_sprite gms2
+               example: !docs draw_sprite gms1
+
+!commandment - outputs a GIF version of one of Pixelated Pope's GameMaker commandments
+               usage: !commandment [roman numeral | "list"]
+               Using "list" will DM you a list of available commandments
+               example: !commandment I
+               example: !commandment XII
+               example: !commandment list
 
 You can also toggle the streamy role by typing '!streamy' (without quotes).
-
-!resources - outputs a list of trusted resources to assist with your GameMaker Studio journey
-
-!docs      - outputs the URL to the documentation of a GML function
-             usage: !docs [function_name] [optional: version]
-             available versions: 'gms1','gms2'; defaults to 'gms2'
-             example: !docs draw_sprite
-             example: !docs draw_sprite gms2
-             example: !docs draw_sprite gms1
 ```
 
 **This is how you add code blocks to your messages in Discord:**

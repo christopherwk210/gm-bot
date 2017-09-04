@@ -1,3 +1,6 @@
+const fs = require("fs");
+const commandmentList = fs.readFileSync('./src/assets/markdown/commandments.md', 'utf8');
+
 function fromRoman(str) {
   var result = 0;
   var decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
@@ -12,8 +15,13 @@ function fromRoman(str) {
 }
 
 const run = function(msg, args) {
-  if ((msg.member) && (msg.member.roles)) {
     if (args[1]) {
+
+        if (args[1] === 'list') {
+            msg.author.sendMessage(commandmentList)
+            return;
+        }
+
         var numeral = fromRoman(args[1]);
         switch(numeral) {
             case 1:
@@ -63,10 +71,6 @@ const run = function(msg, args) {
                 break;
         }
     }
-  } else {
-    msg.author.sendMessage('This function is not applicable outside of the /r/GameMaker server.');
-  }
-
 };
 
 module.exports.run = run;
