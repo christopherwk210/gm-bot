@@ -30,6 +30,7 @@ rules = [
   {
     matches: ['welcome'],
     prefix: prefix,
+    position: 0,
     exact: false,
     delete: true,
     action: msg => {
@@ -42,6 +43,14 @@ rules = [
         }
       }).catch(() => {});
     }
+  },
+  {
+    matches: ['resources'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: handleResources
   },
   // Easter egg rules
   {
@@ -99,10 +108,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "RESOURCES":
-        handleResources.run(msg, args);
-        msg.delete();
-        break;
       case "BIRTHDAY":
         //birthday.run(msg, args);
         //msg.delete();

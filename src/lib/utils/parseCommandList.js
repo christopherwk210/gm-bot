@@ -41,8 +41,11 @@ module.exports = function(commandList, msg) {
       } else {
         // Match command position or anywhere by default
         if (command.position ? messageContent.indexOf(match) === command.position : messageContent.indexOf(match) !== -1) {
-          // Execute command action
-          command.action(msg);
+          // Get command arguments
+          let args = messageContent.split(" ");
+
+          // Execute command action and pass potential command args
+          command.action(msg, args);
 
           // Delete message if specified
           if (command.delete) {
