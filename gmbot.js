@@ -5,6 +5,21 @@ const bot = new Discord.Client();
 // Node libs
 const fs = require("fs");
 
+// Project libs
+const pm = require('./src/lib/pm');
+const parseMessage = require('./src/lib/parse-message');
+const prettifier = require('./src/lib/prettifier');
+const gmlive = require('./src/lib/gmlive');
+const express = require('./src/express/express');
+const adkVoice = require('./src/lib/voipUsage.js');
+const adkProfile = require('./src/lib/profile.js');
+const giveAways = require('./src/lib/giveAwayLib.js');
+
+// Project  data
+const ids = require('./src/assets/json/ids.json');
+const badlinks = require('./src/assets/json/bad-links.json');
+const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
+
 // Database setup
 const Datastore = require('nedb');
 let db = {};
@@ -39,21 +54,6 @@ db.profile = new Datastore({
 	}
 });
 
-// Project libs
-const pm = require('./src/lib/pm');
-const parseMessage = require('./src/lib/parse-message');
-const prettifier = require('./src/lib/prettifier');
-const gmlive = require('./src/lib/gmlive');
-const express = require('./src/express/express');
-const adkVoice = require('./src/lib/voipUsage.js');
-const adkProfile = require('./src/lib/profile.js');
-const giveAways = require('./src/lib/giveAwayLib.js');
-
-// Project  data
-const ids = require('./src/assets/json/ids.json');
-const badlinks = require('./src/assets/json/bad-links.json');
-const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
-
 // Store roles
 let roles;
 
@@ -77,7 +77,7 @@ var auth;
 try {
 	auth = require("./src/assets/json/auth.json");
 } catch (e){
-	console.log("No auth.json found. Please see auth.example.json.\n"+e.stack);
+	console.log("No auth.json found. Please see /src/assets/auth.example.json.\n"+e.stack);
 	process.exit();
 }
 

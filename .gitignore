@@ -1,6 +1,16 @@
+# No node modules!
 node_modules/
+
+# No Logs!
 npm-debug.log
 logs/
+
+# Get this shit outta here!
 .DS_Store
+
+# Don't put the databases online!
 /src/data/
 *.db
+
+# Keep my auth outta the web!
+/src/assets/json/auth.json
