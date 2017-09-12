@@ -13,7 +13,7 @@ const gmlive = require('./src/lib/modifiers/gmlive.js');
 const express = require('./src/express/express.js');
 const logVoip = require('./src/lib/logging/voipLog.js');
 const logPresence = require('./src/lib/logging/presenceLog.js');
-const parseCommandList = require('./src/utils/parseCommandList.js');
+const parseCommandList = require('./src/lib/utils/parseCommandList.js');
 
 // Project data
 const ids = require('./src/assets/json/ids.json');
