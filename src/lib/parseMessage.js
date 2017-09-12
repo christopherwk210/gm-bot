@@ -60,6 +60,36 @@ rules = [
     delete: true,
     action: roleControl
   },
+  {
+    matches: ['help'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: msg => {
+      let command = "all";
+      
+      // Determine the correct help message to deliver
+      if ((msg.member) && (msg.member.roles)) {
+        if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins')) {
+          command = 'admins';
+        } else if (msg.member.roles.find('name', 'rubber duckies')) {
+          command = 'ducks';
+        }
+      }
+
+      // Deliver the proper message
+      switch (command) {
+        case 'admins':
+          msg.author.sendMessage(help.admins).catch(() => {});
+        case 'ducks':
+          msg.author.sendMessage(help.ducks).catch(() => {});
+        case "all":
+          msg.author.sendMessage(help.all).catch(() => {});
+          break;
+      }
+    }
+  },
   // Easter egg rules
   {
     matches: ['mm'],
@@ -116,31 +146,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "HELP":
-        let command = "all";
-
-        if ((msg.member) && (msg.member.roles)) {
-          if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins')) {
-            command = 'admins';
-          } else if (msg.member.roles.find('name', 'rubber duckies')) {
-            command = 'ducks';
-          }
-        }
-
-        switch (command) {
-          case 'admins':
-            msg.author.sendMessage(help.admins)
-            .catch(err => console.log(err));
-          case 'ducks':
-            msg.author.sendMessage(help.ducks)
-            .catch(err => console.log(err));
-          case "all":
-            msg.author.sendMessage(help.all)
-            .catch(err => console.log(err));
-            break;
-        }
-        msg.delete();
-        break;
       case "DOC":
       case "DOCS":
         docs.control.run(msg, args);
