@@ -52,6 +52,14 @@ rules = [
     delete: true,
     action: handleResources
   },
+  {
+    matches: ['role'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: roleControl.toggleRole
+  },
   // Easter egg rules
   {
     matches: ['mm'],
@@ -108,10 +116,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "BIRTHDAY":
-        //birthday.run(msg, args);
-        //msg.delete();
-        break;
       case "HELP":
         let command = "all";
 
@@ -135,10 +139,6 @@ module.exports = function (msg) {
             .catch(err => console.log(err));
             break;
         }
-        msg.delete();
-        break;
-      case "ROLE":
-        roleControl.control.toggleRole(msg, args.slice(1));
         msg.delete();
         break;
       case "DOC":

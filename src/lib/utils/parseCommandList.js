@@ -7,6 +7,9 @@ module.exports = function(commandList, msg) {
   let messageContent = msg.content;
   let success = false;
 
+  // Get command arguments
+  let args = messageContent.split(" ");
+
   // Iterate over commands
   commandList.some(command => {
     command.matches.some(currentMatch => {
@@ -41,9 +44,6 @@ module.exports = function(commandList, msg) {
       } else {
         // Match command position or anywhere by default
         if (command.position ? messageContent.indexOf(match) === command.position : messageContent.indexOf(match) !== -1) {
-          // Get command arguments
-          let args = messageContent.split(" ");
-
           // Execute command action and pass potential command args
           command.action(msg, args);
 
