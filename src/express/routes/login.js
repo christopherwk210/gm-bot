@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const key = require('../static/key.json');
-const adminUsage = require('../../lib/adminUsage');
+const adminUsage = require('../lib/adminUsage');
 
 module.exports = function(app, db) {
   app.post('//login', function (req, res) {

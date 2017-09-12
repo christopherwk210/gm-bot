@@ -2,7 +2,7 @@
 const fs = require("fs");
 
 // Project libs
-const roleControl = require('./roleControl.js');
+const roleControl = require('./commands/roleControl.js');
 const docs = require('./commands/docs.js');
 const handleResources = require('./commands/resources.js');
 const streamer = require('./commands/streamer.js');

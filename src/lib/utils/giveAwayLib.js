@@ -24,10 +24,10 @@ fs.open(fpath,'r',function(err, fd){
 			if(err) {
 				console.log(err);
 			}
-      data = require('../data/giveAwaysData.json');
+      data = require('../../data/giveAwaysData.json');
 		});
 	} else {
-    data = require('../data/giveAwaysData.json');
+    data = require('../../data/giveAwaysData.json');
 	}
 });
 

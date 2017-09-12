@@ -1,4 +1,4 @@
-const adminUsage = require('../../lib/adminUsage');
+const adminUsage = require('../lib/adminUsage');
 
 module.exports = function(app, bot) {  
   app.post('//text_channel_message/:channelid', function (req, res) {

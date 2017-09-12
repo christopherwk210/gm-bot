@@ -1,4 +1,4 @@
-const adminUsage = require('../../lib/adminUsage');
+const adminUsage = require('../lib/adminUsage');
 
 module.exports = function(app, bot, dmLog) {
   app.get('//dm', function (req, res) {

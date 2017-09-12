@@ -1,6 +1,6 @@
 const Datastore = require('nedb');
 const bcrypt = require('bcrypt');
-const adminUsage = require('../../lib/adminUsage');
+const adminUsage = require('../lib/adminUsage');
 
 module.exports = function(app, db) {
   app.get('//admin_users', function (req, res) {
