@@ -1,7 +1,7 @@
 # GameMakerBot
 The bot used by the /r/GameMaker Discord server.
 
-# Bot Features
+## Bot Features
 
 - When new users join the server, the bot greets them with a welcome message
 - Can automatically apply jsbeautify rules to code posted with the `clean-code` language:
@@ -38,10 +38,19 @@ if (condition) { perform_action(); }<br>
 - Keeps a detailed (anonymous) log of online user presences
 - Has an integrated Express server to communicate with a custom front-end for admin use (which is closed source)
 
-# Development
+## Development
 To work on the source code locally:
 ```
 $ git clone https://bitbucket.org/christopherwk210/gm-bot
 $ cd gm-bot
 $ npm i
 ```
+
+If you wish to contribute, please fork this repo and submit a detailed pull-request. For questions and support, contact topherlicious#1378 on discord.
+
+## Contributors
+- topherlicious#1378
+- net8floz#3079
+- Minty Python#5626
+- Ariak#2124
+- Natesky9#2964 (in spirit)
