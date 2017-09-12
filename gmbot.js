@@ -7,7 +7,7 @@ const fs = require("fs");
 
 // Project libs
 const database = require('./src/lib/database.js');
-const parseMessage = require('./src/lib/parse-message.js');
+const parseMessage = require('./src/lib/parseMessage.js');
 const prettifier = require('./src/lib/modifiers/prettifier.js');
 const gmlive = require('./src/lib/modifiers/gmlive.js');
 const express = require('./src/express/express.js');
@@ -144,7 +144,7 @@ function onBotMessageUpdate(oldMsg, newMsg) {
 
 	// Catch clean-code and gmlive edits
 	if (!prettifier.clean(newMsg)) {
-		gmlive.read(newMsg);
+		gmlive(newMsg);
 	}
 }
 
@@ -153,31 +153,6 @@ function onBotMessageUpdate(oldMsg, newMsg) {
  * @param {Message} msg The created message
  */
 function onBotMessage(msg) {
-	// Don't respond to bots
-	if (msg.author.bot) {
-		return;
-	}
-
-	if (msg.content.toUpperCase() === 'MM') {
-		msg.react('🇲').then(() => {
-			msg.react('Ⓜ').catch(console.error);
-		}, () => {});
-	} else if (msg.content.toUpperCase() === 'HMM') {
-		msg.react('🇭').then(() => {
-			msg.react('🇲').then(() => {
-				msg.react('Ⓜ').catch(console.error);
-			}, () => {});
-		}, () => {});
-	}
-
-	if (msg.content.indexOf('🎁 💀') === 0) {
-		msg.channel.sendMessage('<@277615099034730506>').catch(console.error);
-	}
-
-	if (msg.content.indexOf('<@295327000372051968>') !== -1) {
-		msg.react('👋').catch(console.error);
-	}
-
 	// Intercept all DM's
 	if (msg.channel.type === 'dm') {
 		// Log this DM
@@ -188,7 +163,22 @@ function onBotMessage(msg) {
 	}
 
 	// Catch bad links
+	if (!catchBadMessages(msg)) {
+		// Parse message for commands or matches
+		if (!parseMessage(msg)) {
+			// If no command was hit, check for modifiers
+			prettifier(msg) || gmlive(msg);
+		}
+	}
+}
+
+/**
+ * Catches bad links as specified in the bad-links.json
+ * @param {Message} msg The discord message to parse
+ */
+function catchBadMessages(msg) {
 	if (new RegExp(badlinks.join("|")).test(msg.content)) {
+		// RED ALERT OH SHIT
 		console.log('Deleted a message containing a bad link.');
 
 		// Contact the dingus brigade
@@ -201,11 +191,10 @@ function onBotMessage(msg) {
 
 		// Publicly shame the dingus who did the dirty
 		msg.channel.sendMessage('Heads up! @' + msg.author.username + ' tried to post a malicious link. The admins have been made aware of this.');
+
+		return true;
 	} else {
-		parseMessage.run(msg);
-		if (!prettifier.clean(msg)) {
-			gmlive.read(msg);
-		}
+		return false;
 	}
 }
 
@@ -290,7 +279,7 @@ function handleImages(msg) {
 
 // Handle process-wide promise rejection
 process.on('unhandledRejection', (reason) => {
-  console.log('Unhandled promise.  Reason: ' + reason);
+  console.log('Unhandled promise: ' + reason);
 });
 
 // Handle process-wide uncaught exceptions

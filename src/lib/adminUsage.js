@@ -13,10 +13,12 @@ const log = function(user, time, message) {
 	let dir = path.join(__dirname, '..', '..', 'logs');
   let file = path.join(__dirname, '..', '..', 'logs', 'adminUsage.log');
 
+	// Make sure the file exists
 	if (!fs.existsSync(dir)){
 		fs.mkdirSync(dir);
 	}
 
+	// Write to it!
 	fs.writeFile(file, '--- Admin Usage Logs ---\n', { flag: 'wx' }, (err) => {
 		fs.appendFile(file, logString + '\n', function (err) {
 			if (err) {
