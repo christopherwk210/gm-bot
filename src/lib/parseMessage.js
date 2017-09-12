@@ -106,6 +106,14 @@ rules = [
     delete: true,
     action: giveAways.message
   },
+  {
+    matches: ['streamy', 'streamwatcher', 'letmewatchsomestreams', 'allaboardthestreamboat', 'melikeystream'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: streamer
+  },
   // Easter egg rules
   {
     matches: ['mm'],
@@ -162,14 +170,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "STREAMWATCHER":
-      case "STREAMY":
-      case "LETMEWATCHSOMESTREAMS":
-      case "ALLABOARDTHESTREAMBOAT":
-      case "MELIKEYSTREAM":
-        streamer.run(msg, args);
-        msg.delete();
-        break;
       case "TOPH":
       case "TOPHY":
       case "TOPHIE":
