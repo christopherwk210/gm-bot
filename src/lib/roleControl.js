@@ -14,6 +14,7 @@ module.exports = function(msg, args) {
   }
 
   let role = 'noone';
+  let roles = msg.guild.roles;
 
   // Ensure there is a role passed
   if (roleName[0]) {
