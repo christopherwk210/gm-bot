@@ -5,14 +5,18 @@ The bot used by the /r/GameMaker Discord server.
 - When new users join the server, the bot greets them with a welcome message
 - Can automatically apply jsbeautify rules to code posted with the `clean-code` language:
 
-\`\`\`clean-code<br>
-if (condition) { perform_action(); }<br>
+\`\`\`clean-code
+
+if (condition) { perform_action(); }
+
 \`\`\`
 
 - Can automatically generate a [GMLive](http://yal.cc/r/gml/) link when using the `gmlive` language:
 
-\`\`\`gmlive<br>
-if (condition) { perform_action(); }<br>
+\`\`\`gmlive
+
+if (condition) { perform_action(); }
+
 \`\`\`
 
 - Has a list of commands available to users:
