@@ -81,11 +81,11 @@ module.exports = [
       // Deliver the proper message
       switch (command) {
         case 'admins':
-          msg.author.sendMessage(help.admins).catch(() => {});
+          msg.author.send(help.admins).catch(() => {});
         case 'ducks':
-          msg.author.sendMessage(help.ducks).catch(() => {});
+          msg.author.send(help.ducks).catch(() => {});
         case "all":
-          msg.author.sendMessage(help.all).catch(() => {});
+          msg.author.send(help.all).catch(() => {});
           break;
       }
     }
@@ -129,7 +129,7 @@ module.exports = [
     exact: false,
     delete: true,
     action: msg => {
-      msg.channel.sendMessage(
+      msg.channel.send(
         choose([
           'Paging',
           'Come in',
@@ -158,7 +158,7 @@ module.exports = [
     exact: false,
     delete: true,
     action: msg => {
-      msg.channel.sendMessage(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(() => {});
+      msg.channel.send(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(() => {});
     }
   },
   {
@@ -186,7 +186,7 @@ module.exports = [
     matches: ['🎁 💀'],
     position: 0,
     action: msg => {
-      msg.channel.sendMessage('<@277615099034730506>').catch(() => {});
+      msg.channel.send('<@277615099034730506>').catch(() => {});
     }
   },
   {

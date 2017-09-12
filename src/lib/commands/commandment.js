@@ -27,7 +27,7 @@ module.exports = function(msg, args) {
     // If they want a list
     if (args[1] === 'list') {
       // Give it to 'em
-      msg.author.sendMessage(commandmentList);
+      msg.author.send(commandmentList);
       return;
     }
 
@@ -37,49 +37,49 @@ module.exports = function(msg, args) {
     // Switch on result and send the right gif
     switch(numeral) {
       case 1:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark');
+        msg.channel.send('https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark');
         break;
       case 2:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly');
+        msg.channel.send('https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly');
         break;
       case 3:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/ElderlyShadowyFishingcat');
+        msg.channel.send('https://gfycat.com/gifs/detail/ElderlyShadowyFishingcat');
         break;
       case 4:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/ThreadbareBareDonkey');
+        msg.channel.send('https://gfycat.com/gifs/detail/ThreadbareBareDonkey');
         break;
       case 5:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/MediocreYellowishHapuka');
+        msg.channel.send('https://gfycat.com/gifs/detail/MediocreYellowishHapuka');
         break;
       case 6:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/ExhaustedDistantCutworm');
+        msg.channel.send('https://gfycat.com/gifs/detail/ExhaustedDistantCutworm');
         break;
       case 7:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/FriendlyVengefulJackal');
+        msg.channel.send('https://gfycat.com/gifs/detail/FriendlyVengefulJackal');
         break;
       case 8:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/DishonestHorribleGopher');
+        msg.channel.send('https://gfycat.com/gifs/detail/DishonestHorribleGopher');
         break;
       case 9:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/UniformLiquidAlbacoretuna');
+        msg.channel.send('https://gfycat.com/gifs/detail/UniformLiquidAlbacoretuna');
         break;
       case 10:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/SparseRevolvingGavial');
+        msg.channel.send('https://gfycat.com/gifs/detail/SparseRevolvingGavial');
         break;
       case 11:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/LongAnchoredFlee');
+        msg.channel.send('https://gfycat.com/gifs/detail/LongAnchoredFlee');
         break;
       case 12:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/MiserablePhysicalKob');
+        msg.channel.send('https://gfycat.com/gifs/detail/MiserablePhysicalKob');
         break;
       case 13:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/IllustriousFinishedBernesemountaindog');
+        msg.channel.send('https://gfycat.com/gifs/detail/IllustriousFinishedBernesemountaindog');
         break;
       case 14:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/RapidDisfiguredDegus');
+        msg.channel.send('https://gfycat.com/gifs/detail/RapidDisfiguredDegus');
         break;
       case 15:
-        msg.channel.sendMessage('https://gfycat.com/gifs/detail/PiercingSatisfiedAoudad');
+        msg.channel.send('https://gfycat.com/gifs/detail/PiercingSatisfiedAoudad');
         break;
     }
   }

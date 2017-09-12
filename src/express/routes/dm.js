@@ -19,7 +19,7 @@ module.exports = function(app, bot, dmLog) {
     }
 
     bot.fetchUser(userId).then(user => {
-      user.sendMessage(message).then(msg => {
+      user.send(message).then(msg => {
 
         if (dmLog[user.username] !== undefined) {
           dmLog[user.username].message_id = msg.id;

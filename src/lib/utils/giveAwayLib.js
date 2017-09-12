@@ -140,13 +140,13 @@ let lib = {
   },
   reply_error: function(msg,err_msg){
     let reply = 'Signup Error: '+err_msg;
-    msg.author.sendMessage(reply)
+    msg.author.send(reply)
       .then(message => console.log('[GA] Error sent to User: '+ msg.author.username + ', userID: ' + msg.author.id + ', Error: '+ err_msg))
       .catch(console.error);
   },
   reply_success: function(msg,selectedGA){
     let reply = "Thank you for signing up for the " + selectedGA + " giveaway.";
-    msg.author.sendMessage(reply)
+    msg.author.send(reply)
       //.then(message => console.log('[GA] User: '+ msg.author.username + ', userID: ' + msg.author.id + ', signed up for '+ selectedGA))
       .catch(console.error);
   },

@@ -28,7 +28,7 @@ module.exports = function(msg) {
     res = res.replace(/(clean-code)/g, 'javascript\n');
 
     // Send it to the channel!
-    msg.channel.sendMessage(res)
+    msg.channel.send(res)
       .then(msg => console.log(`Sent message: ${msg.content}`))
       .catch(console.error);
 

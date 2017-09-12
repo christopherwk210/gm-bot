@@ -17,7 +17,7 @@ module.exports = function(app, bot) {
     let channels = bot.guilds.find('name','/r/GameMaker').channels.findAll('type', 'text');
     for (let i = 0; i < channels.length; i++) {
       if (channels[i].id === channelId) {
-        channels[i].sendMessage(message).then(msg => {
+        channels[i].send(message).then(msg => {
           // console.log(msg);
         }, err => console.log(err));
 

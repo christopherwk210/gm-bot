@@ -21,7 +21,7 @@ function run(msg, args) {
     version = args[2];
   } else if (args.length == 1) {
     // Throw on unsupplied function
-    msg.author.sendMessage('You did not include a function name. Type `!help` for help with commands.');
+    msg.author.send('You did not include a function name. Type `!help` for help with commands.');
     return;
   }
 
@@ -37,7 +37,7 @@ function run(msg, args) {
         helpUrlGMS1(msg, args[1]);
       } else {
         // Otherwise, provide the nopes
-        msg.author.sendMessage('`' + args[1] + '` was not a recognized GMS1 function. Type `!help` for help with commands.');
+        msg.author.send('`' + args[1] + '` was not a recognized GMS1 function. Type `!help` for help with commands.');
       }
       break;
   case 'GMS2':
@@ -47,12 +47,12 @@ function run(msg, args) {
       helpUrlGMS2(msg, args[1]);
     } else {
       // Otherwise, kick 'em to the curb
-      msg.author.sendMessage('`' + args[1] + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
+      msg.author.send('`' + args[1] + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
     }
     break;
   default:
     // What were they THINKING (invalid GMS version)
-    msg.author.sendMessage('`' + version + '` was not a valid option. Type `!help` for help with commands.');
+    msg.author.send('`' + version + '` was not a valid option. Type `!help` for help with commands.');
     break;
   }
 }
@@ -80,8 +80,8 @@ function helpUrlGMS2(msg, fn) {
         // If we find the function we're looking for
         if (SearchTitles[i] == fn) {
           // Provide it
-          msg.channel.sendMessage('Here\'s the GMS2 documentation for ' + fn).catch(() => {});
-          msg.channel.sendMessage(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i])).catch(() => {});
+          msg.channel.send('Here\'s the GMS2 documentation for ' + fn).catch(() => {});
+          msg.channel.send(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i])).catch(() => {});
 
           // Indiciate we found it
           found = true;
@@ -92,7 +92,7 @@ function helpUrlGMS2(msg, fn) {
       // If we haven't found jack...
       if (!found) {
         // Sorry pal
-        msg.author.sendMessage('`' + fn + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
+        msg.author.send('`' + fn + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
       }
     }));
   });
@@ -111,8 +111,8 @@ function helpUrlGMS1(msg, fn) {
     // If we match up with a function
     if (gms1.titles[i] == fn) {
       // Put together a URL and serve it on a silver platter
-      msg.channel.sendMessage('Here\'s the GMS1 documentation for ' + fn).catch(() => {});
-      msg.channel.sendMessage(encodeURI('http://docs.yoyogames.com/' + gms1.files[i])).catch(() => {});
+      msg.channel.send('Here\'s the GMS1 documentation for ' + fn).catch(() => {});
+      msg.channel.send(encodeURI('http://docs.yoyogames.com/' + gms1.files[i])).catch(() => {});
 
       // We struck gold, ma!
       found = true;
@@ -123,7 +123,7 @@ function helpUrlGMS1(msg, fn) {
   // No gold to be found
   if (!found) {
     // Tough luck
-    msg.author.sendMessage('`' + fn + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
+    msg.author.send('`' + fn + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
   }
 }
 

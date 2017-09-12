@@ -9,7 +9,7 @@ module.exports = function(msg, args) {
 
   // Ensure we aren't in DM
   if ((msg.guild === null) || (msg.guild === undefined)) {
-    msg.author.sendMessage('`!role` does not work inside direct messages.');
+    msg.author.send('`!role` does not work inside direct messages.');
     return;
   }
 
@@ -45,11 +45,11 @@ module.exports = function(msg, args) {
     case 'ducky':
       // lol
       let responses = ['Cute.  No.', 'Nice try.', 'No way.', 'Nope.'];
-      return msg.author.sendMessage(responses[Math.floor(Math.random() * responses.length)]);
+      return msg.author.send(responses[Math.floor(Math.random() * responses.length)]);
       break;
     case 'noone':
       // No dice, kid
-      msg.author.sendMessage('That is not a valid role');
+      msg.author.send('That is not a valid role');
       break;
     default:
       // Nothing?
@@ -63,13 +63,13 @@ module.exports = function(msg, args) {
         msg.member.removeRole(role);
 
         // Report it
-        msg.author.sendMessage('Role ' + role.name + ' was removed.');
+        msg.author.send('Role ' + role.name + ' was removed.');
       } else {
         // Otherwise, add it
         msg.member.addRole(role);
         
         // Tell em
-        msg.author.sendMessage('Role ' + role.name + ' has been granted.');
+        msg.author.send('Role ' + role.name + ' has been granted.');
       }
       break;
   }

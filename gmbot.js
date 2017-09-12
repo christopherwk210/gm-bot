@@ -129,7 +129,7 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
 
 		// Alert the peeps in charge of fixing it
 		responsibleUsers.forEach(user => {
-			user.sendMessage('GMBot encountered an error on voice status update:\n\n' + err);
+			user.send('GMBot encountered an error on voice status update:\n\n' + err);
 		});
 	}
 }
@@ -187,14 +187,14 @@ function catchBadMessages(msg) {
 
 		// Contact the dingus brigade
 		responsibleUsers.forEach(user => {
-			user.sendMessage('Deleted a message with a bad link. The person that posted it was ' + msg.author.username + '\nThe content of the message was:\n\n' + msg.content);
+			user.send('Deleted a message with a bad link. The person that posted it was ' + msg.author.username + '\nThe content of the message was:\n\n' + msg.content);
 		});
 
 		// Delete the uh-oh
 		msg.delete();
 
 		// Publicly shame the dingus who did the dirty
-		msg.channel.sendMessage('Heads up! @' + msg.author.username + ' tried to post a malicious link. The admins have been made aware of this.');
+		msg.channel.send('Heads up! @' + msg.author.username + ' tried to post a malicious link. The admins have been made aware of this.');
 
 		return true;
 	} else {
@@ -268,7 +268,7 @@ function handleImages(msg) {
 								msg.delete();
 
 								// Send them a DM notifying them of this issue
-								msg.author.sendMessage('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
+								msg.author.send('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
 							} else {
 								// The user hasn't uploaded more than allowed, so just increment their counter
 								imageOptions.imageLog[msg.author.id]++;
@@ -290,7 +290,7 @@ process.on('unhandledRejection', (reason) => {
 process.on('uncaughtException', (err) => {	
 	// Alert the folks behind the curtain
 	responsibleUsers.forEach(user => {
-		user.sendMessage('GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n' + err);
+		user.send('GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n' + err);
 	});
 });
 

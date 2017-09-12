@@ -17,17 +17,17 @@ module.exports = function(msg, args) {
       let user = msg.member.guild.members.get(id);
       if (user) {
         // Send them resources!
-        user.sendMessage(resources);
+        user.send(resources);
       } else {
         // Whoops, no member found
-        msg.author.sendMessage('An error occurred with your request... Did you mention a valid user?');
+        msg.author.send('An error occurred with your request... Did you mention a valid user?');
       }
     } else {
       // We don't want to send it to another user, send it to us
-      msg.author.sendMessage(resources);
+      msg.author.send(resources);
     }
   } else {
     // We can only mean ourselves!
-    msg.author.sendMessage(resources);
+    msg.author.send(resources);
   }
 };

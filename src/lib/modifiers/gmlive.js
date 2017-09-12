@@ -19,7 +19,7 @@ module.exports = function(msg) {
     var res = `${msg.author} Here's your GMLive link:\n ${url}\nTo run the snippet click the link and press "Run".`;
 
     // Send it to the channel!
-    msg.channel.sendMessage(res)
+    msg.channel.send(res)
         .then(msg => console.log(`Sent message: ${msg.content}`))
         .catch(console.error);
 
