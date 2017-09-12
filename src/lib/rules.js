@@ -21,12 +21,12 @@ const help = {
 
 // Project utils
 const choose = require('./utils/choose.js');
-const parseCommandList = require('./utils/parseCommandList.js');
 
+// We are a ! kinda server
 let prefix = '!';
 
 // Message rules
-rules = [
+module.exports = [
   {
     matches: ['welcome'],
     prefix: prefix,
@@ -196,17 +196,3 @@ rules = [
     }
   }
 ];
-
-/**
- * Handles all messages through the bot
- * @param {Message} msg The created message
- */
-module.exports = function (msg) {
-  // Don't respond to bots
-	if (msg.author.bot) {
-		return false;
-  }
-
-  // Parse message for rules
-  return parseCommandList(rules, msg);
-};

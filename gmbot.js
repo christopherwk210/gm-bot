@@ -7,12 +7,13 @@ const fs = require("fs");
 
 // Project libs
 const database = require('./src/lib/database.js');
-const parseMessage = require('./src/lib/parseMessage.js');
+const rules = require('./src/lib/rules.js');
 const prettifier = require('./src/lib/modifiers/prettifier.js');
 const gmlive = require('./src/lib/modifiers/gmlive.js');
 const express = require('./src/express/express.js');
 const logVoip = require('./src/lib/logging/voipLog.js');
 const logPresence = require('./src/lib/logging/presenceLog.js');
+const parseCommandList = require('./src/utils/parseCommandList.js');
 
 // Project data
 const ids = require('./src/assets/json/ids.json');
@@ -160,10 +161,15 @@ function onBotMessage(msg) {
 		handleImages(msg);
 	}
 
+	// Don't respond to bots
+	if (msg.author.bot) {
+		return false;
+  }
+
 	// Catch bad links
 	if (!catchBadMessages(msg)) {
 		// Parse message for commands or matches
-		if (!parseMessage(msg)) {
+		if (!parseCommandList(rules, msg)) {
 			// If no command was hit, check for modifiers
 			prettifier(msg) || gmlive(msg);
 		}
