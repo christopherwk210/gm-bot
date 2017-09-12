@@ -21,14 +21,16 @@ module.exports = function(msg, args) {
     if (alreadyHas) {
       // Remove it
       msg.member.removeRole(streamerRole).then(res => {
-        //console.log('add')
+        // Give it to 'em straight
+        msg.author.sendMessage(`You\'ve been granted the ${streamerRole.name} role!`)
       }, err => {
         //console.log(err)
       });
     } else {
       // Otherwise, add it
       msg.member.addRole( streamerRole ).then(res => {
-        //console.log('add');
+        // Spit it out
+        msg.author.sendMessage(`Your ${streamerRole.name} role has been removed!`)
       }, err => {
         //console.log(err);
       });
