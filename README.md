@@ -111,6 +111,28 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
                    // intended for front-end debugging only
 ```
 
+## Bot Rules
+All of the bot command rules are located in `./src/lib/rules.js` under `module.exports`. It is a large array of objects that define the rules for each command. The structure of each rule looks like this:
+
+```javascript
+{
+  matches: ['welcome'], // The text that the rule captures, in this case 'welcome'
+  prefix: prefix,       // The prefix to the match, optional. In this case, prefix == '!'
+  position: 0,          // Position to check for the match, 0 being the start
+                        // If position is not included, it will match anywhere in the string.
+  wholeMessage: false,  // If true, overrides position and compares the entire string instead
+                        // of searching for a substring
+  exact: false,         // If omitted or true, it will match case-sensitively
+  delete: true,         // Whether or not to delete a matched message (after calling the action)
+  action: msg => {      // Action is a callback that triggers when a match is hit,
+                        // passes msg and args, where msg === Discord message, and
+                        // args === command arguments split by a space character (' ')
+  }
+}
+```
+
+To add a command, append a new object to the array and define a valid rule. At the very minimum, you must include `matches` and `action`. Including *only* these two will result in a rule that matches anywhere in a message and **is** case sensitive.
+
 ## Contributors
 - topherlicious#1378
 - net8floz#3079
