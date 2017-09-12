@@ -1,8 +1,9 @@
-const validate = require('./validate.js');
 const vm = require('vm');
 const http = require('http');
 const concat = require('concat-stream');
-const gms1 = require('./searchdat-gms1');
+
+const gms1 = require('../docs/searchdat-gms1');
+const validate = require('../docs/validate.js');
 
 const control = {
     run: function (msg, args) {
