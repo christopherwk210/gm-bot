@@ -2,15 +2,14 @@
 const fs = require("fs");
 
 // Project libs
-const pm = require('./pm');
 const ids = require('../assets/json/ids.json');
 const roleControl = require('./roleControl.js');
 const docs = require('./commands/docs.js');
-const handleResources = require('./resources');
-const streamer = require('./streamer');
+const handleResources = require('./resources.j');
+const streamer = require('./streamer.j');
 const giveAways = require('./giveAwayLib.js');
-const assemble = require('./assemble');
-const cmm = require('./commandment');
+const assemble = require('./assemble.j');
+const cmm = require('./commandment.js');
 
 // Project data
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
