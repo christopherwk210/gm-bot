@@ -1,3 +1,6 @@
+/**
+ * This file helps look up proper GMS1 documentation URLS
+ */
 const SearchFiles = ["source/dadiospice/index.html",
     "source/dadiospice/000_using gamemaker/000_introduction.html",
     "source/dadiospice/000_using gamemaker/001_installation.html",

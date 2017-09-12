@@ -90,6 +90,14 @@ rules = [
       }
     }
   },
+  {
+    matches: ['docs', 'doc'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: docs.control.run
+  },
   // Easter egg rules
   {
     matches: ['mm'],
@@ -146,11 +154,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "DOC":
-      case "DOCS":
-        docs.control.run(msg, args);
-        msg.delete();
-        break;
       case "GIVEAWAY":
         giveAways.message(msg, args);
         msg.delete();
