@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const key = require('../static/key.json');
+const key = process.env.GMBOTAUTH;
 const adminUsage = require('../lib/adminUsage');
 
 module.exports = function(app, db) {

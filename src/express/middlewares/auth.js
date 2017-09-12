@@ -1,4 +1,4 @@
-const key = require('../static/key.json');
+const key = process.env.GMBOTAUTH;
 const jwt = require('jsonwebtoken');
 
 module.exports = function(req, res, next) {
