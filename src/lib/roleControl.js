@@ -39,9 +39,6 @@ module.exports = function(msg, args) {
     }
   }
 
-  // Determine proper role
-  let role = this.getRole(msg.guild.roles, roleName);
-
   // On role
   switch (role) {
     case 'ducky':
