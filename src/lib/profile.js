@@ -4,7 +4,7 @@
         code by ariak
 */
 
-const adkProfile = function(sc, db) { // server collection - singular!
+module.exports = function(sc, db) { // server collection - singular!
     let dataBlob = {
         timestamp: Date.now(),
         event: 'profile'
@@ -28,11 +28,9 @@ const adkProfile = function(sc, db) { // server collection - singular!
     // console.log(dataBlob);      // debug  
     db.profile.insert(dataBlob, function (err, newDoc) {
         if (err) {
-            console.log('adk could not save profile to database.');
+            console.log('Presence could not be saved to database.');
         } else {
-            console.log('Profile successfully logged by adk.');
+            console.log('Presence profile successfully logged.');
         }
     });
 }
-
-module.exports.adkProfile = adkProfile;

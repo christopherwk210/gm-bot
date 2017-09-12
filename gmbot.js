@@ -11,8 +11,8 @@ const parseMessage = require('./src/lib/parse-message');
 const prettifier = require('./src/lib/prettifier');
 const gmlive = require('./src/lib/gmlive');
 const express = require('./src/express/express');
-const adkVoice = require('./src/lib/voipUsage.js');
-const adkProfile = require('./src/lib/profile.js');
+const logVoip = require('./src/lib/voipUsage.js');
+const logPresence = require('./src/lib/profile.js');
 const giveAways = require('./src/lib/giveAwayLib.js');
 
 // Project data
@@ -80,11 +80,11 @@ function onBotReady() {
 	let guildCollection = bot.guilds.find('name','/r/GameMaker');
 
 	// Log user presence on startup
-	adkProfile.adkProfile(guildCollection, db);
+	logPresence(guildCollection, db);
 
 	// Begin logging on interval
 	profileInterval = setInterval(() => {
-		adkProfile.adkProfile(guildCollection, db);
+		logPresence(guildCollection, db);
 	}, profileInterval || 3600000);
 }
 
@@ -111,7 +111,7 @@ function onBotGuildMemberAdd(member) {
  */
 function onBotVoiceStateUpdate(oldMember, newMember) {
 	// Log voip data
-	adkVoice.adkVoice(oldMember, newMember, db);
+	logVoip(oldMember, newMember, db);
 	
 	// Attempt to add voip_text role
 	try {

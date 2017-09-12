@@ -15,7 +15,7 @@
  * @param {*} nm New member
  * @param {*} db Database reference
  */
-const adkVoice = function(om, nm, db) {
+module.exports = function(om, nm, db) {
     // console.log('voice event :' + om.selfMute + ":" + nm.selfMute + ':' + om.selfDeaf + ':' + nm.selfDeaf);   // debug: strange om.selfMute / Deaf behaviour
     if  (   !(om.selfMute !== nm.selfMute || om.selfDeaf !== nm.selfDeaf) ||                // exclude selfmute/death - read as 'dont act upon changes'
             typeof(om.selfMute) === 'undefined' || typeof(om.selfDeaf) === 'undefined' ) {  // see Note '!!!' 
@@ -56,12 +56,10 @@ const adkVoice = function(om, nm, db) {
         // console.log(dataBlob);      // debug
         db.voip.insert(dataBlob, function (err, newDoc) {
             if (err) {
-                console.log('adk could not save to database.');
+                console.log('Voip log could not save to database.');
             } else {
-                console.log('Voip stat successfully logged by adk.');
+                console.log('Voip stat successfully logged.');
             }
         });
     }
 }
-
-module.exports.adkVoice = adkVoice;
