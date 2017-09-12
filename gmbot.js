@@ -123,26 +123,35 @@ bot.on("voiceStateUpdate", (oldMember, newMember) => {
 	// Log voip usage
 	adkVoice.adkVoice(oldMember, newMember, db);
 	
+	// Attempt to add role
 	try {
+		// Determine they are a member and in the voip channel
 		if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes("voip")) {
+			// Fetch the proper role
 			var role = newMember.guild.roles.find("name", "voip");
+
+			// Add it
 			newMember.addRole(role);
 		}
 	} catch(e) {
+		// Something went wrong
 		console.log('An error occurred trying to auto-add the voip role on user joining the voip channel');
+
+		// Alert the peeps in charge of fixing it
 		users.forEach(user => {
 			user.sendMessage('GMBot encountered an error on voice status update:\n\n' + err);
 		});
 	}
 });
 
+// When a message is editted
 bot.on('messageUpdate', (oldmsg, newmsg) => {
 	// Don't respond to bots
 	if (newmsg.author.bot) {
 		return;
 	}
 
-	// Catch clean-code and gmlive
+	// Catch clean-code and gmlive edits
 	if (!prettifier.clean(newmsg)) {
 		gmlive.read(newmsg);
 	}
@@ -249,15 +258,16 @@ bot.on('message', msg => {
 	}
 });
 
-/**
-*	PROMISE REJECTION HANDLING
-*/
+// Handle process-wide promise rejection
 process.on('unhandledRejection', (reason) => {
   console.log('Unhandled promise.  Reason: ' + reason);
 });
 
+// Handle process-wide uncaught exceptions
 process.on('uncaughtException', (err) => {
-  console.log(err);
+	console.log(err);
+	
+	// Alert the folks behind the curtain
 	users.forEach(user => {
 		user.sendMessage('GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n' + err);
 	});
