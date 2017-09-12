@@ -21,35 +21,41 @@ const ids = require('./src/assets/json/ids.json');
 const badlinks = require('./src/assets/json/bad-links.json');
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 
+// Database setup
+let db = database.initializeDatabase();
+
+// Temp user storage
+let responsibleUsers = [];
+
+// Keep recent bot-dm log history in memory for the front-end
+let dmLog = {};
+
+// How often to log user presence
+let profileInterval = undefined;
+
+// Image upload limitting
+let imageOptions = {
+	imageLog: {
+		timers: []
+	},
+	imageCap: 3,							//3 images within
+	imageTimer: 1000 * 60 * 5 //5 minutes
+};
+
 // Auth token
 let auth;
 
 // Import authorization token
 try {
+	// Attempt to sync load auth.json
 	auth = require('./src/assets/json/auth.json');
 } catch (e) {
+	// Well shit, ya didn't read the instructions did ya?
 	console.log('No auth.json found. Please see /src/assets/auth.example.json.\n' + e.stack);
+
+	// Goodbye
 	process.exit();
 }
-
-// Database setup
-let db = database.initializeDatabase();
-
-// Temp user storage
-let users = [];
-
-// Keep dm log history in memory
-let dmLog = {};
-
-// Handles image upload limitting
-let imageLog = {
-	timers: []
-};
-imageCap = 3; 							//3 images within
-imageTimer = 1000 * 60 * 5 	//5 minutes
-
-// How often to log user presence
-let profileInterval = undefined;
 
 // Bot connected status
 bot.on('ready', () => {
@@ -58,12 +64,12 @@ bot.on('ready', () => {
 
 	// Fetch net8floz
 	bot.fetchUser(ids.net8floz).then(user => {
-		users.push(user);
+		responsibleUsers.push(user);
 	}, err => console.log(err));
 
 	// Fetch topherlicious
 	bot.fetchUser(ids.topherlicious).then(user => {
-		users.push(user);
+		responsibleUsers.push(user);
 	}, err => console.log(err));
 
 	// Grab our guild
@@ -110,7 +116,7 @@ bot.on("voiceStateUpdate", (oldMember, newMember) => {
 		console.log('An error occurred trying to auto-add the voip role on user joining the voip channel');
 
 		// Alert the peeps in charge of fixing it
-		users.forEach(user => {
+		responsibleUsers.forEach(user => {
 			user.sendMessage('GMBot encountered an error on voice status update:\n\n' + err);
 		});
 	}
@@ -191,17 +197,17 @@ bot.on('message', msg => {
 					attachments.forEach(attachment => {
 						if (attachment.height !== undefined) {
 							//User has uploaded an image
-							if ((imageLog[msg.author.id] === undefined) || (imageLog[msg.author.id] === 0)) {
-								imageLog[msg.author.id] = 1;
-								imageLog.timers[msg.author.id] = setTimeout(() => {
-									imageLog[msg.author.id] = 0;
-								}, imageTimer);
+							if ((imageOptions.imageLog[msg.author.id] === undefined) || (imageOptions.imageLog[msg.author.id] === 0)) {
+								imageOptions.imageLog[msg.author.id] = 1;
+								imageOptions.imageLog.timers[msg.author.id] = setTimeout(() => {
+									iimageOptions.mageLog[msg.author.id] = 0;
+								}, imageOptions.imageTimer);
 							} else {
-								if (imageLog[msg.author.id] >= imageCap) {
+								if (imageOptions.imageLog[msg.author.id] >= imageOptions.imageCap) {
 									msg.delete();
 									msg.author.sendMessage('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
 								} else {
-									imageLog[msg.author.id]++;
+									imageOptions.imageLog[msg.author.id]++;
 								}
 							}
 						}
@@ -240,7 +246,7 @@ process.on('uncaughtException', (err) => {
 	console.log(err);
 	
 	// Alert the folks behind the curtain
-	users.forEach(user => {
+	responsibleUsers.forEach(user => {
 		user.sendMessage('GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n' + err);
 	});
 });
