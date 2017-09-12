@@ -7,7 +7,6 @@ const fs = require("fs");
 
 // Project libs
 const database = require('./src/lib/database.js');
-const pm = require('./src/lib/pm');
 const parseMessage = require('./src/lib/parse-message');
 const prettifier = require('./src/lib/prettifier');
 const gmlive = require('./src/lib/gmlive');
