@@ -1,3 +1,9 @@
+/**
+ * The purpose of the this tool is to populate the admin database with
+ * a sample admin with the name 'admin' and password 'password'. This
+ * is only intended to be used with the front-end application for the bot.
+ */
+
 // Imports
 const bcrypt = require('bcrypt');
 const Datastore = require('nedb');
