@@ -40,7 +40,6 @@ db.profile = new Datastore({
 });
 
 // Project libs
-const detectRole = require('./src/lib/detectRole');
 const pm = require('./src/lib/pm');
 const parseMessage = require('./src/lib/parse-message');
 const prettifier = require('./src/lib/prettifier');
