@@ -15,10 +15,19 @@ const adkVoice = require('./src/lib/voipUsage.js');
 const adkProfile = require('./src/lib/profile.js');
 const giveAways = require('./src/lib/giveAwayLib.js');
 
-// Project  data
+// Project data
 const ids = require('./src/assets/json/ids.json');
 const badlinks = require('./src/assets/json/bad-links.json');
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
+
+// Import authorization token
+var auth;
+try {
+	auth = require("./src/assets/json/auth.json");
+} catch (e){
+	console.log("No auth.json found. Please see /src/assets/auth.example.json.\n"+e.stack);
+	process.exit();
+}
 
 // Database setup
 const Datastore = require('nedb');
@@ -54,9 +63,6 @@ db.profile = new Datastore({
 	}
 });
 
-// Store roles
-let roles;
-
 // Temp user storage
 let users = [];
 
@@ -70,38 +76,34 @@ let imageLog = {
 imageCap = 3; 							//3 images within
 imageTimer = 1000 * 60 * 5 	//5 minutes
 
+// How often to log user presence
 let profileInterval = undefined;
-
-// Import authorization token
-var auth;
-try {
-	auth = require("./src/assets/json/auth.json");
-} catch (e){
-	console.log("No auth.json found. Please see /src/assets/auth.example.json.\n"+e.stack);
-	process.exit();
-}
 
 // Bot connected status
 bot.on('ready', () => {
+	// Tell the world our feelings
 	console.log("Squaring to go, captain.");
 
-	// Fetch net and toph
+	// Fetch net8floz
 	bot.fetchUser(ids.net8floz).then(user => {
 		users.push(user);
 	}, err => console.log(err));
 
+	// Fetch topherlicious
 	bot.fetchUser(ids.topherlicious).then(user => {
 		users.push(user);
 	}, err => console.log(err));
 
+	// Grab our guild
 	let guildCollection = bot.guilds.find('name','/r/GameMaker');
 
-	if (profileInterval === undefined) {
+	// Log user presence on startup
+	adkProfile.adkProfile(guildCollection, db);
+
+	// Begin logging on interval
+	profileInterval = setInterval(() => {
 		adkProfile.adkProfile(guildCollection, db);
-		profileInterval = setInterval(() => {
-			adkProfile.adkProfile(guildCollection, db);
-		}, 3600000);
-	}
+	}, profileInterval || 3600000);
 });
 
 // Send welcome message to new members
