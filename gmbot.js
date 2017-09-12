@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 const fs = require("fs");
 
 // Project libs
-const database = require('./src/lib/database.js');
+const database = require('./src/lib/utils/database.js');
 const rules = require('./src/lib/rules.js');
 const prettifier = require('./src/lib/modifiers/prettifier.js');
 const gmlive = require('./src/lib/modifiers/gmlive.js');

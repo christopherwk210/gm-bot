@@ -2,7 +2,6 @@
 The bot used by the /r/GameMaker Discord server.
 
 ## Bot Features
-
 - When new users join the server, the bot greets them with a welcome message
 - Can automatically apply jsbeautify rules to code posted with the `clean-code` language:
 
@@ -47,6 +46,70 @@ $ npm i
 ```
 
 If you wish to contribute, please fork this repo and submit a detailed pull-request. For questions and support, contact topherlicious#1378 on discord.
+
+## Project Overview
+The main entry point of the project is `./gmbot.js`. This file sets up initial callbacks for the Discord API and initializes database connections for logging features. Beyond that, the structure is as follows:
+
+```
+.
+├── assets                     // Holds all non-javascript assets
+│   │
+│   ├── json                     // JSON assets
+│   │   ├── auth.example.json    // Template for creating your own with proper discord key
+│   │   ├── bad-links.json       // URL blacklist
+│   │   ├── ids.json             // ID's of users who are messaged when bot errors
+│   │   └── jsbeautify.json      // jsbeautify rules for clean-code
+│   │
+│   └── markdown               // Markdown assets
+│       ├── commandments.md      // Commandment list
+│       ├── help.admins.md       // Help message for admins only
+│       ├── help.all.md          // Help message for all users
+│       ├── help.ducks.md        // Help message for duckies and up
+│       ├── resources.md         // Resources list
+│       └── welcome.md           // Welcome message
+│
+├── data                       // Holds database flat-files during runtime
+│
+├── express  // Holds data related to the integrated express server,
+│            // which generally should *not* be explored by those
+│            // interested in contributing. These files are responsible
+│            // for communicating with a custom front-end meant for
+│            // admin use only.
+│
+├── lib                      // The meat of the bot is in here!
+│   │
+│   ├── commands               // These files are responsible for single bot commands
+│   │   ├── assemble.js          // Responsible for `!assemble`
+│   │   ├── commandment.js       // Responsible for `!commandment`
+│   │   ├── docs.js              // Responsible for `!docs`
+│   │   ├── resources.js         // Responsible for `!resources`
+│   │   ├── roleControl.js       // Responsible for `!role`
+│   │   └── streamer.js          // Responsible for `!streamy`
+│   │
+│   ├── docs                   // Extra scripts that help the `!docs` command
+│   │   ├── searchdat-gms1.js    // Contains valid GMS1 documentation urls
+│   │   └── validate.js          // Validates GML functions for GMS1 and 2
+│   │
+│   ├── logging                // Related to server logs
+│   │   ├── presenceLog.js       // Logs anon online user presence
+│   │   └── voipLog.js           // Logs voice channel activity
+│   │
+│   ├── modifiers              // Code block parsers
+│   │   ├── gmlive.js            // GMLive code block parsing
+│   │   └── prettifier.js        // clean-code block parsing   
+│   │
+│   ├── rules.js               // Contains all bot message matching rules
+│   │
+│   └── utils                  // Contains pure helper functionality
+│       ├── choose.js            // Simple random array picker function
+│       ├── database.js          // Database init function
+│       ├── giveAwayLib.js       // Handles give away accessing, `!giveaway`
+│       └── parseCommandList.js  // Parses command rule list
+│
+└── tools        // Contains build tools
+    └── seed.js    // Simple node tool to seed the admin DB with sample user,
+                   // intended for front-end debugging only
+```
 
 ## Contributors
 - topherlicious#1378
