@@ -14,7 +14,7 @@ module.exports = function(commandList, msg) {
 
       // Use prefix if specified
       if (command.prefix) {
-        match = prefix + match;
+        match = command.prefix + match;
       }
       
       // Move everything to uppercase if we don't care about exact matching
