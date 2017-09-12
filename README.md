@@ -45,7 +45,9 @@ $ cd gm-bot
 $ npm i
 ```
 
-If you wish to contribute, please fork this repo and submit a detailed pull-request. For questions and support, contact topherlicious#1378 on discord.
+If you wish to contribute, please fork this repo and submit a detailed and clean pull-request. If you want to add new features or commands, please ask topherlicious#1378 or any of the other admins before you start development.
+
+For questions and support, contact topherlicious#1378 on discord.
 
 ## Project Overview
 The main entry point of the project is `./gmbot.js`. This file sets up initial callbacks for the Discord API and initializes database connections for logging features. Beyond that, the structure is as follows:
@@ -74,7 +76,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │            // which generally should *not* be explored by those
 │            // interested in contributing. These files are responsible
 │            // for communicating with a custom front-end meant for
-│            // admin use only.
+│            // admin use only and is, frankly, not cleanly kept.
 │
 ├── lib                      // The meat of the bot is in here!
 │   │
