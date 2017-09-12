@@ -160,10 +160,6 @@ function onBotMessage(msg) {
 		return;
 	}
 
-	if (msg.author.username === 'AndrewBGM') {
-		//msg.react('😩').catch(console.error);
-	}
-
 	if (msg.content.toUpperCase() === 'MM') {
 		msg.react('🇲').then(() => {
 			msg.react('Ⓜ').catch(console.error);
@@ -234,17 +230,20 @@ function onBotMessage(msg) {
 		}
 	}
 
-	// Find bad links
+	// Catch bad links
 	if (new RegExp(badlinks.join("|")).test(msg.content)) {
-		console.log("Deleted a message containing a bad link.");
+		console.log('Deleted a message containing a bad link.');
 
-		// PM USERS ABOUT BAD LINK
-		/*
-		 * To add users that will be pmd, add their numerical id to ids.json, then copy the following line, replacing 'mintypython' with the username in the json.
-		 */
-		pm.pm(ids.net8floz, msg, "Deleted a message with a bad link.  The person that posted it was "+msg.author.username+".  The content of the message was:\n\n"+msg.content);
+		// Contact the dingus brigade
+		responsibleUsers.forEach(user => {
+			user.sendMessage('Deleted a message with a bad link. The person that posted it was ' + msg.author.username + '\nThe content of the message was:\n\n' + msg.content);
+		});
+
+		// Delete the uh-oh
 		msg.delete();
-		msg.channel.sendMessage("Heads up! @" + msg.author.username + " tried to post a malicious link. A log of this event has been recorded.");
+
+		// Publicly shame the dingus who did the dirty
+		msg.channel.sendMessage('Heads up! @' + msg.author.username + ' tried to post a malicious link. The admins have been made aware of this.');
 	} else {
 		parseMessage.run(msg);
 		if (!prettifier.clean(msg)) {
