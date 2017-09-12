@@ -46,7 +46,6 @@ eggs = [
   },
   {
     matches: ['🎁 💀'],
-    exact: false,
     position: 0,
     action: msg => {
       msg.channel.sendMessage('<@277615099034730506>');
@@ -54,8 +53,6 @@ eggs = [
   },
   {
     matches: ['<@295327000372051968>'],
-    exact: false,
-    position: -1,
     action: msg => {
       msg.react('👋');
     }

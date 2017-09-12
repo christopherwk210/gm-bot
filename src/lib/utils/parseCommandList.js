@@ -5,7 +5,7 @@
  */
 module.exports = function(commandList, msg) {
   let messageContent = msg.content;
-  let success;
+  let success = false;
 
   // Iterate over commands
   commandList.some(command => {
@@ -18,7 +18,7 @@ module.exports = function(commandList, msg) {
       }
       
       // Move everything to uppercase if we don't care about exact matching
-      if (!command.exact) {
+      if ((command.exact !== undefined) && (!command.exact)) {
         messageContent = messageContent.toUpperCase();
         match = match.toUpperCase();
       }
@@ -35,9 +35,7 @@ module.exports = function(commandList, msg) {
         }
       } else {
         // Match command position or anywhere by default
-        let position = command.position || -1;
-
-        if (messageContent.indexOf(match) === position) {
+        if (command.position ? messageContent.indexOf(match) === command.position : messageContent.indexOf(match) !== -1) {
           // Execute command action
           command.action(msg);
           
