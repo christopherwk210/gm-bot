@@ -29,6 +29,11 @@ module.exports = function(commandList, msg) {
           // Execute command action
           command.action(msg);
 
+          // Delete message if specified
+          if (command.delete) {
+            msg.delete();
+          }
+
           // Short circuit iteration
           return true;
           success = true;
@@ -38,6 +43,11 @@ module.exports = function(commandList, msg) {
         if (command.position ? messageContent.indexOf(match) === command.position : messageContent.indexOf(match) !== -1) {
           // Execute command action
           command.action(msg);
+
+          // Delete message if specified
+          if (command.delete) {
+            msg.delete();
+          }
           
           // Short circuit iteration
           return true;
@@ -46,7 +56,7 @@ module.exports = function(commandList, msg) {
       }
     });
 
-    // Short circuit iteration
+    // Short circuit iteration if needed
     return success;
   });
 }

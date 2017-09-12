@@ -23,15 +23,35 @@ const help = {
 const choose = require('./utils/choose.js');
 const parseCommandList = require('./utils/parseCommandList.js');
 
-// Rules
-eggs = [
+let prefix = '!';
+
+// Message rules
+rules = [
+  {
+    matches: ['welcome'],
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: msg => {
+      msg.author.sendEmbed({
+        color: 26659,
+        description: welcome,
+        timestamp: new Date(),
+        footer: {
+          text: 'This is an automated message'
+        }
+      }).catch(() => {});
+    }
+  },
+  // Easter egg rules
   {
     matches: ['mm'],
     exact: false,
     wholeMessage: true,
     action: msg => {
       msg.react('🇲')
-        .then(msg.react('Ⓜ'));
+        .then(msg.react('Ⓜ'))
+        .catch(() => {});
     }
   },
   {
@@ -41,20 +61,21 @@ eggs = [
     action: msg => {
       msg.react('🇭')
         .then(msg.react('🇲'))
-        .then(msg.react('Ⓜ'));
+        .then(msg.react('Ⓜ'))
+        .catch(() => {});
     }
   },
   {
     matches: ['🎁 💀'],
     position: 0,
     action: msg => {
-      msg.channel.sendMessage('<@277615099034730506>');
+      msg.channel.sendMessage('<@277615099034730506>').catch(() => {});
     }
   },
   {
     matches: ['<@295327000372051968>'],
     action: msg => {
-      msg.react('👋');
+      msg.react('👋').catch(() => {});
     }
   }
 ];
@@ -69,7 +90,8 @@ module.exports = function (msg) {
 		return;
   }
 
-  parseCommandList(eggs, msg);
+  // Parse message for rules
+  parseCommandList(rules, msg);
   
   let prefix = "!";
   let args = msg.content.split(" ");
@@ -77,17 +99,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "WELCOME":
-        msg.author.sendEmbed({
-          color: 26659,
-          description: welcome,
-          timestamp: new Date(),
-          footer: {
-            text: 'This is an automated message'
-          }
-        }).catch(err => console.log(err));
-        msg.delete();
-        break;
       case "RESOURCES":
         handleResources.run(msg, args);
         msg.delete();
