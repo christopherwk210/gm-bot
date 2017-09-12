@@ -38,8 +38,8 @@ let imageOptions = {
 	imageLog: {
 		timers: []
 	},
-	imageCap: 3,							//3 images within
-	imageTimer: 1000 * 60 * 5 //5 minutes
+	imageCap: 3,							// 3 images within
+	imageTimer: 1000 * 60 * 5 // 5 minutes
 };
 
 // Auth token
@@ -182,52 +182,11 @@ function onBotMessage(msg) {
 
 	// Intercept all DM's
 	if (msg.channel.type === 'dm') {
-		if (dmLog[msg.author.username] === undefined) {
-			dmLog[msg.author.username] = {
-				user_id: msg.author.id,
-				message_id: msg.id,
-				new_message: msg.content,
-				messages: [
-					{
-						user: msg.author.username,
-						message: msg.content
-					}
-				]
-			}
-		} else {
-			dmLog[msg.author.username].message_id = msg.id;
-			dmLog[msg.author.username].new_message = msg.content;
-			dmLog[msg.author.username].messages.push({
-				user: msg.author.username,
-				message: msg.content
-			});
-		}
+		// Log this DM
+		handleDM(msg);
 	} else {
-		if (msg.member) {
-			if ((msg.member.highestRole === '@everyone') || (msg.member.highestRole === 'voip')) {
-				var attachments = msg.attachments.array();
-				if (attachments.length !== 0) {
-					attachments.forEach(attachment => {
-						if (attachment.height !== undefined) {
-							//User has uploaded an image
-							if ((imageOptions.imageLog[msg.author.id] === undefined) || (imageOptions.imageLog[msg.author.id] === 0)) {
-								imageOptions.imageLog[msg.author.id] = 1;
-								imageOptions.imageLog.timers[msg.author.id] = setTimeout(() => {
-									iimageOptions.mageLog[msg.author.id] = 0;
-								}, imageOptions.imageTimer);
-							} else {
-								if (imageOptions.imageLog[msg.author.id] >= imageOptions.imageCap) {
-									msg.delete();
-									msg.author.sendMessage('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
-								} else {
-									imageOptions.imageLog[msg.author.id]++;
-								}
-							}
-						}
-					});
-				}
-			}
-		}
+		// Check for image spam
+		handleImages(msg);
 	}
 
 	// Catch bad links
@@ -248,6 +207,85 @@ function onBotMessage(msg) {
 		parseMessage.run(msg);
 		if (!prettifier.clean(msg)) {
 			gmlive.read(msg);
+		}
+	}
+}
+
+/**
+ * Handles keeping track of the most recent DM's to the bot
+ * for use with the bot front-end
+ * @param {Message} msg The message that was sent
+ */
+function handleDM(msg) {
+	// If this user has not yet sent a message during this session
+	if (dmLog[msg.author.username] === undefined) {
+		// Take initial note of it under their name
+		dmLog[msg.author.username] = {
+			user_id: msg.author.id, 	// Their ID
+			message_id: msg.id,				// The message ID
+			new_message: msg.content,	// The newest message content
+			messages: [								// Log of old messages
+				{
+					user: msg.author.username,	// Author username
+					message: msg.content				// Message content
+				}
+			]
+		}
+	} else {
+		// The user has already sent a message during this session
+		dmLog[msg.author.username].message_id = msg.id;				// Record their ID (a little redundant)
+		dmLog[msg.author.username].new_message = msg.content; // Indicate the new message content
+		dmLog[msg.author.username].messages.push({						// Store this message with the rest
+			user: msg.author.username, // Author username
+			message: msg.content			 // Message content
+		});
+	}
+}
+
+/**
+ * Handles a user uploading too many images in a given time frame
+ * @param {Message} msg The message that was sent
+ */
+function handleImages(msg) {
+	// Be certain this was in a channel
+	if (msg.member) {
+		// If the user is no higher than a voip user
+		if ((msg.member.highestRole === '@everyone') || (msg.member.highestRole === 'voip')) {
+			// Get the attachments
+			var attachments = msg.attachments.array();
+
+			// If there are any
+			if (attachments.length !== 0) {
+				// Iterate over them
+				attachments.forEach(attachment => {
+					// Ensure the attachment is an image
+					if (attachment.height !== undefined) {
+						// If this user hasn't recently uploaded
+						if ((imageOptions.imageLog[msg.author.id] === undefined) || (imageOptions.imageLog[msg.author.id] === 0)) {
+							// Increase the allowance counter for this user
+							imageOptions.imageLog[msg.author.id] = 1;
+
+							// Reset this user's counter in a short period of time
+							imageOptions.imageLog.timers[msg.author.id] = setTimeout(() => {
+								// Reset the counter for this user
+								imageOptions.imageLog[msg.author.id] = 0;
+							}, imageOptions.imageTimer);
+						} else { // This user has recently uploaded
+							// If the user has uploaded more than allowed
+							if (imageOptions.imageLog[msg.author.id] >= imageOptions.imageCap) {
+								// Delete the message
+								msg.delete();
+
+								// Send them a DM notifying them of this issue
+								msg.author.sendMessage('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
+							} else {
+								// The user hasn't uploaded more than allowed, so just increment their counter
+								imageOptions.imageLog[msg.author.id]++;
+							}
+						}
+					}
+				});
+			}
 		}
 	}
 }
