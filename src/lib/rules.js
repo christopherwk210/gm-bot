@@ -6,7 +6,7 @@ const roleControl = require('./commands/roleControl.js');
 const docs = require('./commands/docs.js');
 const handleResources = require('./commands/resources.js');
 const streamer = require('./commands/streamer.js');
-const giveAways = require('./giveAwayLib.js');
+const giveAways = require('./utils/giveAwayLib.js');
 const assemble = require('./commands/assemble.js');
 const commandment = require('./commands/commandment.js');
 
