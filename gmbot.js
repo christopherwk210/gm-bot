@@ -8,12 +8,11 @@ const fs = require("fs");
 // Project libs
 const database = require('./src/lib/database.js');
 const parseMessage = require('./src/lib/parse-message.js');
-const prettifier = require('./src/lib/prettifier.js');
-const gmlive = require('./src/lib/gmlive.js');
+const prettifier = require('./src/lib/modifiers/prettifier.js');
+const gmlive = require('./src/lib/modifiers/gmlive.js');
 const express = require('./src/express/express.js');
 const logVoip = require('./src/lib/logging/voipLog.js');
 const logPresence = require('./src/lib/logging/presenceLog.js');
-const giveAways = require('./src/lib/giveAwayLib.js');
 
 // Project data
 const ids = require('./src/assets/json/ids.json');

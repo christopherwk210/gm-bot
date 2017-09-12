@@ -2,16 +2,16 @@
 const fs = require("fs");
 
 // Project libs
-const ids = require('../assets/json/ids.json');
 const roleControl = require('./roleControl.js');
 const docs = require('./commands/docs.js');
-const handleResources = require('./resources.j');
-const streamer = require('./streamer.j');
+const handleResources = require('./commands/resources.js');
+const streamer = require('./commands/streamer.js');
 const giveAways = require('./giveAwayLib.js');
-const assemble = require('./assemble.j');
-const cmm = require('./commandment.js');
+const assemble = require('./commands/assemble.js');
+const cmm = require('./commands/commandment.js');
 
 // Project data
+const ids = require('../assets/json/ids.json');
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 const help = {
   all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
