@@ -8,11 +8,13 @@ module.exports = function(msg, args) {
   if ((msg.member) && (msg.member.roles)) {
     let alreadyHas = false;
     let streamerRole;
+    let roleName;
 
     // Determine if we have the role
     msg.member.guild.roles.forEach(role => {
       if (role.name.indexOf('stream') !== -1) {
         streamerRole = role.id;
+        roleName = role.name;
         alreadyHas = msg.member.roles.exists('name', role.name);
       }
     });
@@ -22,15 +24,15 @@ module.exports = function(msg, args) {
       // Remove it
       msg.member.removeRole(streamerRole).then(res => {
         // Give it to 'em straight
-        msg.author.sendMessage(`You\'ve been granted the ${streamerRole.name} role!`)
+        msg.author.sendMessage(`You\'ve been granted the ${roleName} role!`)
       }, err => {
         //console.log(err)
       });
     } else {
       // Otherwise, add it
-      msg.member.addRole( streamerRole ).then(res => {
+      msg.member.addRole(streamerRole).then(res => {
         // Spit it out
-        msg.author.sendMessage(`Your ${streamerRole.name} role has been removed!`)
+        msg.author.sendMessage(`Your ${roleName} role has been removed!`)
       }, err => {
         //console.log(err);
       });
