@@ -58,7 +58,7 @@ rules = [
     prefix: prefix,
     exact: false,
     delete: true,
-    action: roleControl.toggleRole
+    action: roleControl
   },
   // Easter egg rules
   {
