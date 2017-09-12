@@ -5,10 +5,8 @@ const bot = new Discord.Client();
 // Node libs
 const fs = require("fs");
 
-// Third-party libs
-const Datastore = require('nedb');
-
 // Project libs
+const database = require('./src/lib/database.js');
 const pm = require('./src/lib/pm');
 const parseMessage = require('./src/lib/parse-message');
 const prettifier = require('./src/lib/prettifier');
@@ -23,59 +21,19 @@ const ids = require('./src/assets/json/ids.json');
 const badlinks = require('./src/assets/json/bad-links.json');
 const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 
+// Auth token
+let auth;
+
 // Import authorization token
-var auth;
 try {
-	auth = require("./src/assets/json/auth.json");
-} catch (e){
-	console.log("No auth.json found. Please see /src/assets/auth.example.json.\n"+e.stack);
+	auth = require('./src/assets/json/auth.json');
+} catch (e) {
+	console.log('No auth.json found. Please see /src/assets/auth.example.json.\n' + e.stack);
 	process.exit();
 }
 
 // Database setup
-let db = initializeDatabase();
-
-/**
- * Sets up database connections with nedb
- */
-function initializeDatabase() {
-	let db = {};
-
-	// Admin database
-	// Responsible for logging admin actions on the front-end
-	db.admins = new Datastore({
-		filename:'./src/data/admins.db',
-		autoload: true,
-		onload: function() {
-			// Auto compact every 12 hours
-			db.admins.persistence.setAutocompactionInterval(3600000 * 24);
-		}
-	});
-
-	// Voip log database
-	// Responsible for holding log information about voice channel activity
-	db.voip = new Datastore({
-		filename:'./src/data/voip.db',
-		autoload: true,
-		onload: function() {
-			// Auto compact every 4 hours
-			db.voip.persistence.setAutocompactionInterval(3600000 * 12);
-		}
-	});
-
-	// Presence log database
-	// Responsible for holding log information regarding server-wide user presence
-	db.profile = new Datastore({
-		filename:'./src/data/profile.db',
-		autoload: true,
-		onload: function() {
-			// Auto compact every 4 hours
-			db.voip.persistence.setAutocompactionInterval(3600000 * 24);
-		}
-	});
-
-	return db;
-}
+let db = database.initializeDatabase();
 
 // Temp user storage
 let users = [];
