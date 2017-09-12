@@ -20,7 +20,7 @@ module.exports = function(app, db) {
       if (err !== null) {
         console.log(err);
         res.status(500).send({
-          error: 'Server error'
+          error: 'Server error: ' + err
         });
       } else {
         if (docs === null) {
@@ -31,14 +31,14 @@ module.exports = function(app, db) {
           bcrypt.compare(password, docs.password, function(err, result) {
             if (err !== undefined) {
               res.status(500).send({
-                error: 'Server error'
+                error: 'Server error ' + err
               });
             } else {
               if (result) {
                 jwt.sign({ user: name }, key, { expiresIn: '24h' }, function(err, token) {
                   if (err) {
                     res.status(500).send({
-                      error: 'Server error'
+                      error: 'Server error ' + err
                     });
                   } else {
                     adminUsage.log(name, Date.now(), 'Logged in');
