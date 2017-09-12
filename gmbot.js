@@ -143,7 +143,7 @@ function onBotMessageUpdate(oldMsg, newMsg) {
 	if (newMsg.author.bot) { return; }
 
 	// Catch clean-code and gmlive edits
-	prettifier(msg) || gmlive(msg);
+	prettifier(newMsg) || gmlive(newMsg);
 }
 
 /**
