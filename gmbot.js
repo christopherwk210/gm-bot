@@ -57,20 +57,25 @@ try {
 	process.exit();
 }
 
-// Bot connected status
-bot.on('ready', () => {
+// Bot callbacks
+bot.on('ready', onBotReady);												// Bot is loaded
+bot.on('guildMemberAdd', onBotGuildMemberAdd);			// A new member has joined
+bot.on("voiceStateUpdate", onBotVoiceStateUpdate);	// Voice activity change
+bot.on('messageUpdate', onBotMessageUpdate);				// Message updated
+bot.on('message', onBotMessage);										// Message sent (in DM or in server channel)
+
+/**
+ * Called when the bot has reported ready status
+ */
+function onBotReady() {
 	// Tell the world our feelings
 	console.log("Squaring to go, captain.");
-
+	
 	// Fetch net8floz
-	bot.fetchUser(ids.net8floz).then(user => {
-		responsibleUsers.push(user);
-	}, err => console.log(err));
+	bot.fetchUser(ids.net8floz).then(user => { responsibleUsers.push(user); }, err => console.log(err));
 
 	// Fetch topherlicious
-	bot.fetchUser(ids.topherlicious).then(user => {
-		responsibleUsers.push(user);
-	}, err => console.log(err));
+	bot.fetchUser(ids.topherlicious).then(user => { responsibleUsers.push(user); }, err => console.log(err));
 
 	// Grab our guild
 	let guildCollection = bot.guilds.find('name','/r/GameMaker');
@@ -82,10 +87,14 @@ bot.on('ready', () => {
 	profileInterval = setInterval(() => {
 		adkProfile.adkProfile(guildCollection, db);
 	}, profileInterval || 3600000);
-});
+}
 
-// Send welcome message to new members
-bot.on('guildMemberAdd', member => {
+/**
+ * Called when the bot reports a new member joining the server
+ * @param {GuildMember} member The member that joined
+ */
+function onBotGuildMemberAdd(member) {
+	// Send the new user the welcome message
 	member.sendEmbed({
 		color: 26659,
 		description: welcome,
@@ -94,14 +103,18 @@ bot.on('guildMemberAdd', member => {
 			text: 'This is an automated message'
 		}
 	}).catch(err => console.log(err));
-});
+}
 
-// Automatically add voip_text role to users who join voip
-bot.on("voiceStateUpdate", (oldMember, newMember) => {
-	// Log voip usage
+/**
+ * Called whenever a user changes voice state
+ * @param {GuildMember} oldMember The member before the voice state update
+ * @param {GuildMember} newMember The member after the voice state update
+ */
+function onBotVoiceStateUpdate(oldMember, newMember) {
+	// Log voip data
 	adkVoice.adkVoice(oldMember, newMember, db);
 	
-	// Attempt to add role
+	// Attempt to add voip_text role
 	try {
 		// Determine they are a member and in the voip channel
 		if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes("voip")) {
@@ -120,24 +133,28 @@ bot.on("voiceStateUpdate", (oldMember, newMember) => {
 			user.sendMessage('GMBot encountered an error on voice status update:\n\n' + err);
 		});
 	}
-});
+}
 
-// When a message is editted
-bot.on('messageUpdate', (oldmsg, newmsg) => {
+/**
+ * Called whenever a message is updated
+ * @param {Message} oldMsg The message before the update
+ * @param {Message} newMsg The message after the update
+ */
+function onBotMessageUpdate(oldMsg, newMsg) {
 	// Don't respond to bots
-	if (newmsg.author.bot) {
-		return;
-	}
+	if (newMsg.author.bot) { return; }
 
 	// Catch clean-code and gmlive edits
-	if (!prettifier.clean(newmsg)) {
-		gmlive.read(newmsg);
+	if (!prettifier.clean(newMsg)) {
+		gmlive.read(newMsg);
 	}
-});
+}
 
-// When message is received
-bot.on('message', msg => {
-
+/**
+ * Called whenever a message is created
+ * @param {Message} msg The created message
+ */
+function onBotMessage(msg) {
 	// Don't respond to bots
 	if (msg.author.bot) {
 		return;
@@ -234,7 +251,7 @@ bot.on('message', msg => {
 			gmlive.read(msg);
 		}
 	}
-});
+}
 
 // Handle process-wide promise rejection
 process.on('unhandledRejection', (reason) => {
