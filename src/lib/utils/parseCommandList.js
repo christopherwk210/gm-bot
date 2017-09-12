@@ -62,4 +62,6 @@ module.exports = function(commandList, msg) {
     // Short circuit iteration if needed
     return success;
   });
+
+  return success;
 }

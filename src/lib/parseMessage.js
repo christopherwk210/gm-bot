@@ -115,6 +115,14 @@ rules = [
     action: streamer
   },
   {
+    matches: ['quackquackquack', 'assemble'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: assemble
+  },
+  {
     matches: ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
     position: 0,
     prefix: prefix,
@@ -142,6 +150,16 @@ rules = [
     exact: false,
     delete: true,
     action: commandment
+  },
+  {
+    matches: ['bgmhammer'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: msg => {
+      msg.channel.sendMessage(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(() => {});
+    }
   },
   {
     matches: ['mm'],
@@ -186,33 +204,9 @@ rules = [
 module.exports = function (msg) {
   // Don't respond to bots
 	if (msg.author.bot) {
-		return;
+		return false;
   }
 
   // Parse message for rules
-  parseCommandList(rules, msg);
-  
-  let prefix = "!";
-  let args = msg.content.split(" ");
-  let command = args[0].replace(prefix, "");
-
-  if (msg.content.startsWith(prefix)) {
-    switch (command.toUpperCase()) {
-      case "QUACKQUACKQUACK":
-      case "ASSEMBLE":
-        assemble.assemble(msg, args);
-        msg.delete();
-        break;
-      case "BGMHAMMER":
-        msg.channel.sendMessage(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(err => console.log(err));
-        msg.delete();
-        break;
-      default:
-        return false;
-        break;
-    }
-    return true;
-  } else {
-    return false;
-  }
+  return parseCommandList(rules, msg);
 };
