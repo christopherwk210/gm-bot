@@ -241,7 +241,9 @@ function handleImages(msg) {
 	// Be certain this was in a channel
 	if (msg.member) {
 		// If the user is no higher than a voip user
-		if ((msg.member.highestRole === '@everyone') || (msg.member.highestRole === 'voip')) {
+		if ((msg.member.highestRole === '@everyone') ||
+		(msg.member.highestRole === 'voip') ||
+		(msg.member.highestRole === 'streamy 👀')) {
 			// Get the attachments
 			var attachments = msg.attachments.array();
 
