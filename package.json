@@ -24,7 +24,7 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "cors": "^2.8.1",
-    "discord.js": "^11.0.0",
+    "discord.js": "^11.2.0",
     "express": "^4.15.2",
     "js-beautify": "^1.6.12",
     "jsonwebtoken": "^7.3.0",
@@ -32,6 +32,7 @@
     "nedb": "^1.8.0",
     "superagent": "^2.3.0",
     "tweetnacl": "^0.14.3",
+    "uws": "^8.14.1",
     "ws": "^1.1.1"
   },
   "peerDependencies": {
@@ -44,6 +45,6 @@
     "jsdoc-to-markdown": "^2.0.0"
   },
   "engines": {
-    "node": ">=7.0.0"
+    "node": ">=8.0.0"
   }
 }
