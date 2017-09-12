@@ -97,7 +97,7 @@ rules = [
     wholeMessage: true,
     action: msg => {
       msg.react('🇲')
-        .then(msg.react('Ⓜ'))
+        .then(() => msg.react('Ⓜ'))
         .catch(() => {});
     }
   },
@@ -107,8 +107,8 @@ rules = [
     wholeMessage: true,
     action: msg => {
       msg.react('🇭')
-        .then(msg.react('🇲'))
-        .then(msg.react('Ⓜ'))
+        .then(() => msg.react('🇲'))
+        .then(() => msg.react('Ⓜ'))
         .catch(() => {});
     }
   },
