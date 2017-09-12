@@ -98,6 +98,14 @@ rules = [
     delete: true,
     action: docs
   },
+  {
+    matches: ['giveaway', 'giveaways'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: giveAways.message
+  },
   // Easter egg rules
   {
     matches: ['mm'],
@@ -154,10 +162,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "GIVEAWAY":
-        giveAways.message(msg, args);
-        msg.delete();
-        break;
       case "STREAMWATCHER":
       case "STREAMY":
       case "LETMEWATCHSOMESTREAMS":
