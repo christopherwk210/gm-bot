@@ -5,6 +5,7 @@
  */
 module.exports = function(commandList, msg) {
   let messageContent = msg.content;
+  let success;
 
   // Iterate over commands
   commandList.some(command => {
@@ -30,6 +31,7 @@ module.exports = function(commandList, msg) {
 
           // Short circuit iteration
           return true;
+          success = true;
         }
       } else {
         // Match command position or anywhere by default
@@ -41,11 +43,12 @@ module.exports = function(commandList, msg) {
           
           // Short circuit iteration
           return true;
+          success = true;
         }
       }
     });
 
     // Short circuit iteration
-    return true;
+    return success;
   });
 }

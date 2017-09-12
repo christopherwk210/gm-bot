@@ -283,9 +283,7 @@ process.on('unhandledRejection', (reason) => {
 });
 
 // Handle process-wide uncaught exceptions
-process.on('uncaughtException', (err) => {
-	console.log(err);
-	
+process.on('uncaughtException', (err) => {	
 	// Alert the folks behind the curtain
 	responsibleUsers.forEach(user => {
 		user.sendMessage('GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n' + err);
