@@ -8,7 +8,7 @@ module.exports = function(commandList, msg) {
   let success = false;
 
   // Get command arguments
-  let args = messageContent.split(" ");
+  let args = messageContent.split(' ');
 
   // Iterate over commands
   commandList.some(command => {
