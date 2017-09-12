@@ -1,1 +1,0 @@
-worker: node gmbot.js
