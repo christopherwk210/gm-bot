@@ -5,7 +5,7 @@
   "main": "./gmbot",
   "scripts": {
     "start": "node gmbot.js",
-    "seed": "node seed.js"
+    "seed": "node src/tools/seed.js"
   },
   "repository": {
     "type": "git",
