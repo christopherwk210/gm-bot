@@ -8,7 +8,7 @@ const handleResources = require('./commands/resources.js');
 const streamer = require('./commands/streamer.js');
 const giveAways = require('./giveAwayLib.js');
 const assemble = require('./commands/assemble.js');
-const cmm = require('./commands/commandment.js');
+const commandment = require('./commands/commandment.js');
 
 // Project data
 const ids = require('../assets/json/ids.json');
@@ -114,7 +114,35 @@ rules = [
     delete: true,
     action: streamer
   },
-  // Easter egg rules
+  {
+    matches: ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: msg => {
+      msg.channel.sendMessage(
+        choose([
+          'Paging',
+          'Come in',
+          'Oi, where are ya',
+          'Where art thou',
+          'Someone needs ya',
+          'You\'re presence is requested',
+          'For some reason, ' + msg.author.username + ' thinks you should be here',
+          msg.author.username + ' has summoned the great and all powerful'
+        ]) + ' <@144913457429348352>'
+      ).catch(() => {});
+    }
+  },
+  {
+    matches: ['commandment'],
+    position: 0,
+    prefix: prefix,
+    exact: false,
+    delete: true,
+    action: commandment
+  },
   {
     matches: ['mm'],
     exact: false,
@@ -170,33 +198,6 @@ module.exports = function (msg) {
 
   if (msg.content.startsWith(prefix)) {
     switch (command.toUpperCase()) {
-      case "TOPH":
-      case "TOPHY":
-      case "TOPHIE":
-      case "TOPHER":
-      case "TOPHERLICIOUS":
-      case "WHOSYOURDADDY":
-        msg.channel.sendMessage(
-          choose([
-            'Paging',
-            'Get in here',
-            'Come in',
-            'Oi, where are ya',
-            'Where art thou',
-            'You\'ve been summoned',
-            'Yo',
-            'Someone needs ya',
-            'You\'re presence is requested',
-            'For some reason, ' + msg.author.username + ' thinks you should be here',
-            msg.author.username + ' has summoned the great and all powerful'
-          ]) + ' <@144913457429348352>'
-        ).catch(err => console.log(err));
-        msg.delete();
-        break;
-      case "COMMANDMENT":
-        cmm.run(msg, args);
-        msg.delete();
-        break;
       case "QUACKQUACKQUACK":
       case "ASSEMBLE":
         assemble.assemble(msg, args);
