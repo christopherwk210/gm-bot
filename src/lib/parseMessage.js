@@ -96,7 +96,7 @@ rules = [
     prefix: prefix,
     exact: false,
     delete: true,
-    action: docs.control.run
+    action: docs
   },
   // Easter egg rules
   {
