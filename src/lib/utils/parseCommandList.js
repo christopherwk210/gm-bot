@@ -34,7 +34,11 @@ module.exports = function(commandList, msg) {
 
           // Delete message if specified
           if (command.delete) {
-            msg.delete().catch(() => {});
+            try {
+              msg.delete().catch(() => {});            
+            } catch(e) {
+              // noop
+            }
           }
 
           // Short circuit iteration
