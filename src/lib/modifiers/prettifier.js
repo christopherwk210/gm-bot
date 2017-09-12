@@ -1,6 +1,6 @@
 const Beautify = require('js-beautify').js_beautify;
 const cleanCodeExp = new RegExp(/([`]{3})clean-code([^```]*)([`]{3})/g);
-const beautifyOptions = require("../assets/json/jsbeautify.json");
+const beautifyOptions = require("../../assets/json/jsbeautify.json");
 
 const clean = function(msg) {
   // Test for the correct code block
