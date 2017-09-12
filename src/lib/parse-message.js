@@ -7,7 +7,6 @@ const ids = require('../assets/json/ids.json');
 const roleControl = require('./roleControl.js');
 const docs = require('./docs.js');
 const handleResources = require('./resources');
-const birthday = require('./birthday');
 const streamer = require('./streamer');
 const giveAways = require('./giveAwayLib.js');
 const assemble = require('./assemble');
