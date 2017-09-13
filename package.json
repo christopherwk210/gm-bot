@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node gmbot.js",
     "seed": "node src/tools/seed.js",
-    "test": "mocha"
+    "test": "mocha 'test/**/*.js'"
   },
   "repository": {
     "type": "git",
