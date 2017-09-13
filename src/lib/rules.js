@@ -72,14 +72,11 @@ let coreCommands = [
       switch (command) {
         case 'admin':
           msg.author.send(help.admins).catch(() => {});
-          break;
         case 'art':
         case 'rubber':
           msg.author.send(help.ducks).catch(() => {});
-          break;
         default:
           msg.author.send(help.all).catch(() => {});
-          break;
       }
     }
   },
