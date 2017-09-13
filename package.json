@@ -8,7 +8,7 @@
     "seed": "node src/tools/seed.js",
     "test": "mocha 'test/**/*.js'"
   },
-  "pre-commit": [
+  "precommit": [
     "test"
   ],
   "repository": {

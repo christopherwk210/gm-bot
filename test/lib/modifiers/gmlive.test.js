@@ -4,18 +4,15 @@ const assert = require('assert');
 // Project libs
 const gmlive = require('../../../src/lib/modifiers/gmlive.js');
 
-let generatedLinks = [];
-
 let sampleMessage = {
   content: '```gmlive //test ```',
-  generatedLinks: [],
   delete: () => new Promise(res => res()),
   channel: {
     send: () => new Promise(res => res()),
   }
 };
 
-// GMLive Modifier test suite
+// GMLive modifier test suite
 describe('GMLive modifier', function() {
   it('should correctly match message', function() {
     let res = gmlive(sampleMessage);
