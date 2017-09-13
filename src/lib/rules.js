@@ -67,7 +67,7 @@ let coreCommands = [
       if ((msg.member) && (msg.member.roles)) {
         if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins')) {
           command = 'admins';
-        } else if (msg.member.roles.find('name', 'rubber duckies')) {
+        } else if (msg.member.roles.find('name', 'rubber duckies') || msg.member.roles.find('name', 'art duckies')) {
           command = 'ducks';
         }
       }
