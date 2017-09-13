@@ -58,11 +58,14 @@ If you wish to contribute, please fork this repo and submit a detailed and clean
 
 For questions and support, contact topherlicious#1378 on discord.
 
+## Testing
+A pre-commit git hook is in place to make sure that `npm test` passes before every commit. Don't force a commit if tests are failing! Make sure to test as you go. If you're adding large functionality that warrants testing, you may add your own test accordingly under `./test`.
+
 ## Project Overview
 The main entry point of the project is `./gmbot.js`. This file sets up initial callbacks for the Discord API and initializes database connections for logging features. Beyond that, the structure is as follows:
 
 ```
-.
+./src
 ├── assets                     // Holds all non-javascript assets
 │   │
 │   ├── json                     // JSON assets
