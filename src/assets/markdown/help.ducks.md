@@ -1,5 +1,5 @@
 **SUPER COOL SECRET COMMANDS:**
-*This is only visible to you because of your rubber ducky role:*
+*This is only visible to you because of your ducky role:*
 
 **You can mention the rubber duckies role:**
 Typing `!assemble` or `!quackquackquack` will mention the rubber duckies role.
