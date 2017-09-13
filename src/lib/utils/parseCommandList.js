@@ -39,6 +39,7 @@ module.exports = function(commandList, msg) {
 
           // Short circuit iteration
           success = true;
+          
           return true;
         }
       } else {
@@ -53,7 +54,8 @@ module.exports = function(commandList, msg) {
           }
           
           // Short circuit iteration
-          success = true;          
+          success = true;  
+                  
           return true;
         }
       }

@@ -1,5 +1,5 @@
 // Node libs
-const fs = require("fs");
+const fs = require('fs');
 
 // Project data
 const commandmentList = fs.readFileSync('./src/assets/markdown/commandments.md', 'utf8');
@@ -9,13 +9,14 @@ const commandmentList = fs.readFileSync('./src/assets/markdown/commandments.md',
  * @param {string} str Roman numeral string
  */
 function fromRoman(str) {
+  let romanString = str;
   var result = 0;
   var decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-  var roman = ["M", "CM","D","CD","C", "XC", "L", "XL", "X","IX","V","IV","I"];
-  for (var i = 0;i <= decimal.length; i++) {
-    while (str.indexOf(roman[i]) === 0) {
+  var roman = ['M', 'CM','D','CD','C', 'XC', 'L', 'XL', 'X','IX','V','IV','I'];
+  for (var i = 0; i <= decimal.length; i++) {
+    while (romanString.indexOf(roman[i]) === 0) {
       result += decimal[i];
-      str = str.replace(roman[i],'');
+      romanString = romanString.replace(roman[i], '');
     }
   }
   return result;
@@ -36,6 +37,7 @@ module.exports = function(msg, args) {
 
     // Switch on result and send the right gif
     switch(numeral) {
+      default:
       case 1:
         msg.channel.send('https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark');
         break;

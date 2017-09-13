@@ -1,6 +1,6 @@
-const Beautify = require('js-beautify').js_beautify;
+const beautify = require('js-beautify').js_beautify;
 const cleanCodeExp = new RegExp(/([`]{3})clean-code([^```]*)([`]{3})/g);
-const beautifyOptions = require("../../assets/json/jsbeautify.json");
+const beautifyOptions = require('../../assets/json/jsbeautify.json');
 
 module.exports = function(msg) {
   // Test for the correct code block
@@ -14,11 +14,13 @@ module.exports = function(msg) {
     // Fetch the code block contents
     var code = msg.content.match(cleanCodeExp);
 
+    let prettyCode;
+
     // Loop through the matches
     for (var i = 0; i < code.length; i++) {
       // Replace all code with pretty code
-      var originalCode = code[i].substr(13,code[i].length - 16);
-      var prettyCode = Beautify(originalCode, beautifyOptions);
+      let originalCode = code[i].substr(13,code[i].length - 16);
+      prettyCode = beautify(originalCode, beautifyOptions);
       res = res.replace(originalCode, prettyCode);
     }
 

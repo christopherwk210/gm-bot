@@ -14,15 +14,15 @@ db.admins = new Datastore({
 	filename:'./src/data/admins.db',
 	autoload: true,
 	onload: function() {
-    bcrypt.hash('password', 10, function(err, hash) {
+    bcrypt.hash('password', 10, function(bcryptError, hash) {
       db.admins.insert({
         name: 'admin',
         password: hash
-      }, function (err, newDoc) {
-        if (err !== null) {
-          console.log(err);
-        } else {
+      }, function(err, newDoc) {
+        if (err === null) {
           console.log(newDoc);
+        } else {
+          console.log(err);
         }
       });
     });

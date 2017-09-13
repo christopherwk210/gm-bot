@@ -1,0 +1,7 @@
+/test/**
+/.git/**
+/.idea/**
+/node_modules/**
+/src/express/**
+/src/data/**
+/src/assets/**

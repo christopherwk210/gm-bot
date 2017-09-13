@@ -23,7 +23,7 @@ module.exports = function(msg, args) {
           ducks.setMentionable(true).then(r => {
             artducks.setMentionable(true).then(a => {
               // Mention them!
-              msg.channel.send(`${r} and ${a} assemble!`).then(m => {
+              msg.channel.send(`${r} and ${a} assemble!`).then(() => {
                 // Make them unmentionable again
                 r.setMentionable(false).catch(() => {});
                 a.setMentionable(false).catch(() => {});

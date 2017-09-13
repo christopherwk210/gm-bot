@@ -1,5 +1,5 @@
 // Node libs
-const fs = require("fs");
+const fs = require('fs');
 
 // Project libs
 const roleControl = require('./commands/roleControl.js');
@@ -12,7 +12,6 @@ const commandment = require('./commands/commandment.js');
 const welcome = require('./commands/welcome.js');
 
 // Project data
-const ids = require('../assets/json/ids.json');
 const help = {
   all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
   ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8'),
@@ -67,15 +66,17 @@ let coreCommands = [
       // Determine the correct help message to deliver
       if ((msg.member)) {
         command = detectStaff(msg.member);
-      };
+      }
 
       // Deliver the proper message
       switch (command) {
         case 'admin':
           msg.author.send(help.admins).catch(() => {});
+          break;
         case 'art':
         case 'rubber':
           msg.author.send(help.ducks).catch(() => {});
+          break;
         default:
           msg.author.send(help.all).catch(() => {});
           break;
@@ -96,7 +97,7 @@ let coreCommands = [
     matches: ['streamy', 'streamwatcher', 'letmewatchsomestreams', 'allaboardthestreamboat', 'melikeystream'],
     ...prefixedCommandRuleTemplate,
     action: streamer
-  },
+  }
 ];
 
 /**

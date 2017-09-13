@@ -1,5 +1,5 @@
 // Node libs
-const fs = require("fs");
+const fs = require('fs');
 
 // Project data
 const resources = fs.readFileSync('./src/assets/markdown/resources.md', 'utf8');

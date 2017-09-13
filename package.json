@@ -4,7 +4,7 @@
   "description": "The bot used by the /r/GameMaker Discord server.",
   "main": "./gmbot",
   "scripts": {
-    "lint": "eslint gmbot.js || true",
+    "lint": "eslint . || true",
     "lint.verbose": "eslint gmbot.js ",
     "start": "node gmbot.js",
     "seed": "node src/tools/seed.js",

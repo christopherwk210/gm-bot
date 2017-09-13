@@ -5,7 +5,7 @@
  */
 module.exports = function(msg, args) {
   // Get the role from the argument
-  roleName = args.splice(1);
+  let roleName = args.splice(1);
 
   // Ensure we aren't in DM
   if ((msg.guild === null) || (msg.guild === undefined)) {
@@ -23,10 +23,10 @@ module.exports = function(msg, args) {
         role = roles.find('name', 'voip');
         break;
       case 'STREAMY':
-        let streamerRole;
-        roles.forEach(role => {
-          if (role.name.indexOf('stream') !== -1) {
-            streamerRole = role;
+        var streamerRole;
+        roles.forEach(singleRole => {
+          if (singleRole.name.indexOf('stream') !== -1) {
+            streamerRole = singleRole;
           }
         });
         role = streamerRole;
@@ -44,9 +44,8 @@ module.exports = function(msg, args) {
   switch (role) {
     case 'ducky':
       // lol
-      let responses = ['Cute.  No.', 'Nice try.', 'No way.', 'Nope.'];
+      var responses = ['Cute.  No.', 'Nice try.', 'No way.', 'Nope.'];
       return msg.author.send(responses[Math.floor(Math.random() * responses.length)]);
-      break;
     case 'noone':
       // No dice, kid
       msg.author.send('That is not a valid role');

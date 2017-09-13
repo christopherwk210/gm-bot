@@ -8,9 +8,9 @@ module.exports = function(member) {
     return false;
   } else if ((member.roles.find('name', 'admin') || member.roles.find('name', 'admins'))) {
     return 'admin';
-  } else if (msg.member.roles.find('name', 'rubber duckies')) {
+  } else if (member.roles.find('name', 'rubber duckies')) {
     return 'rubber';
-  } else if (msg.member.roles.find('name', 'art duckies')) {
+  } else if (member.roles.find('name', 'art duckies')) {
     return 'art';
   } else {
     return false;
