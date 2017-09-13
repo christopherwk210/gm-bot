@@ -127,6 +127,18 @@ let audioCommands = [
     action: audio.skip
   },
   {
+    matches: ['queue'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.getQueue
+  },
+  {
+    matches: ['volume'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.setVolume
+  },
+  {
     matches: ['kick'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),

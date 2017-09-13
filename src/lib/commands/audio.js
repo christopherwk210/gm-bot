@@ -229,6 +229,54 @@ function skip(msg, args) {
 }
 
 /**
+ * Sends the user the current queue
+ * @param {Message} msg Discord message
+ * @param {Array<string>} args Command args
+ */
+function getQueue(msg) {
+  if (queue.length < 1) {
+    msg.author.send('Queue is empty!');
+    return;
+  };
+
+  // Set up a stringydoo
+  let currentQueueMessage = 'Current playback queue:\n';
+
+  // Iterate over the queue
+  queue.forEach((item, i) => {
+    currentQueueMessage += i + ': ' + item.title + '\n';
+  });
+
+  // Supply the result
+  msg.author.send(currentQueueMessage);
+}
+
+/**
+ * Sets the internal stream volume
+ * @param {Message} msg Discord message
+ * @param {Array<string>} args Command args
+ */
+function setVolume(msg, args) {
+  if (!args[1]) {
+    msg.author.send('No value for volume supplied!');
+    return;
+  }
+
+  let newVol = parseFloat(args[1]);
+
+  if (isNaN(newVol)) {
+    msg.author.send('Invalid value for volume!');
+    return;
+  }
+
+  volume = newVol;
+
+  if (dispatch) {
+    dispatch.setVolume(newVol);
+  }
+}
+
+/**
  * Stops playing audio and disconnects
  * @param {Message} msg Discord message
  */
@@ -289,5 +337,7 @@ module.exports = {
   pause: pause,
   resume: resume,
   skip: skip,
-  stop: stop
+  stop: stop,
+  getQueue: getQueue,
+  setVolume: setVolume
 };
