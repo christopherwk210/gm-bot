@@ -60,7 +60,9 @@ If you wish to contribute, please fork this repo and submit a detailed and clean
 For questions and support, contact topherlicious#1378 on discord.
 
 ## Testing
-A pre-commit git hook is in place to make sure that `npm test` passes before every commit. Don't force a commit if tests are failing! Make sure to test as you go. If you're adding large functionality that warrants testing, you may add your own test accordingly under `./test`.
+A pre-commit git hook is in place to make sure that `npm test` passes before every commit. If tests don't pass, then the commit will be cancelled. Make sure to test as you go. If you're adding large functionality that warrants testing, you may add your own test accordingly under `./test`.
+
+In addition to testing, eslint is also integrated into the project as a pre-commit hook. To ensure the project passes the lint, you should use `npm run lint`. Same as with failing tests, if the project doesn't pass the lint, you can't create a commit.
 
 ## Project Overview
 The main entry point of the project is `./gmbot.js`. This file sets up initial callbacks for the Discord API and initializes database connections for logging features. Beyond that, the structure is as follows:
