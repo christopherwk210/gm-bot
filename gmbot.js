@@ -158,7 +158,7 @@ function onBotMessage(msg) {
 		handleDM(msg);
 	} else {
 		// Check for image spam
-		handleImages(msg);
+		handleImages(msg, imageOptions);
 	}
 
 	// Don't respond to bots
@@ -237,7 +237,7 @@ function handleDM(msg) {
  * Handles a user uploading too many images in a given time frame
  * @param {Message} msg The message that was sent
  */
-function handleImages(msg) {
+function handleImages(msg, imgOptions) {
 	// Be certain this was in a channel
 	if (msg.member) {
 		// If the user is no higher than a voip user
@@ -254,18 +254,18 @@ function handleImages(msg) {
 					// Ensure the attachment is an image
 					if (attachment.height !== undefined) {
 						// If this user hasn't recently uploaded
-						if ((imageOptions.imageLog[msg.author.id] === undefined) || (imageOptions.imageLog[msg.author.id] === 0)) {
+						if ((imgOptions.imageLog[msg.author.id] === undefined) || (imgOptions.imageLog[msg.author.id] === 0)) {
 							// Increase the allowance counter for this user
-							imageOptions.imageLog[msg.author.id] = 1;
+							imgOptions.imageLog[msg.author.id] = 1;
 
 							// Reset this user's counter in a short period of time
-							imageOptions.imageLog.timers[msg.author.id] = setTimeout(() => {
+							imgOptions.imageLog.timers[msg.author.id] = setTimeout(() => {
 								// Reset the counter for this user
-								imageOptions.imageLog[msg.author.id] = 0;
-							}, imageOptions.imageTimer);
+								imgOptions.imageLog[msg.author.id] = 0;
+							}, imgOptions.imageTimer);
 						} else { // This user has recently uploaded
 							// If the user has uploaded more than allowed
-							if (imageOptions.imageLog[msg.author.id] >= imageOptions.imageCap) {
+							if (imgOptions.imageLog[msg.author.id] >= imgOptions.imageCap) {
 								// Delete the message
 								msg.delete();
 
@@ -273,7 +273,7 @@ function handleImages(msg) {
 								msg.author.send('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
 							} else {
 								// The user hasn't uploaded more than allowed, so just increment their counter
-								imageOptions.imageLog[msg.author.id]++;
+								imgOptions.imageLog[msg.author.id]++;
 							}
 						}
 					}
@@ -301,3 +301,8 @@ bot.login(auth.token);
 
 // Express setup
 express.run(bot, dmLog, db);
+
+// For testing
+module.exports = {
+	handleImages: handleImages
+};
