@@ -9,10 +9,10 @@ const streamer = require('./commands/streamer.js');
 const giveAways = require('./utils/giveAwayLib.js');
 const assemble = require('./commands/assemble.js');
 const commandment = require('./commands/commandment.js');
+const welcome = require('./commands/welcome.js');
 
 // Project data
 const ids = require('../assets/json/ids.json');
-const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 const help = {
   all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
   ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8'),
@@ -42,14 +42,7 @@ module.exports = [
     matches: ['welcome'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
-      msg.author.sendEmbed({
-        color: 26659,
-        description: welcome,
-        timestamp: new Date(),
-        footer: {
-          text: 'This is an automated message'
-        }
-      }).catch(() => {});
+      welcome(msg.author);
     }
   },
   {

@@ -14,11 +14,11 @@ const express = require('./src/express/express.js');
 const logVoip = require('./src/lib/logging/voipLog.js');
 const logPresence = require('./src/lib/logging/presenceLog.js');
 const parseCommandList = require('./src/lib/utils/parseCommandList.js');
+const welcome = require('./src/lib/commands/welcome.js');
 
 // Project data
 const ids = require('./src/assets/json/ids.json');
 const badlinks = require('./src/assets/json/bad-links.json');
-const welcome = fs.readFileSync('./src/assets/markdown/welcome.md', 'utf8');
 
 // Database setup
 let db = database.initializeDatabase();
@@ -58,7 +58,7 @@ try {
 
 // Bot callbacks
 bot.on('ready', onBotReady);												// Bot is loaded
-bot.on('guildMemberAdd', onBotGuildMemberAdd);			// A new member has joined
+bot.on('guildMemberAdd', welcome);									// A new member has joined
 bot.on("voiceStateUpdate", onBotVoiceStateUpdate);	// Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);				// Message updated
 bot.on('message', onBotMessage);										// Message sent (in DM or in server channel)
@@ -86,22 +86,6 @@ function onBotReady() {
 	profileInterval = setInterval(() => {
 		logPresence(guildCollection, db);
 	}, profileInterval || 3600000);
-}
-
-/**
- * Called when the bot reports a new member joining the server
- * @param {GuildMember} member The member that joined
- */
-function onBotGuildMemberAdd(member) {
-	// Send the new user the welcome message
-	member.sendEmbed({
-		color: 26659,
-		description: welcome,
-		timestamp: new Date(),
-		footer: {
-			text: 'This is an automated message'
-		}
-	}).catch(err => console.log(err));
 }
 
 /**
