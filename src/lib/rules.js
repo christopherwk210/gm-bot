@@ -21,6 +21,7 @@ const help = {
 
 // Project utils
 const choose = require('./utils/choose.js');
+const detectStaff = require('./utils/detectStaff.js');
 
 // We are a ! kinda server
 let prefix = '!';
@@ -61,24 +62,21 @@ let coreCommands = [
     matches: ['help'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
-      let command = "all";
+      let command;
       
       // Determine the correct help message to deliver
-      if ((msg.member) && (msg.member.roles)) {
-        if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins')) {
-          command = 'admins';
-        } else if (msg.member.roles.find('name', 'rubber duckies') || msg.member.roles.find('name', 'art duckies')) {
-          command = 'ducks';
-        }
-      }
+      if ((msg.member)) {
+        command = detectStaff(msg.member);
+      };
 
       // Deliver the proper message
       switch (command) {
-        case 'admins':
+        case 'admin':
           msg.author.send(help.admins).catch(() => {});
-        case 'ducks':
+        case 'art':
+        case 'rubber':
           msg.author.send(help.ducks).catch(() => {});
-        case "all":
+        default:
           msg.author.send(help.all).catch(() => {});
           break;
       }

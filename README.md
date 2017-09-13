@@ -116,9 +116,10 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │
 │   ├── rules.js               // Contains all bot message matching rules
 │   │
-│   └── utils                  // Contains pure helper functionality
+│   └── utils                  // Contains 'pure' helper functionality
 │       ├── choose.js            // Simple random array picker function
 │       ├── database.js          // Database init function
+│       ├── detectStaff.js       // Detects if a GuildMember is staff (admin or ducky)
 │       ├── giveAwayLib.js       // Handles give away accessing, `!giveaway`
 │       └── parseCommandList.js  // Parses command rule list
 │
