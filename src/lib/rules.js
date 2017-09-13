@@ -107,13 +107,11 @@ let audioCommands = [
   {
     matches: ['play'],
     ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
     action: msg => {
       if (msg.member) {
         if (msg.member.voiceChannel) {
           msg.member.voiceChannel.join().catch(() => {});
-          setTimeout(() => {
-            msg.member.voiceChannel.leave();
-          }, 2000);
         } else {
           msg.author.send('You must be in a voice channel to do that!');        
         }

@@ -12,6 +12,15 @@ module.exports = function(commandList, msg) {
 
   // Iterate over commands
   commandList.some(command => {
+    // Validate pre callback
+    if (command.pre) {
+      if (!command.pre(msg)) {
+        // Pre invalidated, short circuit
+        return true;
+      }
+    }
+
+    // Iterate over matches
     command.matches.some(currentMatch => {
       let match = currentMatch;
 
