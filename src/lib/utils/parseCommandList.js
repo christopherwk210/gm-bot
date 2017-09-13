@@ -12,14 +12,6 @@ module.exports = function(commandList, msg) {
 
   // Iterate over commands
   commandList.some(command => {
-    // Validate pre callback
-    if (command.pre) {
-      if (!command.pre(msg)) {
-        // Pre invalidated, short circuit
-        return true;
-      }
-    }
-
     // Iterate over matches
     command.matches.some(currentMatch => {
       let match = currentMatch;
@@ -35,38 +27,36 @@ module.exports = function(commandList, msg) {
         match = match.toUpperCase();
       }
 
-      // We are checking absolute content match
+      // Determine our condition
+      let condition;
       if (command.wholeMessage) {
-        if (messageContent === match) {
-          // Execute command action
-          command.action(msg);
-
-          // Delete message if specified
-          if (command.delete) {
-            msg.delete().catch(() => {});
-          }
-
-          // Short circuit iteration
-          success = true;
-          
-          return true;
-        }
+        condition = messageContent === match;
       } else {
-        // Match command position or anywhere by default
-        if (command.position ? messageContent.indexOf(match) === command.position : messageContent.indexOf(match) !== -1) {
-          // Execute command action and pass potential command args
-          command.action(msg, args);
+        condition = command.position ? messageContent.indexOf(match) === command.position : messageContent.indexOf(match) !== -1;
+      }
 
-          // Delete message if specified
-          if (command.delete) {
-            msg.delete();
+      // Match made
+      if (condition) {
+        // Validate pre callback
+        if (command.pre) {
+          if (!command.pre(msg)) {
+            // Pre invalidated, short circuit
+            return true;
           }
-          
-          // Short circuit iteration
-          success = true;  
-                  
-          return true;
         }
+
+        // Execute command action
+        command.action(msg, args);
+
+        // Delete message if specified
+        if (command.delete) {
+          msg.delete().catch(() => {});
+        }
+
+        // Short circuit iteration
+        success = true;
+        
+        return true;
       }
     });
 

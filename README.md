@@ -148,8 +148,11 @@ All of the bot command rules are located in `./src/lib/rules.js` under `module.e
   action: msg => {      // Action is a callback that triggers when a match is hit,
                         // passes msg and args, where msg === Discord message, and
                         // args === command arguments split by a space character (' ')
-  }
-}
+  },
+  pre: msg => {         // This is a prevalidation callback which is called every message
+    return true;        // after a match is found. If a truthy value is returned, it will call
+  }                     // the action. If a falsey value is returned, the action will not be
+}                       // called. Useful for determining if a user has permission or not.
 ```
 
 To add a command, append a new object to the array and define a valid rule. At the very minimum, you must include `matches` and `action`. Including *only* these two will result in a rule that matches anywhere in a message and **is** case sensitive.
