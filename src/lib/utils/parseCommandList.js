@@ -38,8 +38,8 @@ module.exports = function(commandList, msg) {
           }
 
           // Short circuit iteration
-          return true;
           success = true;
+          return true;
         }
       } else {
         // Match command position or anywhere by default
@@ -53,8 +53,8 @@ module.exports = function(commandList, msg) {
           }
           
           // Short circuit iteration
+          success = true;          
           return true;
-          success = true;
         }
       }
     });
