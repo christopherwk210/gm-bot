@@ -24,7 +24,7 @@ module.exports = function(msg, args) {
       // Remove it
       msg.member.removeRole(streamerRole).then(res => {
         // Give it to 'em straight
-        msg.author.send(`You\'ve been granted the ${roleName} role!`)
+        msg.author.send(`Your ${roleName} role has been removed!`);
       }, err => {
         //console.log(err)
       });
@@ -32,7 +32,7 @@ module.exports = function(msg, args) {
       // Otherwise, add it
       msg.member.addRole(streamerRole).then(res => {
         // Spit it out
-        msg.author.send(`Your ${roleName} role has been removed!`)
+        msg.author.send(`You\'ve been granted the ${roleName} role!`);
       }, err => {
         //console.log(err);
       });
