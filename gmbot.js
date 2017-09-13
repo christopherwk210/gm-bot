@@ -19,7 +19,7 @@ const badlinks = require('./src/assets/json/bad-links.json');
 
 // Database setup
 let db = database.initializeDatabase();
-fdsa
+
 // Temp user storage
 let responsibleUsers = [];
 

@@ -5,13 +5,14 @@
   "main": "./gmbot",
   "scripts": {
     "lint": "eslint gmbot.js || true",
+    "lint.verbose": "eslint gmbot.js ",
     "start": "node gmbot.js",
     "seed": "node src/tools/seed.js",
     "test": "mocha 'test/**/*.js'"
   },
   "precommit": [
     "test",
-    "lint"
+    "lint.verbose"
   ],
   "repository": {
     "type": "git",
