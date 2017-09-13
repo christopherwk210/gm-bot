@@ -10,6 +10,7 @@ const giveAways = require('./utils/giveAwayLib.js');
 const assemble = require('./commands/assemble.js');
 const commandment = require('./commands/commandment.js');
 const welcome = require('./commands/welcome.js');
+const audio = require('./commands/audio.js');
 
 // Project data
 const help = {
@@ -105,17 +106,13 @@ let audioCommands = [
     matches: ['play'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
-    action: msg => {
-      if (msg.member) {
-        if (msg.member.voiceChannel) {
-          msg.member.voiceChannel.join().catch(() => {});
-        } else {
-          msg.author.send('You must be in a voice channel to do that!');        
-        }
-      } else {
-        msg.author.send('Command not available outside of /r/GameMaker!');
-      }
-    }
+    action: audio.play
+  },
+  {
+    matches: ['stop'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.stop
   }
 ];
 
