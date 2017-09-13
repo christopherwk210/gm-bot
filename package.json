@@ -5,7 +5,8 @@
   "main": "./gmbot",
   "scripts": {
     "start": "node gmbot.js",
-    "seed": "node src/tools/seed.js"
+    "seed": "node src/tools/seed.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -37,7 +38,9 @@
     "node-opus": "^0.2.1",
     "opusscript": "^0.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^3.5.3"
+  },
   "engines": {
     "node": ">=8.0.0"
   }
