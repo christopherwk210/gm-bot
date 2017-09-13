@@ -43,6 +43,10 @@ if (condition) { perform_action(); }
 - Has an integrated Express server to communicate with a custom front-end for admin use (which is closed source)
 
 ## Development
+This project requires:
+- Node >= 8.0.0
+- FFMPEG for audio related functionality (not needed to run)
+
 To work on the source code locally:
 ```
 $ git clone https://bitbucket.org/christopherwk210/gm-bot
