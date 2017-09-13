@@ -10,14 +10,14 @@ module.exports = function(sc, db) { // server collection - singular!
         event: 'profile'
     }
     
-    sc.members.forEach(function(e){
-        let status = e.presence.status,
-            role = e.highestRole.name;
+    sc.members.forEach(function(e) {
+        let status = e.presence.status;
+        let role = e.highestRole.name;
  
-        if (dataBlob[status] === undefined){ // expand dataBlob as required
+        if (dataBlob[status] === undefined) { // expand dataBlob as required
             dataBlob[status] = {};
         }
-        if (dataBlob[status][role] === undefined){
+        if (dataBlob[status][role] === undefined) {
             dataBlob[status][role] = 0;
         }
         
@@ -26,11 +26,11 @@ module.exports = function(sc, db) { // server collection - singular!
 
     // [push to DB-server here]
     // console.log(dataBlob);      // debug  
-    db.profile.insert(dataBlob, function (err, newDoc) {
+    db.profile.insert(dataBlob, function(err) {
         if (err) {
             console.log('Presence could not be saved to database.');
         } else {
             console.log('Presence profile successfully logged.');
         }
     });
-}
+};

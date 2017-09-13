@@ -1,9 +1,8 @@
 /**
  * Toggles the streamy role!
  * @param {Message} msg Discord message
- * @param {Array<string>} args Command arguments
  */
-module.exports = function(msg, args) {
+module.exports = function(msg) {
   // Ensure we are not in DM
   if ((msg.member) && (msg.member.roles)) {
     let alreadyHas = false;
@@ -22,20 +21,16 @@ module.exports = function(msg, args) {
     // If we do
     if (alreadyHas) {
       // Remove it
-      msg.member.removeRole(streamerRole).then(res => {
+      msg.member.removeRole(streamerRole).then(() => {
         // Give it to 'em straight
         msg.author.send(`Your ${roleName} role has been removed!`);
-      }, err => {
-        //console.log(err)
-      });
+      }, () => {});
     } else {
       // Otherwise, add it
-      msg.member.addRole(streamerRole).then(res => {
+      msg.member.addRole(streamerRole).then(() => {
         // Spit it out
-        msg.author.send(`You\'ve been granted the ${roleName} role!`);
-      }, err => {
-        //console.log(err);
-      });
+        msg.author.send(`You've been granted the ${roleName} role!`);
+      }, () => {});
     }
   } else {
     // Come on, man

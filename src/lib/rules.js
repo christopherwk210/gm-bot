@@ -1,5 +1,5 @@
 // Node libs
-const fs = require("fs");
+const fs = require('fs');
 
 // Project libs
 const roleControl = require('./commands/roleControl.js');
@@ -12,7 +12,6 @@ const commandment = require('./commands/commandment.js');
 const welcome = require('./commands/welcome.js');
 
 // Project data
-const ids = require('../assets/json/ids.json');
 const help = {
   all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
   ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8'),
@@ -21,6 +20,7 @@ const help = {
 
 // Project utils
 const choose = require('./utils/choose.js');
+const detectStaff = require('./utils/detectStaff.js');
 
 // We are a ! kinda server
 let prefix = '!';
@@ -61,24 +61,23 @@ let coreCommands = [
     matches: ['help'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
-      let command = "all";
+      let command;
       
       // Determine the correct help message to deliver
-      if ((msg.member) && (msg.member.roles)) {
-        if (msg.member.roles.find('name', 'admin') || msg.member.roles.find('name', 'admins')) {
-          command = 'admins';
-        } else if (msg.member.roles.find('name', 'rubber duckies') || msg.member.roles.find('name', 'art duckies')) {
-          command = 'ducks';
-        }
+      if ((msg.member)) {
+        command = detectStaff(msg.member);
       }
 
       // Deliver the proper message
       switch (command) {
-        case 'admins':
+        case 'admin':
           msg.author.send(help.admins).catch(() => {});
-        case 'ducks':
+          break;
+        case 'art':
+        case 'rubber':
           msg.author.send(help.ducks).catch(() => {});
-        case "all":
+          break;
+        default:
           msg.author.send(help.all).catch(() => {});
           break;
       }
@@ -98,7 +97,7 @@ let coreCommands = [
     matches: ['streamy', 'streamwatcher', 'letmewatchsomestreams', 'allaboardthestreamboat', 'melikeystream'],
     ...prefixedCommandRuleTemplate,
     action: streamer
-  },
+  }
 ];
 
 /**
@@ -179,6 +178,12 @@ let easterEggs = [
     }
   },
   {
+    matches: ['<@295327000372051968>'],
+    action: msg => {
+      msg.react('👋').catch(() => {});
+    }
+  },
+  {
     matches: ['🎁 💀'],
     position: 0,
     action: msg => {
@@ -186,9 +191,10 @@ let easterEggs = [
     }
   },
   {
-    matches: ['<@295327000372051968>'],
+    matches: ['1⃣ 3⃣'],
+    position: 0,
     action: msg => {
-      msg.react('👋').catch(() => {});
+      msg.channel.send('<@121017818778042368>').catch(() => {});
     }
   }
 ];

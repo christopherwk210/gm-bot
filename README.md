@@ -37,6 +37,7 @@ if (condition) { perform_action(); }
 - Will automatically react with 🇲 Ⓜ when someone posts a message containing only 'mm'
 - Will automatically react with 🇭 🇲 Ⓜ when someone posts a message containing only 'hmm'
 - Will automatically ping GiftOfDeath when someone posts a message starting with 🎁 💀
+- Will automatically ping thirteen when someone posts a message starting with 1⃣ 3⃣
 - Keeps a detailed log of all voice channel activity
 - Keeps a detailed (anonymous) log of online user presences
 - Has an integrated Express server to communicate with a custom front-end for admin use (which is closed source)
@@ -61,7 +62,9 @@ If you wish to contribute, please fork this repo and submit a detailed and clean
 For questions and support, contact topherlicious#1378 on discord.
 
 ## Testing
-A pre-commit git hook is in place to make sure that `npm test` passes before every commit. Don't force a commit if tests are failing! Make sure to test as you go. If you're adding large functionality that warrants testing, you may add your own test accordingly under `./test`.
+A pre-commit git hook is in place to make sure that `npm test` passes before every commit. If tests don't pass, then the commit will be cancelled. Make sure to test as you go. If you're adding large functionality that warrants testing, you may add your own test accordingly under `./test`.
+
+In addition to testing, eslint is also integrated into the project as a pre-commit hook. To ensure the project passes the lint, you should use `npm run lint`. Same as with failing tests, if the project doesn't pass the lint, you can't create a commit.
 
 ## Project Overview
 The main entry point of the project is `./gmbot.js`. This file sets up initial callbacks for the Discord API and initializes database connections for logging features. Beyond that, the structure is as follows:
@@ -117,9 +120,10 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │
 │   ├── rules.js               // Contains all bot message matching rules
 │   │
-│   └── utils                  // Contains pure helper functionality
+│   └── utils                  // Contains 'pure' helper functionality
 │       ├── choose.js            // Simple random array picker function
 │       ├── database.js          // Database init function
+│       ├── detectStaff.js       // Detects if a GuildMember is staff (admin or ducky)
 │       ├── giveAwayLib.js       // Handles give away accessing, `!giveaway`
 │       └── parseCommandList.js  // Parses command rule list
 │

@@ -11,4 +11,4 @@ module.exports = function(a) {
   var rand = a[Math.floor(Math.random() * a.length)];
   
   return rand;
-}
+};

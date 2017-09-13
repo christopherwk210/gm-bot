@@ -2,9 +2,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
-// Node libs
-const fs = require("fs");
-
 // Project libs
 const database = require('./src/lib/utils/database.js');
 const rules = require('./src/lib/rules.js');
@@ -59,7 +56,7 @@ try {
 // Bot callbacks
 bot.on('ready', onBotReady);												// Bot is loaded
 bot.on('guildMemberAdd', welcome);									// A new member has joined
-bot.on("voiceStateUpdate", onBotVoiceStateUpdate);	// Voice activity change
+bot.on('voiceStateUpdate', onBotVoiceStateUpdate);	// Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);				// Message updated
 bot.on('message', onBotMessage);										// Message sent (in DM or in server channel)
 
@@ -68,7 +65,7 @@ bot.on('message', onBotMessage);										// Message sent (in DM or in server ch
  */
 function onBotReady() {
 	// Tell the world our feelings
-	console.log("Squaring to go, captain.");
+	console.log('Squaring to go, captain.');
 	
 	// Fetch net8floz
 	bot.fetchUser(ids.net8floz).then(user => { responsibleUsers.push(user); }, err => console.log(err));
@@ -100,9 +97,9 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
 	// Attempt to add voip_text role
 	try {
 		// Determine they are a member and in the voip channel
-		if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes("voip")) {
+		if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes('voip')) {
 			// Fetch the proper role
-			var role = newMember.guild.roles.find("name", "voip");
+			var role = newMember.guild.roles.find('name', 'voip');
 
 			// Add it
 			newMember.addRole(role);
@@ -113,7 +110,7 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
 
 		// Alert the peeps in charge of fixing it
 		responsibleUsers.forEach(user => {
-			user.send('GMBot encountered an error on voice status update:\n\n' + err);
+			user.send('GMBot encountered an error on voice status update:\n\n' + e);
 		});
 	}
 }
@@ -187,7 +184,7 @@ function catchBadMessages(msg) {
 }
 
 function detectBadLink(str) {
-	return new RegExp(badlinks.join("|")).test(str);
+	return new RegExp(badlinks.join('|')).test(str);
 }
 
 /**
