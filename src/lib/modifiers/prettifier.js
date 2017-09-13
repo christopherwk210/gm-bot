@@ -6,9 +6,7 @@ module.exports = function(msg) {
   // Test for the correct code block
   if (cleanCodeExp.test(msg.content)) {
     // Delete the old message
-    msg.delete()
-      .then(msg => console.log(`Deleted message from ${msg.author}`))
-      .catch(console.error);
+    msg.delete().catch(() => {});
 
     // Set up a response string
     var res = msg.author + `, here is your message with formatted code:\n${msg.content}`;
@@ -28,11 +26,9 @@ module.exports = function(msg) {
     res = res.replace(/(clean-code)/g, 'javascript\n');
 
     // Send it to the channel!
-    msg.channel.send(res)
-      .then(msg => console.log(`Sent message: ${msg.content}`))
-      .catch(console.error);
+    msg.channel.send(res).catch(() => {});
 
-    return true;
+    return prettyCode;
   } else {
     return false;
   }
