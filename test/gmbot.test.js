@@ -1,7 +1,7 @@
 // Node libs
 const assert = require('assert');
 
-// Project libs
+// Project
 const gmbot = require('../gmbot.js');
 
 // Sample image options
@@ -43,8 +43,18 @@ let hasDeleted = false;
 
 // GMBot index file test suite
 describe('GMBot', function() {
+  it('should detect bad links', function() {
+    let badLinkMsg = {
+      content: 'dropboxx.ga'
+    };
+
+    let res = gmbot.detectBadLink(badLinkMsg.content);
+    assert.ok(res);
+  });
+
   describe('image handling', function() {
     it('should prevent image spam', function() {
+      hasDeleted = false;
       gmbot.handleImages(msg, imageOptions);
       assert.equal(hasDeleted, false);
       gmbot.handleImages(msg, imageOptions);

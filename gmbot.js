@@ -181,7 +181,7 @@ function onBotMessage(msg) {
  * @param {Message} msg The discord message to parse
  */
 function catchBadMessages(msg) {
-	if (new RegExp(badlinks.join("|")).test(msg.content)) {
+	if (detectBadLink(msg.content)) {
 		// RED ALERT OH SHIT
 		console.log('Deleted a message containing a bad link.');
 
@@ -200,6 +200,10 @@ function catchBadMessages(msg) {
 	} else {
 		return false;
 	}
+}
+
+function detectBadLink(str) {
+	return new RegExp(badlinks.join("|")).test(str);
 }
 
 /**
@@ -304,5 +308,6 @@ express.run(bot, dmLog, db);
 
 // For testing
 module.exports = {
-	handleImages: handleImages
+	handleImages: handleImages,
+	detectBadLink: detectBadLink
 };
