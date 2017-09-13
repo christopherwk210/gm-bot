@@ -1,8 +1,8 @@
 **SUPER COOL SECRET COMMANDS:**
 *This is only visible to you because of your ducky role:*
 
-**You can mention the rubber duckies role:**
-Typing `!assemble` or `!quackquackquack` will mention the rubber duckies role.
+**You can mention the ducky roles:**
+Typing `!assemble` or `!quackquackquack` will mention the art & rubber duckies roles.
 
 **You can send resources to a specific user:**
 Typing `!resources @usernamehere` will DM that user a list of resources, as if they used the `!resources` command themselves.
