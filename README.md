@@ -49,6 +49,11 @@ $ cd gm-bot
 $ npm i
 ```
 
+Before you run the project, you'll need to create an `auth.json` file in `./src/assets/json` containing your bot token. Copy the format found in `./src/assets/json/auth.example.json`. You can then run the bot with:
+```
+$ npm start
+```
+
 If you wish to contribute, please fork this repo and submit a detailed and clean pull-request. If you want to add new features or commands, please ask topherlicious#1378 or any of the other admins before you start development.
 
 For questions and support, contact topherlicious#1378 on discord.
@@ -114,7 +119,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │
 └── tools        // Contains build tools
     └── seed.js    // Simple node tool to seed the admin DB with sample user,
-                   // intended for front-end debugging only
+                   // intended for front-end debugging only. Run with `npm run seed`.
 ```
 
 ## Bot Rules
