@@ -2,9 +2,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
-// Node libs
-const fs = require("fs");
-
 // Project libs
 const database = require('./src/lib/utils/database.js');
 const rules = require('./src/lib/rules.js');
@@ -22,7 +19,7 @@ const badlinks = require('./src/assets/json/bad-links.json');
 
 // Database setup
 let db = database.initializeDatabase();
-
+fdsa
 // Temp user storage
 let responsibleUsers = [];
 
@@ -113,7 +110,7 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
 
 		// Alert the peeps in charge of fixing it
 		responsibleUsers.forEach(user => {
-			user.send('GMBot encountered an error on voice status update:\n\n' + err);
+			user.send('GMBot encountered an error on voice status update:\n\n' + e);
 		});
 	}
 }
