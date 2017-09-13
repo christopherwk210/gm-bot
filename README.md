@@ -99,6 +99,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │
 │   ├── commands               // These files are responsible for single bot commands
 │   │   ├── assemble.js          // Responsible for `!assemble`
+│   │   ├── audio.js             // Responsible for all audio functions
 │   │   ├── commandment.js       // Responsible for `!commandment`
 │   │   ├── docs.js              // Responsible for `!docs`
 │   │   ├── resources.js         // Responsible for `!resources`
