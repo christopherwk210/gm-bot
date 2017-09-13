@@ -29,15 +29,17 @@ let prefix = '!';
  * Prefixed rules all include these options, so it's easier to just create
  * a template object that we can spread onto the rules we need it in.
  */
-var prefixedCommandRuleTemplate = {
+let prefixedCommandRuleTemplate = {
   prefix: prefix,
   position: 0,
   exact: false,
   delete: true
-}
+};
 
-// Message rules
-module.exports = [
+/**
+ * Functional utility commands
+ */
+let coreCommands = [
   {
     matches: ['welcome'],
     ...prefixedCommandRuleTemplate,
@@ -97,6 +99,12 @@ module.exports = [
     ...prefixedCommandRuleTemplate,
     action: streamer
   },
+];
+
+/**
+ * Misc silly shit
+ */
+let easterEggs = [
   {
     matches: ['quackquackquack', 'assemble'],
     ...prefixedCommandRuleTemplate,
@@ -166,4 +174,10 @@ module.exports = [
       msg.react('👋').catch(() => {});
     }
   }
+];
+
+// Message rules
+module.exports = [
+  ...coreCommands,
+  ...easterEggs
 ];
