@@ -16,6 +16,9 @@ Use `!bgmhammer` to access a super ultra secret emoji. (Anyone can actually acce
 **You can ping GiftOfDeath with emoji**
 Send a message that starts with 🎁 💀 and watch the magic happen.
 
+**You can ping thirteen with emoji**
+All you have to do is send a message that starts with 1⃣ 3⃣ and cash in all your daddy points, and thirteen will be summoned.
+
 **You can toggle the streamy role in like, a bunch of ways**
 Anyone can actually toggle the streamy role in a bunch of ways: `!role streamy`, `!streamy`, `!streamwatcher`, `!letmewatchsomestreams`, `!allaboardthestreamboat`, and `!melikeystream`.
 

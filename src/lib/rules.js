@@ -162,6 +162,12 @@ let easterEggs = [
     }
   },
   {
+    matches: ['<@295327000372051968>'],
+    action: msg => {
+      msg.react('👋').catch(() => {});
+    }
+  },
+  {
     matches: ['🎁 💀'],
     position: 0,
     action: msg => {
@@ -169,9 +175,10 @@ let easterEggs = [
     }
   },
   {
-    matches: ['<@295327000372051968>'],
+    matches: ['1⃣ 3⃣'],
+    position: 0,
     action: msg => {
-      msg.react('👋').catch(() => {});
+      msg.channel.send('<@121017818778042368>').catch(() => {});
     }
   }
 ];
