@@ -5,7 +5,7 @@ const assert = require('assert');
 const validate = require('../../../src/lib/docs/validate.js');
 
 // Validate test suite
-describe('Validate', function() {
+describe('Validate lib', function() {
   it('should correctly identify gms1 functions', function() {
     assert.ok( validate.gml.gms1('draw_sprite') );
     assert.ok( validate.gml.gms1('draw_self') );
