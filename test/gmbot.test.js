@@ -63,12 +63,12 @@ describe('GMBot', function() {
       
       setTimeout(function() {
         assert.notEqual(imageOptions.imageLog[msg.author.id], 0);
-      }, 4);
+      }, 2);
 
       setTimeout(function() {
         assert.equal(imageOptions.imageLog[msg.author.id], 0);
         done();
-      }, 6);
+      }, 7);
     });
   });
 });
