@@ -8,6 +8,9 @@
     "seed": "node src/tools/seed.js",
     "test": "mocha 'test/**/*.js'"
   },
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/christopherwk210/gm-bot"
@@ -39,7 +42,8 @@
     "opusscript": "^0.0.1"
   },
   "devDependencies": {
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "pre-commit": "^1.2.2"
   },
   "engines": {
     "node": ">=8.0.0"
