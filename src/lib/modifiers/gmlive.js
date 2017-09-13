@@ -3,9 +3,7 @@ const gmliveExp = new RegExp(/([`]{3})gmlive([^```]*)([`]{3})/g);
 module.exports = function(msg) {
   if (gmliveExp.test(msg.content)) {
     // Delete the old message
-    msg.delete()
-        .then(msg => console.log(`Deleted message from ${msg.author}`))
-        .catch(console.error);
+    msg.delete().catch(() => {});
 
     // Fetch the code block contents
     var code = msg.content.match(gmliveExp);
@@ -19,11 +17,9 @@ module.exports = function(msg) {
     var res = `${msg.author} Here's your GMLive link:\n ${url}\nTo run the snippet click the link and press "Run".`;
 
     // Send it to the channel!
-    msg.channel.send(res)
-        .then(msg => console.log(`Sent message: ${msg.content}`))
-        .catch(console.error);
+    msg.channel.send(res).catch(() => {});
 
-    return true;
+    return url;
   } else {
     return false;
   }
