@@ -90,7 +90,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │            // for communicating with a custom front-end meant for
 │            // admin use only and is, frankly, not cleanly kept.
 │
-├── lib                      // The meat of the bot is in here!
+├── lib                        // The meat of the bot is in here!
 │   │
 │   ├── commands               // These files are responsible for single bot commands
 │   │   ├── assemble.js          // Responsible for `!assemble`
@@ -99,6 +99,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── resources.js         // Responsible for `!resources`
 │   │   ├── roleControl.js       // Responsible for `!role`
 │   │   └── streamer.js          // Responsible for `!streamy`
+│   │   └── welcome.js           // Responsible for `!welcome` and sending the initial welcome
 │   │
 │   ├── docs                   // Extra scripts that help the `!docs` command
 │   │   ├── searchdat-gms1.js    // Contains valid GMS1 documentation urls
