@@ -64,4 +64,4 @@ module.exports = function(commandList, msg) {
   });
 
   return success;
-}
+};

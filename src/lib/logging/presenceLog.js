@@ -33,4 +33,4 @@ module.exports = function(sc, db) { // server collection - singular!
             console.log('Presence profile successfully logged.');
         }
     });
-}
+};

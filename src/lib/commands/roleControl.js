@@ -73,4 +73,4 @@ module.exports = function(msg, args) {
       }
       break;
   }
-}
+};

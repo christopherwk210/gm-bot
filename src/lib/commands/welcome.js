@@ -23,4 +23,4 @@ let messageEmbed = new Discord.RichEmbed({
  */
 module.exports = function(member) {
   member.send(messageEmbed).catch(() => {});
-}
+};
