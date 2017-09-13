@@ -109,7 +109,25 @@ let audioCommands = [
     action: audio.play
   },
   {
-    matches: ['stop'],
+    matches: ['resume'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.resume
+  },
+  {
+    matches: ['pause'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.pause
+  },
+  {
+    matches: ['skip'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.skip
+  },
+  {
+    matches: ['kick'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
     action: audio.stop

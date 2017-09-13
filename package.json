@@ -40,7 +40,8 @@
     "nedb": "^1.8.0",
     "node-opus": "^0.2.7",
     "sodium": "^2.0.1",
-    "uws": "^8.14.1"
+    "uws": "^8.14.1",
+    "youtube-dl": "^1.11.1"
   },
   "peerDependencies": {
     "node-opus": "^0.2.1"
