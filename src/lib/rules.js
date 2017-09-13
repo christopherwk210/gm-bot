@@ -25,14 +25,22 @@ const choose = require('./utils/choose.js');
 // We are a ! kinda server
 let prefix = '!';
 
+/**
+ * Prefixed rules all include these options, so it's easier to just create
+ * a template object that we can spread onto the rules we need it in.
+ */
+var prefixedCommandRuleTemplate = {
+  prefix: prefix,
+  position: 0,
+  exact: false,
+  delete: true
+}
+
 // Message rules
 module.exports = [
   {
     matches: ['welcome'],
-    prefix: prefix,
-    position: 0,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: msg => {
       msg.author.sendEmbed({
         color: 26659,
@@ -46,26 +54,17 @@ module.exports = [
   },
   {
     matches: ['resources'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: handleResources
   },
   {
     matches: ['role'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: roleControl
   },
   {
     matches: ['help'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: msg => {
       let command = "all";
       
@@ -92,42 +91,27 @@ module.exports = [
   },
   {
     matches: ['docs', 'doc'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: docs
   },
   {
     matches: ['giveaway', 'giveaways'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: giveAways.message
   },
   {
     matches: ['streamy', 'streamwatcher', 'letmewatchsomestreams', 'allaboardthestreamboat', 'melikeystream'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: streamer
   },
   {
     matches: ['quackquackquack', 'assemble'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: assemble
   },
   {
     matches: ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: msg => {
       msg.channel.send(
         choose([
@@ -145,18 +129,12 @@ module.exports = [
   },
   {
     matches: ['commandment'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: commandment
   },
   {
     matches: ['bgmhammer'],
-    position: 0,
-    prefix: prefix,
-    exact: false,
-    delete: true,
+    ...prefixedCommandRuleTemplate,
     action: msg => {
       msg.channel.send(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(() => {});
     }
