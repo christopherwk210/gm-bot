@@ -102,6 +102,23 @@ let coreCommands = [
 ];
 
 /**
+ * Voice channel related commands
+ */
+let audioCommands = [
+  {
+    matches: ['play'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      if (msg.member) {
+        
+      } else {
+        msg.author.send('Command not available outside of /r/GameMaker!');
+      }
+    }
+  }
+];
+
+/**
  * Misc silly shit
  */
 let easterEggs = [
@@ -179,5 +196,6 @@ let easterEggs = [
 // Message rules
 module.exports = [
   ...coreCommands,
+  ...audioCommands,
   ...easterEggs
 ];
