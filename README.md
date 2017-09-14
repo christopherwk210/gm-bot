@@ -59,6 +59,7 @@ All of these commands will send you a DM which you can prevent by including `s` 
 This project requires:
 - Node >= 8.0.0
 - FFMPEG for audio related functionality (not needed to run)
+- libtool (libtool-bin)
 
 To work on the source code locally:
 ```
