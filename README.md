@@ -192,6 +192,8 @@ To add a command, append a new object to the array and define a valid rule. At t
 - Ariak#2124
 - Natesky9#2964 (in spirit)
 
+A special thanks to the /r/GameMaker Discord community and staff for their feedback and support.
+
 ## License
 ```javascript
 /**
