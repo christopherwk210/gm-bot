@@ -79,6 +79,15 @@ If you wish to contribute, please fork this repo and submit a detailed and clean
 
 For questions and support, contact topherlicious#1378 on discord.
 
+## Common Issues
+If you are running the bot on your local machine, make sure you halt the process *before* attempting to make a commit or run tests, otherwise the tests will most likely fail. Discord.js occupies port 8080 which needs to be open for tests to commence properly.
+
+If the application doesn't run after updating to a newer version due to bcrypt related errors, try deleting the package lock & node_modules and reinstalling:
+```
+$ rm package-lock.json && rm -rf node_modules && npm i
+```
+In general, this is just a good fix to know about, and can solve common packaging issues.
+
 ## Testing
 A pre-commit git hook is in place to make sure that `npm test` passes before every commit. If tests don't pass, then the commit will be cancelled. Make sure to test as you go. If you're adding large functionality that warrants testing, you may add your own test accordingly under `./test`.
 
