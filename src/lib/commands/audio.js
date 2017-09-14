@@ -14,7 +14,7 @@ let dispatch;
 let queue = [];
 
 // Stream volume
-let volume = 1;
+let volume = 0.4;
 
 /**
  * Plays audio!
