@@ -1,0 +1,10 @@
+ ┌─────────────────────────────────────────────────────┐
+ │ Getting Started                                     │
+ ╞═════════════════════════════════════════════════════╡
+ │ Be sure to look over ./README.md before you begin!  │
+ │                                                     │
+ │ Command overview:                                   │
+ │ $ npm start    - start the bot                      │
+ │ $ npm run test - run mocha tests                    │
+ │ $ npm run lint - lint the project for errors        │
+ └─────────────────────────────────────────────────────┘

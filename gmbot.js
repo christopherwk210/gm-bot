@@ -301,7 +301,7 @@ process.on('uncaughtException', (err) => {
 
 // Copyright information
 console.log('GameMakerBot v' + require('./package.json').version);
-console.log('Copyright © 2017 Chris Anselmo & Contributors\nThis program comes with ABSOLUTELY NO WARRANTY.\n\n');
+console.log('Copyright © 2017 Chris "topherlicious" Anselmo & Contributors\nThis program comes with ABSOLUTELY NO WARRANTY.\n');
 
 // Login the bot using the auth token from auth.json
 bot.login(auth.token);

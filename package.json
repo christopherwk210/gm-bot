@@ -4,7 +4,7 @@
   "description": "The bot used by the /r/GameMaker Discord server.",
   "main": "./gmbot",
   "scripts": {
-    "install": "node -e 'require(\"fs\").closeSync(fs.openSync(\"./src/data/giveAwaysData.json\", \"a\"));'",
+    "install": "node ./src/tools/post-install.js",
     "lint": "eslint . || true",
     "lint.verbose": "eslint gmbot.js ",
     "start": "node gmbot.js",
