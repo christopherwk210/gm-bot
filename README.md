@@ -65,10 +65,11 @@ To work on the source code locally:
 ```
 $ git clone https://bitbucket.org/christopherwk210/gm-bot
 $ cd gm-bot
-$ npm install
+$ npm install --silent
 ```
-
 *Note: The installation may take a good while, as some of the dependencies are fairly large.*
+
+*Another note: `--silent` is used to suppress unnecessary peer dependency warnings.*
 
 Before you run the project, you'll need to create an `auth.json` file in `./src/assets/json` containing your bot token. Copy the format found in `./src/assets/json/auth.example.json`. You can then run the bot with:
 ```
@@ -84,7 +85,7 @@ If you are running the bot on your local machine, make sure you halt the process
 
 If the application doesn't run after updating to a newer version due to bcrypt related errors, try deleting the package lock & node_modules and reinstalling:
 ```
-$ rm package-lock.json && rm -rf node_modules && npm i
+$ rm package-lock.json && rm -rf node_modules && npm i --silent
 ```
 In general, this is just a good fix to know about, and can solve common packaging issues.
 
