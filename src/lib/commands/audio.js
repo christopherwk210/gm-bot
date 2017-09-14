@@ -272,7 +272,7 @@ function setVolume(msg, args) {
   volume = newVol;
 
   if (dispatch) {
-    dispatch.setVolume(newVol);
+    dispatch.setVolume(newVol * .01);
   }
 }
 
