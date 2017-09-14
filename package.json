@@ -38,11 +38,13 @@
     "jsonwebtoken": "^7.3.0",
     "moment": "^2.18.1",
     "nedb": "^1.8.0",
-    "uws": "^8.14.1"
+    "node-opus": "^0.2.7",
+    "sodium": "^2.0.1",
+    "uws": "^8.14.1",
+    "youtube-dl": "^1.11.1"
   },
   "peerDependencies": {
-    "node-opus": "^0.2.1",
-    "opusscript": "^0.0.1"
+    "node-opus": "^0.2.1"
   },
   "devDependencies": {
     "eslint": "^4.6.1",

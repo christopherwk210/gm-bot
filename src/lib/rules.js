@@ -10,6 +10,7 @@ const giveAways = require('./utils/giveAwayLib.js');
 const assemble = require('./commands/assemble.js');
 const commandment = require('./commands/commandment.js');
 const welcome = require('./commands/welcome.js');
+const audio = require('./commands/audio.js');
 
 // Project data
 const help = {
@@ -98,6 +99,54 @@ let coreCommands = [
 ];
 
 /**
+ * Voice channel related commands
+ */
+let audioCommands = [
+  {
+    matches: ['play'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.play
+  },
+  {
+    matches: ['resume'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.resume
+  },
+  {
+    matches: ['pause'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.pause
+  },
+  {
+    matches: ['skip'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.skip
+  },
+  {
+    matches: ['queue'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.getQueue
+  },
+  {
+    matches: ['volume'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.setVolume
+  },
+  {
+    matches: ['kick'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: audio.stop
+  }
+];
+
+/**
  * Misc silly shit
  */
 let easterEggs = [
@@ -182,5 +231,6 @@ let easterEggs = [
 // Message rules
 module.exports = [
   ...coreCommands,
+  ...audioCommands,
   ...easterEggs
 ];

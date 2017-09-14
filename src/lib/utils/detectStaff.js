@@ -4,7 +4,7 @@
  * @return {any} returns 'admin' || 'rubber' || 'art' || false
  */
 module.exports = function(member) {
-  if (!member.roles) {
+  if ((!member) || (!member.roles)) {
     return false;
   } else if ((member.roles.find('name', 'admin') || member.roles.find('name', 'admins'))) {
     return 'admin';

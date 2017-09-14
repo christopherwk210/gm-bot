@@ -39,7 +39,7 @@ module.exports = function(commandList, msg) {
       if (condition) {
         // Validate pre callback
         if (command.pre) {
-          if (!command.pre(msg)) {
+          if (!command.pre(msg, args)) {
             // Pre invalidated, short circuit
             return true;
           }

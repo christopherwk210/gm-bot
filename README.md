@@ -33,6 +33,19 @@ if (condition) { perform_action(); }
   - `!assemble` - pings all duckies (only usable by staff and duckies)
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
+- Has full audio streaming integration, and is able to play music from a [large](http://rg3.github.io/youtube-dl/supportedsites.html) amount of sources. Audio commands are:
+
+```
+!play [url]     - Adds an item to the queue (will play immediately if it's the only one)
+!pause          - Pauses the currently playing audio
+!resume         - Resumes paused audio
+!skip           - Skips the current song
+!queue          - Sends you a message of the curent queue
+!volume [value] - Sets the internal streaming volume of the bot
+!kick           - Immediately kills queue and disconnects the bot from voice
+```
+All of these commands will send you a DM which you can prevent by including `s` in your command: `!pause s`. At this time, only staff (admin + ducks) are able to use these commands.
+
 - Will automatically react with a 👋 when mentioned
 - Will automatically react with 🇲 Ⓜ when someone posts a message containing only 'mm'
 - Will automatically react with 🇭 🇲 Ⓜ when someone posts a message containing only 'hmm'
@@ -43,12 +56,18 @@ if (condition) { perform_action(); }
 - Has an integrated Express server to communicate with a custom front-end for admin use (which is closed source)
 
 ## Development
+This project requires:
+- Node >= 8.0.0
+- FFMPEG for audio related functionality (not needed to run)
+
 To work on the source code locally:
 ```
 $ git clone https://bitbucket.org/christopherwk210/gm-bot
 $ cd gm-bot
-$ npm i
+$ npm install
 ```
+
+*Note: The installation may take a good while, as some of the dependencies are fairly large.*
 
 Before you run the project, you'll need to create an `auth.json` file in `./src/assets/json` containing your bot token. Copy the format found in `./src/assets/json/auth.example.json`. You can then run the bot with:
 ```
@@ -97,6 +116,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │
 │   ├── commands               // These files are responsible for single bot commands
 │   │   ├── assemble.js          // Responsible for `!assemble`
+│   │   ├── audio.js             // Responsible for all audio functions
 │   │   ├── commandment.js       // Responsible for `!commandment`
 │   │   ├── docs.js              // Responsible for `!docs`
 │   │   ├── resources.js         // Responsible for `!resources`
