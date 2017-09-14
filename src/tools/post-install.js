@@ -19,4 +19,4 @@ console.log('GameMakerBot v' + require('../../package.json').version);
 console.log('Copyright © 2017 Chris "topherlicious" Anselmo & Contributors\nThis program comes with ABSOLUTELY NO WARRANTY.\n');
 
 // Print getting started information
-console.log(intro)
+console.log(`${intro}\n`);

@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "The bot used by the /r/GameMaker Discord server.",
   "main": "./gmbot",
+  "license": "GPL-3.0",
   "scripts": {
     "install": "node ./src/tools/post-install.js",
     "lint": "eslint . || true",
