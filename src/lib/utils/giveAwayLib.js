@@ -16,12 +16,13 @@ let fpath = './src/data/giveAwaysData.json';
 
 // Create giveAway json if it doesn't exists
 fs.open(fpath, 'r', function(fileErr) {
-	if (fileErr) {
+	if (fileErr !== undefined) {
 		fs.writeFile(fpath, '{}', function(err) {
-			if(err) {
+			if (err) {
 				console.log(err);
-			}
-      data = require('../../data/giveAwaysData.json');
+			} else {
+        data = require('../../data/giveAwaysData.json');
+      }
 		});
 	} else {
     data = require('../../data/giveAwaysData.json');
