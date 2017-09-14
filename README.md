@@ -107,13 +107,17 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── ids.json             // ID's of users who are messaged when bot errors
 │   │   └── jsbeautify.json      // jsbeautify rules for clean-code
 │   │
-│   └── markdown               // Markdown assets
-│       ├── commandments.md      // Commandment list
-│       ├── help.admins.md       // Help message for admins only
-│       ├── help.all.md          // Help message for all users
-│       ├── help.ducks.md        // Help message for duckies and up
-│       ├── resources.md         // Resources list
-│       └── welcome.md           // Welcome message
+│   ├── markdown               // Markdown assets
+│   │   ├── commandments.md      // Commandment list
+│   │   ├── help.admins.md       // Help message for admins only
+│   │   ├── help.all.md          // Help message for all users
+│   │   ├── help.ducks.md        // Help message for duckies and up
+│   │   ├── resources.md         // Resources list
+│   │   └── welcome.md           // Welcome message
+│   │
+│   └── text                   // Text-only assets
+│       ├── banner.txt           // Post-install banner
+│       └── getting-started      // Post-install message
 │
 ├── data                       // Holds database flat-files during runtime
 │
@@ -157,8 +161,10 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │       └── parseCommandList.js  // Parses command rule list
 │
 └── tools        // Contains build tools
-    └── seed.js    // Simple node tool to seed the admin DB with sample user,
-                   // intended for front-end debugging only. Run with `npm run seed`.
+    ├── seed.js    // Simple node tool to seed the admin DB with sample user,
+    │              // intended for front-end debugging only. Run with `npm run seed`.
+    │
+    └── post-install.js  // Post-install script
 ```
 
 ## Bot Rules
