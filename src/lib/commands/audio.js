@@ -124,7 +124,7 @@ function processQueue(msg, queue, options) {
   }
 
   // Play away
-  dispatch = currentConnection.playStream(youtubedl(nextItem.url, ['-x', '--audio-quality', '0']), { volume: volume });
+  dispatch = currentConnection.playStream(youtubedl(nextItem.url, ['-x', '--audio-quality', '0']), { volume: volume * .01 });
   dispatch.setBitrate('auto');
 
   // On stream start
