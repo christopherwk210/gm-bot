@@ -227,7 +227,7 @@ function handleDM(msg) {
     }
   } else {
     // The user has already sent a message during this session
-    dmLog[msg.author.username].message_id = msg.id;        // Record their ID (a little redundant)
+    dmLog[msg.author.username].message_id = msg.id;       // Record their ID (a little redundant)
     dmLog[msg.author.username].new_message = msg.content; // Indicate the new message content
     dmLog[msg.author.username].messages.push({            // Store this message with the rest
       user: msg.author.username, // Author username

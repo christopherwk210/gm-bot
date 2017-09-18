@@ -136,7 +136,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── docs.js              // Responsible for `!docs`
 │   │   ├── resources.js         // Responsible for `!resources`
 │   │   ├── roleControl.js       // Responsible for `!role`
-│   │   └── streamer.js          // Responsible for `!streamy`
+│   │   ├── streamer.js          // Responsible for `!streamy`
 │   │   └── welcome.js           // Responsible for `!welcome` and sending the initial welcome
 │   │
 │   ├── docs                   // Extra scripts that help the `!docs` command
