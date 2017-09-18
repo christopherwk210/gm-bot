@@ -6,11 +6,11 @@ const gmbot = require('../gmbot.js');
 
 // Sample image options
 let imageOptions = {
-	imageLog: {
-		timers: []
-	},
-	imageCap: 3,		 // 3 images within
-	imageTimer: 5    // 5ms
+  imageLog: {
+    timers: []
+  },
+  imageCap: 3,     // 3 images within
+  imageTimer: 5    // 5ms
 };
 
 // Sample message

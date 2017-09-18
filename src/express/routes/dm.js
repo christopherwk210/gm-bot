@@ -23,7 +23,7 @@ module.exports = function(app, bot, dmLog) {
 
         if (dmLog[user.username] !== undefined) {
           dmLog[user.username].message_id = msg.id;
-			    dmLog[user.username].new_message = message;
+          dmLog[user.username].new_message = message;
           dmLog[user.username].messages.push({
             user: 'gmbot',
             message: message

@@ -11,9 +11,9 @@ let db = {};
 
 // Admin db
 db.admins = new Datastore({
-	filename:'./src/data/admins.db',
-	autoload: true,
-	onload: function() {
+  filename:'./src/data/admins.db',
+  autoload: true,
+  onload: function() {
     bcrypt.hash('password', 10, function(bcryptError, hash) {
       db.admins.insert({
         name: 'admin',
@@ -26,5 +26,5 @@ db.admins = new Datastore({
         }
       });
     });
-	}
+  }
 });
