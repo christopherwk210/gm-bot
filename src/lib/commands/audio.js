@@ -14,7 +14,7 @@ let dispatch;
 let queue = [];
 
 // Stream volume
-let volume = 0.4;
+let volume = 40;
 
 /**
  * Plays audio!
@@ -258,7 +258,7 @@ function getQueue(msg) {
  */
 function setVolume(msg, args) {
   if (!args[1]) {
-    msg.author.send('No value for volume supplied!');
+    msg.author.send('Current volume: ${volume}');
     return;
   }
 
