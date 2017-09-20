@@ -258,7 +258,7 @@ function getQueue(msg) {
  */
 function setVolume(msg, args) {
   if (!args[1]) {
-    msg.author.send('Current volume: ${volume}');
+    msg.author.send(`Current volume: ${volume}`);
     return;
   }
 
