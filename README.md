@@ -33,8 +33,7 @@ if (condition) { perform_action(); }
   - `!assemble` - pings all duckies (only usable by staff and duckies)
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
-- Has full audio streaming integration, and is able to play music from a [large](http://rg3.github.io/youtube-dl/supportedsites.html) amount of sources. Audio commands are:
-
+- Has full audio streaming integration, and is able to play music from a [large](http://rg3.github.io/youtube-dl/supportedsites.html) amount of sources. Audio commands (only accessible by staff & ducks) are:
 ```
 !play [url]     - Adds an item to the queue (will play immediately if it's the only one)
 !pause          - Pauses the currently playing audio
@@ -44,7 +43,7 @@ if (condition) { perform_action(); }
 !volume [value] - Sets the streaming volume % of the bot (0-300)
 !kick           - Immediately kills queue and disconnects the bot from voice
 ```
-All of these commands will send you a DM which you can prevent by including `s` in your command: `!pause s`. At this time, only staff (admin + ducks) are able to use these commands.
+All of these commands will send you a DM which you can prevent by including `s` in your command: `!pause s`. At this time, only staff (admin + ducks) are able to use these commands. Audio streaming features are currently in beta and not finished!
 
 - Will automatically react with a 👋 when mentioned
 - Will automatically react with 🇲 Ⓜ when someone posts a message containing only 'mm'
