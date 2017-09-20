@@ -14,7 +14,7 @@ let dispatch;
 let queue = [];
 
 // Stream volume
-let volume = 40;
+let volume = 100;
 
 /**
  * Plays audio!
@@ -124,7 +124,7 @@ function processQueue(msg, queue, options) {
   }
 
   // Play away
-  dispatch = currentConnection.playStream(youtubedl(nextItem.url, ['-x', '--audio-quality', '0']), { volume: volume * .01 });
+  dispatch = currentConnection.playStream(youtubedl(nextItem.url, ['-x', '--audio-quality', '0']), { volume: (volume * .01) / 3 });
   dispatch.setBitrate('auto');
 
   // On stream start
@@ -272,7 +272,7 @@ function setVolume(msg, args) {
   volume = newVol;
 
   if (dispatch) {
-    dispatch.setVolume(newVol * .01);
+    dispatch.setVolume((newVol * .01) / 3);
   }
 }
 

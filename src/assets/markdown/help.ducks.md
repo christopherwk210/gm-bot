@@ -15,7 +15,7 @@ Valid URLs: http://rg3.github.io/youtube-dl/supportedsites.html
 !resume         - Resumes paused audio
 !skip           - Skips the current song
 !queue          - Sends you a message of the curent queue
-!volume [value] - Sets the internal streaming volume % of the bot
+!volume [value] - Sets the streaming volume % of the bot (0-300)
 !kick           - Immediately kills queue and disconnects the bot from voice
 ```
 All of these commands will send you a DM which you can prevent by including `s` in your command: `!pause s`.
