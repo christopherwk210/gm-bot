@@ -45,7 +45,7 @@ let responsibleUsers = [];
 let dmLog = {};
 
 // How often to log user presence
-let profileInterval = undefined;
+let profileInterval = 3600000;
 
 // Image upload limitting
 let imageOptions = {
@@ -98,7 +98,7 @@ function onBotReady() {
   logPresence(guildCollection, db);
 
   // Begin logging on interval
-  profileInterval = setInterval(() => {
+  setInterval(() => {
     logPresence(guildCollection, db);
   }, profileInterval || 3600000);
 }
