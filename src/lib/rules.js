@@ -153,6 +153,7 @@ let easterEggs = [
   {
     matches: ['quackquackquack', 'assemble'],
     ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
     action: assemble
   },
   {
