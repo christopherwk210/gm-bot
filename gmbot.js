@@ -151,6 +151,9 @@ function onBotMessageUpdate(oldMsg, newMsg) {
  * @param {Message} msg The created message
  */
 function onBotMessage(msg) {
+  // Don't respond to bots
+  if (msg.author.bot) { return; }
+
   // Intercept all DM's
   if (msg.channel.type === 'dm') {
     // Log this DM
