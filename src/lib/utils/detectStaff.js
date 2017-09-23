@@ -8,7 +8,7 @@ module.exports = function(member) {
     return false;
   } else if (member.roles.find('name', 'admin') || member.roles.find('name', 'admins') || member.roles.find('name', 'subreddit mods 📄')) {
     return 'admin';
-  } else if (member.roles.find('name', 'rubber duckies')) {
+  } else if (member.roles.find('name', 'rubber duckies') || member.roles.find('name', 'duckies🐤')) {
     return 'rubber';
   } else if (member.roles.find('name', 'art duckies')) {
     return 'art';
