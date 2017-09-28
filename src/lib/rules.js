@@ -257,7 +257,8 @@ let easterEggs = [
           client.setGame(game);
 
           // Only repeat if we should
-          if (game.length > 0) {
+          if (game.length === 0) {
+            client.setGame('');
             clearInterval(konamiTimeout);
           }
         }
