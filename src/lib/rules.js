@@ -26,6 +26,9 @@ const detectStaff = require('./utils/detectStaff.js');
 // We are a ! kinda server
 let prefix = '!';
 
+// Handle konami goofiness
+let konamiTimeout;
+
 /**
  * Prefixed rules all include these options, so it's easier to just create
  * a template object that we can spread onto the rules we need it in.
@@ -225,6 +228,40 @@ let easterEggs = [
     position: 0,
     action: msg => {
       msg.channel.send('<@121017818778042368>').catch(() => {});
+    }
+  },
+  {
+    matches: [':arrow_up: :arrow_up: :arrow_down: :arrow_down: :arrow_left: :arrow_right: :arrow_left: :arrow_right: :regional_indicator_b: :regional_indicator_a:'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      // Clear existing timeout
+      clearInterval(konamiTimeout);
+
+      // Get client
+      let client = msg.client.user;
+
+      // Setup string
+      let game = 'KONAMI CODE '.repeat(10);
+
+      // Initial set
+      client.setGame(game);
+
+      // Begin the goofiness
+      konamiTimeout = setInterval(() => {
+        if (client && client.setGame) {
+          // Modify game
+          game = game.substring(1, game.length - 1);
+
+          // Set new game
+          client.setGame(game);
+
+          // Only repeat if we should
+          if (game.length > 0) {
+            clearInterval(konamiTimeout);
+          }
+        }
+      }, 300);
     }
   }
 ];
