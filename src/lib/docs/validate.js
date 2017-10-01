@@ -16,13 +16,28 @@ const gml = {
    * @param {string} list Function list to check
    */
   gml: function (func, list) {
-    let pos = list.indexOf(func);
-    if (pos !== -1) {
+    // Set up for global searching
+    let regex = new RegExp(func, 'g');
+    let match;
+    let matches = [];
+    let found = false;
+
+    // Get all positions
+    while ((match = regex.exec(list)) != null) {
+      matches.push(match.index);
+    }
+
+    // Find the valid match
+    matches.some(pos => {
       if ((list[pos - 1] === ';') && (list[pos + func.length] === ';')) {
+        // Find
+        found = true;
         return true;
       }
-    }
-    return false;
+    });
+
+    // Return results
+    return found;
   },
   /**
    * Determine if function is a valid GMS1 function
