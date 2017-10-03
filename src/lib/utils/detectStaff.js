@@ -6,7 +6,7 @@
 module.exports = function(member) {
   if ((!member) || (!member.roles)) {
     return false;
-  } else if (member.roles.find('name', 'admin') || member.roles.find('name', 'admins') || member.roles.find('name', 'subreddit mods 📄')) {
+  } else if (member.roles.find('name', 'admin') || member.roles.find('name', 'admins') || member.roles.find('name', 'subreddit mods')) {
     return 'admin';
   } else if (member.roles.find('name', 'rubber duckies') || member.roles.find('name', 'duckies🐤')) {
     return 'rubber';
