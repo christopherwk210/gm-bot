@@ -229,6 +229,45 @@ let easterEggs = [
     action: msg => {
       msg.channel.send('<@121017818778042368>').catch(() => {});
     }
+  },
+  {
+    matches: ['say'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member) === 'admin',
+    action: (msg, args) => {
+      let regex = /"(.*)"/g;
+
+      // Catch message
+      let match = msg.content.match(regex);
+
+      // Err on no match
+      if (!match || match.length < 1) {
+        return;
+      }
+
+      // Get only the first match (there will only be one)
+      let message = msg.content.match(regex)[0];
+
+      // Trim " chars
+      message = message.slice(1, message.length - 1);
+
+      // Make sure there's a message to send
+      if (message.length === 0) {
+        return;
+      }
+
+      // Check if channels were mentioned
+      if (msg.mentions.channels.size > 0) {
+        // For each channel mentioned
+        msg.mentions.channels.forEach(channel => {
+          // Send the message
+          channel.send(message);
+        });
+      } else {
+        // Send message to same channel
+        msg.channel.send(message);
+      }
+    }
   }
 ];
 
