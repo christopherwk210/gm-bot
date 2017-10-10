@@ -86,14 +86,28 @@ function helpUrlGMS1(msg, fn) {
 function run(msg, args) {
   // Default to GMS2 documentation
   let version = 'gms2';
+  let image = false;
 
-  // User the version the user supplied
-  if (args.length > 2) {
-    version = args[2];
-  } else if (args.length === 1) {
+  if (args.length === 1) {
     // Throw on unsupplied function
     msg.author.send('You did not include a function name. Type `!help` for help with commands.');
     return;
+  } else if (args.length === 3) {
+    // Use the version the user supplied
+    version = args[2];
+  } else if (args.length > 3) {
+    let v1 = args.length.indexOf('gms1');
+    let v2 = args.length.indexOf('gms2');
+
+    if (v1 !== -1) {
+      version = args[v1];
+    } else {
+      version = args[v2]
+    }
+
+    if (args.indexOf('-i') !== -1) {
+      image = true;
+    }
   }
 
   // Correct version
