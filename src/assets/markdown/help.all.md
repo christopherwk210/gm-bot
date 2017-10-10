@@ -9,11 +9,11 @@ Hi, I'm GameMakerBot. Here are my available commands:
 !resources   - outputs a list of trusted resources to assist with your GameMaker Studio journey
 
 !docs        - outputs the URL to the documentation of a GML function
-               usage: !docs [function_name] [optional: version]
-               available versions: 'gms1','gms2'; defaults to 'gms2'
+               usage: !docs [function_name] [version] [image]
+               versions: 'gms1','gms2'; defaults to 'gms2'
                example: !docs draw_sprite
                example: !docs draw_sprite gms2
-               example: !docs draw_sprite gms1
+               example: !docs draw_sprite gms1 -i
 
 !commandment - outputs a GIF version of one of Pixelated Pope's GameMaker commandments
                usage: !commandment [roman numeral | "list"]
