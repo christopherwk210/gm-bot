@@ -20,18 +20,18 @@ if (condition) { perform_action(); }
 \`\`\`
 
 - Has a list of commands available:
-  - `!help` - sends the user a helpful message on the available commands the bot has to offer
-  - `!role [role]` - allows user to toggle server roles on and off
-  - `!resources` - sends the user a list of curated gamemaker resources, can be used by staff to send the list to other users
-  - `!docs [function] [version] [i]` - fetches a link or screenshot to official gamemaker documentation for the specified function
-  - `!streamy` - toggles the streamy role for the user
-  - `!commandment [roman numeral | 'list']` - outputs a GIF version of one of pix pope's gamemaker commandments
-  - `!bgmhammer` - posts a custom set of emoji created for AndrewBGM
-  - `!topher` - pings topherlicious (hey, that's me)
-  - `!welcome` - sends the user the welcome message as if they just joined
-  - `!giveaway [name]` - allows users to join a giveaway
-  - `!assemble` - pings all duckies (only usable by staff and duckies)
-  - `!say [channel(s)?] "[message]"` - Will send a message to the current channel or channel(s) specified (only usable by staff)
+    - `!help` - sends the user a helpful message on the available commands the bot has to offer
+    - `!role [role]` - allows user to toggle server roles on and off
+    - `!resources` - sends the user a list of curated gamemaker resources, can be used by staff to send the list to other users
+    - `!docs [function] [version] [i]` - fetches a link or screenshot to official gamemaker documentation for the specified function
+    - `!streamy` - toggles the streamy role for the user
+    - `!commandment [roman numeral | 'list']` - outputs a GIF version of one of pix pope's gamemaker commandments
+    - `!bgmhammer` - posts a custom set of emoji created for AndrewBGM
+    - `!topher` - pings topherlicious (hey, that's me)
+    - `!welcome` - sends the user the welcome message as if they just joined
+    - `!giveaway [name]` - allows users to join a giveaway
+    - `!assemble` - pings all duckies (only usable by staff and duckies)
+    - `!say [channel(s)?] "[message]"` - Will send a message to the current channel or channel(s) specified (only usable by staff)
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
