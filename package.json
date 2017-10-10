@@ -1,6 +1,6 @@
 {
   "name": "gamemakerbot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "The bot used by the /r/GameMaker Discord server.",
   "main": "./gmbot",
   "license": "GPL-3.0",
@@ -41,6 +41,7 @@
     "moment": "^2.18.1",
     "nedb": "^1.8.0",
     "node-opus": "^0.2.7",
+    "puppeteer": "^0.11.0",
     "sodium": "^2.0.1",
     "uws": "^8.14.1",
     "youtube-dl": "^1.11.1"
