@@ -8,8 +8,8 @@ module.exports = function(msg, args) {
   let roleName = args.splice(1);
 
   // Ensure we aren't in DM
-  if ((msg.guild === null) || (msg.guild === undefined)) {
-    msg.author.send('`!role` does not work inside direct messages.');
+  if ((msg.guild === null) || (msg.guild === undefined) || !msg.member) {
+    msg.author.send('`!role` does not work inside direct messages, and can sometimes fail when a user name has unicode characters in it. Please contact topherlicious or one of the other admins if you need help with your role.');
     return;
   }
 
