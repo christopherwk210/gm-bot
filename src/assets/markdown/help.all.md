@@ -25,20 +25,20 @@ You can also toggle the streamy role by typing '!streamy' (without quotes).
 ```
 **This is how you add code blocks to your messages in Discord:**
 \`\`\`
-if (condition) { perform_action(); }
+if (condition) { do_thing(); }
 \`\`\`
 
-I can also assist you with your code formatting and auto generate GMLive snippets for you:
+I can also assist you with your code formatting & auto generate GMLive snippets for you:
 
 **To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**
 \`\`\`clean-code
 if (condition) {
-perform_action();
+do_thing();
 }
 \`\`\`
 
 **To generate a GMLive snippet in your message use the** `gmlive` **syntax:**
-GMLive is a web-based tool to easily share and test GML code. We recommend it for testing snippets of code.
+GMLive is a web-based tool to easily share & test GML code. We recommend it for testing snippets of code.
 GMLive was written by @YellowAfterlife. You can read more here: https://yal.cc/introducing-gmlive/
 
 \`\`\`gmlive

@@ -26,6 +26,7 @@ if (condition) { perform_action(); }
     - `!docs [function] [version] [i]` - fetches a link or screenshot to official gamemaker documentation for the specified function
     - `!streamy` - toggles the streamy role for the user
     - `!commandment [roman numeral | 'list']` - outputs a GIF version of one of pix pope's gamemaker commandments
+    - `!rtfm` - shorthand for `!commandment I`
     - `!bgmhammer` - posts a custom set of emoji created for AndrewBGM
     - `!topher` - pings topherlicious (hey, that's me)
     - `!welcome` - sends the user the welcome message as if they just joined

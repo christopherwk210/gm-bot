@@ -2,10 +2,10 @@
 *This is only visible to you because of your ducky role:*
 
 **You can mention the ducky roles:**
-Typing `!assemble` or `!quackquackquack` will mention the art & rubber duckies roles.
+`!assemble` or `!quackquackquack` will mention the art & rubber duckies roles.
 
 **You can send resources to a specific user:**
-Typing `!resources @usernamehere` will DM that user a list of resources, as if they used the `!resources` command themselves.
+`!resources @usernamehere` will DM that user a list of resources.
 
 **You can use the bot to stream music to a voice channel**
 Valid URLs: http://rg3.github.io/youtube-dl/supportedsites.html
@@ -21,7 +21,7 @@ Valid URLs: http://rg3.github.io/youtube-dl/supportedsites.html
 All of these commands will send you a DM which you can prevent by including `s` in your command: `!pause s`.
 
 **Anyone can view the welcome message any time:**
-Use `!welcome` to view the message that's automatically sent to new users on server join.
+Use `!welcome` to view the message that's sent to new users on server join.
 
 **Anyone can access a secret emoji**
 Use `!bgmhammer` to access a super ultra secret emoji.
@@ -33,8 +33,11 @@ Send a message that starts with 🎁 💀 and watch the magic happen.
 Send a message that starts with 1⃣ 3⃣ and thirteen will be summoned.
 
 **Anyone can toggle the streamy role in like, a bunch of ways**
-Anyone can actually toggle the streamy role in a bunch of ways: `!role streamy`, `!streamy`, `!streamwatcher`, `!letmewatchsomestreams`, `!allaboardthestreamboat`, and `!melikeystream`.
+Anyone can toggle the streamy role in a bunch of ways: `!role streamy`, `!streamy`, `!streamwatcher`, `!letmewatchsomestreams`, `!allaboardthestreamboat`, and `!melikeystream`.
 
 **Anyone can ping topherlicious using a bot command**
-Topherlicious is pingable by anyone with any of the following: `!toph`, `!tophy`, `!tophie`, `!topher`, `!topherlicious`, and `!whosyourdaddy`.
-+++++++++++++++++++++++++++++++
+Topherlicious is pingable by anyone with one of the following: `!toph`, `!tophy`, `!tophie`, `!topher`, `!topherlicious`, `!whosyourdaddy`.
+
+**RTFM**
+`!rftm` is shorthand for `!commandment I`.
++++++++++++++++++++++++
