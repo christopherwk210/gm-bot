@@ -183,6 +183,13 @@ let easterEggs = [
     action: commandment
   },
   {
+    matches: ['rtfm'],
+    ...prefixedCommandRuleTemplate,
+    action: (msg, args) => {
+      commandment(msg, ['rtfm', 'I']);
+    }
+  },
+  {
     matches: ['bgmhammer'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
