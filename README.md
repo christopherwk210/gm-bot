@@ -28,6 +28,7 @@ if (condition) { perform_action(); }
     - `!commandment [roman numeral | 'list']` - outputs a GIF version of one of pix pope's gamemaker commandments
     - `!rtfm` - shorthand for `!commandment I`
     - `!bgmhammer` - posts a custom set of emoji created for AndrewBGM
+    - `!givesidadonut` - gives sid a donut
     - `!topher` - pings topherlicious (hey, that's me)
     - `!welcome` - sends the user the welcome message as if they just joined
     - `!giveaway [name]` - allows users to join a giveaway

@@ -197,6 +197,13 @@ let easterEggs = [
     }
   },
   {
+    matches: ['givesidadonut'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      msg.channel.send(':doughnut:').catch(() => {});
+    }
+  },
+  {
     matches: ['mm'],
     exact: false,
     wholeMessage: true,

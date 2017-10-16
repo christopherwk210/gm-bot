@@ -26,6 +26,9 @@ Use `!welcome` to view the message that's sent to new users on server join.
 **Anyone can access a secret emoji**
 Use `!bgmhammer` to access a super ultra secret emoji.
 
+**Sidorakh's Donuts**
+`!givesidadonut`
+
 **Anyone can ping GiftOfDeath with emoji**
 Send a message that starts with 🎁 💀 and watch the magic happen.
 
