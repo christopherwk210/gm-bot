@@ -170,7 +170,7 @@ let easterEggs = [
           'Oi, where are ya',
           'Where art thou',
           'Someone needs ya',
-          'You\'re presence is requested',
+          'Your presence is requested',
           'For some reason, ' + msg.author.username + ' thinks you should be here',
           msg.author.username + ' has summoned the great and all powerful'
         ]) + ' <@144913457429348352>'
