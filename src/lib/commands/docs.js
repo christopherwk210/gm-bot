@@ -34,7 +34,7 @@ function helpUrlGMS2(msg, fn, image) {
           // Send a screenshot if requested
           if (image) {
             sendScreenshot(
-              'Here\'s the GMS2 documentation for ' + fn,
+              'Here\'s the GMS2 documentation for `' + fn + '`',
               'http://docs2.yoyogames.com/' + SearchFiles[i],
               msg
             );
@@ -42,7 +42,7 @@ function helpUrlGMS2(msg, fn, image) {
           }
 
           // Provide it
-          msg.channel.send('Here\'s the GMS2 documentation for ' + fn).catch(() => {});
+          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`').catch(() => {});
           msg.channel.send(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i])).catch(() => {});
 
           // Indiciate we found it
@@ -75,7 +75,7 @@ function helpUrlGMS1(msg, fn, image) {
       // Send a screenshot if requested
       if (image) {
         sendScreenshot(
-          'Here\'s the GMS1 documentation for ' + fn,
+          'Here\'s the GMS1 documentation for `' + fn + '`',
           'http://docs.yoyogames.com/' + gms1.files[i],
           msg
         );
@@ -83,7 +83,7 @@ function helpUrlGMS1(msg, fn, image) {
       }
 
       // Put together a URL and serve it on a silver platter
-      msg.channel.send('Here\'s the GMS1 documentation for ' + fn).catch(() => {});
+      msg.channel.send('Here\'s the GMS1 documentation for `' + fn + '`').catch(() => {});
       msg.channel.send(encodeURI('http://docs.yoyogames.com/' + gms1.files[i])).catch(() => {});
 
       // We struck gold, ma!
