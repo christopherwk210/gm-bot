@@ -33,7 +33,8 @@ if (condition) { perform_action(); }
     - `!welcome` - sends the user the welcome message as if they just joined
     - `!giveaway [name]` - allows users to join a giveaway
     - `!assemble` - pings all duckies (only usable by staff and duckies)
-    - `!say [channel(s)?] "[message]"` - Will send a message to the current channel or channel(s) specified (only usable by staff)
+    - `!say [channel(s)?] "[message]"` - sends a message to the current channel or channel(s) specified (only usable by staff)
+    - `!changelog` - sends a screenshot of the current changelog
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed

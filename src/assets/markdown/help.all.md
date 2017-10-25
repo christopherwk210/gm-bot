@@ -12,7 +12,6 @@ Hi, I'm GameMakerBot. Here are my available commands:
                usage: !docs [function_name] [version] [image]
                versions: 'gms1','gms2'; defaults to 'gms2'
                example: !docs draw_sprite
-               example: !docs draw_sprite gms2
                example: !docs draw_sprite gms1 -i
 
 !commandment - outputs a GIF version of one of Pixelated Pope's GameMaker commandments
@@ -21,7 +20,9 @@ Hi, I'm GameMakerBot. Here are my available commands:
                example: !commandment XII
                example: !commandment list
 
-You can also toggle the streamy role by typing '!streamy' (without quotes).
+!changelog   - outputs a screenshot of the latest release notes
+
+You can also toggle the streamy role by typing '!streamy'.
 ```
 **This is how you add code blocks to your messages in Discord:**
 \`\`\`

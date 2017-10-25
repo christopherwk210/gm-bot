@@ -11,6 +11,7 @@ const assemble = require('./commands/assemble.js');
 const commandment = require('./commands/commandment.js');
 const welcome = require('./commands/welcome.js');
 const audio = require('./commands/audio.js');
+const changeLog = require('./commands/changeLog.js');
 
 // Project data
 const help = {
@@ -25,9 +26,6 @@ const detectStaff = require('./utils/detectStaff.js');
 
 // We are a ! kinda server
 let prefix = '!';
-
-// Handle konami goofiness
-let konamiTimeout;
 
 /**
  * Prefixed rules all include these options, so it's easier to just create
@@ -98,6 +96,11 @@ let coreCommands = [
     matches: ['streamy', 'streamwatcher', 'letmewatchsomestreams', 'allaboardthestreamboat', 'melikeystream'],
     ...prefixedCommandRuleTemplate,
     action: streamer
+  },
+  {
+    matches: ['changelog'],
+    ...prefixedCommandRuleTemplate,
+    action: changeLog
   }
 ];
 

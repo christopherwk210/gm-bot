@@ -123,7 +123,7 @@ async function sendScreenshot(messageText, URL, msg) {
       res();
     }));
   
-    // Set our viewport to be 1024 wide
+    // Set our viewport to be 1280 wide
     await page.setViewport({
       width: 1280,
       height: 1
