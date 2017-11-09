@@ -64,3 +64,9 @@ function saveJSON(object, file) {
     });
   });
 }
+
+module.exports = {
+  exists: exists,
+  readJSON: readJSON,
+  saveJSON: saveJSON
+};
