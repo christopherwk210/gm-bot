@@ -23,13 +23,22 @@ module.exports = function(msg, args) {
         role = roles.find('name', 'voip');
         break;
       case 'STREAMY':
-        var streamerRole;
+        let streamerRole;
         roles.forEach(singleRole => {
           if (singleRole.name.indexOf('stream') !== -1) {
             streamerRole = singleRole;
           }
         });
         role = streamerRole;
+        break;
+      case '3D':
+        let threeRole;
+        roles.forEach(singleRole => {
+          if (singleRole.name.indexOf('three') !== -1) {
+            threeRole = singleRole;
+          }
+        });
+        role = threeRole;
         break;
       case 'DUCKY':
         role = 'ducky';
