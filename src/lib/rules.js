@@ -98,6 +98,13 @@ let coreCommands = [
     action: streamer
   },
   {
+    matches: ['3d'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      roleControl(msg, ['3d', '3D']);
+    }
+  },
+  {
     matches: ['changelog'],
     ...prefixedCommandRuleTemplate,
     action: changeLog

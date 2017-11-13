@@ -25,6 +25,7 @@ if (condition) { perform_action(); }
     - `!resources` - sends the user a list of curated gamemaker resources, can be used by staff to send the list to other users
     - `!docs [function] [version] [i]` - fetches a link or screenshot to official gamemaker documentation for the specified function
     - `!streamy` - toggles the streamy role for the user
+    - `!3d` - toggles the three dimensional role for the user
     - `!commandment [roman numeral | 'list']` - outputs a GIF version of one of pix pope's gamemaker commandments
     - `!rtfm` - shorthand for `!commandment I`
     - `!bgmhammer` - posts a custom set of emoji created for AndrewBGM
