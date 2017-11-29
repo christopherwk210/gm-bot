@@ -262,7 +262,7 @@ let easterEggs = [
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin',
     action: (msg, args) => {
-      let regex = /"(.*)"/g;
+      let regex = /"([\s\S]*)"/g;
       let fancy = args.indexOf('-f') === -1 ? false : true;
 
       // Catch message
