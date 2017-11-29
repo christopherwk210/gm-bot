@@ -1,6 +1,9 @@
 // Node libs
 const fs = require('fs');
 
+// Third-party libs
+const Discord = require('discord.js');
+
 // Project libs
 const roleControl = require('./commands/roleControl.js');
 const docs = require('./commands/docs.js');
@@ -260,6 +263,7 @@ let easterEggs = [
     pre: msg => detectStaff(msg.member) === 'admin',
     action: (msg, args) => {
       let regex = /"(.*)"/g;
+      let fancy = args.indexOf('-f') === -1 ? false : true;
 
       // Catch message
       let match = msg.content.match(regex);
@@ -280,16 +284,30 @@ let easterEggs = [
         return;
       }
 
+      // Create a rich embed
+      if (fancy) {
+        fancy = new Discord.RichEmbed({
+          author: {
+            name: 'GameMakerBot',
+            icon_url: 'https://cdn.discordapp.com/app-icons/295327000372051968/a073c2f3f8904916d98d873b90517665.png',
+            url: 'https://bitbucket.org/christopherwk210/gm-bot'
+          },
+          color: 26659,
+          timestamp: new Date(),
+          description: message
+        });
+      }
+
       // Check if channels were mentioned
       if (msg.mentions.channels.size > 0) {
         // For each channel mentioned
         msg.mentions.channels.forEach(channel => {
           // Send the message
-          channel.send(message);
+          fancy ? channel.send(fancy) : channel.send(message);
         });
       } else {
         // Send message to same channel
-        msg.channel.send(message);
+        fancy ? channel.send(fancy) : channel.send(message);
       }
     }
   }

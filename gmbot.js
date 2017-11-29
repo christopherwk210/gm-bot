@@ -115,7 +115,7 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
   // Attempt to add voip_text role
   try {
     // Determine they are a member and in the voip channel
-    if (newMember && newMember.voiceChannel && newMember.voiceChannel.name.includes('voip')) {
+    if (newMember && newMember.voiceChannel && (newMember.voiceChannel.name.includes('voip') || newMember.voiceChannel.name.includes('code'))) {
       // Fetch the proper role
       var role = newMember.guild.roles.find('name', 'voip');
 
