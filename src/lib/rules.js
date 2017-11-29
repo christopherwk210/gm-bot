@@ -307,7 +307,7 @@ let easterEggs = [
         });
       } else {
         // Send message to same channel
-        fancy ? channel.send(fancy) : channel.send(message);
+        fancy ? msg.channel.send(fancy) : msg.channel.send(message);
       }
     }
   }
