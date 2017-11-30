@@ -316,6 +316,7 @@ let easterEggs = [
     matches: ['~kissfromarose~'],
     exact: false,
     wholeMessage: true,
+    delete: true,
     action: msg => {
       msg.channel.send({
         file: new Discord.Attachment( path.join(__dirname, '../assets/images/kissfromarose.gif') ),
