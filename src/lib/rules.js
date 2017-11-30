@@ -1,5 +1,6 @@
 // Node libs
 const fs = require('fs');
+const path = require('path');
 
 // Third-party libs
 const Discord = require('discord.js');
@@ -309,6 +310,17 @@ let easterEggs = [
         // Send message to same channel
         fancy ? msg.channel.send(fancy) : msg.channel.send(message);
       }
+    }
+  },
+  {
+    matches: ['~kissfromarose~'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      msg.channel.send(
+        new Discord.Attachment( path.join(__dirname, '../assets/images/kissfromarose.gif') ),
+        'kiss-from-a-rose.gif'
+      );
     }
   }
 ];

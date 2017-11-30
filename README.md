@@ -46,6 +46,7 @@ if (condition) { perform_action(); }
 - Will automatically ping thirteen when someone posts a message starting with 1⃣ 3⃣
 - Keeps a detailed log of all voice channel activity
 - Keeps a detailed (anonymous) log of online user presences
+- Babaaay, I compare you to a kiss from a rose on the grey...
 - Has an integrated Express server to communicate with a custom front-end for admin use (which is closed source)
 
 ## Development
