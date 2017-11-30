@@ -317,10 +317,10 @@ let easterEggs = [
     exact: false,
     wholeMessage: true,
     action: msg => {
-      msg.channel.send(
-        new Discord.Attachment( path.join(__dirname, '../assets/images/kissfromarose.gif') ),
-        'kiss-from-a-rose.gif'
-      );
+      msg.channel.send({
+        file: new Discord.Attachment( path.join(__dirname, '../assets/images/kissfromarose.gif') ),
+        name: 'kiss-from-a-rose.gif'
+      });
     }
   }
 ];
