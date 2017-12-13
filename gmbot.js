@@ -127,8 +127,9 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
       }
 
       // Add voice activity role if they don't have it and aren't alumni
-      if (!newMember.roles.has(voiceActivityRole.id) && !newMember.roles.has(voipAlumniRole.id)) {
+      if (!newMember.roles.has(voipAlumniRole.id)) {
         newMember.addRole(voiceActivityRole);
+        newMember.addRole(voipAlumniRole);
       }
     }
   } catch(e) {
