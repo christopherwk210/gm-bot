@@ -115,12 +115,21 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
   // Attempt to add voip_text role
   try {
     // Determine they are a member and in the voip channel
-    if (newMember && newMember.voiceChannel && (newMember.voiceChannel.name.includes('casual') || newMember.voiceChannel.name.includes('chilled'))) {
-      // Fetch the proper role
-      var role = newMember.guild.roles.find('name', 'voip');
+    if (newMember && newMember.voiceChannel && (newMember.voiceChannel.name.includes('casual') || newMember.voiceChannel.name.includes('chilled') || newMember.voiceChannel.name.includes('game'))) {
+      // Fetch the proper roles
+      var voipRole = newMember.guild.roles.find('name', 'voip');
+      var voiceActivityRole = newMember.guild.roles.find('name', 'voice activity');
+      var voipAlumniRole = newMember.guild.roles.find('name', 'voip alumni');
 
-      // Add it
-      newMember.addRole(role);
+      // Add voip role if they don't have it
+      if (!newMember.roles.has(voipRole.id)) {
+        newMember.addRole(voipRole);
+      }
+
+      // Add voice activity role if they don't have it and aren't alumni
+      if (!newMember.roles.has(voiceActivityRole.id) && !newMember.roles.has(voipAlumniRole.id)) {
+        newMember.addRole(voiceActivityRole);
+      }
     }
   } catch(e) {
     // Something went wrong
