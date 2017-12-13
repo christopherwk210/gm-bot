@@ -5,6 +5,20 @@ module.exports = function(app, db) {
     res.send(giveAways.getGiveAways());
   });
 
+  app.post('//give_aways/json', function (req, res) {
+    let json;
+    try {
+      json = req.body.json;
+    } catch(e) {
+      res.status(400).send({
+        error: 'Bad request'
+      });
+      return;
+    }
+    
+    giveAways.loadJson(json);
+  });
+
   app.post('//give_aways/draw', function (req, res) {
     let name;
     try {

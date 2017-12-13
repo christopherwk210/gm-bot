@@ -30,6 +30,17 @@ fs.open(fpath, 'r', function(fileErr) {
 });
 
 let lib = {
+  loadJson: function(giveaway) {
+    let parsedGiveaway = JSON.parse(giveaway);
+
+    data[parsedGiveaway.giveAway] = {
+      start: parsedGiveaway.start,
+      end: parsedGiveaway.end,
+      participants: parsedGiveaway.participants,
+      realParticipants: parsedGiveaway.realParticipants,
+      winners: parsedGiveaway.winners
+    }
+  },
   message: function(msg, command) {
     let activeGAs = Object.keys(data);
     let activeGACount = activeGAs.length;
@@ -46,7 +57,7 @@ let lib = {
       }
     }
   },
-  signup: function(msg,name) {                 // message and giveaway name to sign up for! - WARNING CALLS DRAW FNCT TO DEBUG
+  signup: function(msg,name) { // message and giveaway name to sign up for! - WARNING CALLS DRAW FNCT TO DEBUG
     let errMsg = 0;
     let tnow = Date.now() / 1000;
     let ga = data[name];
