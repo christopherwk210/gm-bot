@@ -259,6 +259,13 @@ let easterEggs = [
     }
   },
   {
+    matches: ['inversekinematics'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      msg.channel.send('<@227032791013916672>').catch(() => {});
+    }
+  },
+  {
     matches: ['say'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin',
