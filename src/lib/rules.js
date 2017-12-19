@@ -168,6 +168,13 @@ let audioCommands = [
  */
 let easterEggs = [
   {
+    matches: ['lifetime'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
+    }
+  },
+  {
     matches: ['quackquackquack', 'assemble'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),

@@ -36,7 +36,8 @@ if (condition) { perform_action(); }
     - `!assemble` - pings all duckies (only usable by staff and duckies)
     - `!say [channel(s)?] "[message]" [-f]` - sends a message to the current channel or channel(s) specified (only usable by staff)
     - `!inversekinematics` - pings TonyStr
-    - `!changelog` - sends a screenshot of the current changelog
+    - `!changelog` - sends a screenshot of the current GM changelog
+    - `!lifetime` - sends the date you joined the server
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
