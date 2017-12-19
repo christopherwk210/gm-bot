@@ -146,8 +146,9 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   └── voipLog.js           // Logs voice channel activity
 │   │
 │   ├── modifiers              // Code block parsers
+│   │   ├── devmode.js           // Live code execution parsing
 │   │   ├── gmlive.js            // GMLive code block parsing
-│   │   └── prettifier.js        // clean-code block parsing   
+│   │   └── prettifier.js        // clean-code block parsing
 │   │
 │   ├── rules.js               // Contains all bot message matching rules
 │   │
