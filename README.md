@@ -72,6 +72,8 @@ Before you run the project, you'll need to create an `auth.json` file in `./src/
 $ npm start
 ```
 
+This bot has an in-chat dev mode feature that allows you to execute JS from within Discord. This is a **very powerful** tool that should be used with extreme caution. This feature can be found in `./src/lib/modifiers/devmode.js`. By default, it won't work for anyone except me (topherlicious) for security reason, which you can disable to aid in development.
+
 If you wish to contribute, please fork this repo and submit a detailed and clean pull-request. If you want to add new features or commands, please ask topherlicious#1378 or any of the other admins before you start development.
 
 For questions and support, contact topherlicious#1378 on discord.
