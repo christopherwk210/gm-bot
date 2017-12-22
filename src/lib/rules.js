@@ -171,7 +171,11 @@ let easterEggs = [
     matches: ['lifetime'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
-      msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
+      if (!msg.member) {
+        msg.channel.send('You can only use this in the /r/GameMaker server.');
+      } else {
+        msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
+      }
     }
   },
   {
@@ -215,6 +219,13 @@ let easterEggs = [
     ...prefixedCommandRuleTemplate,
     action: msg => {
       msg.channel.send(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(() => {});
+    }
+  },
+  {
+    matches: ['dingus'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      msg.channel.send(':raised_hand: dingus :raised_back_of_hand:');
     }
   },
   {
