@@ -38,6 +38,7 @@ if (condition) { perform_action(); }
     - `!inversekinematics` - pings TonyStr
     - `!changelog` - sends a screenshot of the current GM changelog
     - `!lifetime` - sends the date you joined the server
+    - `!dingus` - dingus
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed

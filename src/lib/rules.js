@@ -225,7 +225,7 @@ let easterEggs = [
     matches: ['dingus'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
-      msg.channel.send(':raised_hand: dingus :raised_back_of_hand:');
+      msg.channel.send(':raised_hand: ***dingus*** :raised_back_of_hand:');
     }
   },
   {
