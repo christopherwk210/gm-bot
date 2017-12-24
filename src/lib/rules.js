@@ -249,6 +249,14 @@ let easterEggs = [
     }
   },
   {
+    matches: ['good bot'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      msg.react('❤');
+    }
+  },
+  {
     matches: ['mm'],
     exact: false,
     wholeMessage: true,

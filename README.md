@@ -45,6 +45,7 @@ if (condition) { perform_action(); }
 - Will automatically react with a 👋 when mentioned
 - Will automatically react with 🇲 Ⓜ when someone posts a message containing only 'mm'
 - Will automatically react with 🇭 🇲 Ⓜ when someone posts a message containing only 'hmm'
+- Will automatically react with ❤️ when someone posts a message containing only 'good bot'
 - Will automatically ping GiftOfDeath when someone posts a message starting with 🎁 💀
 - Will automatically ping thirteen when someone posts a message starting with 1⃣ 3⃣
 - Keeps a detailed log of all voice channel activity
