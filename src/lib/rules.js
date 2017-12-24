@@ -16,6 +16,7 @@ const commandment = require('./commands/commandment.js');
 const welcome = require('./commands/welcome.js');
 const audio = require('./commands/audio.js');
 const changeLog = require('./commands/changeLog.js');
+const christmas = require('./commands/christmas');
 
 // Project data
 const help = {
@@ -167,6 +168,18 @@ let audioCommands = [
  * Misc silly shit
  */
 let easterEggs = [
+  {
+    matches: ['christmascycle'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: msg => christmas.cycle(msg)
+  },
+  {
+    matches: ['christmasautocycle'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member),
+    action: msg => christmas.autoCycle(msg)
+  },
   {
     matches: ['lifetime'],
     ...prefixedCommandRuleTemplate,

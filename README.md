@@ -50,6 +50,7 @@ if (condition) { perform_action(); }
 - Keeps a detailed log of all voice channel activity
 - Keeps a detailed (anonymous) log of online user presences
 - Babaaay, I compare you to a kiss from a rose on the grey...
+- Can automatically assign christmas colors to roles
 - Has an integrated Express server to communicate with a custom front-end for admin use (which is closed source)
 
 ## Development
@@ -132,6 +133,8 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   ├── commands               // These files are responsible for single bot commands
 │   │   ├── assemble.js          // Responsible for `!assemble`
 │   │   ├── audio.js             // Responsible for all audio functions
+│   │   ├── changelog.js         // Responsible for `!changelog`
+│   │   ├── christmas.js         // Responsible for handling christmas role colors!
 │   │   ├── commandment.js       // Responsible for `!commandment`
 │   │   ├── docs.js              // Responsible for `!docs`
 │   │   ├── resources.js         // Responsible for `!resources`
