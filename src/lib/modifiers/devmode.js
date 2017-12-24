@@ -3,6 +3,8 @@ const giveAways = require('../utils/giveAwayLib.js');
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
 module.exports = function(msg) {
+  if (!msg.member) return false;
+
   // Only topherlicious can use this feature!
   if (msg.member.id !== '144913457429348352') {
     return false;

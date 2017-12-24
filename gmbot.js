@@ -224,7 +224,7 @@ function handleDM(msg) {
   if (dmLog[msg.author.username] === undefined) {
     // Take initial note of it under their name
     dmLog[msg.author.username] = {
-      user_id: msg.author.id,   // Their ID
+      user_id: msg.author ? msg.author.id : -1,   // Their ID
       message_id: msg.id,        // The message ID
       new_message: msg.content,  // The newest message content
       messages: [                // Log of old messages

@@ -1,5 +1,3 @@
-import { clearInterval } from "timers";
-
 // Possible colors
 let colors = [
   [255, 0, 0],
