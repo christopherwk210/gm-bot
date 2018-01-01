@@ -235,17 +235,17 @@ let easterEggs = [
     }
   },
   {
-    matches: ['dingus'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send(':raised_hand: ***dingus*** :raised_back_of_hand:');
-    }
-  },
-  {
     matches: ['dinguses'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
       msg.channel.send(':raised_hand: ***dinguses*** :raised_back_of_hand:');
+    }
+  },
+  {
+    matches: ['dingus'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      msg.channel.send(':raised_hand: ***dingus*** :raised_back_of_hand:');
     }
   },
   {
