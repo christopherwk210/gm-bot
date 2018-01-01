@@ -242,6 +242,13 @@ let easterEggs = [
     }
   },
   {
+    matches: ['dinguses'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      msg.channel.send(':raised_hand: ***dinguses*** :raised_back_of_hand:');
+    }
+  },
+  {
     matches: ['givesidadonut'],
     ...prefixedCommandRuleTemplate,
     action: msg => {

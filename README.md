@@ -39,6 +39,7 @@ if (condition) { perform_action(); }
     - `!changelog` - sends a screenshot of the current GM changelog
     - `!lifetime` - sends the date you joined the server
     - `!dingus` - dingus
+    - `!dinguses`- dinguses
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
