@@ -27,13 +27,15 @@ async function gmlexec(gml, cb) {
   let gmlExecOutput = { trace: [] };
 
   // Listen for console output
-  page.on('console', async msg => {
+  page.on('console', async consoleOutput => {
+
+    console.log(consoleOutput);
 
     // Only deal with gmlex output
-    if (msg.text.indexOf('gmlex:') === 0) {
+    if (consoleOutput.text.indexOf('gmlex:') === 0) {
 
       // Clean output
-      let output = msg.text.replace('gmlex:', '');
+      let output = consoleOutput.text.replace('gmlex:', '');
 
       // Listen for tokens
       switch (output) {
