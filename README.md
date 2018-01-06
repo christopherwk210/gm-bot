@@ -154,6 +154,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │
 │   ├── modifiers              // Code block parsers
 │   │   ├── devmode.js           // Live code execution parsing
+│   │   ├── gml.js               // GMLive code execution
 │   │   ├── gmlive.js            // GMLive code block parsing
 │   │   └── prettifier.js        // clean-code block parsing
 │   │
@@ -165,6 +166,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │       ├── detectStaff.js       // Detects if a GuildMember is staff (admin or ducky)
 │       ├── fsHelper.js          // Several utility functions to help with filesystem operations
 │       ├── giveAwayLib.js       // Handles give away accessing, `!giveaway`
+│       ├── gmlexec.js           // Handles executing GML
 │       └── parseCommandList.js  // Parses command rule list
 │
 └── tools        // Contains build tools
