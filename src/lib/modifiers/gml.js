@@ -19,8 +19,10 @@ module.exports = function(msg) {
     // Execute GML
     gmlexec(rawCode, (err, data) => {
       if (err) {
+        console.log(err);
         msg.channel.send(err);
       } else {
+        console.log(data);
         msg.channel.send( JSON.stringify(data) );
       }
     });
