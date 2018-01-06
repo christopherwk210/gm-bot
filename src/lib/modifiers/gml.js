@@ -29,7 +29,7 @@ module.exports = function(msg) {
           returnString += entry + '\n';
         });
 
-        msg.channel.send( returnString.substring(0, returnString.length - 2) + '```' );
+        msg.channel.send( returnString.substring(0, returnString.length - 1) + '```' );
       }
     });
 
