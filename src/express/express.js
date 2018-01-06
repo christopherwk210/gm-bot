@@ -26,7 +26,7 @@ var validate = require('./routes/validate'),
 app.use(bodyParser.json());
 app.use(cors());
 app.use(require('./middlewares/auth'));
-app.use('/gmlive', express.static(path.join(__dirname, 'gmlive')));
+app.use('//gmlive', express.static(path.join(__dirname, 'gmlive')));
 
 /**
  * Init the express server providing needed references
