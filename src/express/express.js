@@ -35,6 +35,8 @@ app.use('/gmlive', express.static(path.join(__dirname, 'src/express/gmlive')));
  * @param {*} db In memory database
  */
 const run = function(bot, dmLog, db) {
+  app.get('/gmlive', (req, res) => res.sendFile(path.join(__dirname, 'src/express/gmlive/index.html')));
+  
   // Use each route
   validate(app);
   login(app, db);
