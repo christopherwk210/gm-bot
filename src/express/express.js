@@ -1,3 +1,5 @@
+var path = require('path');
+
 // Express libs
 var express = require('express'),
     app = express();
