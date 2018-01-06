@@ -1,0 +1,249 @@
+html, body {
+    padding: 0;
+	margin: 0;
+	height: 100%;
+}
+body {
+	font: 11pt sans-serif;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: white;
+}
+/* */
+#main {
+	width: 100%;
+	height: 100vh;
+	border-spacing: 0;
+}
+#main td {
+	padding: 0;
+	box-sizing: border-box;
+	position: relative;
+}
+#splitter-td {
+	border-right: 3px double #bbb;
+	border-left: 1px solid #bbb;
+	cursor: e-resize;
+}
+#main #editor-td {
+	padding: 2px;
+}
+#doc {
+	display: none;
+	background: rgba(250, 250, 250, 0.95);
+}
+#main.resizing .mouse-blocker,
+#main.showdoc #doc {
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	left: 0; top: 0;
+}
+#main.showdoc #doc { display: block; }
+#main.resizing .mouse-blocker {
+	background: rgba(0, 0, 0, 0.001);
+}
+/* */
+.top, .bottom {
+	width: 100%;
+	box-sizing: border-box;
+}
+.top {
+	height: 23px;
+	margin-bottom: 1px;
+	overflow: hidden;
+}
+.bottom {
+	height: calc(100vh - 24px);
+	padding-top: 1px;
+}
+.top input, .top select {
+	box-sizing: border-box;
+	height: 100%;
+	margin: 0;
+	border: 1px solid #aaa;
+	padding: 1px 5px;
+	vertical-align: middle;
+}
+.top input[type="button"] {
+	background: #f0f0f0;
+}
+.top input[type="button"]:hover {
+	background: #fff;
+}
+.top select {
+	background-color: white;
+	background-position: center right 6px;
+	background-image: url(data:image/bmp;base64,Qk1mAAAAAAAAADYAAAAoAAAABQAAAAMAAAABABgAAAAAAAAAAADDDgAAww4AAAAAAAAAAAAA////////AAAA/////////////wAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAAAAD/);
+	background-repeat: no-repeat;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	padding-right: 16px;
+}
+.top .about {
+	float: right;
+	height: 100%;
+	line-height: 24px;
+	padding-right: 4px;
+}
+/* */
+#source, #output, .ace_editor, .ace_status-bar {
+	box-sizing: border-box;
+	border: 1px solid #aaa;
+}
+#game, #game-fallback, .ace_editor {
+	width: 100%;
+	height: 100vh;
+	margin: 0;
+	resize: none;
+}
+#source, .ace_editor {
+	font-size: 10pt;
+	line-height: 1.15;
+}
+#source {
+	overflow-y: scroll;
+}
+/* */
+#sharing > * {
+	z-index: 100;
+}
+#sharing .overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	height: 100vh;
+	left: 0; top: 0; right: 0; bottom: 0;
+	margin: auto;
+	background: rgba(0, 0, 0, 0.6);
+}
+#sharing .window {
+	position: absolute;
+	width: 400px;
+	height: 100px;
+	left: 0; top: 0; right: 0; bottom: 0;
+	margin: auto;
+	background: white;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+	box-sizing: border-box;
+	padding: 10px;
+	line-height: 20px;
+	overflow: hidden;
+	resize: both;
+}
+#sharing textarea {
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(100% - 20px);
+	resize: none;
+}
+/* code: */
+#source, #output, #main .ace_editor {
+	font-family: Consolas, Ubuntu Mono, monospace;
+	width: 100%;
+	height: calc(100vh - 54px);
+}
+#main .ace_status-bar {
+	width: 100%;
+	line-height: 24px;
+	height: 24px;
+	border-top: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 0 5px;
+}
+#main .ace_status-bar .row, #main .ace_status-bar .col {
+	display: inline-block;
+	text-align: right;
+	min-width: 24px;
+}
+#main #ace_status-hint {
+	margin-left: 5px;
+	border-left: 1px solid #bbb;
+	padding-left: 5px;
+}
+#main #ace_status-hint.active {
+	color: rgb(250, 50, 50);
+	cursor: pointer;
+}
+#main #ace_status-hint .argument.current {
+	color: rgb(250, 50, 50);
+}
+#main .ace_gutter {
+	background: #F8F8F8;
+	color: #666;
+	border-right: 1px solid #ccc;
+}
+#main .ace_gutter-active-line {
+	background: #EFEAE8;
+}
+#main .ace_active-line {
+	background: rgba(255, 253, 205, 0.5);
+}
+#main .gml .ace_comment {
+	color: #008000;
+	font-style: italic;
+}
+#main .gml .ace_comment.ace_doc {
+	color: #008080;
+}
+#main .gml .ace_function,
+#main .gml .ace_variable,
+#main .gml .ace_constant {
+	color: #900000;
+}
+#main .gml .ace_script {
+	color: #900090;
+}
+#main .gml .ace_asset {
+	color: rgb(0, 128, 160);
+}
+#main .gml .ace_keyword,
+#main .gml .ace_curly.ace_paren {
+	color: #000080;
+	font-weight: bold;
+}
+#main .gml .ace_preproc {
+	color: rgb(0, 120, 170);
+}
+#main .gml .ace_numeric {
+	color: #00f;
+}
+#main .gml .ace_string {
+	color: #00f;
+}
+#main .ace_error-line {
+	position: absolute;
+	background-color: rgba(233, 115, 111, 0.35);
+}
+.ace_tooltip {
+	font: 10pt sans-serif;
+}
+/* */
+#game-fallback, #doc {
+	box-sizing: border-box;
+	padding: 0 8px;
+}
+#game-fallback {
+	padding: 8px;
+}
+#doc {
+	overflow-y: scroll;
+}
+#doc h1 { font-size: 150% }
+#doc h2 { font-size: 130% }
+#doc h1, #doc h2 {
+	padding-bottom: 3px;
+	border-bottom: 1px solid #ddd;
+}
+#doc p, #doc ul, #doc h1, #doc h2 {
+	margin: 8px 0;
+}
+#doc tt {
+	background: white;
+	display: inline-block;
+	padding: 0 2px;
+	font: 10pt Consolas, monospace;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

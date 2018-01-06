@@ -24,6 +24,7 @@ var validate = require('./routes/validate'),
 app.use(bodyParser.json());
 app.use(cors());
 app.use(require('./middlewares/auth'));
+app.use('/gmlive', express.static(path.join(__dirname, 'src/express/gmlive')));
 
 /**
  * Init the express server providing needed references
@@ -44,7 +45,7 @@ const run = function(bot, dmLog, db) {
   users(app, bot);
   voip(app, db);
   profile(app, db);
-  giveAways(app, db)
+  giveAways(app, db);
 
   // Run the server
   app.listen(8080, function () {
