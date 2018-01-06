@@ -23,7 +23,13 @@ module.exports = function(msg) {
         msg.channel.send(err);
       } else {
         console.log(data);
-        msg.channel.send( JSON.stringify(data) );
+        let returnString = '**Trace Log:**\n```';
+
+        data.trace.forEach(entry => {
+          returnString += entry + '\n';
+        });
+
+        msg.channel.send( returnString.substring(0, returnString.length - 2) + '```' );
       }
     });
 
