@@ -26,7 +26,7 @@ var validate = require('./routes/validate'),
 app.use(bodyParser.json());
 app.use(cors());
 app.use(require('./middlewares/auth'));
-app.use('/gmlive', express.static(path.join(__dirname, 'src/express/gmlive')));
+app.use('/gmlive', express.static(path.join(__dirname, 'gmlive')));
 
 /**
  * Init the express server providing needed references
@@ -35,7 +35,7 @@ app.use('/gmlive', express.static(path.join(__dirname, 'src/express/gmlive')));
  * @param {*} db In memory database
  */
 const run = function(bot, dmLog, db) {
-  app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'src/express/gmlive/index.html')));
+  app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'gmlive/index.html')));
 
   // Use each route
   validate(app);
