@@ -59,8 +59,9 @@ async function gmlexec(gml, cb) {
     }
   });
 
-  // Navigate to GMLive
-  await page.goto('http://yal.cc/r/gml/');
+  // Navigate to local GMLive
+  // await page.goto('http://yal.cc/r/gml/');
+  await page.goto('localhost:8080//gmlive/');
 
   // Add GML to the page
   await page.exposeFunction('gmlexGML', () => {

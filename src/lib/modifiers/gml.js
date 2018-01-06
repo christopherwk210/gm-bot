@@ -23,13 +23,13 @@ module.exports = function(msg) {
         msg.channel.send(err);
       } else {
         console.log(data);
-        let returnString = '**Trace Log:**\n```';
+        let returnString = 'GML execution complete.\n**Trace Log:**\n```';
 
         data.trace.forEach(entry => {
           returnString += entry + '\n';
         });
 
-        msg.channel.send( returnString.substring(0, returnString.length - 1) + '```' );
+        msg.channel.send( returnString.substring(0, returnString.length - 1) + '``` \n Powered by GMLive.' );
       }
     });
 

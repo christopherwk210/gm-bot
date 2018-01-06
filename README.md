@@ -54,6 +54,7 @@ if (condition) { perform_action(); }
 - Babaaay, I compare you to a kiss from a rose on the grey...
 - Can automatically assign christmas colors to roles
 - Has an integrated Express server to communicate with a custom front-end for admin use (which is closed source)
+- Can execute GML (powered by GMLive, beta feature)
 
 ## Development
 This project requires:
@@ -207,6 +208,7 @@ To add a command, append a new object to the array and define a valid rule. At t
 - Minty Python#5626
 - Ariak#2124
 - Natesky9#2964 (in spirit)
+- YellowAfterlife#3735
 
 A special thanks to the /r/GameMaker Discord community and staff for their feedback and support.
 
