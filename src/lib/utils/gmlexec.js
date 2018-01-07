@@ -96,7 +96,7 @@ async function gmlexec(gml, cb) {
   await page.click('#refresh');
 
   // Timeout after 60 seconds
-  timeOut = setTimeout(() => {
+  timeOut = setTimeout(async () => {
     cb('GML execution timed out. Trace log:\n\n' + JSON.stringify(gmlExecOutput.trace), null);
     await chrome.close();
   }, 1000 * 60);
