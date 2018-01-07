@@ -26,6 +26,8 @@ async function gmlexec(gml, cb) {
   // Output logging
   let gmlExecOutput = { trace: [] };
 
+  let timeOut = null;
+
   // Listen for console output
   page.on('console', async consoleOutput => {
 
@@ -41,6 +43,7 @@ async function gmlexec(gml, cb) {
           consoleIsListening = true;
           break;
         case 'gmlexclose':
+          clearTimeout(timeOut);
           await chrome.close();
           // cb(null, trace.substring(0, trace.length - 1));
           cb(null, gmlExecOutput);
@@ -70,6 +73,7 @@ async function gmlexec(gml, cb) {
 
   // Add cb to the page
   await page.exposeFunction('gmlexCB', async err => {
+    clearTimeout(timeOut);
     cb(err, null);
     await chrome.close();
     return;
@@ -90,6 +94,12 @@ async function gmlexec(gml, cb) {
 
   // Execute GML
   await page.click('#refresh');
+
+  // Timeout after 60 seconds
+  timeOut = setTimeout(() => {
+    cb('GML execution timed out. Trace log:\n\n' + JSON.stringify(gmlExecOutput.trace), null);
+    await chrome.close();
+  }, 1000 * 60);
 };
 
 module.exports = gmlexec;

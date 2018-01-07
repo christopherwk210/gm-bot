@@ -1,11 +1,12 @@
 const gmlexec = require('../utils/gmlexec.js');
+const detectStaff = require('../utils/detectStaff');
 const gmlExp = new RegExp(/([`]{3})gml([^```]*)([`]{3})/g);
 
 module.exports = function(msg) {
   if (!msg.member) return false;
 
-  // Only topherlicious can use this feature!
-  if (msg.member.id !== '144913457429348352') {
+  // Only staff can use this feature
+  if (!detectStaff(msg.member)) {
     return false;
   }
 
