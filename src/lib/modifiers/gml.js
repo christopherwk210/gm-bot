@@ -38,7 +38,7 @@ module.exports = function(msg) {
           returnMessageEmbed.description += entry + '\n';
         });
 
-        msg.channel.send( returnString.substring(0, returnString.length - 1) + '```' );
+        msg.channel.send(returnMessageEmbed);
       }
     });
 
