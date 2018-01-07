@@ -1,6 +1,5 @@
 const gmlexec = require('../utils/gmlexec.js');
 const gmlExp = new RegExp(/([`]{3})gml([^```]*)([`]{3})/g);
-const Discord = require('discord.js');
 
 module.exports = function(msg) {
   if (!msg.member) return false;
@@ -24,21 +23,14 @@ module.exports = function(msg) {
         msg.channel.send(err);
       } else {
         console.log(data);
-
-        let returnMessageEmbed = new Discord.RichEmbed({
-          color: 26659,
-          description: 'GML execution complete.\n\n**Trace Log:**\n```',
-          timestamp: new Date(),
-          footer: {
-            text: 'Powered by GMLive.'
-          }
-        });
+        
+        let returnString = 'GML execution complete.\n\n**Trace Log:**\n```';
 
         data.trace.forEach(entry => {
-          returnMessageEmbed.description += entry + '\n';
+          returnString += entry + '\n';
         });
 
-        msg.channel.send(returnMessageEmbed);
+        msg.channel.send( returnString.substring(0, returnString.length - 1) + '``` \n Powered by GMLive.' );
       }
     });
 
