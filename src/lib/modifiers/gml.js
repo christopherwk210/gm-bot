@@ -23,13 +23,21 @@ module.exports = function(msg) {
         msg.channel.send(err);
       } else {
         console.log(data);
-        let returnString = 'GML execution complete.\n**Trace Log:**\n```';
 
-        data.trace.forEach(entry => {
-          returnString += entry + '\n';
+        let returnMessageEmbed = new Discord.RichEmbed({
+          color: 26659,
+          description: 'GML execution complete.\n\n**Trace Log:**\n```',
+          timestamp: new Date(),
+          footer: {
+            text: 'Powered by GMLive.'
+          }
         });
 
-        msg.channel.send( returnString.substring(0, returnString.length - 1) + '``` \n Powered by GMLive.' );
+        data.trace.forEach(entry => {
+          returnMessageEmbed.description += entry + '\n';
+        });
+
+        msg.channel.send( returnString.substring(0, returnString.length - 1) + '```' );
       }
     });
 
