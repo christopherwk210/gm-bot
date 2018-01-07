@@ -1,5 +1,6 @@
 const gmlexec = require('../utils/gmlexec.js');
 const gmlExp = new RegExp(/([`]{3})gml([^```]*)([`]{3})/g);
+const Discord = require('discord.js');
 
 module.exports = function(msg) {
   if (!msg.member) return false;
