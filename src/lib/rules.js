@@ -116,7 +116,7 @@ let coreCommands = [
     action: changeLog
   },
   {
-    matches: ['resize'],
+    matches: ['resize', 'upscale', 'upsize'],
     ...prefixedCommandRuleTemplate,
     action: resize
   }
