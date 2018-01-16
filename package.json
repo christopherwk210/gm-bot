@@ -1,6 +1,6 @@
 {
   "name": "gamemakerbot",
-  "version": "2.5.10",
+  "version": "2.7.10",
   "description": "The bot used by the /r/GameMaker Discord server.",
   "main": "./gmbot",
   "license": "GPL-3.0",
@@ -36,6 +36,7 @@
     "cors": "^2.8.1",
     "discord.js": "^11.2.0",
     "express": "^4.15.2",
+    "jimp": "^0.2.28",
     "js-beautify": "^1.6.12",
     "jsonwebtoken": "^7.3.0",
     "moment": "^2.18.1",

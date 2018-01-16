@@ -16,7 +16,8 @@ const commandment = require('./commands/commandment.js');
 const welcome = require('./commands/welcome.js');
 const audio = require('./commands/audio.js');
 const changeLog = require('./commands/changeLog.js');
-const christmas = require('./commands/christmas');
+const christmas = require('./commands/christmas.js');
+const resize = require('./commands/resize.js');
 
 // Project data
 const help = {
@@ -113,6 +114,11 @@ let coreCommands = [
     matches: ['changelog'],
     ...prefixedCommandRuleTemplate,
     action: changeLog
+  },
+  {
+    matches: ['resize'],
+    ...prefixedCommandRuleTemplate,
+    action: resize
   }
 ];
 

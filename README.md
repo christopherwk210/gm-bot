@@ -40,6 +40,7 @@ if (condition) { perform_action(); }
     - `!lifetime` - sends the date you joined the server
     - `!dingus` - dingus
     - `!dinguses`- dinguses
+    - `!resize [scale_factor] [-b]` - when used while uploading an image, will resize the image by the factor given. Use `-b` to use bilinear scaling instead of nearest neighbor.
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
@@ -140,6 +141,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── christmas.js         // Responsible for handling christmas role colors!
 │   │   ├── commandment.js       // Responsible for `!commandment`
 │   │   ├── docs.js              // Responsible for `!docs`
+│   │   ├── resize.js            // Responsible for `!resize`
 │   │   ├── resources.js         // Responsible for `!resources`
 │   │   ├── roleControl.js       // Responsible for `!role`
 │   │   ├── streamer.js          // Responsible for `!streamy`
