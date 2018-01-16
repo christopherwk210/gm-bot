@@ -24,7 +24,6 @@ if (condition) { perform_action(); }
     - `!role [role]` - allows user to toggle server roles on and off
     - `!resources` - sends the user a list of curated gamemaker resources, can be used by staff to send the list to other users
     - `!docs [function] [version] [i]` - fetches a link or screenshot to official gamemaker documentation for the specified function
-    - `!streamy` - toggles the streamy role for the user
     - `!3d` - toggles the three dimensional role for the user
     - `!commandment [roman numeral | 'list']` - outputs a GIF version of one of pix pope's gamemaker commandments
     - `!rtfm` - shorthand for `!commandment I`
@@ -149,7 +148,6 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── resize.js            // Responsible for `!resize`
 │   │   ├── resources.js         // Responsible for `!resources`
 │   │   ├── roleControl.js       // Responsible for `!role`
-│   │   ├── streamer.js          // Responsible for `!streamy`
 │   │   └── welcome.js           // Responsible for `!welcome` and sending the initial welcome
 │   │
 │   ├── docs                   // Extra scripts that help the `!docs` command

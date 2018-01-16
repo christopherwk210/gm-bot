@@ -4,7 +4,7 @@ Hi, I'm GameMakerBot. Here are my available commands:
 
 !role        - toggles a role
                usage: !role [role]
-               available roles: 'voip', 'streamy', '3d'
+               available roles: 'voip', '3d'
 
 !resources   - outputs a list of trusted resources to assist with your GameMaker Studio journey
 
