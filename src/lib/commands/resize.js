@@ -42,6 +42,7 @@ function resize(msg, args) {
     // Download the image serverside
     jimp.read(image.url, (err, image) => {
       if (err !== undefined || image === undefined) {
+        console.log(err, image);
         msg.channel.send(`There was an error reading ${image.filename}!`);
         return;
       }
