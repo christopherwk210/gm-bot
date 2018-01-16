@@ -25,7 +25,7 @@ function resize(msg, args) {
   }
 
   // Check for bilinear scaling
-  let useBilinear = (arg.length > 2 && args[2] === '-b');
+  let useBilinear = (args.length > 2 && args[2] === '-b');
 
   // Get all message attachments
   let attachments = Array.from(msg.attachments.values());
