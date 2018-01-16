@@ -60,7 +60,7 @@ function resize(msg, args) {
         let newImage = new Discord.Attachment(buffer, image.filename);
 
         // Send the image to the channel
-        msg.channel.send(`Here's your image ${msg.member.displayName}. Scaled by ${scaleFactor}x.`, newImage);
+        msg.channel.send(`Here's your image ${msg.author.username}. Scaled by ${scaleFactor}x.`, newImage);
       });
     });
   });
