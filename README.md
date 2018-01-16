@@ -41,6 +41,7 @@ if (condition) { perform_action(); }
     - `!dingus` - dingus
     - `!dinguses`- dinguses
     - `!resize [scale_factor] [-b]` - when used while uploading an image, will resize the image by the factor given. Use `-b` to use bilinear scaling instead of nearest neighbor.
+    - `!palette` - uploads a gif of grog suggesting the use of a color palette
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed

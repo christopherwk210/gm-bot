@@ -382,6 +382,18 @@ let easterEggs = [
         name: 'kiss-from-a-rose.gif'
       });
     }
+  },
+  {
+    matches: ['!palette'],
+    exact: false,
+    wholeMessage: true,
+    delete: true,
+    action: msg => {
+      msg.channel.send({
+        file: new Discord.Attachment( path.join(__dirname, '../assets/images/grog.gif') ),
+        name: 'palette.gif'
+      });
+    }
   }
 ];
 
