@@ -211,7 +211,10 @@ To add a command, append a new object to the array and define a valid rule. At t
 - Minty Python#5626
 - Ariak#2124
 - Natesky9#2964 (in spirit)
-- YellowAfterlife#3735
+
+## Third-Party Contributors
+- YellowAfterlife#3735 for creating a custom GMLive implementation just for the bot
+- lazyeye#9858, Grog#6313, and Mash#2558 for creating a the palette gif for `!palette`
 
 A special thanks to the /r/GameMaker Discord community and staff for their feedback and support.
 
