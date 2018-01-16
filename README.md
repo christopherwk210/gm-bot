@@ -107,7 +107,11 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 ./src
 ├── assets                     // Holds all non-javascript assets
 │   │
-│   ├── json                     // JSON assets
+│   ├── images                 // Image assets
+│   │   ├── grog.gif             // GIF used for !palette command
+│   │   └── kissfromarose.gif    // Don't worry about it
+│   │
+│   ├── json                   // JSON assets
 │   │   ├── auth.example.json    // Template for creating your own with proper discord key
 │   │   ├── bad-links.json       // URL blacklist
 │   │   ├── ids.json             // ID's of users who are messaged when bot errors
