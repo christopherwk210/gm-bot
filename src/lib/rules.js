@@ -17,6 +17,7 @@ const audio = require('./commands/audio.js');
 const changeLog = require('./commands/changeLog.js');
 const christmas = require('./commands/christmas.js');
 const resize = require('./commands/resize.js');
+const pixelchallenge = require('./commands/pixelChallenge.js');
 
 // Project data
 const help = {
@@ -113,6 +114,11 @@ let coreCommands = [
     matches: ['resize', 'upscale', 'upsize'],
     ...prefixedCommandRuleTemplate,
     action: resize
+  },
+  {
+    matches: ['pixelchallenge'],
+    ...prefixedCommandRuleTemplate,
+    action: pixelchallenge
   }
 ];
 
@@ -354,6 +360,7 @@ let easterEggs = [
 
       // Check if channels were mentioned
       if (msg.mentions.channels.size > 0) {
+
         // For each channel mentioned
         msg.mentions.channels.forEach(channel => {
           // Send the message

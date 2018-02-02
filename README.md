@@ -41,6 +41,7 @@ if (condition) { perform_action(); }
     - `!dinguses`- dinguses
     - `!resize [scale_factor] [-b]` - when used while uploading an image, will resize the image by the factor given. Use `-b` to use bilinear scaling instead of nearest neighbor.
     - `!palette` - uploads a gif of grog suggesting the use of a color palette
+    - `!pixelchallenge` - when used while uploading an image, will add that image as an entry to the current pixel challenge
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
@@ -145,6 +146,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── christmas.js         // Responsible for handling christmas role colors!
 │   │   ├── commandment.js       // Responsible for `!commandment`
 │   │   ├── docs.js              // Responsible for `!docs`
+│   │   ├── pixelChalleng.js     // Responsible for `!pixelchallenge`
 │   │   ├── resize.js            // Responsible for `!resize`
 │   │   ├── resources.js         // Responsible for `!resources`
 │   │   ├── roleControl.js       // Responsible for `!role`

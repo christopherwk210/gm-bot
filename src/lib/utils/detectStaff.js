@@ -12,6 +12,8 @@ module.exports = function(member) {
     return 'rubber';
   } else if (member.roles.find('name', 'art duckies')) {
     return 'art';
+  } else if (member.roles.find('name', 'audio duckies')) {
+    return 'audio';
   } else {
     return false;
   }

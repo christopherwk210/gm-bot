@@ -1,6 +1,6 @@
 {
   "name": "gamemakerbot",
-  "version": "2.7.10",
+  "version": "2.8.10",
   "description": "The bot used by the /r/GameMaker Discord server.",
   "main": "./gmbot",
   "license": "GPL-3.0",
