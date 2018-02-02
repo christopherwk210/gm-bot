@@ -25,7 +25,8 @@ function resize(msg, args) {
   }
 
   // Check for bilinear scaling
-  let useBilinear = (args.length > 2 && args[2] === '-b');
+  let useBilinear = !!(~args.indexOf('-b'));
+  let uploadOriginal = !!(~args.indexOf('-o'));
 
   // Get all message attachments
   let attachments = Array.from(msg.attachments.values());
@@ -40,8 +41,8 @@ function resize(msg, args) {
   attachments.forEach(image => {
 
     // Download the image serverside
-    jimp.read(image.url, (err, image) => {
-      if (err !== null || image === undefined) {
+    jimp.read(image.url, (err, jimpImage) => {
+      if (err !== null || jimpImage === undefined) {
         msg.channel.send(`There was an error reading ${image.filename}!`);
         return;
       }
@@ -50,7 +51,7 @@ function resize(msg, args) {
       let mode = useBilinear ? jimp.RESIZE_BILINEAR : jimp.RESIZE_NEAREST_NEIGHBOR;
 
       // Scale and readout to buffer
-      image.scale(scaleFactor, mode).getBuffer(jimp.MIME_PNG, (err, buffer) => {
+      jimpImage.scale(scaleFactor, mode).getBuffer(jimp.MIME_PNG, (err, buffer) => {
         if (err) {
           msg.channel.send(`There was an error scaling ${image.filename}!`);
           return;
@@ -60,7 +61,11 @@ function resize(msg, args) {
         let newImage = new Discord.Attachment(buffer, image.filename);
 
         // Send the image to the channel
-        msg.channel.send(`Here's your image ${msg.author.username}. Scaled by ${scaleFactor}x.`, newImage);
+        msg.channel.send(`Here's your image ${msg.author.username}. Scaled by ${scaleFactor}x.`, newImage).then(m => {
+          if (uploadOriginal) {
+            msg.channel.send(`Here's the original image: ${image.url}`);
+          }
+        });
       });
     });
   });

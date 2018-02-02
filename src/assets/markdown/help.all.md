@@ -1,4 +1,4 @@
-Hi, I'm GameMakerBot. Here are my available commands:
+Hi, I'm GameMakerBot. Here are some of my available commands:
 ```
 !help        - outputs this message
 
@@ -15,16 +15,12 @@ Hi, I'm GameMakerBot. Here are my available commands:
                example: !docs draw_sprite gms1 -i
                using -i will upload an image of the docs page
 
-!commandment - outputs a GIF version of one of Pixelated Pope's GameMaker commandments
-               usage: !commandment [roman numeral | "list"]
-               Using "list" will DM you a list of all commandments
-               example: !commandment XI
-
 !changelog   - outputs a screenshot of the latest release notes
 
 !resize      - use when uploading an image to scale it
-               usage: !resize [scale_factor] [-b]
+               usage: !resize [scale_factor] [-b] [-o]
                uses nearest neighbor scaling unless -b is used, in which case it will use bilinear
+               also uploads the original if -o is used
 ```
 **This is how you add code blocks to your messages in Discord:**
 \`\`\`
@@ -36,7 +32,7 @@ if (condition) {do_thing();}
 \`\`\`
 **To generate a GMLive snippet in your message use the** `gmlive` **syntax:**
 GMLive is a web tool to easily share & test GML code. We recommend it for testing snippets of code.
-GMLive was written by @YellowAfterlife. You can read more here: https://yal.cc/introducing-gmlive/
+You can read more here: https://yal.cc/introducing-gmlive/
 \`\`\`gmlive
 #define main
 if (true) {

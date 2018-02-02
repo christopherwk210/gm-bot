@@ -39,7 +39,7 @@ if (condition) { perform_action(); }
     - `!lifetime` - sends the date you joined the server
     - `!dingus` - dingus
     - `!dinguses`- dinguses
-    - `!resize [scale_factor] [-b]` - when used while uploading an image, will resize the image by the factor given. Use `-b` to use bilinear scaling instead of nearest neighbor.
+    - `!resize [scale_factor] [-b] [o]` - when used while uploading an image, will resize the image by the factor given. Use `-b` to use bilinear scaling instead of nearest neighbor. Uploads the original if `-o` is present.
     - `!palette` - uploads a gif of grog suggesting the use of a color palette
     - `!pixelchallenge` - when used while uploading an image, will add that image as an entry to the current pixel challenge
 - Limits spamming of too many images in a short period of time
