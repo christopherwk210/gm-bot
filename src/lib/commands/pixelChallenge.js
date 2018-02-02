@@ -17,19 +17,29 @@ function pixelChallenge(msg, args) {
   }
 
   if (detectStaff(msg.member)) {
-    if (args.length > 2 && args[1] === '-list') {
+    if (args.length > 1 && args[1] === '-list') {
       msg.author.send('Here are the current pixel challenge entries:').then(m => {
-        currentPixelChallenge.entries.forEach(entry => {
-          msg.author.send(`**User:** ${entry.name}, **Entry:** ${entry.link}`);
-        });
+        if (currentPixelChallenge.entries.length > 0) {
+          currentPixelChallenge.entries.forEach(entry => {
+            msg.author.send(`**User:** ${entry.name}, **Entry:** ${entry.link}`);
+          });
+        } else {
+          msg.author.send('loljk there are no entries yet, sorry dude');
+        }
       });
+      msg.delete();
       return;
-    } else if (args.length > 2 && args[1] === '-clear') {
+    } else if (args.length > 1 && args[1] === '-clear') {
       msg.author.send('The entries have been cleared! Here are entries you cleared, one last time:').then(m => {
-        currentPixelChallenge.entries.forEach(entry => {
-          msg.author.send(`**User:** ${entry.name}, **Entry:** ${entry.link}`);
-        });
+        if (currentPixelChallenge.entries.length > 0) {
+          currentPixelChallenge.entries.forEach(entry => {
+            msg.author.send(`**User:** ${entry.name}, **Entry:** ${entry.link}`);
+          });
+        } else {
+          msg.author.send('Actually, there were no entries to clear. You cleared nothing. It was a waste of time.');
+        }
       });
+      msg.delete();
       return;
     }
   }

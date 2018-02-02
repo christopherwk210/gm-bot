@@ -23,6 +23,7 @@ const pixelchallenge = require('./commands/pixelChallenge.js');
 const help = {
   all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
   ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8'),
+  ducksContinued: fs.readFileSync('./src/assets/markdown/help.ducks.cont.md', 'utf8'),
   admins: fs.readFileSync('./src/assets/markdown/help.admins.md', 'utf8')
 };
 
@@ -83,6 +84,7 @@ let coreCommands = [
         case 'art':
         case 'rubber':
           msg.author.send(help.ducks).catch(() => {});
+          msg.author.send(help.ducksContinued).catch(() => {});
         default:
           msg.author.send(help.all).catch(() => {});
       }
@@ -118,7 +120,8 @@ let coreCommands = [
   {
     matches: ['pixelchallenge'],
     ...prefixedCommandRuleTemplate,
-    action: pixelchallenge
+    action: pixelchallenge,
+    delete: false
   }
 ];
 
