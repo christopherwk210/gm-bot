@@ -14,19 +14,21 @@ module.exports = function(msg, args) {
       // If a guild is present (redundant)
       if (msg.guild) {
 
-        // Grab the duck role
-        let ducks = msg.guild.roles.find('id', '345222443012587520');
+        // Grab the duck roles
+        let ducks = msg.guild.roles.find('id', '262926334118985728');
+        let audio = msg.guild.roles.find('id', '398875444360904704');
+        let art = msg.guild.roles.find('id', '345222078577901569');
 
-        // Make them mentionable
-        ducks.setMentionable(true).then(r => {
+        ducks.setMentionable(true)
+        .then(res => audio.setMentionable(true))
+        .then(res => art.setMentionable(true))
 
-          // Mention!
-          msg.channel.send(`${r}  assemble!`).then(() => {
-
-            // Unmention!
-            r.setMentionable(false).catch(() => {});
-          }).catch(() => {});
-        }).catch(() => {});
+        .then(res => msg.channel.send(`${ducks}, ${audio}, ${art}; Assemble!`))
+        
+        .then(res => ducks.setMentionable(false))
+        .then(res => audio.setMentionable(false))
+        .then(res => art.setMentionable(false))
+        .catch(err => {});
       }
     }
   }
