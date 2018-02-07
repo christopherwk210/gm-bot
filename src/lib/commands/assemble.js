@@ -21,7 +21,7 @@ module.exports = function(msg, args) {
         ducks.setMentionable(true).then(r => {
 
           // Mention!
-          msg.channel.send(`${r} assemble!`).then(() => {
+          msg.channel.send(`${r}  assemble!`).then(() => {
 
             // Unmention!
             r.setMentionable(false).catch(() => {});
