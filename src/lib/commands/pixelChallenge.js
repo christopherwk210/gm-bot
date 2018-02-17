@@ -1,10 +1,45 @@
 // Node libs
 const Discord = require('discord.js');
+const async = require('async');
+const path = require('path');
+const fs = require('fs');
+const util = require('util');
+
+let existsAsync = util.promisify(fs.exists);
+
+// Project imports
 const detectStaff = require('../utils/detectStaff.js');
 
+// Challenges data file location
+let challengesDataPath = path.join(__dirname, '../../data/pixelChallenges.json');
+
+// Holds current pixel challenge entries
 let currentPixelChallenge = {
   entries: []
 };
+
+// Create async queue to save pixel entries
+let queue = async.queue((task, callback) => {
+  fs.unlink(challengesDataPath, err => {
+    fs.writeFile(challengesDataPath, JSON.stringify(currentPixelChallenge), 'utf8', err => {
+      callback();
+    });
+  });
+}, 1);
+
+/**
+ * Loads existing entries if they exist
+ */ 
+async function loadEntries() {
+  let existingChallenges = await existsAsync(challengesDataPath);
+
+  if (existingChallenges) {
+    currentPixelChallenge = require(challengesDataPath);
+  }
+}
+
+// Load entries
+loadEntries();
 
 /**
  * Handles pixel challenge entries
@@ -35,10 +70,14 @@ function pixelChallenge(msg, args) {
           currentPixelChallenge.entries.forEach(entry => {
             msg.author.send(`**User:** ${entry.name}, **Entry:** ${entry.link}`);
           });
+          currentPixelChallenge.entries = [];
         } else {
           msg.author.send('Actually, there were no entries to clear. You cleared nothing. It was a waste of time.');
         }
       });
+
+      queue.push({}, () => {});
+
       msg.delete();
       return;
     }
@@ -64,6 +103,8 @@ function pixelChallenge(msg, args) {
       entry.link = attachments[0].url;
 
       msg.channel.send(`Updated existing entry for ${msg.author.username}.`);
+
+      queue.push({}, () => {});
     }
   });
 
@@ -75,6 +116,8 @@ function pixelChallenge(msg, args) {
     });
 
     msg.channel.send(`Challenge entry for ${msg.author.username} recorded.`);
+
+    queue.push({}, () => {});
   }
 }
 
