@@ -40,9 +40,12 @@ function helpUrlGMS2(msg, fn, image) {
             );
             return;
           }
-
+          
+          // Get name of who sent the message
+          let name = name = (msg.member && msg.member.nickname) || msg.author.username;
+          
           // Provide it
-          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`').catch(() => {});
+          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`, ' + name).catch(() => {});
           msg.channel.send(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i])).catch(() => {});
 
           // Indiciate we found it
