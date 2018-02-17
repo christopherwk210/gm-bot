@@ -102,6 +102,9 @@ function pixelChallenge(msg, args) {
       // Take first image
       entry.link = attachments[0].url;
 
+      // Update text
+      entry.text = msg.content;
+
       msg.channel.send(`Updated existing entry for ${msg.author.username}.`);
 
       queue.push({}, () => {});
@@ -112,6 +115,7 @@ function pixelChallenge(msg, args) {
   if (!found) {
     currentPixelChallenge.entries.push({
       name: msg.author.username,
+      text: msg.content,
       link: attachments[0].url
     });
 
