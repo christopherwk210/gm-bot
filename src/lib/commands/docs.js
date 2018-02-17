@@ -41,8 +41,8 @@ function helpUrlGMS2(msg, fn, image) {
             return;
           }
           
-          // Get name of who sent the message
-          let name = name = (msg.member && msg.member.nickname) || msg.author.username;
+          // Get name of whoever sent the message
+          let name = (msg.member && msg.member.nickname) || msg.author.username;
           
           // Provide it
           msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`, ' + name).catch(() => {});
@@ -84,9 +84,12 @@ function helpUrlGMS1(msg, fn, image) {
         );
         return;
       }
+      
+      // Get name of whoever sent the message
+      let name = (msg.member && msg.member.nickname) || msg.author.username;
 
       // Put together a URL and serve it on a silver platter
-      msg.channel.send('Here\'s the GMS1 documentation for `' + fn + '`').catch(() => {});
+      msg.channel.send('Here\'s the GMS1 documentation for `' + fn + '`, ' + name).catch(() => {});
       msg.channel.send(encodeURI('http://docs.yoyogames.com/' + gms1.files[i])).catch(() => {});
 
       // We struck gold, ma!
