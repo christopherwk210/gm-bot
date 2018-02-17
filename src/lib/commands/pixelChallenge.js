@@ -56,7 +56,7 @@ function pixelChallenge(msg, args) {
       msg.author.send('Here are the current pixel challenge entries:').then(m => {
         if (currentPixelChallenge.entries.length > 0) {
           currentPixelChallenge.entries.forEach(entry => {
-            msg.author.send(`**User:** ${entry.name}, **Entry:** ${entry.link}`);
+            msg.author.send(`**User:** ${entry.name}, **Message:** ${(entry.text || '(no text provided)')}, **Entry:** ${entry.link}`);
           });
         } else {
           msg.author.send('loljk there are no entries yet, sorry dude');
