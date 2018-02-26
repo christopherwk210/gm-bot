@@ -18,6 +18,7 @@ const changeLog = require('./commands/changeLog.js');
 const christmas = require('./commands/christmas.js');
 const resize = require('./commands/resize.js');
 const pixelchallenge = require('./commands/pixelChallenge.js');
+const palette = require('./commands/palette.js');
 
 // Project data
 const help = {
@@ -387,18 +388,11 @@ let easterEggs = [
       });
     }
   },
-  // {
-  //   matches: ['!palette'],
-  //   exact: false,
-  //   wholeMessage: true,
-  //   delete: true,
-  //   action: msg => {
-  //     msg.channel.send({
-  //       file: new Discord.Attachment( path.join(__dirname, '../assets/images/grog.gif') ),
-  //       name: 'palette.gif'
-  //     });
-  //   }
-  // }
+  {
+    matches: ['palette'],
+    ...prefixedCommandRuleTemplate,
+    action: palette
+  }
 ];
 
 // Message rules
