@@ -26,7 +26,6 @@ module.exports = function(msg, args) {
         .setTitle('Palette Not Found')
         .setURL('https://lospec.com/palette-list/' + paletteName)
         .setImage('https://lospec.com/palette-list/' + paletteName + '-32x.png')
-        .setFooter('Lospec');
 
     // Get the wepage to check if the palette exists
     https.get('https://lospec.com/palette-list/' + paletteName, (res) => {
