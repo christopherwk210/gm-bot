@@ -108,7 +108,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 ├── assets                     // Holds all non-javascript assets
 │   │
 │   ├── images                 // Image assets
-│   │   ├── grog.gif             // GIF used for !palette command
+│   │   ├── grog.gif             // Unused GIF from old !palette command
 │   │   └── kissfromarose.gif    // Don't worry about it
 │   │
 │   ├── json                   // JSON assets
