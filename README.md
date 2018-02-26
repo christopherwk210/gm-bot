@@ -61,7 +61,7 @@ if (condition) { perform_action(); }
 ## Development
 This project requires:
 
-- Node >= 8.0.0
+- Node >= 9.0.0
 - FFMPEG for audio related functionality (not needed to run)
 - libtool (libtool-bin)
 
