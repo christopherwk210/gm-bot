@@ -209,16 +209,13 @@ All of the bot command rules are located in `./src/lib/rules.js` under `module.e
 
 To add a command, append a new object to the array and define a valid rule. At the very minimum, you must include `matches` and `action`. Including *only* these two will result in a rule that matches anywhere in a message and **is** case sensitive.
 
-## Contributors
-- topherlicious#1378
+## Third-Party Contributors
+- YellowAfterlife#3735 for creating a custom GMLive implementation just for the bot
+
+## Early Contributors
 - net8floz#3079
 - Minty Python#5626
 - Ariak#2124
-- Natesky9#2964 (in spirit)
-
-## Third-Party Contributors
-- YellowAfterlife#3735 for creating a custom GMLive implementation just for the bot
-- lazyeye#9858, Grog#6313, and Mash#2558 for creating a the palette gif for `!palette`
 
 A special thanks to the /r/GameMaker Discord community and staff for their feedback and support.
 
