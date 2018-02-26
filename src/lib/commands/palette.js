@@ -9,6 +9,15 @@ const https = require('https');
 module.exports = function(msg, args) {
     // Remove the command "!palette" from the args array
     args.shift(-1);
+
+    if (args.length < 1) {
+        let rnd = '';
+        if (Math.random() < 1/16) rnd = ', ya dingus';
+        msg.delete().catch(() => {});
+        msg.channel.send('Invalid command usage'+rnd+'! Proper usage: ``!palette [palette_name]``');
+        return;
+    }
+
     // Find name of palette, spaces changed to dashes, for link purposes. Lowercased.
     let paletteName = args.reduce((acc, val) => acc + '-' + val).toLowerCase();
 
