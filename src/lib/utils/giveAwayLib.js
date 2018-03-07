@@ -41,7 +41,7 @@ function handleMessage(msg, args) {
 
   switch(activeGACount) {
     case 0:
-      replyError(msg, 'There are no currently active giveaways.!');
+      replyError(msg, 'There are no currently active giveaways!');
       break;
     case 1:
       // Default to signing up for the first giveaway
