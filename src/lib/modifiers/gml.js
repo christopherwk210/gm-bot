@@ -3,7 +3,9 @@ const detectStaff = require('../utils/detectStaff');
 const gmlExp = new RegExp(/([`]{3})gml([^```]*)([`]{3})/g);
 
 module.exports = function(msg) {
-  if (!msg.member) return false;
+  if (!msg.member) {
+    return false;
+  }
 
   // Only staff can use this feature
   if (!detectStaff(msg.member)) {

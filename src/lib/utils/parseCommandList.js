@@ -32,7 +32,7 @@ module.exports = function(commandList, msg) {
       if (command.wholeMessage) {
         condition = messageContent === match;
       } else {
-        condition = command.position !== undefined ? messageContent.indexOf(match) === command.position : messageContent.indexOf(match) !== -1;
+        condition = command.position === undefined ? messageContent.indexOf(match) !== -1 : messageContent.indexOf(match) === command.position;
       }
 
       // Match made

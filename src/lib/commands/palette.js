@@ -7,15 +7,14 @@ const https = require('https');
  * @param {Array<string>} args Command arguments
 */
 module.exports = function(msg, args) {
-
     // Remove the command "!palette" from the args array
     args.shift(-1);
 
     if (args.length < 1) {
       let rnd = '';
-      if (Math.random() < 1/16) rnd = ', ya dingus';
+      if (Math.random() < 1 / 16) rnd = ', ya dingus';
       msg.delete().catch(() => {});
-      msg.channel.send('Invalid command usage'+rnd+'! Proper usage: ``.palette [palette_name]``');
+      msg.channel.send('Invalid command usage' + rnd + '! Proper usage: ``.palette [palette_name]``');
       return;
     }
 
@@ -31,7 +30,6 @@ module.exports = function(msg, args) {
     // Get the wepage to check if the palette exists
     https.get('https://lospec.com/palette-list/' + paletteName, (res) => {
       res.on('data', function (chunk) {
-
         // Turn the data into a string
         let str = chunk.toString();
 
@@ -42,8 +40,8 @@ module.exports = function(msg, args) {
           let out = match[0];
 
           // Slice off the <title> tags, to just get the title
-          let pretaglen = out.match(`<\s*title[^>]*>`)[0].length;
-          let endtaglen = out.slice(pretaglen).match(`<\s*\/\s*title>`)[0].length;
+          let pretaglen = out.match(/<\s*title[^>]*>/)[0].length;
+          let endtaglen = out.slice(pretaglen).match(/<\s*\/\s*title>/)[0].length;
           let title     = out.slice(pretaglen, -endtaglen);
 
           // Check if the title uses hexadecimal html Codes
@@ -66,20 +64,15 @@ module.exports = function(msg, args) {
           embed.setTitle(title)
           msg.channel.send({embed});
           msg.delete().catch(() => {});
-
-          return;
         }
       });
-    }).on("error", (err) => {
-
+    }).on('error', (err) => {
       // Oh god. Oh man. This should not happen.
-      console.log("Error getting lospec page (palette.js): " + err.message);
+      console.log('Error getting lospec page (palette.js): ' + err.message);
 
       // Send the embed anyway. It should say "Palette Not Found"
       msg.channel.send({embed});
       msg.delete().catch(() => {});
-
-      return;
     });
 }
 
@@ -87,7 +80,7 @@ module.exports = function(msg, args) {
  * Converts hexadecimal string to ASCII string
  * @param {String} hexx String containing hexadecimal values
  */
-hex2ascii = function(hexx) {
+function hex2ascii(hexx) {
   var hex = hexx.toString();
   var str = '';
   for (var i = 0; i < hex.length; i += 2) {
@@ -100,56 +93,47 @@ hex2ascii = function(hexx) {
  * Unabbreviates names that may cause errors for the palette command
  * @param {String} str String
 */
-unabbreviate = function(str) {
+function unabbreviate(str) {
+  // Remove unwanted characters from the string
+  str = str.replace(/['":/*&^%$#@!+=;|?~(){}\[\]\\><`]/g, '');
 
-    // Remove unwanted characters from the string
-    str = str.replace(/['":/*&^%$#@!+=;|?~(){}\[\]\\><`]/g, '');
+  // Check if a string ends with one or more numbers, but does not have a
+  // space (or dash, in this case) in front of it.
+  // If it does, add a space (dash) between the text and the number.
+  let match = str.match('[^-0-9]+[0-9]+$');
+  if (match || false) {
+    // Get the matched string, and it's length
+    let substr = match[0];
+    let sublen = match[0].length;
 
-    // Check if a string ends with one or more numbers, but does not have a
-    // space (or dash, in this case) in front of it.
-    // If it does, add a space (dash) between the text and the number.
-    let match = str.match(`[^-0-9]+[0-9]+$`);
-    if (match || false) {
+    // Find the position to insert the space (dash) at, relative to the matched substring
+    let inspos = substr.match('[^0-9]+[0-9]')[0].length - 1;
+    
+    // Find the position we want to insert at in the main string
+    var pos = (str.length - sublen) + inspos;
 
-      // Get the matched string, and it's length
-      let substr = match[0];
-      let sublen = match[0].length;
+    // Insert a dash between the text and the last number
+    str = [str.slice(0, pos), '-', str.slice(pos)].join('');
+  }
 
-      // Find the position to insert the space (dash) at, relative to the matched substring
-      let inspos = substr.match(`[^0-9]+[0-9]`)[0].length - 1;
-      
-      // Find the position we want to insert at in the main string
-      var pos = (str.length - sublen) + inspos;
-
-      // Insert a dash between the text and the last number
-      str = [str.slice(0, pos), '-', str.slice(pos)].join('');
-    }
-
-    // Replace common abbrevations/typos with their full name / whatever name they use at lospec.
-    switch (str) {
-      case (str.match(`^edg-?[0-9]+$`) || false).input:
-        return 'Endesga-' + str.slice(str.indexOf(str.match(`[0-9]+$`)[0]), str.length);
-        break;
-      case (str.match(`^dbs?-?8$`) || false).input:
-        return 'DawnBringers-8-color';
-        break;
-      case 'aseprite-default':
-        str += '32';
-      case (str.match(`^dawn-?bringer-?[0-9]+$`) || false).input:
-      case (str.match(`^db-?[0-9]+$`) || false).input:
-        return 'DawnBringer-' + str.slice(str.indexOf(str.match(`[0-9]+$`)[0]), str.length);
-        break;
-      case 'apple-2':
-        return 'Apple-II';
-        break;
-      case 'nes':
-        return 'Nintendo-Entertainment-System';
-        break;
-      case 'jmp':
-        return 'JMP-Japanese-Machine-Palette';
-        break;
-      default:
-        return str;
-        break;
-    }
+  // Replace common abbrevations/typos with their full name / whatever name they use at lospec.
+  switch (str) {
+    case (str.match('^edg-?[0-9]+$') || false).input:
+      return 'Endesga-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
+    case (str.match('^dbs?-?8$') || false).input:
+      return 'DawnBringers-8-color';
+    case 'aseprite-default':
+      str += '32';
+    case (str.match('^dawn-?bringer-?[0-9]+$') || false).input:
+    case (str.match('^db-?[0-9]+$') || false).input:
+      return 'DawnBringer-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
+    case 'apple-2':
+      return 'Apple-II';
+    case 'nes':
+      return 'Nintendo-Entertainment-System';
+    case 'jmp':
+      return 'JMP-Japanese-Machine-Palette';
+    default:
+      return str;
+  }
 }

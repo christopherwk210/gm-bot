@@ -1,5 +1,4 @@
 // Node libs
-const Discord = require('discord.js');
 const async = require('async');
 const path = require('path');
 const fs = require('fs');
@@ -20,8 +19,8 @@ let currentPixelChallenge = {
 
 // Create async queue to save pixel entries
 let queue = async.queue((task, callback) => {
-  fs.unlink(challengesDataPath, err => {
-    fs.writeFile(challengesDataPath, JSON.stringify(currentPixelChallenge), 'utf8', err => {
+  fs.unlink(challengesDataPath, () => {
+    fs.writeFile(challengesDataPath, JSON.stringify(currentPixelChallenge), 'utf8', () => {
       callback();
     });
   });
@@ -53,7 +52,7 @@ function pixelChallenge(msg, args) {
 
   if (detectStaff(msg.member)) {
     if (args.length > 1 && args[1] === '-list') {
-      msg.author.send('Here are the current pixel challenge entries:').then(m => {
+      msg.author.send('Here are the current pixel challenge entries:').then(() => {
         if (currentPixelChallenge.entries.length > 0) {
           currentPixelChallenge.entries.forEach(entry => {
             msg.author.send(`**User:** ${entry.name}, **Message:** ${(entry.text || '(no text provided)')}, **Entry:** ${entry.link}`);
@@ -65,7 +64,7 @@ function pixelChallenge(msg, args) {
       msg.delete();
       return;
     } else if (args.length > 1 && args[1] === '-clear') {
-      msg.author.send('The entries have been cleared! Here are entries you cleared, one last time:').then(m => {
+      msg.author.send('The entries have been cleared! Here are entries you cleared, one last time:').then(() => {
         if (currentPixelChallenge.entries.length > 0) {
           currentPixelChallenge.entries.forEach(entry => {
             msg.author.send(`**User:** ${entry.name}, **Entry:** ${entry.link}`);

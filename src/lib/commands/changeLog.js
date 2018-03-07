@@ -13,7 +13,7 @@ module.exports = msg => {
  * Takes a screenshot of the release notes and sends it to the chat
  * @param {Message} msg Discord message
  */
-async function sendReleaseScreenshot(msg) {
+function sendReleaseScreenshot(msg) {
   msg.channel.send('Loading release notes...').then(async message => {
     // Launch chrome
     let browser = await puppeteer.launch();

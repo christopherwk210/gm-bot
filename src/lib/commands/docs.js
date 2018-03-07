@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // Node libs
 const vm = require('vm');
 const http = require('http');
@@ -111,7 +110,7 @@ function helpUrlGMS1(msg, fn, image) {
  * @param {string} URL Website to take a screenshot of
  * @param {Message} msg Discord message
  */
-async function sendScreenshot(messageText, URL, msg) {
+function sendScreenshot(messageText, URL, msg) {
   msg.channel.send('Loading documentation...').then(async message => {
     // Launch chrome
     let browser = await puppeteer.launch();
@@ -210,4 +209,3 @@ function run(msg, args) {
 }
 
 module.exports = run;
-/* eslint no-use-before-define: 2 */

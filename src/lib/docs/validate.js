@@ -23,7 +23,8 @@ const gml = {
     let found = false;
 
     // Get all positions
-    while ((match = regex.exec(list)) != null) {
+    // eslint-disable-next-line no-eq-null
+    while ((match = regex.exec(list)) !== null) {
       matches.push(match.index);
     }
 

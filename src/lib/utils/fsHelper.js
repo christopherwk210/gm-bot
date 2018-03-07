@@ -1,15 +1,12 @@
 // Imports
 const fs = require('fs');
+const util = require('util');
 
 /**
  * Wraps file existence check in a promise
  * @param {string} file Path to file
  */
-function exists(file) {
-  return new Promise(resolve => {
-    fs.exists(file, exists => resolve(exists));
-  });
-}
+let exists = util.promisify(fs.exists);
 
 /**
  * Reads a JSON file into memory as an object
@@ -17,7 +14,7 @@ function exists(file) {
  */
 function readJSON(file) {
   return new Promise((resolve, reject) => {
-    fs.readFile(file, { encoding: 'utf8' }, (err, data) => {
+    fs.readFile(file, {encoding: 'utf8'}, (err, data) => {
       // Reject on error
       if (err) {
         reject(err);

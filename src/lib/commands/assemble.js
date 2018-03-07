@@ -4,7 +4,6 @@
  * @param {Array<string>} args Command arguments
  */
 module.exports = function(msg, args) {
-
   // Make sure this is in the server
   if ((msg.member) && (msg.member.roles)) {
 
@@ -20,15 +19,15 @@ module.exports = function(msg, args) {
         let art = msg.guild.roles.find('id', '345222078577901569');
 
         ducks.setMentionable(true)
-        .then(res => audio.setMentionable(true))
-        .then(res => art.setMentionable(true))
+        .then(() => audio.setMentionable(true))
+        .then(() => art.setMentionable(true))
 
-        .then(res => msg.channel.send(`${ducks}, ${audio}, ${art}; Assemble!`))
+        .then(() => msg.channel.send(`${ducks}, ${audio}, ${art}; Assemble!`))
         
-        .then(res => ducks.setMentionable(false))
-        .then(res => audio.setMentionable(false))
-        .then(res => art.setMentionable(false))
-        .catch(err => {});
+        .then(() => ducks.setMentionable(false))
+        .then(() => audio.setMentionable(false))
+        .then(() => art.setMentionable(false))
+        .catch(() => {});
       }
     }
   }

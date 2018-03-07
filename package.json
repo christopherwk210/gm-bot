@@ -6,15 +6,15 @@
   "license": "GPL-3.0",
   "scripts": {
     "install": "node ./src/tools/post-install.js",
-    "lint": "eslint . || true",
-    "lint.verbose": "eslint gmbot.js ",
+    "lint": "eslint .",
+    "lint.gmbot": "eslint gmbot.js",
     "start": "node gmbot.js",
     "seed": "node src/tools/seed.js",
     "test": "mocha 'test/**/*.js'"
   },
   "precommit": [
     "test",
-    "lint.verbose"
+    "lint"
   ],
   "repository": {
     "type": "git",

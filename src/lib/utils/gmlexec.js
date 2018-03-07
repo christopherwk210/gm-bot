@@ -8,8 +8,6 @@ const puppeteer = require('puppeteer');
  */
 async function gmlexec(gml, cb) {
 
-  // let trace = '';
-
   // Fix GML
   gml = gml.replace(/show_debug_message\(/g, 'show_debug_message("gmlex:" + ');
   gml = gml.replace(/trace\(/g, 'trace("gmlex:" + ');
@@ -24,7 +22,7 @@ async function gmlexec(gml, cb) {
   let consoleIsListening = false;
 
   // Output logging
-  let gmlExecOutput = { trace: [] };
+  let gmlExecOutput = {trace: []};
 
   let timeOut = null;
 
@@ -55,10 +53,6 @@ async function gmlexec(gml, cb) {
           }
           break;
       }
-
-      return;
-    } else {
-      return;
     }
   });
 
@@ -67,16 +61,13 @@ async function gmlexec(gml, cb) {
   await page.goto('http://localhost:8080//gmlive/');
 
   // Add GML to the page
-  await page.exposeFunction('gmlexGML', () => {
-    return gml;
-  });
+  await page.exposeFunction('gmlexGML', () => gml);
 
   // Add cb to the page
   await page.exposeFunction('gmlexCB', async err => {
     clearTimeout(timeOut);
     cb(err, null);
     await chrome.close();
-    return;
   });
 
   // Inject code
@@ -100,6 +91,6 @@ async function gmlexec(gml, cb) {
     cb('GML execution timed out. Trace log:\n\n' + JSON.stringify(gmlExecOutput.trace), null);
     await chrome.close();
   }, 1000 * 60);
-};
+}
 
 module.exports = gmlexec;

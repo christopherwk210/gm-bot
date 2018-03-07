@@ -194,10 +194,10 @@ let easterEggs = [
     matches: ['lifetime'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
-      if (!msg.member) {
-        msg.channel.send('You can only use this in the /r/GameMaker server.');
-      } else {
+      if (msg.member) {
         msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
+      } else {
+        msg.channel.send('You can only use this in the /r/GameMaker server.');
       }
     }
   },
@@ -233,7 +233,7 @@ let easterEggs = [
   {
     matches: ['rtfm'],
     ...prefixedCommandRuleTemplate,
-    action: (msg, args) => {
+    action: msg => {
       commandment(msg, ['rtfm', 'I']);
     }
   },
@@ -327,7 +327,7 @@ let easterEggs = [
     pre: msg => detectStaff(msg.member) === 'admin',
     action: (msg, args) => {
       let regex = /"([\s\S]*)"/g;
-      let fancy = args.indexOf('-f') === -1 ? false : true;
+      let fancy = args.indexOf('-f') !== -1;
 
       // Catch message
       let match = msg.content.match(regex);

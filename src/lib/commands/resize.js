@@ -1,5 +1,5 @@
 // Node libs
-const jimp = require("jimp");
+const jimp = require('jimp');
 const Discord = require('discord.js');
 
 /**
@@ -51,8 +51,8 @@ function resize(msg, args) {
       let mode = useBilinear ? jimp.RESIZE_BILINEAR : jimp.RESIZE_NEAREST_NEIGHBOR;
 
       // Scale and readout to buffer
-      jimpImage.scale(scaleFactor, mode).getBuffer(jimp.MIME_PNG, (err, buffer) => {
-        if (err) {
+      jimpImage.scale(scaleFactor, mode).getBuffer(jimp.MIME_PNG, (jimpErr, buffer) => {
+        if (jimpErr) {
           msg.channel.send(`There was an error scaling ${image.filename}!`);
           return;
         }
@@ -61,7 +61,7 @@ function resize(msg, args) {
         let newImage = new Discord.Attachment(buffer, image.filename);
 
         // Send the image to the channel
-        msg.channel.send(`Here's your image, ${msg.author.username}. Scaled by ${scaleFactor}x.`, newImage).then(m => {
+        msg.channel.send(`Here's your image, ${msg.author.username}. Scaled by ${scaleFactor}x.`, newImage).then(() => {
           if (uploadOriginal) {
             msg.channel.send(`Here's the original image: ${image.url}`);
           }

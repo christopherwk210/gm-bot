@@ -38,12 +38,7 @@ function play(msg, args) {
       }
     });
 
-    if (!videoUrl) {
-      if (!options.silent) {
-        // No song specified
-        msg.author.send('You didn\'t specify a song to play, silly!');
-      }
-    } else {
+    if (videoUrl) {
       // Join the member's channel
       msg.member.voiceChannel.join().then(connection => {
         // Save the connection
@@ -52,6 +47,11 @@ function play(msg, args) {
         // Fetch the provided url
         fetchAudio(msg, videoUrl, options);
       }).catch(() => {});
+    } else {
+      if (!options.silent) {
+        // No song specified
+        msg.author.send('You didn\'t specify a song to play, silly!');
+      }
     }
   }
 }
@@ -95,15 +95,15 @@ function fetchAudio(msg, url, options) {
  * @param {Array<any>} queue Audio playback queue
  * @param {object} [options] User options
  */
-function processQueue(msg, queue, options) {
-  if (queue.length < 1) {
+function processQueue(msg, _queue, options) {
+  if (_queue.length < 1) {
     // No more tunes to play! Disconnect
     disconnect();
     return;
   }
 
   // Get the next item to play
-  let nextItem = queue[0];
+  let nextItem = _queue[0];
 
   // Announce our excitement to the user
   if (!options.silent) {
@@ -124,7 +124,7 @@ function processQueue(msg, queue, options) {
   }
 
   // Play away
-  dispatch = currentConnection.playStream(youtubedl(nextItem.url, ['-x', '--audio-quality', '0']), { volume: (volume * .01) / 3 });
+  dispatch = currentConnection.playStream(youtubedl(nextItem.url, ['-x', '--audio-quality', '0']), { volume: (volume * 0.01) / 3 });
   dispatch.setBitrate('auto');
 
   // On stream start
@@ -136,23 +136,23 @@ function processQueue(msg, queue, options) {
   });
 
   // On stream error
-  dispatch.on('error', err => {
+  dispatch.on('error', () => {
     // Skip to the next song
-    queue.shift();
-    processQueue(msg, queue, {
+    _queue.shift();
+    processQueue(msg, _queue, {
       silent: true
     });
   });
 
   // On stream end
-  dispatch.on('end', res => {
+  dispatch.on('end', () => {
     // Wait a second
     setTimeout(() => {
       // Remove the song from the queue
-      queue.shift();
+      _queue.shift();
 
       // Play the next song in the queue
-      processQueue(msg, queue, {
+      processQueue(msg, _queue, {
         silent: true
       });
     }, 1000);
@@ -178,7 +178,7 @@ function pause(msg, args) {
 
   // Alert the guy on pausing duty
   if (!options.silent) {
-    msg.author.send(`Paused`);
+    msg.author.send('Paused');
   }
 
   // Pause
@@ -237,7 +237,7 @@ function getQueue(msg) {
   if (queue.length < 1) {
     msg.author.send('Queue is empty!');
     return;
-  };
+  }
 
   // Set up a stringydoo
   let currentQueueMessage = 'Current playback queue:\n';
@@ -272,7 +272,7 @@ function setVolume(msg, args) {
   volume = newVol;
 
   if (dispatch) {
-    dispatch.setVolume((newVol * .01) / 3);
+    dispatch.setVolume((newVol * 0.01) / 3);
   }
 }
 

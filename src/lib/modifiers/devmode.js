@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const rules = require('../rules.js');
 const giveAways = require('../utils/giveAwayLib.js');
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
@@ -18,11 +19,13 @@ module.exports = function(msg) {
     var rawCode = code[0].substr(11,code[0].length - 14);
 
     // Create helper functions
-    reply = str => {
+    // eslint-disable-next-line func-style
+    let reply = function(str) {
       msg.channel.send(str);
     };
 
     // Execute code
+    // eslint-disable-next-line no-eval
     eval(rawCode);
 
     return true;
@@ -30,3 +33,4 @@ module.exports = function(msg) {
     return false;
   }
 };
+/* eslint-enable no-unused-vars */

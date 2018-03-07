@@ -7,7 +7,8 @@
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true
-        }
+        },
+        "ecmaVersion": 2017
     },
     "rules": {
         "accessor-pairs": "error",
@@ -36,7 +37,7 @@
                 "allowSingleLine": true
             }
         ],
-        "callback-return": "error",
+        "callback-return": "off",
         "camelcase": [
             "error",
             {
@@ -58,7 +59,7 @@
         ],
         "consistent-return": "off",
         "consistent-this": "error",
-        "curly": "error",
+        "curly": "off",
         "default-case": "error",
         "dot-location": [
             "error",
@@ -118,10 +119,11 @@
         "no-alert": "error",
         "no-array-constructor": "error",
         "no-await-in-loop": "error",
-        "no-bitwise": 1,
+        "no-bitwise": "off",
         "no-buffer-constructor": "error",
         "no-caller": "error",
         "no-catch-shadow": "error",
+        "no-case-declarations": "off",
         "no-confusing-arrow": "error",
         "no-continue": "error",
         "no-console": 0,
@@ -137,7 +139,7 @@
         "no-extra-parens": "off",
         "no-fallthrough": 0,
         "no-floating-decimal": "error",
-        "no-implicit-coercion": "error",
+        "no-implicit-coercion": "off",
         "no-implicit-globals": "error",
         "no-implied-eval": "error",
         "no-inline-comments": "off",
@@ -169,7 +171,7 @@
         "no-new-require": "error",
         "no-new-wrappers": "error",
         "no-octal-escape": "error",
-        "no-param-reassign": "error",
+        "no-param-reassign": "off",
         "no-path-concat": "error",
         "no-plusplus": "off",
         "no-process-env": "error",
@@ -195,16 +197,18 @@
         "no-ternary": 0,
         "no-throw-literal": "error",
         "no-trailing-spaces": "off",
+        "no-undef": "off",
         "no-undef-init": "off",
         "no-undefined": "off",
         "no-underscore-dangle": "error",
-        "no-unmodified-loop-condition": "error",
+        "no-unmodified-loop-condition": "off",
         "no-unneeded-ternary": "error",
         "no-use-before-define": "off",
         "no-useless-call": "error",
         "no-useless-computed-key": "error",
         "no-useless-concat": "error",
         "no-useless-constructor": "error",
+        "no-useless-escape": "off",
         "no-useless-rename": "error",
         "no-useless-return": "error",
         "no-var": "off",
@@ -214,7 +218,7 @@
         "no-with": "error",
         "nonblock-statement-body-position": "error",
         "object-curly-newline": "off",
-        "object-curly-spacing": "error",
+        "object-curly-spacing": "off",
         "object-property-newline": "error",
         "object-shorthand": "off",
         "one-var": "off",
@@ -227,7 +231,7 @@
         "prefer-const": "off",
         "prefer-destructuring": 0,
         "prefer-numeric-literals": "error",
-        "prefer-promise-reject-errors": "error",
+        "prefer-promise-reject-errors": "off",
         "prefer-rest-params": "error",
         "prefer-spread": "error",
         "prefer-template": "off",
