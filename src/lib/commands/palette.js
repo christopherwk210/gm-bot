@@ -94,22 +94,22 @@ unabbreviate = function(str) {
       var pos = (str.length - sublen) + inspos;
 
       // Insert a dash between the text and the last number
-      str = [str.slice(0, pos), "-", str.slice(pos)].join('');
+      str = [str.slice(0, pos), '-', str.slice(pos)].join('');
     }
 
     // Replace common abbrevations/typos with their full name / whatever name
     // they use at lospec.
     switch (str) {
-      case "aseprite-default": str += "32";
+      case 'aseprite-default': str += '32';
       case (str.match(`dawn-?bringer-?[0-9]+`) || false).input:
       case (str.match(`db-?[0-9]+`) || false).input:
-        return "DawnBringer-" + str.slice(str.length-2, str.length);
+        return 'DawnBringer-' + str.slice(str.length-2, str.length);
         break;
-      case "nes":
-        return "Nintendo-Entertainment-System";
+      case 'nes':
+        return 'Nintendo-Entertainment-System';
         break;
-      case "jmp":
-        return "JMP-Japanese-Machine-Palette";
+      case 'jmp':
+        return 'JMP-Japanese-Machine-Palette';
         break;
       default:
         return str; break;
