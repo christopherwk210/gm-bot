@@ -46,6 +46,22 @@ module.exports = function(msg, args) {
           let endtaglen = out.slice(pretaglen).match(`<\s*\/\s*title>`)[0].length;
           let title     = out.slice(pretaglen, -endtaglen);
 
+          // Check if the title uses hexadecimal html Codes
+          let htmlChars = title.match(/&#x[0-9a-fA-F]+;/gi);
+
+          // Loop through all the html codes
+          while (htmlChars && htmlChars.length > 0) {
+            let htmlChar = htmlChars.shift();
+
+            // Convert the hexadecimal to ASCII
+            let char = hex2ascii(htmlChar.match(/[0-9a-fA-F]+/)[0]);
+            console.log('hex: ' + htmlChar.match(/[0-9a-fA-F]+/)[0] + ', ASCII: ' + char);
+
+            // Insert swap out the &#xXX; garbage with nice, readable ASCII characters
+            let before = title.slice(0, title.indexOf(htmlChar));
+            title = before + char + title.slice(before.length + htmlChar.length, title.length);
+          }
+
           // update title of embed, send embed, delete command message
           embed.setTitle(title)
           msg.channel.send({embed});
@@ -67,6 +83,18 @@ module.exports = function(msg, args) {
     });
 }
 
+/**
+ * Converts hexadecimal string to ASCII string
+ * @param {String} hexx String containing hexadecimal values
+ */
+hex2ascii = function(hexx) {
+  var hex = hexx.toString();
+  var str = '';
+  for (var i = 0; i < hex.length; i += 2) {
+    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+  }
+  return str;
+}
 
 /**
  * Unabbreviates names that may cause errors for the palette command
@@ -97,13 +125,22 @@ unabbreviate = function(str) {
       str = [str.slice(0, pos), '-', str.slice(pos)].join('');
     }
 
-    // Replace common abbrevations/typos with their full name / whatever name
-    // they use at lospec.
+    // Replace common abbrevations/typos with their full name / whatever name they use at lospec.
     switch (str) {
-      case 'aseprite-default': str += '32';
-      case (str.match(`dawn-?bringer-?[0-9]+`) || false).input:
-      case (str.match(`db-?[0-9]+`) || false).input:
-        return 'DawnBringer-' + str.slice(str.length-2, str.length);
+      case (str.match(`^edg-?[0-9]+$`) || false).input:
+        return 'Endesga-' + str.slice(str.indexOf(str.match(`[0-9]+$`)[0]), str.length);
+        break;
+      case (str.match(`^dbs?-?8$`) || false).input:
+        return 'DawnBringers-8-color';
+        break;
+      case 'aseprite-default':
+        str += '32';
+      case (str.match(`^dawn-?bringer-?[0-9]+$`) || false).input:
+      case (str.match(`^db-?[0-9]+$`) || false).input:
+        return 'DawnBringer-' + str.slice(str.indexOf(str.match(`[0-9]+$`)[0]), str.length);
+        break;
+      case 'apple-2':
+        return 'Apple-II';
         break;
       case 'nes':
         return 'Nintendo-Entertainment-System';
@@ -112,6 +149,7 @@ unabbreviate = function(str) {
         return 'JMP-Japanese-Machine-Palette';
         break;
       default:
-        return str; break;
+        return str;
+        break;
     }
 }

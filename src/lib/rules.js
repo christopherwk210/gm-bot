@@ -389,7 +389,7 @@ let easterEggs = [
     }
   },
   {
-    matches: ['palette'],
+    matches: ['palette', 'pallete', 'palete'], // Because no one knows how to spell palette
     ...prefixedCommandRuleTemplate,
     action: palette
   }
