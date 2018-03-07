@@ -146,6 +146,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── christmas.js         // Responsible for handling christmas role colors!
 │   │   ├── commandment.js       // Responsible for `!commandment`
 │   │   ├── docs.js              // Responsible for `!docs`
+│   │   ├── palette.js           // Responsible for `!palette`
 │   │   ├── pixelChalleng.js     // Responsible for `!pixelchallenge`
 │   │   ├── resize.js            // Responsible for `!resize`
 │   │   ├── resources.js         // Responsible for `!resources`
