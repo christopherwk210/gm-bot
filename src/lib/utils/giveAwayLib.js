@@ -1,214 +1,245 @@
-/* eslint-disable */
-
-/*
-  Lib for give aways on the GameMaker Discord
-   - code by ariak
-
-  TODO
-  - in parse only show multiple if multiple truly active! (date comparison)
-  - include raffle signup date check (done in theory - code commented out)
-  - complete draw function (currently returns ID);
-*/
-
-// Requires Libraries
+// Node libs
 const fs = require('fs');
+const path = require('path');
+const async = require('async');
 
-let data;
-let fpath = './src/data/giveAwaysData.json';
+// Init
+let data = {}
+let filePath = path.join(__dirname, '../../data/giveAwaysData.json');
 
-// Create giveAway json if it doesn't exists
-fs.open(fpath, 'r', function(fileErr) {
-  if (fileErr !== undefined) {
-    fs.writeFile(fpath, '{}', function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        data = require('../../data/giveAwaysData.json');
-      }
+// Create async queue to save data
+let queue = async.queue((task, callback) => {
+  fs.unlink(filePath, () => {
+    fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', () => {
+      callback();
     });
-  } else {
-    data = require('../../data/giveAwaysData.json');
-  }
-});
+  });
+}, 1);
 
-let lib = {
-  loadJson: function(giveaway) {
-    let parsedGiveaway = JSON.parse(giveaway);
+/**
+ * Triggers a file save by appending to the async queue
+ */
+function saveData() {
+  queue.push({}, () => {});
+}
 
-    data[parsedGiveaway.giveAway] = {
-      start: parsedGiveaway.start,
-      end: parsedGiveaway.end,
-      participants: parsedGiveaway.participants,
-      realParticipants: parsedGiveaway.realParticipants,
-      winners: parsedGiveaway.winners
-    }
-  },
-  message: function(msg, command) {
-    let activeGAs = Object.keys(data);
-    let activeGACount = activeGAs.length;
+// Load existing data or create it, if not present
+if (fs.existsSync(filePath)) {
+  data = require('../../data/giveAwaysData.json');
+} else {
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+}
 
-    if (activeGACount === 0) {
-      lib.reply_error(msg,'no currently active giveaways.')
-    } else if (activeGACount === 1) {
-      lib.signup(msg,activeGAs[0]);                   // default to first and only GA
-    } else {                                          // if multiple GA:
-      if (command.length === 1) {
-        lib.reply_list(msg);  // IF only one argument provided - send GA list
+/**
+ * Handles a Discord message containing the giveaway command
+ * @param {*} msg 
+ * @param {string[]} args 
+ */
+function handleMessage(msg, args) {
+  let activeGAs = Object.keys(data);
+  let activeGACount = activeGAs.length;
+
+  switch(activeGACount) {
+    case 0:
+      replyError(msg, 'There are no currently active giveaways.!');
+      break;
+    case 1:
+      // Default to signing up for the first giveaway
+      signup(msg, activeGAs[0]);
+      break;
+    default:
+      // Send list of giveaways if none specified when multiple exist
+      if (args.length === 1) {
+        replyList(msg)
       } else {
-        lib.signup(msg,command[1]); // ELSE attempt sign up with provided command
+        // Otherwise, try to signup for the one specified
+        signup(msg, args[1]);
       }
-    }
-  },
-  signup: function(msg,name) { // message and giveaway name to sign up for! - WARNING CALLS DRAW FNCT TO DEBUG
-    let errMsg = 0;
-    let tnow = Date.now() / 1000;
-    let ga = data[name];
-    let userID = msg.author.id;
-
-    // Logic Checks
-    if (ga === undefined) { 
-      errMsg = 'a giveaway for ' + name + ' doesn\'t exist!';
-    } else if (tnow < parseInt(ga.start))  {
-      errMsg = 'the ' + name + ' giveaway hasn\'t opened for signups yet!'
-    } else if (tnow > parseInt(ga.end)) {
-      errMsg = 'the ' + name + ' giveaway signup period has concluded!'
-    } else if (ga.participants.indexOf(userID) !== -1) {
-      errMsg = 'no duplicate entries!';
-    }
-
-    if (errMsg !== 0) {
-      lib.reply_error(msg,errMsg);
-
-      return false;
-    }
-
-    // All checks passed: append and update file
-    ga.participants.push(userID);
-    ga.realParticipants.push({
-      userID: userID,
-      userName: msg.author.username
-    });
-    lib.reply_success(msg,name);
-    lib.pushDB();
-
-    return true;
-  },
-  draw: function(name, count) {     // draw a give away winner
-    let errMsg;
-
-    if (data[name] === undefined) {
-      errMsg = 'GA doesnt exist';
-      console.log('[GA] Drawing Error: ' + errMsg);
-
-      return false;
-    }
-    if (data[name].participants.length === 0) { // check length after purge
-      errMsg = 'GA has no participants';
-      console.log('[GA] Drawing Error: ' + errMsg);
-
-      return false;
-    }
-    
-    // determine all winners
-    let p = data[name].realParticipants;
-    let l = p.length;
-    let w = data[name].winners;
-
-    let minCount = Math.min(p.length, count);       // may not excede l;
-
-    let i = 0;
-    while (i < minCount) {               
-      let r = Math.trunc(Math.random() * l);  // determine winner index
-      w.push({
-        userID: p[r].userID,
-        userName: p[r].userName
-      });                         // push to winners
-      p.splice(r,1);                        // remove winner for further draws
-      data[name].participants.splice(r,1);                        // remove winner for further draws
-      --l;
-      ++i;
-    }
-    console.log('winners: ' + w);
-    lib.pushDB();
-
-    return w;                                 // returns list of winner user.id's     
-  },
-  create: function(name,start,end) {           // Create a new give away! +++ start,end as unix +++
-    if (data[name] !== undefined) {
-      console.log('[GA] GA with this name already exists');
-
-      return false; // report error to express API
-    }
-    // checks passed: create entry, push JSON/DB
-    data[name] = {
-      start: start,
-      end: end,
-      participants: [],
-      realParticipants: [],
-      winners: []
-    }
-    lib.pushDB();
-
-    return true; // report success to express API
-  },
-  delete: function(name) {                     // attempt to delete a give away!
-    if (data[name] !== undefined) {
-      delete data[name];
-      lib.pushDB();
-      console.log('[GA] deleted ' + name);
-    }
-  },
-  blacklist_purge: function(list,blacklist) {
-    if (list.constructor !== Array || blacklist.constructor !== Array) {
-      return list; // ignore error
-    }
-    let returnList = list.filter(function(e) {
-        return this.indexOf(e) < 0; // this ==> blacklist
-    }, blacklist);
-    console.log('[GA] Blacklist filtered ' + ((list.length) - (returnList.length)) + ' Element/s');
-
-    return returnList;
-  },
-  reply_error: function(msg,errMsg) {
-    let reply = 'Signup Error: ' + errMsg;
-    msg.author.send(reply)
-      .then(() => console.log('[GA] Error sent to User: ' + msg.author.username + ', userID: ' + msg.author.id + ', Error: ' + errMsg))
-      .catch(console.error);
-  },
-  reply_success: function(msg,selectedGA) {
-    let reply = 'Thank you for signing up for the ' + selectedGA + ' giveaway.';
-    msg.author.send(reply).catch(() => {});
-  },
-  reply_list: function(msg) {
-    let valid = '';
-    for (let g in data) {
-      if (data.hasOwnProperty(g)) {
-        valid += g + ', ';
-      }
-    }
-    valid = valid.substr(0, valid.length - 2); // remove last two charcters ', ';
-    let reply = 'Here is a list of valid giveaways: ' + valid + '.\nType `!giveaway <name>` to sign up.';
-    msg.channel.send(reply);
-  },
-  getGiveAways: function() {
-    let valid = [];
-    for (let g in data) {
-      if (data.hasOwnProperty(g)) {
-        valid.push({
-          giveAway: g,
-          start: data[g].start,
-          end: data[g].end,
-          participants: data[g].participants,
-          realParticipants: data[g].realParticipants,
-          winners: data[g].winners
-        });
-      }
-    }
-
-    return valid;
-  },
-  pushDB: function() {                       // internal async push to DB or JSON
-    fs.writeFileSync(fpath, JSON.stringify(data));
+      break;
   }
 }
-module.exports = lib;
+
+/**
+ * Draw winner!
+ * @param {string} name 
+ * @param {*} count 
+ */
+function draw(name, count) {
+  if (data[name] === undefined) {
+    console.log(`Giveaway ${name} doesn't exist, could not draw winner.`);
+    return false;
+  }
+
+  if (data[name].participants.length === 0) {
+    console.log(`Giveaway ${name} has no entries, could not draw winner.`);
+    return false;
+  }
+
+  let realParticipants = data[name].realParticipants;
+  let numberOfParticipants = realParticipants.length;
+  let winners = data[name].winners;
+
+  let minCount = Math.min(numberOfParticipants, count);
+
+  let i = 0;
+  while (i < minCount) {
+    // Determine winner
+    let winnerIndex = Math.trunc(Math.random() * numberOfParticipants);
+
+    // Push 'em in
+    winners.push({
+      userID: realParticipants[winnerIndex].userID,
+      userName: realParticipants[winnerIndex].userName
+    });
+
+    // Slide 'em out
+    realParticipants.slice(winnerIndex, 1);
+    data[name].participants.splice(winnerIndex, 1);
+
+    numberOfParticipants--;
+    i++;
+  }
+
+  // Save changes
+  saveData();
+
+  // Give back updated winners
+  return winners;
+}
+
+/**
+ * Sign up a user for a giveaway
+ * @param {*} msg 
+ * @param {string} name Giveaway name
+ */
+function signup(msg, name) {
+  let err;
+  let now = Date.now() / 1000;
+  let giveaway = data[name];
+  let userID = msg.author.id;
+
+  // Check for errors
+  if (giveaway === undefined) {
+    err = `A giveaway for ${name} doesn't exist!`;
+  } else if (now < parseInt(giveaway.start)) {
+    err = `The ${name} giveaway hasn't opened for signups yet!`;
+  } else if (now > parseInt(giveaway.end)) {
+    err = `The ${name} giveaway signup period has concluded!`;
+  } else if (giveaway.participants.indexOf(userID) !== -1) {
+    err = 'No duplicate entries!';
+  }
+
+  if (err) {
+    replyError(msg, err);
+    return false;
+  }
+
+  // Add user to giveaway
+  giveaway.participants.push(userID);
+  giveaway.realParticipants.push({
+    userID,
+    userName: msg.author.username
+  });
+  msg.author.send(`Thank you for signing up for the ${name} giveaway!`).catch(() => {});
+
+  // Save to file
+  saveData();
+
+  return true;
+}
+
+/**
+ * Create giveaway
+ * @param {string} name 
+ * @param {*} start 
+ * @param {*} end 
+ */
+function createGiveaway(name, start, end) {
+  if (data[name]) {
+    console.log(`Giveaway ${name} already exists! Could not create giveaway.`);
+    return false;
+  }
+
+  data[name] = {
+    start,
+    end,
+    participants: [],
+    realParticipants: [],
+    winners: []
+  };
+
+  saveData();
+
+  return true;
+}
+
+/**
+ * Deletes an existing giveaway
+ * @param {string} name 
+ */
+function deleteGiveaway(name) {
+  if (data[name]) {
+    delete data[name];
+    saveData();
+    console.log(`Giveaway ${name} deleted.`);
+  }
+}
+
+/**
+ * Returns all active giveaways
+ */
+function getGiveAways() {
+  let valid = [];
+
+  for (let g in data) {
+    if (data.hasOwnProperty(g)) {
+      valid.push({
+        giveAway: g,
+        start: data[g].start,
+        end: data[g].end,
+        participants: data[g].participants,
+        realParticipants: data[g].realParticipants,
+        winners: data[g].winners
+      });
+    }
+  }
+
+  return valid;
+}
+
+/**
+ * Reply to a message with a list of all giveaways
+ * @param {*} msg 
+ */
+function replyList(msg) {
+  let valid = '';
+
+  for (let g in data) {
+    if (data.hasOwnProperty(g)) {
+      valid += `${g}, `;
+    }
+  }
+
+  // Remove last comma and space
+  valid = valid.substr(0, valid.length - 2);
+
+  let reply = `Here is a list of valid giveaways: ${valid}.\nType \`!giveaway <name>\` to sign up for one!`;
+  msg.channel.send(reply);
+}
+
+/**
+ * Reply to a message as a signup error
+ * @param {*} msg 
+ * @param {string} errMsg 
+ */
+function replyError(msg, errMsg) {
+  msg.author.send(`Signup Error: ${errMsg}`).catch(() => {});
+}
+
+module.exports = {
+  message: handleMessage,
+  create: createGiveaway,
+  delete: deleteGiveaway,
+  draw,
+  getGiveAways
+};

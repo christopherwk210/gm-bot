@@ -16,7 +16,7 @@ module.exports = function(app, db) {
       return;
     }
     
-    giveAways.loadJson(json);
+    // giveAways.loadJson(json);
   });
 
   app.post('//give_aways/draw', function (req, res) {
