@@ -26,7 +26,7 @@ module.exports = function(msg, args) {
     let embed = new Discord.RichEmbed()
       .setTitle('Palette Not Found')
       .setURL('https://lospec.com/palette-list/' + paletteName)
-      .setImage('https://lospec.com/palette-list/' + paletteName + '-32x.png')
+      .setImage('https://lospec.com/palette-list/' + paletteName + '-32x.png');
 
     // Get the wepage to check if the palette exists
     https.get('https://lospec.com/palette-list/' + paletteName, (res) => {
@@ -36,15 +36,15 @@ module.exports = function(msg, args) {
         let str = chunk.toString();
 
         // Create a regex to find the <title>
-        var re = /(<\s*title[^>]*>(.+?)<\s*\/\s*title)>/gi;
-        let out = str.match(re);
+        let match = str.match(/(<\s*title[^>]*>(.+?)<\s*\/\s*title)>/gi);
 
-        if (out) {
-          // slice off the <title> tags, to just get the title
-          // WARNING: I am using magic numbers here because no one
-          // puts anything into the title tag, but it might be smart
-          // to re-do this bit to something less hacky
-          let title = out[0].slice(7, -8);
+        if (match) {
+          let out = match[0];
+
+          // Slice off the <title> tags, to just get the title
+          let pretaglen = out.match(`<\s*title[^>]*>`)[0].length;
+          let endtaglen = out.slice(pretaglen).match(`<\s*\/\s*title>`)[0].length;
+          let title     = out.slice(pretaglen, -endtaglen);
 
           // update title of embed, send embed, delete command message
           embed.setTitle(title)
