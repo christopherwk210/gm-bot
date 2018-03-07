@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /*
   Lib for give aways on the GameMaker Discord
    - code by ariak
