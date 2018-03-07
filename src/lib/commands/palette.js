@@ -14,7 +14,7 @@ module.exports = function(msg, args) {
       let rnd = '';
       if (Math.random() < 1 / 16) rnd = ', ya dingus';
       msg.delete().catch(() => {});
-      msg.channel.send('Invalid command usage' + rnd + '! Proper usage: ``.palette [palette_name]``');
+      msg.channel.send('Invalid command usage' + rnd + '! Proper usage: ``!palette [palette_name]``');
       return;
     }
 
