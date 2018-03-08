@@ -38,7 +38,7 @@ function drawWinner(msg, name) {
   if (exists) {
     let winners = giveAways.draw(name, 1);
     if (winners) {
-      msg.channel.send(`A winner has been drawn! Winner: <@${winners[winners.length - 1].userID}>`);
+      msg.channel.send(`A winner has been drawn for the ${name} giveaway! Winner: <@${winners[winners.length - 1].userID}>`);
     } else {
       msg.channel.send('Something went wrong when trying to draw a winner... Does this giveaway have any participants to draw from?');
     }
@@ -138,7 +138,7 @@ function formatGiveawayStats(giveAway) {
   if (giveAway.winners.length) {
     stats += 'Winners: ';
     giveAway.winners.forEach(winner => {
-      stats += `<@${winner.userID}> `;
+      stats += `${winner.userName} `;
     });
     stats += '\n';
   }
