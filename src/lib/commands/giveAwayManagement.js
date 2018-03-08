@@ -34,7 +34,7 @@ function quickCreate(msg, name, days) {
   } else {
     let now = new Date();
     let later = new Date();
-    later.setDate(now.getDate() + days);
+    later.setDate(now.getDate() + parseInt(days));
 
     // Create the giveaway
     let res = giveAways.create(name, now / 1000, later / 1000);
