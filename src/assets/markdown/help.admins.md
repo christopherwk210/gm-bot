@@ -10,4 +10,7 @@ Use `!say [channel(s)?] "[message]"` to have the bot say a message. Examples:
 
 !say "heyo" - Will send the message to the current channel
 ```
+
+**You can manage giveaways**
+Use `!ga` to get a list of current giveaways and their stats.
 +++++++++++++++++++++++++++++++

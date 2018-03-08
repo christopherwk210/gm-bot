@@ -19,7 +19,7 @@ if (condition) { perform_action(); }
 
 \`\`\`
 
-- Has a list of commands available:
+- Feature list:
     - `!help` - sends the user a helpful message on the available commands the bot has to offer
     - `!role [role]` - allows user to toggle server roles on and off
     - `!resources` - sends the user a list of curated gamemaker resources, can be used by staff to send the list to other users
@@ -32,8 +32,9 @@ if (condition) { perform_action(); }
     - `!topher` - pings topherlicious (hey, that's me)
     - `!welcome` - sends the user the welcome message as if they just joined
     - `!giveaway [name]` - allows users to join a giveaway
+    - `!gaa` - allows managing giveaways (only usable by staff);
     - `!assemble` - pings all duckies (only usable by staff and duckies)
-    - `!say [channel(s)?] "[message]" [-f]` - sends a message to the current channel or channel(s) specified (only usable by admins)
+    - `!say [channel(s)?] "[message]" [-f]` - sends a message to the current channel or channel(s) specified (only usable by staff)
     - `!inversekinematics` - pings TonyStr
     - `!changelog` - sends a screenshot of the current GM changelog
     - `!lifetime` - sends the date you joined the server
@@ -140,19 +141,20 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 ├── lib                        // The meat of the bot is in here!
 │   │
 │   ├── commands               // These files are responsible for single bot commands
-│   │   ├── assemble.js          // Responsible for `!assemble`
-│   │   ├── audio.js             // Responsible for all audio functions
-│   │   ├── changelog.js         // Responsible for `!changelog`
-│   │   ├── christmas.js         // Responsible for handling christmas role colors!
-│   │   ├── commandment.js       // Responsible for `!commandment`
-│   │   ├── docs.js              // Responsible for `!docs`
-│   │   ├── palette.js           // Responsible for `!palette`
-│   │   ├── pixelChalleng.js     // Responsible for `!pixelchallenge`
-│   │   ├── resize.js            // Responsible for `!resize`
-│   │   ├── resources.js         // Responsible for `!resources`
-│   │   ├── roleControl.js       // Responsible for `!role`
-│   │   ├── say.js               // Responsible for `!say`
-│   │   └── welcome.js           // Responsible for `!welcome` and sending the initial welcome
+│   │   ├── assemble.js           // Responsible for `!assemble`
+│   │   ├── audio.js              // Responsible for all audio functions
+│   │   ├── changelog.js          // Responsible for `!changelog`
+│   │   ├── christmas.js          // Responsible for handling christmas role colors!
+│   │   ├── commandment.js        // Responsible for `!commandment`
+│   │   ├── docs.js               // Responsible for `!docs`
+│   │   ├── giveAwayManagement.js // Responsible for `!gaa`
+│   │   ├── palette.js            // Responsible for `!palette`
+│   │   ├── pixelChalleng.js      // Responsible for `!pixelchallenge`
+│   │   ├── resize.js             // Responsible for `!resize`
+│   │   ├── resources.js          // Responsible for `!resources`
+│   │   ├── roleControl.js        // Responsible for `!role`
+│   │   ├── say.js                // Responsible for `!say`
+│   │   └── welcome.js            // Responsible for `!welcome` and sending the initial welcome
 │   │
 │   ├── docs                   // Extra scripts that help the `!docs` command
 │   │   ├── searchdat-gms1.js    // Contains valid GMS1 documentation urls

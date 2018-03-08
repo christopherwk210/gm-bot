@@ -20,6 +20,7 @@ const resize = require('./commands/resize.js');
 const pixelchallenge = require('./commands/pixelChallenge.js');
 const palette = require('./commands/palette.js');
 const say = require('./commands/say.js');
+const giveAwayManagement = require('./commands/giveAwayManagement.js');
 
 // Project data
 const help = {
@@ -127,12 +128,21 @@ let coreCommands = [
   }
 ];
 
+/**
+ * Admin only commands
+ */
 let adminCommands = [
   {
     matches: ['say'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin',
     action: say
+  },
+  {
+    matches: ['gaa'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member) === 'admin',
+    action: giveAwayManagement
   }
 ]
 
