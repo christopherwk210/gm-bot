@@ -14,10 +14,52 @@ module.exports = function(msg, args) {
       case '-q':
         quickCreate(msg, args[2], args[3]);
         break;
+      case '-x':
+        deleteGiveaway(msg, arg[2]);
+        break;
+      case '-d':
+        drawWinner(msg, arg[2]);
+        break;
       default:
         sendGiveAwayList(msg);
         break;
     }
+  }
+}
+
+/**
+ * Draws a winner for a giveaway
+ * @param {*} msg 
+ * @param {string} name giveaway name
+ */
+function drawWinner(msg, name) {
+  let exists = giveAwayExists(name);
+
+  if (exists) {
+    let winners = giveAways.draw(name, 1);
+    if (winners) {
+      msg.channel.send(`A winner has been drawn! Winner: <@${winners[winners.length - 1].userID}>`);
+    } else {
+      msg.channel.send('Something went wrong when trying to draw a winner... Does this giveaway have any participants to draw from?');
+    }
+  } else {
+    msg.channel.send(`Could not find giveaway with the name "${name}".`);
+  }
+}
+
+/**
+ * Deletes a giveaway
+ * @param {*} msg 
+ * @param {string} name 
+ */
+function deleteGiveaway(msg, name) {
+  let exists = giveAwayExists(name);
+
+  if (exists) {
+    giveAways.delete(name);
+    msg.channel.send(`Deleted giveaway "${name}".`);
+  } else {
+    msg.channel.send(`Could not find giveaway with the name "${name}".`);
   }
 }
 
@@ -68,6 +110,21 @@ function sendGiveAwayList(msg) {
 }
 
 /**
+ * Determine if a giveaway exists
+ * @param {string} name Name of giveaway
+ */
+function giveAwayExists(name) {
+  let exists = false;
+  giveAways.getGiveAways().some(giveAway => {
+    if (giveAway.giveAway === name) {
+      exists = true;
+      return true;
+    }
+  });
+  return exists;
+}
+
+/**
  * Formats a string with stats about a giveaway
  * @param {*} giveAway 
  */
@@ -78,6 +135,13 @@ function formatGiveawayStats(giveAway) {
   stats += 'Start: ' + new Date(giveAway.start * 1000).toString() + '\n';
   stats += 'End: ' + new Date(giveAway.end * 1000).toString() + '\n';
   stats += 'Number of participants: ' + giveAway.participants.length + '\n';
+  if (giveAway.winners.length) {
+    stats += 'Winners: ';
+    giveAway.winners.forEach(winner => {
+      stats += `<@${winner.userID}> `;
+    });
+    stats += '\n';
+  }
   stats += '```\n';
   return stats;
 }

@@ -12,13 +12,8 @@ Use `!say [channel(s)?] "[message]"` to have the bot say a message. Examples:
 ```
 
 **You can manage giveaways**
-```
-!gaa
-```
-Replies with a list of current giveaways and some stats
-
-```
-!gaa -q giveawayName 2
-```
-Will create a giveaway that starts immediately named "giveawayName" and ends in 2 days from now.
+`!gaa` - Replies with a list of current giveaways and some stats
+`!gaa -q giveawayName 2` - Will create a giveaway that starts immediately named "giveawayName" and ends 2 days from now.
+`!gaa -x giveawayName` - Deletes giveaway named "giveawayName"
+`!gaa -d giveawayName` - Draws a winner for the giveaway named "giveawayName"
 +++++++++++++++++++++++++++++++
