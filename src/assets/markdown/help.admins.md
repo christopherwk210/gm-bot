@@ -12,5 +12,13 @@ Use `!say [channel(s)?] "[message]"` to have the bot say a message. Examples:
 ```
 
 **You can manage giveaways**
-Use `!ga` to get a list of current giveaways and their stats.
+```
+!gaa
+```
+Replies with a list of current giveaways and some stats
+
+```
+!gaa -q giveawayName 2
+```
+Will create a giveaway that starts immediately named "giveawayName" and ends in 2 days from now.
 +++++++++++++++++++++++++++++++
