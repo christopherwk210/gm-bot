@@ -10,9 +10,9 @@ module.exports = function(msg, args) {
   if (args.length < 2) {
     sendGiveAwayList(msg);
   } else {
-    switch (arg[1]) {
+    switch (args[1]) {
       case '-q':
-        quickCreate(msg, arg[2], arg[3]);
+        quickCreate(msg, args[2], args[3]);
         break;
       default:
         sendGiveAwayList(msg);
