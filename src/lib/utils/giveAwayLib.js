@@ -33,7 +33,7 @@ if (fs.existsSync(filePath)) {
 /**
  * Handles a Discord message containing the giveaway command
  * @param {*} msg 
- * @param {string[]} args 
+ * @param {Array<string>} args 
  */
 function handleMessage(msg, args) {
   let activeGAs = Object.keys(data);

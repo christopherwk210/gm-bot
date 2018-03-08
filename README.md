@@ -33,7 +33,7 @@ if (condition) { perform_action(); }
     - `!welcome` - sends the user the welcome message as if they just joined
     - `!giveaway [name]` - allows users to join a giveaway
     - `!assemble` - pings all duckies (only usable by staff and duckies)
-    - `!say [channel(s)?] "[message]" [-f]` - sends a message to the current channel or channel(s) specified (only usable by staff)
+    - `!say [channel(s)?] "[message]" [-f]` - sends a message to the current channel or channel(s) specified (only usable by admins)
     - `!inversekinematics` - pings TonyStr
     - `!changelog` - sends a screenshot of the current GM changelog
     - `!lifetime` - sends the date you joined the server
@@ -151,6 +151,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── resize.js            // Responsible for `!resize`
 │   │   ├── resources.js         // Responsible for `!resources`
 │   │   ├── roleControl.js       // Responsible for `!role`
+│   │   ├── say.js               // Responsible for `!say`
 │   │   └── welcome.js           // Responsible for `!welcome` and sending the initial welcome
 │   │
 │   ├── docs                   // Extra scripts that help the `!docs` command
