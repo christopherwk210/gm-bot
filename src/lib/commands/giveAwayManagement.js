@@ -11,7 +11,7 @@ module.exports = function(msg, args) {
     let currentGiveaways = giveAways.getGiveAways();
 
     let giveAwayList = 'Current giveaways:\n\n';
-    currentGiveaways.array.forEach(giveAway => {
+    currentGiveaways.forEach(giveAway => {
       giveAwayList += '```';
       giveAwayList += 'Name: ' + giveAway.giveAway + '\n';
       giveAwayList += 'Start: ' + new Date(giveAway.start * 1000).toString() + '\n';
