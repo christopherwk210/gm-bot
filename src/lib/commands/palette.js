@@ -118,15 +118,16 @@ function unabbreviate(str) {
 
   // Replace common abbrevations/typos with their full name / whatever name they use at lospec.
   switch (str) {
-    case (str.match('^edg-?[0-9]+$') || false).input:
+    case (str.match('^edg-*[0-9]+$') || false).input:
       return 'Endesga-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
-    case (str.match('^dbs?-?8$') || false).input:
+    case (str.match('^dbs?-*8$') || false).input:
       return 'DawnBringers-8-color';
     case 'aseprite-default':
       str += '32';
-    case (str.match('^dawn-?bringer-?[0-9]+$') || false).input:
-    case (str.match('^db-?[0-9]+$') || false).input:
+    case (str.match('^d(awn)?-*b(ringer)?-*[0-9]+$') || false).input:
       return 'DawnBringer-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
+    case (str.match('^andrew-*ken?sler-*[0-9]+$') || false).input:
+      return 'Andrew-Kensler-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
     case 'apple-2':
       return 'Apple-II';
     case 'nes':
