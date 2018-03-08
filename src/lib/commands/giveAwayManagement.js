@@ -15,10 +15,10 @@ module.exports = function(msg, args) {
         quickCreate(msg, args[2], args[3]);
         break;
       case '-x':
-        deleteGiveaway(msg, arg[2]);
+        deleteGiveaway(msg, args[2]);
         break;
       case '-d':
-        drawWinner(msg, arg[2]);
+        drawWinner(msg, args[2]);
         break;
       default:
         sendGiveAwayList(msg);
