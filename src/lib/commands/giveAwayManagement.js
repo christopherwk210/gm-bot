@@ -33,9 +33,9 @@ function quickCreate(msg, name, days) {
     msg.author.send('You need to supply a length dude. Something like: `!gaa -q myCoolGiveaway 2`');    
   } else {
     let now = new Date();
-    let year = d.getFullYear();
-    let month = d.getMonth();
-    let day = d.getDate();
+    let year = now.getFullYear();
+    let month = now.getMonth();
+    let day = now.getDate();
     let later = new Date(year, month, day + days);
 
     let res = giveAways.create(name, now / 1000, later / 1000);
