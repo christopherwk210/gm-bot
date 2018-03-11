@@ -115,26 +115,30 @@ function unabbreviate(str) {
     // Insert a dash between the text and the last number
     str = [str.slice(0, pos), '-', str.slice(pos)].join('');
   }
+  
+  // Store modified capitalized string, make the other lowercase.
+  let old_str = str;
+  str = str.toLowerCase();
 
   // Replace common abbrevations/typos with their full name / whatever name they use at lospec.
   switch (str) {
-    case (str.match('^edg-*[0-9]+$') || false).input:
-      return 'Endesga-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
-    case (str.match('^dbs?-*8$') || false).input:
+    case (str.match(/^en?d(es)?ga?-*[0-9]+-*x?$/) || false).input:
+      return 'Endesga-' + str.match('[0-9]+')[0];
+    case (str.match(/^dbs?-*8$/) || false).input:
       return 'DawnBringers-8-color';
-    case 'aseprite-default':
-      str += '32';
-    case (str.match('^d(awn)?-*b(ringer)?-*[0-9]+$') || false).input:
-      return 'DawnBringer-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
-    case (str.match('^andrew-*ken?sler-*[0-9]+$') || false).input:
-      return 'Andrew-Kensler-' + str.slice(str.indexOf(str.match('[0-9]+$')[0]), str.length);
+    case 'aseprite-default': str += '32';
+    case (str.match(/^d(awn)?-*b(ringer)?-*[0-9]+$/i) || false).input:
+      return 'DawnBringer-' + str.slice(str.indexOf(str.match(/[0-9]+$/)[0]), str.length);
+    case (str.match(/^andrew-*ken?sler-*[0-9]+$/) || false).input:
+      return 'Andrew-Kensler-' + str.slice(str.indexOf(str.match(/[0-9]+$/)[0]), str.length);
     case 'apple-2':
       return 'Apple-II';
     case 'nes':
       return 'Nintendo-Entertainment-System';
     case 'jmp':
       return 'JMP-Japanese-Machine-Palette';
-    default:
-      return str;
   }
+
+  // If no abbreviations / changes are found, return the string and hope for the best!
+  return old_str;
 }
