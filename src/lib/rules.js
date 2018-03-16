@@ -125,6 +125,13 @@ let coreCommands = [
     ...prefixedCommandRuleTemplate,
     action: pixelchallenge,
     delete: false
+  },
+  {
+    matches: ['lospec', 'palettes', 'palette-list'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      msg.channel.send('Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list').catch(() => {});
+    }
   }
 ];
 
