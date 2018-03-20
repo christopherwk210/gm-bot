@@ -21,6 +21,7 @@ const pixelchallenge = require('./commands/pixelChallenge.js');
 const palette = require('./commands/palette.js');
 const say = require('./commands/say.js');
 const giveAwayManagement = require('./commands/giveAwayManagement.js');
+const marketplace = require('./commands/marketplace.js');
 
 // Project data
 const help = {
@@ -132,6 +133,11 @@ let coreCommands = [
     action: msg => {
       msg.channel.send('Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list').catch(() => {});
     }
+  },
+  {
+    matches: ['mp', 'marketplace'],
+    ...prefixedCommandRuleTemplate,
+    action: marketplace
   }
 ];
 

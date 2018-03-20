@@ -43,6 +43,7 @@ if (condition) { perform_action(); }
     - `!resize [scale_factor] [-b] [o]` - when used while uploading an image, will resize the image by the factor given. Use `-b` to use bilinear scaling instead of nearest neighbor. Uploads the original if `-o` is present.
     - `!palette [palette_name]` - sends an image of the palette, and embeds a link to the palette's lospec page.
     - `!pixelchallenge` - when used while uploading an image, will add that image as an entry to the current pixel challenge
+    - `!mp "[query]"` - search the YYG marketplace
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
@@ -148,6 +149,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── commandment.js        // Responsible for `!commandment`
 │   │   ├── docs.js               // Responsible for `!docs`
 │   │   ├── giveAwayManagement.js // Responsible for `!gaa`
+│   │   ├── martketplace.js       // Responsible for `!marketplace`
 │   │   ├── palette.js            // Responsible for `!palette`
 │   │   ├── pixelChalleng.js      // Responsible for `!pixelchallenge`
 │   │   ├── resize.js             // Responsible for `!resize`
