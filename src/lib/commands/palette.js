@@ -117,7 +117,7 @@ function unabbreviate(str) {
   }
   
   // Store modified capitalized string, make the other lowercase.
-  let old_str = str;
+  let oldStr = str;
   str = str.toLowerCase();
 
   // Replace common abbrevations/typos with their full name / whatever name they use at lospec.
@@ -137,8 +137,8 @@ function unabbreviate(str) {
       return 'Nintendo-Entertainment-System';
     case 'jmp':
       return 'JMP-Japanese-Machine-Palette';
+    default:
+      // If no abbreviations / changes are found, return the string and hope for the best!
+      return oldStr;
   }
-
-  // If no abbreviations / changes are found, return the string and hope for the best!
-  return old_str;
 }

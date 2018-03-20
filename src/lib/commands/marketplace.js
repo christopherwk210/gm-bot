@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 // Node imports
 const puppeteer = require('puppeteer');
 
@@ -22,8 +20,8 @@ function fixQuery(q) {
  * @param {Message} msg Discord message
  * @param {Array<string>} args Command arguments
 */
-module.exports = async function(msg, args) {
-  let useEmbed = !!~msg.indexOf('-1');
+module.exports = async function(msg) {
+  // let useEmbed = !!~msg.indexOf('-1');
   let query = msg.content.match(/("[\s\S]*")/g)[0].replace(/"/g, '');
 
   if (query.length < 1) {
@@ -45,7 +43,7 @@ module.exports = async function(msg, args) {
   await page.goto(validSearchURL);
 
   // Execute JS from within page
-  const result = await page.evaluate(x => {
+  const result = await page.evaluate(() => {
     let res = [];
     
     // Find all results on page
@@ -64,10 +62,10 @@ module.exports = async function(msg, args) {
     return Promise.resolve(res);
   }, 7);
 
-  if (results.length === 0) {
+  if (result.length === 0) {
     msg.channel.send('No results found!\nYour search was: `' + query + '`');
   } else {
-    msg.channel.send('Marketplace search results:\n\n' + results[0].url);
+    msg.channel.send('Marketplace search results:\n\n' + result[0].url);
   }
 
   // Close the browser
