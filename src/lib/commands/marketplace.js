@@ -22,12 +22,15 @@ function fixQuery(q) {
 */
 module.exports = async function(msg) {
   // let useEmbed = !!~msg.indexOf('-1');
-  let query = msg.content.match(/("[\s\S]*")/g)[0].replace(/"/g, '');
+  let query = msg.content.match(/("[\s\S]*")/g);
 
   if (query.length < 1) {
     msg.author.send('You must provide a search query: `!mp "query goes in here"`');
     return;
   }
+
+  // Remove quotation from the query
+  query = query[0].replace(/"/g, '');
 
   // Fix search query
   let fixedQuery = fixQuery(query);
