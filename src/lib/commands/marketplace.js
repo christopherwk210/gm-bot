@@ -38,11 +38,11 @@ function createResultEmbed(result) {
   return new Discord.RichEmbed({
     title: result.title,
     url: result.url,
-    thumbnail: result.image,
     description: result.type + '\n' + result.price,
     color: 26659,
     timestamp: new Date()
-  });
+  })
+  .setThumbnail(result.image);
 }
 
 /**
@@ -126,7 +126,7 @@ module.exports = async function(msg) {
   } else {
     let embed = createResultEmbed(result[0]);
     embed.setFooter(`Results generated in ${endTime - startTime}ms`);
-    
+
     msg.channel.send(embed);
   }
 
