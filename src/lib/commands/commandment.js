@@ -3,6 +3,23 @@ const fs = require('fs');
 
 // Project data
 const commandmentList = fs.readFileSync('./src/assets/markdown/commandments.md', 'utf8');
+const commandmentURLs = [
+  'https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark',
+  'https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly',
+  'https://gfycat.com/gifs/detail/ElderlyShadowyFishingcat',
+  'https://gfycat.com/gifs/detail/ThreadbareBareDonkey',
+  'https://gfycat.com/gifs/detail/MediocreYellowishHapuka',
+  'https://gfycat.com/gifs/detail/ExhaustedDistantCutworm',
+  'https://gfycat.com/gifs/detail/FriendlyVengefulJackal',
+  'https://gfycat.com/gifs/detail/DishonestHorribleGopher',
+  'https://gfycat.com/gifs/detail/UniformLiquidAlbacoretuna',
+  'https://gfycat.com/gifs/detail/SparseRevolvingGavial',
+  'https://gfycat.com/gifs/detail/LongAnchoredFlee',
+  'https://gfycat.com/gifs/detail/MiserablePhysicalKob',
+  'https://gfycat.com/gifs/detail/IllustriousFinishedBernesemountaindog',
+  'https://gfycat.com/gifs/detail/RapidDisfiguredDegus',
+  'https://gfycat.com/gifs/detail/PiercingSatisfiedAoudad'
+];
 
 /**
  * Convert roman numeral to number
@@ -35,54 +52,7 @@ module.exports = function(msg, args) {
     // Figure this roman numeral shit out
     var numeral = fromRoman(args[1]);
 
-    // Switch on result and send the right gif
-    switch(numeral) {
-      default:
-      case 1:
-        msg.channel.send('https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark');
-        break;
-      case 2:
-        msg.channel.send('https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly');
-        break;
-      case 3:
-        msg.channel.send('https://gfycat.com/gifs/detail/ElderlyShadowyFishingcat');
-        break;
-      case 4:
-        msg.channel.send('https://gfycat.com/gifs/detail/ThreadbareBareDonkey');
-        break;
-      case 5:
-        msg.channel.send('https://gfycat.com/gifs/detail/MediocreYellowishHapuka');
-        break;
-      case 6:
-        msg.channel.send('https://gfycat.com/gifs/detail/ExhaustedDistantCutworm');
-        break;
-      case 7:
-        msg.channel.send('https://gfycat.com/gifs/detail/FriendlyVengefulJackal');
-        break;
-      case 8:
-        msg.channel.send('https://gfycat.com/gifs/detail/DishonestHorribleGopher');
-        break;
-      case 9:
-        msg.channel.send('https://gfycat.com/gifs/detail/UniformLiquidAlbacoretuna');
-        break;
-      case 10:
-        msg.channel.send('https://gfycat.com/gifs/detail/SparseRevolvingGavial');
-        break;
-      case 11:
-        msg.channel.send('https://gfycat.com/gifs/detail/LongAnchoredFlee');
-        break;
-      case 12:
-        msg.channel.send('https://gfycat.com/gifs/detail/MiserablePhysicalKob');
-        break;
-      case 13:
-        msg.channel.send('https://gfycat.com/gifs/detail/IllustriousFinishedBernesemountaindog');
-        break;
-      case 14:
-        msg.channel.send('https://gfycat.com/gifs/detail/RapidDisfiguredDegus');
-        break;
-      case 15:
-        msg.channel.send('https://gfycat.com/gifs/detail/PiercingSatisfiedAoudad');
-        break;
-    }
+    // Send the right link
+    msg.channel.send(commandmentURLs[numeral - 1]);
   }
 };
