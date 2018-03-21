@@ -1,3 +1,5 @@
+/* eslint-disable no-empty */
+
 // Node imports
 const puppeteer = require('puppeteer');
 
@@ -28,6 +30,12 @@ module.exports = async function(msg) {
     msg.author.send('You must provide a search query: `!mp "query goes in here"`');
     return;
   }
+
+  let loadingMessage;
+
+  try {
+    loadingMessage = await msg.channel.send(`Searching the marketplace for ${query}...`);
+  } catch(e) {}
 
   // Remove quotation from the query
   query = query[0].replace(/"/g, '');
@@ -64,6 +72,12 @@ module.exports = async function(msg) {
 
     return Promise.resolve(res);
   }, 7);
+
+  if (loadingMessage) {
+    try {
+      await loadingMessage.delete();
+    } catch(e) {}
+  }
 
   if (result.length === 0) {
     msg.channel.send('No results found!\nYour search was: `' + query + '`');
