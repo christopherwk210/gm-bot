@@ -1,5 +1,8 @@
 /* eslint-disable no-empty */
 
+// Discord
+const Discord = require('discord.js');
+
 // Node imports
 const puppeteer = require('puppeteer');
 
@@ -18,6 +21,31 @@ function fixQuery(q) {
 }
 
 /**
+ * Marketplace asset descriptor object
+ * @typedef {Object} MarketplaceResult
+ * @property {string} title Asset title
+ * @property {string} url Asset page url
+ * @property {string} thumbnail URL of asset icon
+ * @property {string} type Asset type
+ * @property {string} price Asset price tag
+ */
+
+/**
+ * Create a Discord rich embed for a given marketplace search result
+ * @param {MarketplaceResult} result 
+ */
+function createResultEmbed(result) {
+  return new Discord.RichEmbed({
+    title: result.title,
+    url: result.url,
+    thumbnail: result.image,
+    description: result.type + '\n' + result.price,
+    color: 26659,
+    timestamp: new Date()
+  });
+}
+
+/**
  * Searches the marketplace for assets
  * @param {Message} msg Discord message
  * @param {Array<string>} args Command arguments
@@ -26,13 +54,17 @@ module.exports = async function(msg) {
   // let useEmbed = !!~msg.indexOf('-1');
   let query = msg.content.match(/("[\s\S]*")/g);
 
+  // womp womp
   if (!query || query.length < 1) {
     msg.author.send('You must provide a search query: `!mp "query goes in here"`');
     return;
   }
 
-  let loadingMessage;
+  // Get start time to determine how long it takes to get results
+  let startTime = new Date();
 
+  // Create a loading message
+  let loadingMessage;
   try {
     loadingMessage = await msg.channel.send(`Searching the marketplace for ${query}...`);
   } catch(e) {}
@@ -53,7 +85,10 @@ module.exports = async function(msg) {
   // Search the marketplace
   await page.goto(validSearchURL);
 
-  // Execute JS from within page
+  /**
+   * Array of marketplace asset results
+   * @type {MarketplaceResult[]}
+   */
   const result = await page.evaluate(() => {
     let res = [];
     
@@ -66,23 +101,33 @@ module.exports = async function(msg) {
       // Save the link and image path
       res.push({
         url: items[i].querySelector('a').href,
-        image: items[i].querySelector('.feature-image').src
+        image: items[i].querySelector('.feature-image').src,
+        title: items[i].querySelector('.feature-link').innerHTML,
+        type: items[i].querySelector('.feature-detail a').innerHTML,
+        price: items[i].querySelector('.feature-price small').innerHTML
       });
     }
 
     return Promise.resolve(res);
   }, 7);
 
+  // Delete the loading message
   if (loadingMessage) {
     try {
       await loadingMessage.delete();
     } catch(e) {}
   }
 
+  // Finish time
+  let endTime = new Date();
+
   if (result.length === 0) {
     msg.channel.send('No results found!\nYour search was: `' + query + '`');
   } else {
-    msg.channel.send('Marketplace search results:\n\n' + result[0].url);
+    let embed = createResultEmbed(result[0]);
+    embed.setFooter(`Results generated in ${endTime - startTime}ms`);
+    
+    msg.channel.send(embed);
   }
 
   // Close the browser
