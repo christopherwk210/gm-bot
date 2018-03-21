@@ -24,7 +24,7 @@ module.exports = async function(msg) {
   // let useEmbed = !!~msg.indexOf('-1');
   let query = msg.content.match(/("[\s\S]*")/g);
 
-  if (query.length < 1) {
+  if (!query || query.length < 1) {
     msg.author.send('You must provide a search query: `!mp "query goes in here"`');
     return;
   }
