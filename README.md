@@ -228,7 +228,7 @@ A special thanks to the /r/GameMaker Discord community and staff for their feedb
 ```javascript
 /**
  * GameMakerBot
- * Copyright © 2017 Chris Anselmo <christopherwk210@gmail.com> & contributors.
+ * Copyright © 2018 Chris Anselmo <christopherwk210@gmail.com> & contributors.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
