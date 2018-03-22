@@ -178,7 +178,6 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │       ├── choose.js            // Simple random array picker function
 │       ├── database.js          // Database init function
 │       ├── detectStaff.js       // Detects if a GuildMember is staff (admin or ducky)
-│       ├── fsHelper.js          // Several utility functions to help with filesystem operations
 │       ├── giveAwayLib.js       // Handles give away accessing, `!giveaway`
 │       ├── gmlexec.js           // Handles executing GML
 │       └── parseCommandList.js  // Parses command rule list
