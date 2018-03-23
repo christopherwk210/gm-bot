@@ -43,6 +43,7 @@ if (condition) { perform_action(); }
     - `!resize [scale_factor] [-b] [o]` - when used while uploading an image, will resize the image by the factor given. Use `-b` to use bilinear scaling instead of nearest neighbor. Uploads the original if `-o` is present.
     - `!palette [palette_name]` - sends an image of the palette, and embeds a link to the palette's lospec page.
     - `!pixelchallenge` - when used while uploading an image, will add that image as an entry to the current pixel challenge
+    - `!mp "[query]"` - search the YYG marketplace
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
@@ -148,6 +149,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── commandment.js        // Responsible for `!commandment`
 │   │   ├── docs.js               // Responsible for `!docs`
 │   │   ├── giveAwayManagement.js // Responsible for `!gaa`
+│   │   ├── martketplace.js       // Responsible for `!marketplace`
 │   │   ├── palette.js            // Responsible for `!palette`
 │   │   ├── pixelChalleng.js      // Responsible for `!pixelchallenge`
 │   │   ├── resize.js             // Responsible for `!resize`
@@ -176,7 +178,6 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │       ├── choose.js            // Simple random array picker function
 │       ├── database.js          // Database init function
 │       ├── detectStaff.js       // Detects if a GuildMember is staff (admin or ducky)
-│       ├── fsHelper.js          // Several utility functions to help with filesystem operations
 │       ├── giveAwayLib.js       // Handles give away accessing, `!giveaway`
 │       ├── gmlexec.js           // Handles executing GML
 │       └── parseCommandList.js  // Parses command rule list
@@ -227,7 +228,7 @@ A special thanks to the /r/GameMaker Discord community and staff for their feedb
 ```javascript
 /**
  * GameMakerBot
- * Copyright © 2017 Chris Anselmo <christopherwk210@gmail.com> & contributors.
+ * Copyright © 2018 Chris Anselmo <christopherwk210@gmail.com> & contributors.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

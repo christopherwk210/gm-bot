@@ -10,7 +10,7 @@ Hi, I'm GameMakerBot. Here are some of my available commands:
 
 !docs        - outputs the URL to the documentation of a GML function
                usage: !docs [function_name] [version] [-i]
-               versions: 'gms1','gms2'; defaults to 'gms2'
+               versions: gms1,gms2; defaults to gms2
                example: !docs draw_sprite
                example: !docs draw_sprite gms1 -i
                using -i will upload an image of the docs page
@@ -21,12 +21,12 @@ Hi, I'm GameMakerBot. Here are some of my available commands:
                usage: !resize [scale_factor] [-b] [-o]
                uses nearest neighbor scaling unless -b is used, in which case it will use bilinear
                also uploads the original if -o is used
+
+!marketplace - searches the YYG marketplace for an asset
+               usage: !marketplace "[query]"
+               example: !marketplace "asset name"
 ```
-**This is how you add code blocks to your messages in Discord:**
-\`\`\`
-if (condition) { do_thing(); }
-\`\`\`
-**To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax:**
+**To have your code automatically formatted and enable syntax highlighting use the `clean-code` syntax with your code blocks:**
 \`\`\`clean-code
 if (condition) {do_thing();}
 \`\`\`
@@ -39,4 +39,4 @@ if (true) {
   trace("Executed");
 }
 \`\`\`
-This command will turn your code into a GMLive link for other users to look at e.g. http://yal.cc/r/gml/?mode=2d&gml=CiNkZWZpbmUgbWFpbgpyZXBlYXQoNSl7CiAgICBzaG93X21lc3NhZ2UoIkV4ZWN1dGVkISIpOwp9Cg==
+This command will turn your code into a GMLive link e.g. http://yal.cc/r/gml/?mode=2d&gml=CiNkZWZpbmUgbWFpbgpyZXBlYXQoNSl7CiAgICBzaG93X21lc3NhZ2UoIkV4ZWN1dGVkISIpOwp9Cg==
