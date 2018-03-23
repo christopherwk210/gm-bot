@@ -22,6 +22,7 @@ const palette = require('./commands/palette.js');
 const say = require('./commands/say.js');
 const giveAwayManagement = require('./commands/giveAwayManagement.js');
 const marketplace = require('./commands/marketplace.js');
+const miniboss = require('./commands/miniboss.js');
 
 // Project data
 const help = {
@@ -138,6 +139,11 @@ let coreCommands = [
     matches: ['mp', 'marketplace'],
     ...prefixedCommandRuleTemplate,
     action: marketplace
+  },
+  {
+    matches: ['miniboss', 'mb', 'pedro', 'saint11'],
+    ...prefixedCommandRuleTemplate,
+    action: miniboss
   }
 ];
 
