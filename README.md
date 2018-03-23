@@ -152,6 +152,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── docs.js               // Responsible for `!docs`
 │   │   ├── giveAwayManagement.js // Responsible for `!gaa`
 │   │   ├── martketplace.js       // Responsible for `!marketplace`
+│   │   ├── miniboss.js           // Responsible for `!miniboss`
 │   │   ├── palette.js            // Responsible for `!palette`
 │   │   ├── pixelChalleng.js      // Responsible for `!pixelchallenge`
 │   │   ├── resize.js             // Responsible for `!resize`
