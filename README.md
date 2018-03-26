@@ -44,6 +44,8 @@ if (condition) { perform_action(); }
     - `!palette [palette_name]` - sends an image of the palette, and embeds a link to the palette's lospec page.
     - `!pixelchallenge` - when used while uploading an image, will add that image as an entry to the current pixel challenge
     - `!mp "[query]"` - search the YYG marketplace
+    - `!miniboss [image_name | image_number] [index]` - will post a pixelart reference from the list at http://blog.studiominiboss.com/pixelart, that matches the name or number specified. Can optionally specify an index if the post has more than one image attached. 
+    - `!miniboss ['help' | 'link']` - will either link to the miniboss pixelart webpage (link), or send a message explaining how to use the command (help).
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
@@ -150,6 +152,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── docs.js               // Responsible for `!docs`
 │   │   ├── giveAwayManagement.js // Responsible for `!gaa`
 │   │   ├── martketplace.js       // Responsible for `!marketplace`
+│   │   ├── miniboss.js           // Responsible for `!miniboss`
 │   │   ├── palette.js            // Responsible for `!palette`
 │   │   ├── pixelChalleng.js      // Responsible for `!pixelchallenge`
 │   │   ├── resize.js             // Responsible for `!resize`
