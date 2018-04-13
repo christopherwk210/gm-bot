@@ -85,7 +85,11 @@ function pixelChallenge(msg, args) {
       msg.delete();
       return;
     } else if (args.length > 1 && args[1] === '-imgur') {
-      createImgurAlbum(msg);
+      if (currentPixelChallenge.entries.length > 0) {
+        createImgurAlbum(msg);
+      } else {
+        msg.author.send('No entries yet! Skipping imgur upload.');
+      }
       return;
     }
   }
@@ -136,7 +140,7 @@ async function createImgurAlbum(msg) {
   let album, msgRef;
 
   try {
-    msgRef = await msg.channel.send('Creating album, please wait...');
+    msgRef = await msg.author.send('Creating album, please wait...');
   } catch(e) {
     console.log(e);
     return;
@@ -149,7 +153,7 @@ async function createImgurAlbum(msg) {
     return;
   }
 
-  for (let entry of currentPixelChallenge) {
+  for (let entry of currentPixelChallenge.entries) {
     try {
       await imgur.uploadUrl(entry.link, album.data.id, entry.name, entry.text);
     } catch(e) {
