@@ -3,6 +3,7 @@ const async = require('async');
 const path = require('path');
 const fs = require('fs');
 const util = require('util');
+let imgur = require('../third-party/imgur');
 
 let existsAsync = util.promisify(fs.exists);
 
@@ -51,6 +52,8 @@ function pixelChallenge(msg, args) {
   }
 
   if (detectStaff(msg.member)) {
+
+    // List all entries
     if (args.length > 1 && args[1] === '-list') {
       msg.author.send('Here are the current pixel challenge entries:').then(() => {
         if (currentPixelChallenge.entries.length > 0) {
@@ -64,6 +67,8 @@ function pixelChallenge(msg, args) {
       msg.delete();
       return;
     } else if (args.length > 1 && args[1] === '-clear') {
+
+      // Clear all entries
       msg.author.send('The entries have been cleared! Here are entries you cleared, one last time:').then(() => {
         if (currentPixelChallenge.entries.length > 0) {
           currentPixelChallenge.entries.forEach(entry => {
@@ -78,6 +83,9 @@ function pixelChallenge(msg, args) {
       queue.push({}, () => {});
 
       msg.delete();
+      return;
+    } else if (args.length > 1 && args[1] === '-imgur') {
+      createImgurAlbum(msg);
       return;
     }
   }
@@ -122,6 +130,35 @@ function pixelChallenge(msg, args) {
 
     queue.push({}, () => {});
   }
+}
+
+async function createImgurAlbum(msg) {
+  let album, msgRef;
+
+  try {
+    msgRef = await msg.channel.send('Creating album, please wait...');
+  } catch(e) {
+    console.log(e);
+    return;
+  }
+
+  try {
+    album = await imgur.createAlbum();
+  } catch(e) {
+    msgRef.edit('Something went wrong when contacting the imgur api... :(');
+    return;
+  }
+
+  for (let entry of currentPixelChallenge) {
+    try {
+      await imgur.uploadUrl(entry.link, album.data.id, entry.name, entry.text);
+    } catch(e) {
+      msgRef.edit('Something went wrong when contacting the imgur api... :(');
+      return;
+    }
+  }
+
+  msgRef.edit(`Uploads complete. View album here: https://imgur.com/a/${album.data.id}.`);
 }
 
 module.exports = pixelChallenge;
