@@ -138,6 +138,7 @@ function pixelChallenge(msg, args) {
 
 async function createImgurAlbum(msg) {
   let album, msgRef;
+  let errors = [];
 
   try {
     msgRef = await msg.author.send('Creating album, please wait...');
@@ -158,13 +159,23 @@ async function createImgurAlbum(msg) {
     try {
       await imgur.uploadUrl(entry.link, album.data.deletehash, entry.name, entry.text);
     } catch(e) {
-      console.log('imgur error:', e);
-      msgRef.edit('Something went wrong when contacting the imgur api... :(');
-      return;
+      errors.push(entry)
     }
   }
 
   msgRef.edit(`Uploads complete. View album here: https://imgur.com/a/${album.data.id}.`);
+
+  if (errors.length > 0) {
+    try {
+      await msg.author.send('There were errors uploading some images. The following images did not upload correctly:');
+
+      errors.forEach(entry => {
+        msg.author.send(`user: ${entry.name}, link: <${entry.link}>`)
+      });
+    } catch(e) {
+      // nil
+    }
+  }
 }
 
 module.exports = pixelChallenge;
