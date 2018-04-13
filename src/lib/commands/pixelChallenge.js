@@ -157,7 +157,7 @@ async function createImgurAlbum(msg) {
 
   for (let entry of currentPixelChallenge.entries) {
     try {
-      await imgur.uploadUrl(entry.link, album.data.deletehash, entry.name, entry.text);
+      await imgur.uploadUrl(entry.link, album.data.deletehash, entry.name, entry.text.replace('!pixelchallenge', ''));
     } catch(e) {
       errors.push(entry)
     }
