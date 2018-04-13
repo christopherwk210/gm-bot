@@ -149,16 +149,16 @@ async function createImgurAlbum(msg) {
   try {
     album = await imgur.createAlbum();
   } catch(e) {
+    console.log('imgur error:', e);
     msgRef.edit('Something went wrong when contacting the imgur api... :(');
     return;
   }
-
-  console.log('Created imgur album', album);
 
   for (let entry of currentPixelChallenge.entries) {
     try {
       await imgur.uploadUrl(entry.link, album.data.deletehash, entry.name, entry.text);
     } catch(e) {
+      console.log('imgur error:', e);
       msgRef.edit('Something went wrong when contacting the imgur api... :(');
       return;
     }
