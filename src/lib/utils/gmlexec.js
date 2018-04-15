@@ -72,10 +72,10 @@ async function gmlexec(gml, cb) {
 
   // Inject code
   await page.evaluate(async () => {
-    var gmlexgml = await gmlexGML();
+    let gmlexgml = await gmlexGML();
     editor.setValue('trace("gmlex:gmlexbegin");' + gmlexgml + ';trace("gmlex:gmlexclose");');
 
-    var statusElement = document.getElementById('ace_status-hint');
+    let statusElement = document.getElementById('ace_status-hint');
     setInterval(() => {
       if (statusElement.classList.length !== 0) {
         gmlexCB(statusElement.textContent);

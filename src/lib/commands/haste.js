@@ -7,7 +7,7 @@ const http = require('http');
 */
 module.exports = function(msg, args) {
   // Defining variables
-  let input = message.content.slice(args[0].length + 1); // Remove '!haste' from message
+  let input = msg.content.slice(args[0].length + 1); // Remove '!haste' from message
   input = input.replace(/\`/g, ''); // Remove all backticks from message
   input = input.trim(); // Remove empty lines, in case the user started a new line after the first set of backticks
   let user = message.member.user.username; // Fetch user's name

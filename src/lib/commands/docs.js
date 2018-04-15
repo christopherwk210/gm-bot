@@ -27,7 +27,7 @@ function helpUrlGMS2(msg, fn, image) {
       vm.runInThisContext(remoteSrc, 'remote_modules/searchdat.js');
 
       // Loop through newly available SearchTitles (from searchdat.js)
-      for (var i = 0; i < SearchTitles.length; i++) {
+      for (let i = 0; i < SearchTitles.length; i++) {
         // If we find the function we're looking for
         if (SearchTitles[i] === fn) {
           // Send a screenshot if requested
@@ -71,7 +71,7 @@ function helpUrlGMS1(msg, fn, image) {
   let found = false;
 
   // Loop through valid titles
-  for (var i = 0; i < gms1.titles.length; i++) {
+  for (let i = 0; i < gms1.titles.length; i++) {
     // If we match up with a function
     if (gms1.titles[i] === fn) {
       // Send a screenshot if requested

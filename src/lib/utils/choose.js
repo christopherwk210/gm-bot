@@ -8,7 +8,7 @@ module.exports = function(a) {
   }
   
   // http://stackoverflow.com/a/4550514
-  var rand = a[Math.floor(Math.random() * a.length)];
+  let rand = a[Math.floor(Math.random() * a.length)];
   
   return rand;
 };

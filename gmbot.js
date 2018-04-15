@@ -119,9 +119,9 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
     // Determine they are a member and in the voip channel
     if (newMember && newMember.voiceChannel && (newMember.voiceChannel.name.includes('casual') || newMember.voiceChannel.name.includes('chilled') || newMember.voiceChannel.name.includes('game'))) {
       // Fetch the proper roles
-      var voipRole = newMember.guild.roles.find('name', 'voip');
-      var voiceActivityRole = newMember.guild.roles.find('name', 'voice activity');
-      var voipAlumniRole = newMember.guild.roles.find('name', 'voip alumni');
+      let voipRole = newMember.guild.roles.find('name', 'voip');
+      let voiceActivityRole = newMember.guild.roles.find('name', 'voice activity');
+      let voipAlumniRole = newMember.guild.roles.find('name', 'voip alumni');
 
       // Add voip role if they don't have it
       if (!newMember.roles.has(voipRole.id)) {
@@ -257,7 +257,7 @@ function handleImages(msg, imgOptions) {
     if ((msg.member.highestRole === '@everyone') ||
     (msg.member.highestRole === 'voip')) {
       // Get the attachments
-      var attachments = msg.attachments.array();
+      let attachments = msg.attachments.array();
 
       // If there are any
       if (attachments.length !== 0) {

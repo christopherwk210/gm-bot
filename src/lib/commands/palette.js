@@ -81,9 +81,9 @@ module.exports = function(msg, args) {
  * @param {String} hexx String containing hexadecimal values
  */
 function hex2ascii(hexx) {
-  var hex = hexx.toString();
-  var str = '';
-  for (var i = 0; i < hex.length; i += 2) {
+  let hex = hexx.toString();
+  let str = '';
+  for (let i = 0; i < hex.length; i += 2) {
     str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
   }
   return str;
@@ -110,7 +110,7 @@ function unabbreviate(str) {
     let inspos = substr.match('[^0-9]+[0-9]')[0].length - 1;
     
     // Find the position we want to insert at in the main string
-    var pos = (str.length - sublen) + inspos;
+    let pos = (str.length - sublen) + inspos;
 
     // Insert a dash between the text and the last number
     str = [str.slice(0, pos), '-', str.slice(pos)].join('');
