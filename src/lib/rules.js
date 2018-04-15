@@ -23,6 +23,7 @@ const say = require('./commands/say.js');
 const giveAwayManagement = require('./commands/giveAwayManagement.js');
 const marketplace = require('./commands/marketplace.js');
 const miniboss = require('./commands/miniboss.js');
+const haste = require('./commands/haste');
 
 // Project data
 const help = {
