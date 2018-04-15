@@ -76,7 +76,7 @@ let coreCommands = [
     ...prefixedCommandRuleTemplate,
     action: msg => {
       let command;
-      
+
       // Determine the correct help message to deliver
       if ((msg.member)) {
         command = detectStaff(msg.member);
@@ -144,6 +144,11 @@ let coreCommands = [
     matches: ['miniboss', 'mb', 'pedro', 'saint11'],
     ...prefixedCommandRuleTemplate,
     action: miniboss
+  },
+  {
+    matches: ['haste', 'hastebin'],
+    ...prefixedCommandRuleTemplate,
+    action: haste
   }
 ];
 
