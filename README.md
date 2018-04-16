@@ -67,8 +67,11 @@ if (condition) { perform_action(); }
 This project requires:
 
 - Node >= 9.0.0
-- FFMPEG for audio related functionality (not needed to run)
-- libtool (libtool-bin)
+
+If you want to test audio-related functionality you'll also need:
+- FFMPEG for audio related functionality
+- `npm install node-opus` or `npm install opusscript`
+- (optional) sodium for faster voice connection
 
 To work on the source code locally:
 ```

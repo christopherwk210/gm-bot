@@ -9,18 +9,18 @@ var bodyParser = require('body-parser'),
     cors = require('cors');
 
 // Routes
-var validate = require('./routes/validate'),
-    login = require('./routes/login'),
-    textChannels = require('./routes/text_channels'),
-    textChannelMessage = require('./routes/text_channel_message'),
-    simpleStats = require('./routes/simple_stats'),
-    presence = require('./routes/presence'),
-    adminUsers = require('./routes/admin_users'),
-    dm = require('./routes/dm'),
-    users = require('./routes/users'),
-    voip = require('./routes/voip'),
-    profile = require('./routes/profile'),
-    giveAways = require('./routes/give_aways');
+// var validate = require('./routes/validate'),
+//     login = require('./routes/login'),
+//     textChannels = require('./routes/text_channels'),
+//     textChannelMessage = require('./routes/text_channel_message'),
+//     simpleStats = require('./routes/simple_stats'),
+//     presence = require('./routes/presence'),
+//     adminUsers = require('./routes/admin_users'),
+//     dm = require('./routes/dm'),
+//     users = require('./routes/users'),
+//     voip = require('./routes/voip'),
+//     profile = require('./routes/profile'),
+//     giveAways = require('./routes/give_aways');
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -38,18 +38,18 @@ const run = function(bot, dmLog, db) {
   app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'gmlive/index.html')));
 
   // Use each route
-  validate(app);
-  login(app, db);
-  textChannels(app, bot);
-  textChannelMessage(app, bot);
-  simpleStats(app, bot);
-  presence(app, bot);
-  adminUsers(app, db);
-  dm(app, bot, dmLog);
-  users(app, bot);
-  voip(app, db);
-  profile(app, db);
-  giveAways(app, db);
+  // validate(app);
+  // login(app, db);
+  // textChannels(app, bot);
+  // textChannelMessage(app, bot);
+  // simpleStats(app, bot);
+  // presence(app, bot);
+  // adminUsers(app, db);
+  // dm(app, bot, dmLog);
+  // users(app, bot);
+  // voip(app, db);
+  // profile(app, db);
+  // giveAways(app, db);
 
   // Run the server
   app.listen(8080, function () {
