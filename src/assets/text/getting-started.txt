@@ -5,6 +5,6 @@
  │                                                     │
  │ Command overview:                                   │
  │ $ npm start    - start the bot                      │
- │ $ npm run test - run mocha tests                    │
+ │ $ npm test     - run mocha tests                    │
  │ $ npm run lint - lint the project for errors        │
  └─────────────────────────────────────────────────────┘
