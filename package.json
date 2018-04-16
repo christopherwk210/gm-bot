@@ -10,7 +10,7 @@
     "lint.gmbot": "eslint gmbot.js",
     "start": "node gmbot.js",
     "seed": "node src/tools/seed.js",
-    "test": "mocha 'test/**/*.js' --exit"
+    "test": "mocha \"test/**/*.js\" --exit"
   },
   "precommit": [
     "test",

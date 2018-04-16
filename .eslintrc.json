@@ -98,7 +98,7 @@
         "keyword-spacing": "off",
         "line-comment-position": "off",
         "linebreak-style": [
-            "error",
+            "off",
             "unix"
         ],
         "lines-around-comment": 0,
