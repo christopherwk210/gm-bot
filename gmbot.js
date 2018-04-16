@@ -181,7 +181,7 @@ function onBotMessage(msg) {
     // Parse message for commands or matches
     if (!parseCommandList(rules, msg)) {
       // If no command was hit, check for modifiers
-      prettifier(msg) || gmlive(msg) || gml(msg) || devmode(msg) || haste(msg);
+      prettifier(msg) || gmlive(msg) || gml(msg) || devmode(msg, bot) || haste(msg);
     }
   }
 }

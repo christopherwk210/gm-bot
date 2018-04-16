@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
+const Discord = require('discord.js');
 const rules = require('../rules.js');
 const giveAways = require('../utils/giveAwayLib.js');
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
-module.exports = function(msg) {
+module.exports = function(msg, bot) {
   if (!msg.member) return false;
 
   // Only topherlicious can use this feature!
