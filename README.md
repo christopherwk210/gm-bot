@@ -76,9 +76,8 @@ $ git clone https://bitbucket.org/christopherwk210/gm-bot
 $ cd gm-bot
 $ npm install --silent
 ```
-*Note: The installation may take a good while, as some of the dependencies are fairly large.*
 
-*Another note: `--silent` is used to suppress unnecessary peer dependency warnings.*
+*Note: `--silent` is used to suppress unnecessary peer dependency warnings.*
 
 Before you run the project, you'll need to create an `auth.json` file in `./src/assets/json` containing your bot token. Copy the format found in `./src/assets/json/auth.example.json`. You can then run the bot with:
 ```

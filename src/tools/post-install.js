@@ -7,7 +7,11 @@ let banner = fs.readFileSync('./src/assets/text/banner.txt', 'utf8');
 let intro = fs.readFileSync('./src/assets/text/getting-started.txt', 'utf8');
 
 // 'Touch' giveAwaysData.json to prevent missing file errors on first load
-fs.closeSync(fs.openSync(path.join(__dirname, '../data/giveAwaysData.json'), 'wx'));
+try {
+  fs.closeSync(fs.openSync(path.join(__dirname, '../data/giveAwaysData.json'), 'wx'));
+} catch(e) {
+  // Give away json already exists, no issue
+}
 
 // Clear the console
 console.log('\x1Bc');
