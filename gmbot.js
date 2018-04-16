@@ -1,17 +1,17 @@
 /**
  * GameMakerBot
  * Copyright © 2017 Chris Anselmo <christopherwk210@gmail.com> & contributors.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see http://www.gnu.org/licenses/.
  */
@@ -27,6 +27,7 @@ const prettifier = require('./src/lib/modifiers/prettifier.js');
 const gmlive = require('./src/lib/modifiers/gmlive.js');
 const devmode = require('./src/lib/modifiers/devmode.js');
 const gml = require('./src/lib/modifiers/gml.js');
+const haste = require('./src/lib/modifiers/haste.js')
 const express = require('./src/express/express.js');
 const logVoip = require('./src/lib/logging/voipLog.js');
 const logPresence = require('./src/lib/logging/presenceLog.js');
@@ -86,7 +87,7 @@ bot.on('message', onBotMessage);                    // Message sent (in DM or in
 function onBotReady() {
   // Tell the world our feelings
   console.log('Squaring to go, captain.');
-  
+
   // Fetch net8floz
   bot.fetchUser(ids.net8floz).then(user => { responsibleUsers.push(user); }, err => console.log(err));
 
@@ -113,7 +114,7 @@ function onBotReady() {
 function onBotVoiceStateUpdate(oldMember, newMember) {
   // Log voip data
   logVoip(oldMember, newMember, db);
-  
+
   // Attempt to add voip_text role
   try {
     // Determine they are a member and in the voip channel
@@ -180,7 +181,7 @@ function onBotMessage(msg) {
     // Parse message for commands or matches
     if (!parseCommandList(rules, msg)) {
       // If no command was hit, check for modifiers
-      prettifier(msg) || gmlive(msg) || gml(msg) || devmode(msg);
+      prettifier(msg) || gmlive(msg) || gml(msg) || devmode(msg) || haste(msg);
     }
   }
 }
