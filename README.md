@@ -19,6 +19,14 @@ if (condition) { perform_action(); }
 
 \`\`\`
 
+- Can return a GML hastebin link with the code in the message:
+
+\`\`\`haste
+
+if (condition) { perform_action(); }
+
+\`\`\`
+
 - Feature list:
     - `!help` - sends the user a helpful message on the available commands the bot has to offer
     - `!role [role]` - allows user to toggle server roles on and off
@@ -46,7 +54,6 @@ if (condition) { perform_action(); }
     - `!mp "[query]"` - search the YYG marketplace
     - `!miniboss [image_name | image_number] [index]` - will post a pixelart reference from the list at http://blog.studiominiboss.com/pixelart, that matches the name or number specified. Can optionally specify an index if the post has more than one image attached.
     - `!miniboss ['help' | 'link']` - will either link to the miniboss pixelart webpage (link), or send a message explaining how to use the command (help).
-    - `!haste [message]` - will return a GML hastebin link with the code in the message. Will omit any back-ticks included in the message.
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
 - Full audio streaming integration is in beta and currently being developed
@@ -154,7 +161,6 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── commandment.js        // Responsible for `!commandment`
 │   │   ├── docs.js               // Responsible for `!docs`
 │   │   ├── giveAwayManagement.js // Responsible for `!gaa`
-|   |   ├── haste.js              // Responsible for `!haste`
 │   │   ├── martketplace.js       // Responsible for `!marketplace`
 │   │   ├── miniboss.js           // Responsible for `!miniboss`
 │   │   ├── palette.js            // Responsible for `!palette`
@@ -177,6 +183,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── devmode.js           // Live code execution parsing
 │   │   ├── gml.js               // GMLive code execution
 │   │   ├── gmlive.js            // GMLive code block parsing
+│   │   ├── haste.js             // GML Hastebin link creation
 │   │   └── prettifier.js        // clean-code block parsing
 │   │
 │   ├── rules.js               // Contains all bot message matching rules
