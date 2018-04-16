@@ -64,21 +64,5 @@ describe('GMBot', function() {
       gmbot.handleImages(msg, imageOptions);
       assert.equal(hasDeleted, true);
     });
-
-    it('should reset after the correct amount of time', function(done) {
-      gmbot.handleImages(msg, imageOptions);
-      gmbot.handleImages(msg, imageOptions);
-      gmbot.handleImages(msg, imageOptions);
-      gmbot.handleImages(msg, imageOptions);
-      
-      setTimeout(function() {
-        assert.notEqual(imageOptions.imageLog[msg.author.id], 0);
-      }, 2);
-
-      setTimeout(function() {
-        assert.equal(imageOptions.imageLog[msg.author.id], 0);
-        done();
-      }, 7);
-    });
   });
 });
