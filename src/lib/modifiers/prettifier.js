@@ -9,7 +9,7 @@ module.exports = function(msg) {
     msg.delete().catch(() => {});
 
     // Set up a response string
-    let res = msg.author + `, here is your message with formatted code:\n${msg.content}`;
+    let res = `${msg.author}, here is your message with formatted code:\n${msg.content}`;
 
     // Fetch the code block contents
     let code = msg.content.match(cleanCodeExp);

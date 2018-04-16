@@ -20,7 +20,7 @@ function helpUrlGMS2(msg, fn, image) {
     res.setEncoding('utf8');
 
     // Let's check the goods
-    res.pipe(concat({encoding: 'string'}, remoteSrc => {
+    res.pipe(concat({ encoding: 'string' }, remoteSrc => {
       let found = false;
 
       // Execute in context to access the inner JS
@@ -40,11 +40,8 @@ function helpUrlGMS2(msg, fn, image) {
             return;
           }
           
-          // Get name of whoever sent the message
-          let name = (msg.member && msg.member.nickname) || msg.author.username;
-          
           // Provide it
-          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`, ' + name).catch(() => {});
+          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`, ' + msg.author).catch(() => {});
           msg.channel.send(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i])).catch(() => {});
 
           // Indiciate we found it

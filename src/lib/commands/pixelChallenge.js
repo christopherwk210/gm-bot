@@ -116,7 +116,7 @@ function pixelChallenge(msg, args) {
       // Update text
       entry.text = msg.content;
 
-      msg.channel.send(`Updated existing entry for ${msg.author.username}.`);
+      msg.channel.send(`Updated existing entry for ${msg.author}.`);
 
       queue.push({}, () => {});
     }
@@ -130,7 +130,7 @@ function pixelChallenge(msg, args) {
       link: attachments[0].url
     });
 
-    msg.channel.send(`Challenge entry for ${msg.author.username} recorded.`);
+    msg.channel.send(`Challenge entry for ${msg.author} recorded.`);
 
     queue.push({}, () => {});
   }

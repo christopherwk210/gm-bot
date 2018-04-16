@@ -22,7 +22,7 @@ async function gmlexec(gml, cb) {
   let consoleIsListening = false;
 
   // Output logging
-  let gmlExecOutput = {trace: []};
+  let gmlExecOutput = { trace: [] };
 
   let timeOut = null;
 

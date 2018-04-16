@@ -62,7 +62,7 @@ module.exports = function(msg, args) {
 
           // update title of embed, send embed, delete command message
           embed.setTitle(title)
-          msg.channel.send({embed});
+          msg.channel.send({ embed });
           msg.delete().catch(() => {});
         }
       });
@@ -71,7 +71,7 @@ module.exports = function(msg, args) {
       console.log('Error getting lospec page (palette.js): ' + err.message);
 
       // Send the embed anyway. It should say "Palette Not Found"
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
       msg.delete().catch(() => {});
     });
 }
