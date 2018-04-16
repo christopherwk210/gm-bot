@@ -4,14 +4,14 @@ const hasteExp = new RegExp(/([`]{3})haste([^```]*)([`]{3})/g);
 module.exports = function(msg) {
   if (hasteExp.test(msg.content)) {
 
-    // Fetch the code
+    // Fetch the code block contents
     let code = msg.content.match(hasteExp);
 
-    // Delete the old message
-    // msg.delete().catch(() => {});
+    // Get just the code
+    let rawCode = code[0].substr(9, code[0].length - 12)
 
-    // Fetch author of message
-    let user = msg.author.username; // Fetch user's name
+    // Delete the old message
+    msg.delete().catch(() => {});
 
     // Create HTTP options
     let postOptions = {
@@ -30,12 +30,12 @@ module.exports = function(msg) {
       res.on('data', response => {
         // Parse the response for the key
         let key = JSON.parse(response).key;
-        msg.channel.send(`Here's your GML hastebin link, ${user}\nhttp://haste.gmcloud.org/${key}.gml`); // Post the hastebin link
+        msg.channel.send(`Here's your GML hastebin link, ${msg.author} \nhttp://haste.gmcloud.org/${key}.gml`); // Post the hastebin link
       })
     });
 
     // Sending Requestt
-    postRequest.write(code);
+    postRequest.write(rawCode);
     postRequest.end();
   }
 };
