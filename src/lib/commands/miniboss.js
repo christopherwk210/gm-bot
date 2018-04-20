@@ -110,65 +110,65 @@ module.exports = function(msg, args) {
           // This will loop from the current <p> paragraph, look for images,
           // and end up with the image specified by the index argument (default: -1)
           while (index > 0) {
-          if (matchIndex + i > match.length) break;
+              if (matchIndex + i > match.length) break;
 
-          // Search for image, using RegEx
-          if (match[matchIndex + i]) {
-            let img = match[matchIndex + i].match(/<img\b.*?\bsrc\s*=\s*(['"])(?:(?!\1).)*\1/i);
-            if (img) {
-              // If an image was found, decrement index, then continue if the index does not reach 0.
-              // (That's how the index argument works. It's really just an offset, starting at 1)
-              index--;
-              if (index <= 0) {
-                // Find the image link, set the image link, remember that an image was found, and
-                // store the file extension of the image/gif/whatever-it-is.
-                let imgLink = img[0].slice(img[0].match(/<img\b.*?\bsrc\s*=\s*['"]/i)[0].length, -1);
-                embed.setImage(imgLink);
-                imageFound = true;
-                imageType  = imgLink.match(/\.[^.]+$/)[0].slice(1).toUpperCase();
+              // Search for image, using RegEx
+              if (match[matchIndex + i]) {
+                let img = match[matchIndex + i].match(/<img\b.*?\bsrc\s*=\s*(['"])(?:(?!\1).)*\1/i);
+                if (img) {
+                  // If an image was found, decrement index, then continue if the index does not reach 0.
+                  // (That's how the index argument works. It's really just an offset, starting at 1)
+                  index--;
+                  if (index <= 0) {
+                    // Find the image link, set the image link, remember that an image was found, and
+                    // store the file extension of the image/gif/whatever-it-is.
+                    let imgLink = img[0].slice(img[0].match(/<img\b.*?\bsrc\s*=\s*['"]/i)[0].length, -1);
+                    embed.setImage(imgLink);
+                    imageFound = true;
+                    imageType  = imgLink.match(/\.[^.]+$/)[0].slice(1).toUpperCase();
+                  }
+                }
+              }
+
+              // If i has gone too far, halt the loop to avoid a potentual infinite loop
+              if (i++ > 32) {
+                // Guess what. We are NOT breaking out of the whole script and saying 'error'
+                // Why, you might ask? Well, the user can for example type
+                // !miniboss #6 2000
+                // This is a user error, or potentual attempted exploitation.
+                console.log('Error getting miniboss image (miniboss.js): image loop extended 32');
+                // We're not even giving them the satisfaction of being told their
+                // command usage was (probably) wrong.
+                embed.setDescription('Could not find image');
               }
             }
-          }
 
-          // If i has gone too far, halt the loop to avoid a potentual infinite loop
-          if (i++ > 32) {
-            // Guess what. We are NOT breaking out of the whole script and saying 'error'
-            // Why, you might ask? Well, the user can for example type
-            // !miniboss #6 2000
-            // This is a user error, or potentual attempted exploitation.
-            console.log('Error getting miniboss image (miniboss.js): image loop extended 32');
-            // We're not even giving them the satisfaction of being told their
-            // command usage was (probably) wrong.
-            embed.setDescription('Could not find image');
+            // Find the number of the image, and put it in a string
+            let number = out.match(/#[0-9]+\b/i);
+            number = number ? number[0] + ' - ' : '';
+            // Add index to the string if it is not 1
+            let footer = imageType + ((parseInt(imageIndex) !== 1) ? ' - Index: ' + imageIndex : '') + ' - blog.studiominiboss.com/pixelart';
+
+            // Finally, set the title
+            embed.setTitle('MiniBoss Pixelart - ' + number + title);
+            if (footer) embed.setFooter(footer, 'http://i.imgur.com/y4c0rPv.png');
           }
         }
+      }).on('end', () => {
+        // Send the embed which should (hopefully) contain both an image,
+        // a title, and a link. (and a color) (and maybe a footer)
+        msg.channel.send(embed);
+        msg.delete().catch(() => {});
+        // Pat yourself on the back, and buy yourself an ice cream
+      }).on('error', crucialError);
+    }).on('error', crucialError);
+}
 
-        // Find the number of the image, and put it in a string
-        let number = out.match(/#[0-9]+\b/i);
-        number = number ? number[0] + ' - ' : '';
-        // Add index to the string if it is not 1
-        let footer = imageType + ((parseInt(imageIndex) !== 1) ? ' - Index: ' + imageIndex : '') + ' - blog.studiominiboss.com/pixelart';
-
-        // Finally, set the title
-        embed.setTitle('MiniBoss Pixelart - ' + number + title);
-        if (footer) embed.setFooter(footer, 'http://i.imgur.com/y4c0rPv.png');
-      }
-    }
-  }).on('end', () => {
-    // Send the embed which should (hopefully) contain both an image,
-    // a title, and a link. (and a color) (and maybe a footer)
-    msg.channel.send(embed);
-    msg.delete().catch(() => {});
-    // Pat yourself on the back, and buy yourself an ice cream
-  }).on('error', crucialError);
-}).on('error', crucialError);
-
-  // Error function.
-  function crucialError(err, emeg = msg) {
+// Error function.
+function crucialError(err, emeg = msg) {
     console.log('Error getting miniboss image (miniboss.js): ' + err.message);
     emeg.channel.send('An error ocurred trying to find the specified miniboss image. Please check your input for human error. If the input is flawless, please contact an admin.');
     emeg.delete().catch(() => {});
-  }
 }
 
 /* eslint-disable complexity */
