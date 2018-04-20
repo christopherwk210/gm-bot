@@ -20,14 +20,14 @@ function helpUrlGMS2(msg, fn, image) {
     res.setEncoding('utf8');
 
     // Let's check the goods
-    res.pipe(concat({encoding: 'string'}, remoteSrc => {
+    res.pipe(concat({ encoding: 'string' }, remoteSrc => {
       let found = false;
 
       // Execute in context to access the inner JS
       vm.runInThisContext(remoteSrc, 'remote_modules/searchdat.js');
 
       // Loop through newly available SearchTitles (from searchdat.js)
-      for (var i = 0; i < SearchTitles.length; i++) {
+      for (let i = 0; i < SearchTitles.length; i++) {
         // If we find the function we're looking for
         if (SearchTitles[i] === fn) {
           // Send a screenshot if requested
@@ -40,11 +40,8 @@ function helpUrlGMS2(msg, fn, image) {
             return;
           }
           
-          // Get name of whoever sent the message
-          let name = (msg.member && msg.member.nickname) || msg.author.username;
-          
           // Provide it
-          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`, ' + name).catch(() => {});
+          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`, ' + msg.author).catch(() => {});
           msg.channel.send(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i])).catch(() => {});
 
           // Indiciate we found it
@@ -71,7 +68,7 @@ function helpUrlGMS1(msg, fn, image) {
   let found = false;
 
   // Loop through valid titles
-  for (var i = 0; i < gms1.titles.length; i++) {
+  for (let i = 0; i < gms1.titles.length; i++) {
     // If we match up with a function
     if (gms1.titles[i] === fn) {
       // Send a screenshot if requested

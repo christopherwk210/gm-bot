@@ -76,7 +76,7 @@ let coreCommands = [
     ...prefixedCommandRuleTemplate,
     action: msg => {
       let command;
-      
+
       // Determine the correct help message to deliver
       if ((msg.member)) {
         command = detectStaff(msg.member);

@@ -3,6 +3,7 @@ const async = require('async');
 const path = require('path');
 const fs = require('fs');
 const util = require('util');
+let imgur = require('../third-party/imgur');
 
 let existsAsync = util.promisify(fs.exists);
 
@@ -51,6 +52,8 @@ function pixelChallenge(msg, args) {
   }
 
   if (detectStaff(msg.member)) {
+
+    // List all entries
     if (args.length > 1 && args[1] === '-list') {
       msg.author.send('Here are the current pixel challenge entries:').then(() => {
         if (currentPixelChallenge.entries.length > 0) {
@@ -64,6 +67,8 @@ function pixelChallenge(msg, args) {
       msg.delete();
       return;
     } else if (args.length > 1 && args[1] === '-clear') {
+
+      // Clear all entries
       msg.author.send('The entries have been cleared! Here are entries you cleared, one last time:').then(() => {
         if (currentPixelChallenge.entries.length > 0) {
           currentPixelChallenge.entries.forEach(entry => {
@@ -78,6 +83,13 @@ function pixelChallenge(msg, args) {
       queue.push({}, () => {});
 
       msg.delete();
+      return;
+    } else if (args.length > 1 && args[1] === '-imgur') {
+      if (currentPixelChallenge.entries.length > 0) {
+        createImgurAlbum(msg);
+      } else {
+        msg.author.send('No entries yet! Skipping imgur upload.');
+      }
       return;
     }
   }
@@ -104,7 +116,7 @@ function pixelChallenge(msg, args) {
       // Update text
       entry.text = msg.content;
 
-      msg.channel.send(`Updated existing entry for ${msg.author.username}.`);
+      msg.channel.send(`Updated existing entry for ${msg.author}.`);
 
       queue.push({}, () => {});
     }
@@ -118,9 +130,51 @@ function pixelChallenge(msg, args) {
       link: attachments[0].url
     });
 
-    msg.channel.send(`Challenge entry for ${msg.author.username} recorded.`);
+    msg.channel.send(`Challenge entry for ${msg.author} recorded.`);
 
     queue.push({}, () => {});
+  }
+}
+
+async function createImgurAlbum(msg) {
+  let album, msgRef;
+  let errors = [];
+
+  try {
+    msgRef = await msg.author.send('Creating album, please wait...');
+  } catch(e) {
+    console.log(e);
+    return;
+  }
+
+  try {
+    album = await imgur.createAlbum();
+  } catch(e) {
+    console.log('imgur error:', e);
+    msgRef.edit('Something went wrong when contacting the imgur api... :(');
+    return;
+  }
+
+  for (let entry of currentPixelChallenge.entries) {
+    try {
+      await imgur.uploadUrl(entry.link, album.data.deletehash, entry.name, entry.text.replace('!pixelchallenge', ''));
+    } catch(e) {
+      errors.push(entry)
+    }
+  }
+
+  msgRef.edit(`Uploads complete. View album here: https://imgur.com/a/${album.data.id}.`);
+
+  if (errors.length > 0) {
+    try {
+      await msg.author.send('There were errors uploading some images. The following images did not upload correctly:');
+
+      errors.forEach(entry => {
+        msg.author.send(`user: ${entry.name}, link: <${entry.link}>`)
+      });
+    } catch(e) {
+      // nil
+    }
   }
 }
 

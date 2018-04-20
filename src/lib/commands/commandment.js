@@ -27,10 +27,10 @@ const commandmentURLs = [
  */
 function fromRoman(str) {
   let romanString = str;
-  var result = 0;
-  var decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-  var roman = ['M', 'CM','D','CD','C', 'XC', 'L', 'XL', 'X','IX','V','IV','I'];
-  for (var i = 0; i <= decimal.length; i++) {
+  let result = 0;
+  let decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+  let roman = ['M', 'CM','D','CD','C', 'XC', 'L', 'XL', 'X','IX','V','IV','I'];
+  for (let i = 0; i <= decimal.length; i++) {
     while (romanString.indexOf(roman[i]) === 0) {
       result += decimal[i];
       romanString = romanString.replace(roman[i], '');
@@ -50,7 +50,7 @@ module.exports = function(msg, args) {
     }
 
     // Figure this roman numeral shit out
-    var numeral = fromRoman(args[1]);
+    let numeral = fromRoman(args[1]);
 
     // Send the right link
     msg.channel.send(commandmentURLs[numeral - 1]);

@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
+const Discord = require('discord.js');
 const rules = require('../rules.js');
 const giveAways = require('../utils/giveAwayLib.js');
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
-module.exports = function(msg) {
+module.exports = function(msg, bot) {
   if (!msg.member) return false;
 
   // Only topherlicious can use this feature!
@@ -13,10 +14,10 @@ module.exports = function(msg) {
 
   if (devModeExp.test(msg.content)) {
     // Fetch the code block contents
-    var code = msg.content.match(devModeExp);
+    let code = msg.content.match(devModeExp);
 
     // Get just the code
-    var rawCode = code[0].substr(11,code[0].length - 14);
+    let rawCode = code[0].substr(11,code[0].length - 14);
 
     // Create helper functions
     // eslint-disable-next-line func-style

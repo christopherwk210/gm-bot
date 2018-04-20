@@ -44,7 +44,7 @@ module.exports = function(msg, args) {
   switch (role) {
     case 'ducky':
       // lol
-      var responses = ['Cute.  No.', 'Nice try.', 'No way.', 'Nope.'];
+      let responses = ['Cute.  No.', 'Nice try.', 'No way.', 'Nope.'];
       return msg.author.send(responses[Math.floor(Math.random() * responses.length)]);
     case 'noone':
       // No dice, kid

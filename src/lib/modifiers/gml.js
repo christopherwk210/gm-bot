@@ -14,10 +14,10 @@ module.exports = function(msg) {
 
   if (gmlExp.test(msg.content)) {
     // Fetch the code block contents
-    var code = msg.content.match(gmlExp);
+    let code = msg.content.match(gmlExp);
 
     // Get just the code
-    var rawCode = code[0].substr(6,code[0].length - 9);
+    let rawCode = code[0].substr(6,code[0].length - 9);
 
     // Execute GML
     gmlexec(rawCode, (err, data) => {

@@ -19,6 +19,14 @@ if (condition) { perform_action(); }
 
 \`\`\`
 
+- Can return a GML hastebin link with the code in the message:
+
+\`\`\`haste
+
+if (condition) { perform_action(); }
+
+\`\`\`
+
 - Feature list:
     - `!help` - sends the user a helpful message on the available commands the bot has to offer
     - `!role [role]` - allows user to toggle server roles on and off
@@ -44,7 +52,7 @@ if (condition) { perform_action(); }
     - `!palette [palette_name]` - sends an image of the palette, and embeds a link to the palette's lospec page.
     - `!pixelchallenge` - when used while uploading an image, will add that image as an entry to the current pixel challenge
     - `!mp "[query]"` - search the YYG marketplace
-    - `!miniboss [image_name | image_number] [index]` - will post a pixelart reference from the list at http://blog.studiominiboss.com/pixelart, that matches the name or number specified. Can optionally specify an index if the post has more than one image attached. 
+    - `!miniboss [image_name | image_number] [index]` - will post a pixelart reference from the list at http://blog.studiominiboss.com/pixelart, that matches the name or number specified. Can optionally specify an index if the post has more than one image attached.
     - `!miniboss ['help' | 'link']` - will either link to the miniboss pixelart webpage (link), or send a message explaining how to use the command (help).
 - Limits spamming of too many images in a short period of time
 - Automatically deletes messages including blacklisted URLs
@@ -66,8 +74,11 @@ if (condition) { perform_action(); }
 This project requires:
 
 - Node >= 9.0.0
-- FFMPEG for audio related functionality (not needed to run)
-- libtool (libtool-bin)
+
+If you want to test audio-related functionality you'll also need:
+- FFMPEG for audio related functionality
+- `npm install node-opus` or `npm install opusscript`
+- (optional) sodium for faster voice connection
 
 To work on the source code locally:
 ```
@@ -75,9 +86,8 @@ $ git clone https://bitbucket.org/christopherwk210/gm-bot
 $ cd gm-bot
 $ npm install --silent
 ```
-*Note: The installation may take a good while, as some of the dependencies are fairly large.*
 
-*Another note: `--silent` is used to suppress unnecessary peer dependency warnings.*
+*Note: `--silent` is used to suppress unnecessary peer dependency warnings.*
 
 Before you run the project, you'll need to create an `auth.json` file in `./src/assets/json` containing your bot token. Copy the format found in `./src/assets/json/auth.example.json`. You can then run the bot with:
 ```
@@ -173,6 +183,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── devmode.js           // Live code execution parsing
 │   │   ├── gml.js               // GMLive code execution
 │   │   ├── gmlive.js            // GMLive code block parsing
+│   │   ├── haste.js             // GML Hastebin link creation
 │   │   └── prettifier.js        // clean-code block parsing
 │   │
 │   ├── rules.js               // Contains all bot message matching rules
@@ -232,12 +243,12 @@ A special thanks to the /r/GameMaker Discord community and staff for their feedb
 /**
  * GameMakerBot
  * Copyright © 2018 Chris Anselmo <christopherwk210@gmail.com> & contributors.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the

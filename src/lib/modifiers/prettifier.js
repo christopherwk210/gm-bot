@@ -9,15 +9,15 @@ module.exports = function(msg) {
     msg.delete().catch(() => {});
 
     // Set up a response string
-    var res = msg.author + `, here is your message with formatted code:\n${msg.content}`;
+    let res = `${msg.author}, here is your message with formatted code:\n${msg.content}`;
 
     // Fetch the code block contents
-    var code = msg.content.match(cleanCodeExp);
+    let code = msg.content.match(cleanCodeExp);
 
     let prettyCode;
 
     // Loop through the matches
-    for (var i = 0; i < code.length; i++) {
+    for (let i = 0; i < code.length; i++) {
       // Replace all code with pretty code
       let originalCode = code[i].substr(13,code[i].length - 16);
       prettyCode = beautify(originalCode, beautifyOptions);
