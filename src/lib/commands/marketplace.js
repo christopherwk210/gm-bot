@@ -13,11 +13,11 @@ const searchURL = 'https://marketplace.yoyogames.com/search/results?utf8=✓&que
  * Formats a query string to be valid for marketplace searches
  */
 function fixQuery(q) {
-	// Convert whitespaces to plus symbols
-	let fixedSpaced = q.replace(/[\s]/g, '+');
+  // Convert whitespaces to plus symbols
+  let fixedSpaced = q.replace(/[\s]/g, '+');
 
-	// Remove invalid characters
-	return fixedSpaced.replace(/([^a-zA-Z+])/g, '');
+  // Remove invalid characters
+  return fixedSpaced.replace(/([^a-zA-Z+])/g, '');
 }
 
 /**
@@ -35,14 +35,14 @@ function fixQuery(q) {
  * @param {MarketplaceResult} result
  */
 function createResultEmbed(result) {
-	return new Discord.RichEmbed({
-		title: result.title,
-		url: result.url,
-		description: result.type.replace(/s$/i, '') + '\n' + result.price,
-		color: 26659,
-		timestamp: new Date()
-	})
-		.setThumbnail(result.image);
+  return new Discord.RichEmbed({
+    title: result.title,
+    url: result.url,
+    description: result.type.replace(/s$/i, '') + '\n' + result.price,
+    color: 26659,
+    timestamp: new Date()
+  })
+    .setThumbnail(result.image);
 }
 
 /**
@@ -52,85 +52,85 @@ function createResultEmbed(result) {
 */
 module.exports = async function(msg, args) {
 
-	// Shift away the command, then join the rest of the input into one string
-	args.shift();
-	let query = args.reduce((acc, val) => acc + ' ' + val);
-	// Remove "" double quotes surrounding query, if the user is into that kind of stuff
-	if (query.match(/^"/) && query.match(/"$/)) query = query.slice(1, -1);
+  // Shift away the command, then join the rest of the input into one string
+  args.shift();
+  let query = args.reduce((acc, val) => acc + ' ' + val);
+  // Remove "" double quotes surrounding query, if the user is into that kind of stuff
+  if (query.match(/^"/) && query.match(/"$/)) query = query.slice(1, -1);
 
-	// womp womp
-	if (!query || query.length < 1) {
-		msg.author.send('You must provide a search query: `!mp "query goes in here"` (The double quotes are optional)');
-		return;
-	}
+  // womp womp
+  if (!query || query.length < 1) {
+    msg.author.send('You must provide a search query: `!mp "query goes in here"` (The double quotes are optional)');
+    return;
+  }
 
-	// Get start time to determine how long it takes to get results
-	let startTime = new Date();
+  // Get start time to determine how long it takes to get results
+  let startTime = new Date();
 
-	// Create a loading message
-	let loadingMessage;
-	try {
-		loadingMessage = await msg.channel.send(`Searching the marketplace for ${query}...`);
-	} catch(e) {}
+  // Create a loading message
+  let loadingMessage;
+  try {
+    loadingMessage = await msg.channel.send(`Searching the marketplace for ${query}...`);
+  } catch(e) {}
 
-	// Fix search query
-	let fixedQuery = fixQuery(query);
+  // Fix search query
+  let fixedQuery = fixQuery(query);
 
-	// Construct valid search URL
-	let validSearchURL = searchURL + fixedQuery;
+  // Construct valid search URL
+  let validSearchURL = searchURL + fixedQuery;
 
-	// Launch new chrome page
-	const browser = await puppeteer.launch();
-	const page = await browser.newPage();
+  // Launch new chrome page
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-	// Search the marketplace
-	await page.goto(validSearchURL);
+  // Search the marketplace
+  await page.goto(validSearchURL);
 
-	/**
+  /**
    * Array of marketplace asset results
    * @type {MarketplaceResult[]}
    */
-	const result = await page.evaluate(() => {
-		let res = [];
+  const result = await page.evaluate(() => {
+    let res = [];
 
-		// Find all results on page
-		let items = document.querySelectorAll('.feature-game');
+    // Find all results on page
+    let items = document.querySelectorAll('.feature-game');
 
-		// Get the first three
-		for (let i = 0; i < Math.min(items.length, 3); i++) {
+    // Get the first three
+    for (let i = 0; i < Math.min(items.length, 3); i++) {
 
-			// Save the link and image path
-			res.push({
-				url: items[i].querySelector('a').href,
-				image: items[i].querySelector('.feature-image').src,
-				title: items[i].querySelector('.feature-link').title,
-				type: items[i].querySelector('.feature-detail a').innerHTML,
-				price: items[i].querySelector('.feature-price small').innerHTML
-			});
-		}
+      // Save the link and image path
+      res.push({
+        url: items[i].querySelector('a').href,
+        image: items[i].querySelector('.feature-image').src,
+        title: items[i].querySelector('.feature-link').title,
+        type: items[i].querySelector('.feature-detail a').innerHTML,
+        price: items[i].querySelector('.feature-price small').innerHTML
+      });
+    }
 
-		return Promise.resolve(res);
-	}, 7);
+    return Promise.resolve(res);
+  }, 7);
 
-	// Delete the loading message
-	if (loadingMessage) {
-		try {
-			await loadingMessage.delete();
-		} catch(e) {}
-	}
+  // Delete the loading message
+  if (loadingMessage) {
+    try {
+      await loadingMessage.delete();
+    } catch(e) {}
+  }
 
-	// Finish time
-	let endTime = new Date();
+  // Finish time
+  let endTime = new Date();
 
-	if (result.length === 0) {
-		msg.channel.send('No results found!\nYour search was: `' + query + '`');
-	} else {
-		let embed = createResultEmbed(result[0]);
-		embed.setFooter(`Results generated in ${endTime - startTime}ms`);
+  if (result.length === 0) {
+    msg.channel.send('No results found!\nYour search was: `' + query + '`');
+  } else {
+    let embed = createResultEmbed(result[0]);
+    embed.setFooter(`Results generated in ${endTime - startTime}ms`);
 
-		msg.channel.send(embed);
-	}
+    msg.channel.send(embed);
+  }
 
-	// Close the browser
-	await browser.close();
+  // Close the browser
+  await browser.close();
 };
