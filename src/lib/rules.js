@@ -251,16 +251,16 @@ let easterEggs = [
     ...prefixedCommandRuleTemplate,
     action: msg => {
       msg.channel.send(
-        choose([
+        `${choose([
           'Paging',
           'Come in',
           'Oi, where are ya',
           'Where art thou',
           'Someone needs ya',
           'Your presence is requested',
-          'For some reason, ' + msg.author.username + ' thinks you should be here',
-          msg.author.username + ' has summoned the great and all powerful'
-        ]) + ' <@144913457429348352>'
+          `For some reason, ${msg.author} thinks you should be here`,
+          `${msg.author} has summoned the great and all powerful`
+        ])} <@144913457429348352>`
       ).catch(() => {});
     }
   },

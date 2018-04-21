@@ -30,10 +30,10 @@ module.exports = function(msg) {
         let returnString = 'GML execution complete.\n\n**Trace Log:**\n```';
 
         data.trace.forEach(entry => {
-          returnString += entry + '\n';
+          returnString += `${entry}\n`;
         });
 
-        msg.channel.send( returnString.substring(0, returnString.length - 1) + '``` \n Powered by GMLive.' );
+        msg.channel.send( `${returnString.substring(0, returnString.length - 1)}\`\`\` \n Powered by GMLive.` );
       }
     });
 

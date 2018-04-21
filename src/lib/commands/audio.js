@@ -84,7 +84,7 @@ function fetchAudio(msg, url, options) {
 
     // Report status unless hushed by silent option
     if (!options.silent) {
-      msg.author.send('Queued ' + info.title);      
+      msg.author.send(`Queued ${info.title}`);      
     }
   });
 }
@@ -107,7 +107,7 @@ function processQueue(msg, _queue, options) {
 
   // Announce our excitement to the user
   if (!options.silent) {
-    msg.author.send('Loading: ' + nextItem.title);
+    msg.author.send(`Loading: ${nextItem.title}`);
   }
 
   // No connection, can't play!
@@ -131,7 +131,7 @@ function processQueue(msg, _queue, options) {
   dispatch.on('start', () => {
     // Announce our excitement to the user
     if (!options.silent) {
-      msg.author.send('Now playing: ' + nextItem.title);
+      msg.author.send(`Now playing: ${nextItem.title}`);
     }
   });
 
@@ -244,7 +244,7 @@ function getQueue(msg) {
 
   // Iterate over the queue
   queue.forEach((item, i) => {
-    currentQueueMessage += i + ': ' + item.title + '\n';
+    currentQueueMessage += `${i}: ${item.title}\n`;
   });
 
   // Supply the result

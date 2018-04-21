@@ -237,7 +237,7 @@
         "prefer-promise-reject-errors": "off",
         "prefer-rest-params": "error",
         "prefer-spread": "error",
-        "prefer-template": "off",
+        "prefer-template": "warn",
         "quote-props": "off",
         "quotes": [
             "error",
