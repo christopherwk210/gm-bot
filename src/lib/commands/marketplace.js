@@ -32,17 +32,17 @@ function fixQuery(q) {
 
 /**
  * Create a Discord rich embed for a given marketplace search result
- * @param {MarketplaceResult} result 
+ * @param {MarketplaceResult} result
  */
 function createResultEmbed(result) {
   return new Discord.RichEmbed({
     title: result.title,
     url: result.url,
-    description: result.type + '\n' + result.price,
+    description: result.type.replace(/s$/i, '') + '\n' + result.price,
     color: 26659,
     timestamp: new Date()
   })
-  .setThumbnail(result.image);
+    .setThumbnail(result.image);
 }
 
 /**
@@ -50,13 +50,17 @@ function createResultEmbed(result) {
  * @param {Message} msg Discord message
  * @param {Array<string>} args Command arguments
 */
-module.exports = async function(msg) {
-  // let useEmbed = !!~msg.indexOf('-1');
-  let query = msg.content.match(/("[\s\S]*")/g);
+module.exports = async function(msg, args) {
+
+  // Shift away the command, then join the rest of the input into one string
+  args.shift();
+  let query = args.reduce((acc, val) => acc + ' ' + val);
+  // Remove "" double quotes surrounding query, if the user is into that kind of stuff
+  if (query.match(/^"/) && query.match(/"$/)) query = query.slice(1, -1);
 
   // womp womp
   if (!query || query.length < 1) {
-    msg.author.send('You must provide a search query: `!mp "query goes in here"`');
+    msg.author.send('You must provide a search query: `!mp "query goes in here"` (The double quotes are optional)');
     return;
   }
 
@@ -68,9 +72,6 @@ module.exports = async function(msg) {
   try {
     loadingMessage = await msg.channel.send(`Searching the marketplace for ${query}...`);
   } catch(e) {}
-
-  // Remove quotation from the query
-  query = query[0].replace(/"/g, '');
 
   // Fix search query
   let fixedQuery = fixQuery(query);
@@ -91,7 +92,7 @@ module.exports = async function(msg) {
    */
   const result = await page.evaluate(() => {
     let res = [];
-    
+
     // Find all results on page
     let items = document.querySelectorAll('.feature-game');
 
@@ -102,7 +103,7 @@ module.exports = async function(msg) {
       res.push({
         url: items[i].querySelector('a').href,
         image: items[i].querySelector('.feature-image').src,
-        title: items[i].querySelector('.feature-link').innerHTML,
+        title: items[i].querySelector('.feature-link').title,
         type: items[i].querySelector('.feature-detail a').innerHTML,
         price: items[i].querySelector('.feature-price small').innerHTML
       });
@@ -132,4 +133,4 @@ module.exports = async function(msg) {
 
   // Close the browser
   await browser.close();
-}
+};

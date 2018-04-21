@@ -7,8 +7,8 @@ const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 module.exports = function(msg, bot) {
   if (!msg.member) return false;
 
-  // Only topherlicious can use this feature!
-  if (msg.member.id !== '144913457429348352') {
+  // Only topherlicious (and TonyStr) can use this feature!
+  if (msg.member.id !== '144913457429348352' && msg.member.id !== '227032791013916672') {
     return false;
   }
 

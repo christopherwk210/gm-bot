@@ -41,7 +41,7 @@ module.exports = function(msg, args) {
   let index = (args[args.length - 1].match(/^-[0-9]+$/)) ? Number(args.pop().slice(1)) : 1;
 
   // Find name of referenece.
-  let bossName = args.splice(1).reduce((acc, val) => acc + ' ' + val).replace('<', '&lt;');
+  let bossName = keyword(args.splice(1).reduce((acc, val) => acc + ' ' + val).replace('<', '&lt;'));
   if (bossName.match(/^[0-9]+$/i)) bossName = '#' + bossName;
 
   // Create the embed, with default text.
@@ -56,7 +56,7 @@ module.exports = function(msg, args) {
       if (!imageFound) {
 
         // Turn the data into a string
-        let str = chunk.toString();
+        let str = chunk.toString().replace(/&nbsp;/g, ' ');
         // let usingName = (bossName.charAt(0) !== '#') && true;
 
         // create an array containing all <p> paragraphs
@@ -78,6 +78,7 @@ module.exports = function(msg, args) {
           }
 
           if (!matchFound) return;
+
           // Store found <p> paragraph
           let out = match[matchIndex];
 
@@ -93,13 +94,15 @@ module.exports = function(msg, args) {
           let tag   = titleTag.match(/>[^<]+/i);
           if (tag === null) return;
           let title = tag[0].slice(1).replace('&lt;', '<');
+          // The title 'Firearm Design' is split up over two <a> tags for whatever reason...
+          if (title === 'Firearm ') title += ' Design';
 
           // Find URL masked by the title, and put it in the embed
           let linkTag = titleTag.match(/^<\s*a\b[^>]*>/i)[0].match(/href\s*=\s*(["'])(?:(?!\1).)*\1/i);
           if (linkTag) {
-              linkTag = linkTag[0];
-              let offset = linkTag.match(/href\s*=\s*["']/)[0].length;
-              embed.setURL(linkTag.slice(offset, -1).replace('&amp;', '&'));
+            linkTag = linkTag[0];
+            let offset = linkTag.match(/href\s*=\s*["']/)[0].length;
+            embed.setURL(linkTag.slice(offset, -1).replace('&amp;', '&'));
           }
 
           let i = 0;
@@ -107,63 +110,105 @@ module.exports = function(msg, args) {
           // This will loop from the current <p> paragraph, look for images,
           // and end up with the image specified by the index argument (default: -1)
           while (index > 0) {
-            if (matchIndex + i > match.length) break;
+              if (matchIndex + i > match.length) break;
 
-            // Search for image, using RegEx
-            if (match[matchIndex + i]) {
-              let img = match[matchIndex + i].match(/<img\b.*?\bsrc\s*=\s*(['"])(?:(?!\1).)*\1/i);
-              if (img) {
-                // If an image was found, decrement index, then continue if the index does not reach 0.
-                // (That's how the index argument works. It's really just an offset, starting at 1)
-                index--;
-                if (index <= 0) {
-                  // Find the image link, set the image link, remember that an image was found, and
-                  // store the file extension of the image/gif/whatever-it-is.
-                  let imgLink = img[0].slice(img[0].match(/<img\b.*?\bsrc\s*=\s*['"]/i)[0].length, -1);
-                  embed.setImage(imgLink);
-                  imageFound = true;
-                  imageType  = imgLink.match(/\.[^.]+$/)[0].slice(1).toUpperCase();
+              // Search for image, using RegEx
+              if (match[matchIndex + i]) {
+                let img = match[matchIndex + i].match(/<img\b.*?\bsrc\s*=\s*(['"])(?:(?!\1).)*\1/i);
+                if (img) {
+                  // If an image was found, decrement index, then continue if the index does not reach 0.
+                  // (That's how the index argument works. It's really just an offset, starting at 1)
+                  index--;
+                  if (index <= 0) {
+                    // Find the image link, set the image link, remember that an image was found, and
+                    // store the file extension of the image/gif/whatever-it-is.
+                    let imgLink = img[0].slice(img[0].match(/<img\b.*?\bsrc\s*=\s*['"]/i)[0].length, -1);
+                    embed.setImage(imgLink);
+                    imageFound = true;
+                    imageType  = imgLink.match(/\.[^.]+$/)[0].slice(1).toUpperCase();
+                  }
                 }
+              }
+
+              // If i has gone too far, halt the loop to avoid a potentual infinite loop
+              if (i++ > 32) {
+                // Guess what. We are NOT breaking out of the whole script and saying 'error'
+                // Why, you might ask? Well, the user can for example type
+                // !miniboss #6 2000
+                // This is a user error, or potentual attempted exploitation.
+                console.log('Error getting miniboss image (miniboss.js): image loop extended 32');
+                // We're not even giving them the satisfaction of being told their
+                // command usage was (probably) wrong.
+                embed.setDescription('Could not find image');
               }
             }
 
-            // If i has gone too far, halt the loop to avoid a potentual infinite loop
-            if (i++ > 32) {
-              // Guess what. We are NOT breaking out of the whole script and saying 'error'
-              // Why, you might ask? Well, the user can for example type
-              // !miniboss #6 2000
-              // This is a user error, or potentual attempted exploitation.
-              console.log('Error getting miniboss image (miniboss.js): image loop extended 32');
-              // We're not even giving them the satisfaction of being told their
-              // command usage was (probably) wrong.
-              embed.setDescription('Could not find image');
-            }
+            // Find the number of the image, and put it in a string
+            let number = out.match(/#[0-9]+\b/i);
+            number = number ? number[0] + ' - ' : '';
+            // Add index to the string if it is not 1
+            let footer = imageType + ((parseInt(imageIndex) !== 1) ? ' - Index: ' + imageIndex : '') + ' - blog.studiominiboss.com/pixelart';
+
+            // Finally, set the title
+            embed.setTitle('MiniBoss Pixelart - ' + number + title);
+            if (footer) embed.setFooter(footer, 'http://i.imgur.com/y4c0rPv.png');
           }
-
-          // Find the number of the image, and put it in a string
-          let number = out.match(/#[0-9]+\b/i);
-          number = number ? number[0] + ' - ' : '';
-          // Add index to the string if it is not 1
-          let footer = imageType + ((parseInt(imageIndex) !== 1) ? ' - Index: ' + imageIndex : '') + ' - blog.studiominiboss.com/pixelart';
-
-          // Finally, set the title
-          embed.setTitle('MiniBoss Pixelart - ' + number + title);
-          if (footer) embed.setFooter(footer, 'http://i.imgur.com/y4c0rPv.png');
         }
-      }
-    }).on('end', () => {
-      // Send the embed which should (hopefully) contain both an image,
-      // a title, and a link. (and a color) (and maybe a footer)
-      msg.channel.send(embed);
-      msg.delete().catch(() => {});
-      // Pat yourself on the back, and buy yourself an ice cream
+      }).on('end', () => {
+        // Send the embed which should (hopefully) contain both an image,
+        // a title, and a link. (and a color) (and maybe a footer)
+        msg.channel.send(embed);
+        msg.delete().catch(() => {});
+        // Pat yourself on the back, and buy yourself an ice cream
+      }).on('error', crucialError);
     }).on('error', crucialError);
-  }).on('error', crucialError);
+}
 
-  // Error function.
-  function crucialError(err, emeg = msg) {
+// Error function.
+function crucialError(err, emeg = msg) {
     console.log('Error getting miniboss image (miniboss.js): ' + err.message);
     emeg.channel.send('An error ocurred trying to find the specified miniboss image. Please check your input for human error. If the input is flawless, please contact an admin.');
     emeg.delete().catch(() => {});
+}
+
+/* eslint-disable complexity */
+/**
+ * Attempts to match the input string against a keyword, and returns related tag
+ * @param {String} string message string
+*/
+function keyword(string) {
+  console.log(((string.match(/s$/i) && 1) || 2), string.slice(0, ((string.match(/s$/i) && 1) || 2) - 2).toLowerCase());
+  const str = (string.match(/s$/i) ? string.slice(0, -1) : string).toLowerCase();
+
+  switch(str) {
+    case 'patreon': return 'a';
+    case (str.match(/^(firearm[ ./-]*design|gun|rifle)$/) || {}).input: return '#68';
+    case 'shield': return '#66';
+    case (str.match(/^((3\/4[ ./-]*)?(building|house))$/) || {}).input: return '#65';
+    case 'interior': return '#60';
+    case 'damage': return '#59';
+    case (str.match(/^(leaf|leave|moss|palm[ ./-]*tree)$/) || {}).input: return '#57';
+    case 'air': return '#50';
+    case 'planet': return '#49';
+    case (str.match(/^(sel(ective)?[ ./-]*out(line)?)$/) || {}).input: return '#47';
+    case '4 leg': return '#46';
+    case 'light': return '#45';
+    case (str.match(/^(clothe?|banner|flag)$/) || {}).input: return '#42';
+    case 'gore': return '#41';
+    case 'dirt': return '#40';
+    case 'projectile': return '#38';
+    case 'sword': return '#35';
+    case 'gras': return '#32';
+    case 'bird': return '#29';
+    case 'thrust': return '#25';
+    case 'particle': return '#18';
+    case (str.match(/^(sub[ .-/]*pixel)$/) || {}).input: return '#17';
+    case 'tree': return '#13';
+    case 'liquid': return '#10';
+    case (str.match(/^(rule|tip|basic)$/) || {}).input: return '#5';
+    case 'run cycle': return '#4';
+    case 'punch': return '#2';
+    case 'reflection': return '#1';
+    default: return string;
   }
 }

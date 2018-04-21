@@ -26,10 +26,13 @@ module.exports = function(msg, args) {
       .setTitle('Palette Not Found')
       .setURL('https://lospec.com/palette-list/' + paletteName)
       .setImage('https://lospec.com/palette-list/' + paletteName + '-32x.png');
-
+  
+    let str = '';
     // Get the wepage to check if the palette exists
     https.get('https://lospec.com/palette-list/' + paletteName, (res) => {
-      res.on('data', function (chunk) {
+      res.on('data', (chunk) => { str += chunk.toString(); });
+      
+      res.on('end', () => {
         // Turn the data into a string
         let str = chunk.toString();
 
