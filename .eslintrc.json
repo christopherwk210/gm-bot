@@ -16,7 +16,7 @@
         "array-bracket-spacing": "error",
         "array-callback-return": 0,
         "array-element-newline": 0,
-        "arrow-body-style": "error",
+        "arrow-body-style": ["error", "as-needed"],
         "arrow-parens": "off",
         "arrow-spacing": [
             "error",
