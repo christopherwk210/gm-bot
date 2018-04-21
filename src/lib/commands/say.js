@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+
 /**
  * Allows you to speak on the bot's behalf
  * @param {*} msg 
