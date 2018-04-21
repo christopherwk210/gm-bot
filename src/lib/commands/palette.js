@@ -33,9 +33,6 @@ module.exports = function(msg, args) {
       res.on('data', (chunk) => { str += chunk.toString(); });
       
       res.on('end', () => {
-        // Turn the data into a string
-        let str = chunk.toString();
-
         // Create a regex to find the <title>
         let match = str.match(/(<\s*title[^>]*>(.+?)<\s*\/\s*title)>/gi);
 
