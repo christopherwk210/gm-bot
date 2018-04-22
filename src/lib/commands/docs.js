@@ -5,8 +5,8 @@ const concat = require('concat-stream');
 const puppeteer = require('puppeteer');
 
 // Docs data
-const gms1 = require('../docs/searchdat-gms1');
-const validate = require('../docs/validate.js');
+const gms1 = require('../../assets/json/gms1-docs-urls.json');
+const validate = require('../utils/validate-gml-function.js');
 
 /**
  * Provide GMS2 doc URL
