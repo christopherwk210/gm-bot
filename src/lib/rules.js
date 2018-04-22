@@ -88,6 +88,7 @@ let coreCommands = [
           msg.author.send(help.admins).catch(() => {});
         case 'art':
         case 'rubber':
+        case 'audio':
           msg.author.send(help.ducks).catch(() => {});
           msg.author.send(help.ducksContinued).catch(() => {});
         default:
