@@ -144,6 +144,12 @@ let coreCommands = [
     matches: ['miniboss', 'mb', 'pedro', 'saint11'],
     ...prefixedCommandRuleTemplate,
     action: miniboss
+  },
+  {
+    // Because no one knows how to spell palette
+    matches: ['palette', 'pallete', 'palete'],
+    ...prefixedCommandRuleTemplate,
+    action: palette
   }
 ];
 
@@ -371,12 +377,6 @@ let easterEggs = [
         name: 'kiss-from-a-rose.gif'
       });
     }
-  },
-  {
-    // Because no one knows how to spell palette
-    matches: ['palette', 'pallete', 'palete'],
-    ...prefixedCommandRuleTemplate,
-    action: palette
   }
 ];
 
