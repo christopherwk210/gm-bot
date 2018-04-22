@@ -200,7 +200,7 @@
         "no-undef": "off",
         "no-undef-init": "off",
         "no-undefined": "off",
-        "no-underscore-dangle": "error",
+        "no-underscore-dangle": "off",
         "no-unmodified-loop-condition": "off",
         "no-unneeded-ternary": "error",
         "no-use-before-define": "off",

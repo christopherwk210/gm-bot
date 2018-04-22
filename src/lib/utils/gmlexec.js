@@ -30,10 +30,10 @@ async function gmlexec(gml, cb) {
   page.on('console', async consoleOutput => {
 
     // Only deal with gmlex output
-    if (consoleOutput.text.indexOf('gmlex:') === 0) {
+    if (consoleOutput._text.indexOf('gmlex:') === 0) {
 
       // Clean output
-      let output = consoleOutput.text.replace('gmlex:', '');
+      let output = consoleOutput._text.replace('gmlex:', '');
 
       // Listen for tokens
       switch (output) {
