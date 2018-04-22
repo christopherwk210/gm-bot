@@ -3,7 +3,7 @@ const async = require('async');
 const path = require('path');
 const fs = require('fs');
 const util = require('util');
-let imgur = require('../third-party/imgur');
+let imgur = require('../../../modules/imgur.js');
 
 let existsAsync = util.promisify(fs.exists);
 
