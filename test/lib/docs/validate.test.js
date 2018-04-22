@@ -2,7 +2,7 @@
 const assert = require('assert');
 
 // Project libs
-const validate = require('../../../src/lib/utils/validate-gml-function.js');
+const validate = require('../../../src/lib/utils/validate-gml.js');
 
 // Validate test suite
 describe('Validate lib', function() {

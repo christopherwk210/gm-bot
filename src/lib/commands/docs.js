@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer');
 
 // Docs data
 const gms1 = require('../../assets/json/gms1-docs-urls.json');
-const validate = require('../utils/validate-gml-function.js');
+const validate = require('../utils/validate-gml.js');
 
 /**
  * Provide GMS2 doc URL

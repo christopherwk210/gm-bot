@@ -29,8 +29,8 @@ const devmode = require('./src/lib/modifiers/devmode.js');
 const gml = require('./src/lib/modifiers/gml.js');
 const haste = require('./src/lib/modifiers/haste.js')
 const express = require('./src/express/express.js');
-const logVoip = require('./src/lib/logging/voipLog.js');
-const logPresence = require('./src/lib/logging/presenceLog.js');
+const logVoip = require('./src/lib/utils/voip-log.js');
+const logPresence = require('./src/lib/utils/presence-log.js');
 const parseCommandList = require('./src/lib/utils/parseCommandList.js');
 const welcome = require('./src/lib/commands/welcome.js');
 
