@@ -86,6 +86,18 @@ module.exports = async function(msg, args) {
   // Search the marketplace
   await page.goto(validSearchURL);
 
+  await page.setViewport({
+    width: 1280,
+    height: 1
+  });
+  await page.screenshot({
+    fullPage: true
+  });
+  msg.channel.send('', {
+    file: image,
+    name: 'capture.png'
+  });
+
   /**
    * Array of marketplace asset results
    * @type {MarketplaceResult[]}
