@@ -85,7 +85,7 @@ module.exports = async function(msg, args) {
 
   // Search the marketplace
   await page.goto(validSearchURL, {
-    waitUntil: 'domcontentloaded'
+    waitUntil: ['load', 'networkidle0']
   });
 
   await page.setViewport({
