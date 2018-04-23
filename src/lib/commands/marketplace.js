@@ -90,7 +90,7 @@ module.exports = async function(msg, args) {
     width: 1280,
     height: 1
   });
-  await page.screenshot({
+  let image = await page.screenshot({
     fullPage: true
   });
   msg.channel.send('', {
