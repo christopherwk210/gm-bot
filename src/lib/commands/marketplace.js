@@ -88,18 +88,6 @@ module.exports = async function(msg, args) {
     waitUntil: ['load', 'networkidle0']
   });
 
-  await page.setViewport({
-    width: 1280,
-    height: 1
-  });
-  let image = await page.screenshot({
-    fullPage: true
-  });
-  msg.channel.send('', {
-    file: image,
-    name: 'capture.png'
-  });
-
   /**
    * Array of marketplace asset results
    * @type {MarketplaceResult[]}
