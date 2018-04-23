@@ -84,7 +84,9 @@ module.exports = async function(msg, args) {
   const page = await browser.newPage();
 
   // Search the marketplace
-  await page.goto(validSearchURL);
+  await page.goto(validSearchURL, {
+    waitUntil: 'domcontentloaded'
+  });
 
   await page.setViewport({
     width: 1280,
