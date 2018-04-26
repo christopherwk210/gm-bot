@@ -38,11 +38,10 @@ function createResultEmbed(result) {
   return new Discord.RichEmbed({
     title: result.title,
     url: result.url,
-    description: result.type.replace(/s$/i, '') + '\n' + result.price,
+    description: `${result.type.replace(/s$/i, '')}\n${result.price}`,
     color: 26659,
     timestamp: new Date()
-  })
-    .setThumbnail(result.image);
+  }).setThumbnail(result.image);
 }
 
 /**
@@ -54,7 +53,8 @@ module.exports = async function(msg, args) {
 
   // Shift away the command, then join the rest of the input into one string
   args.shift();
-  let query = args.reduce((acc, val) => acc + ' ' + val);
+  let query = args.reduce((acc, val) => `${acc} ${val}`);
+
   // Remove "" double quotes surrounding query, if the user is into that kind of stuff
   if (query.match(/^"/) && query.match(/"$/)) query = query.slice(1, -1);
 
@@ -84,7 +84,9 @@ module.exports = async function(msg, args) {
   const page = await browser.newPage();
 
   // Search the marketplace
-  await page.goto(validSearchURL);
+  await page.goto(validSearchURL, {
+    waitUntil: ['load', 'networkidle0']
+  });
 
   /**
    * Array of marketplace asset results
@@ -123,7 +125,7 @@ module.exports = async function(msg, args) {
   let endTime = new Date();
 
   if (result.length === 0) {
-    msg.channel.send('No results found!\nYour search was: `' + query + '`');
+    msg.channel.send(`No results found!\nYour search was: \`${query}\``);
   } else {
     let embed = createResultEmbed(result[0]);
     embed.setFooter(`Results generated in ${endTime - startTime}ms`);

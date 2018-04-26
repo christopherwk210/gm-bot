@@ -88,6 +88,7 @@ let coreCommands = [
           msg.author.send(help.admins).catch(() => {});
         case 'art':
         case 'rubber':
+        case 'audio':
           msg.author.send(help.ducks).catch(() => {});
           msg.author.send(help.ducksContinued).catch(() => {});
         default:
@@ -144,6 +145,12 @@ let coreCommands = [
     matches: ['miniboss', 'mb', 'pedro', 'saint11'],
     ...prefixedCommandRuleTemplate,
     action: miniboss
+  },
+  {
+    // Because no one knows how to spell palette
+    matches: ['palette', 'pallete', 'palete'],
+    ...prefixedCommandRuleTemplate,
+    action: palette
   }
 ];
 
@@ -251,16 +258,16 @@ let easterEggs = [
     ...prefixedCommandRuleTemplate,
     action: msg => {
       msg.channel.send(
-        choose([
+        `${choose([
           'Paging',
           'Come in',
           'Oi, where are ya',
           'Where art thou',
           'Someone needs ya',
           'Your presence is requested',
-          'For some reason, ' + msg.author.username + ' thinks you should be here',
-          msg.author.username + ' has summoned the great and all powerful'
-        ]) + ' <@144913457429348352>'
+          `For some reason, ${msg.author} thinks you should be here`,
+          `${msg.author} has summoned the great and all powerful`
+        ])} <@144913457429348352>`
       ).catch(() => {});
     }
   },
@@ -371,12 +378,6 @@ let easterEggs = [
         name: 'kiss-from-a-rose.gif'
       });
     }
-  },
-  {
-    // Because no one knows how to spell palette
-    matches: ['palette', 'pallete', 'palete'],
-    ...prefixedCommandRuleTemplate,
-    action: palette
   }
 ];
 

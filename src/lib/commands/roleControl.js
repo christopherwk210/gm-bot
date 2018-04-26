@@ -62,13 +62,13 @@ module.exports = function(msg, args) {
         msg.member.removeRole(role);
 
         // Report it
-        msg.author.send('Role ' + role.name + ' was removed.');
+        msg.author.send(`Role ${role.name} was removed.`);
       } else {
         // Otherwise, add it
         msg.member.addRole(role);
         
         // Tell em
-        msg.author.send('Role ' + role.name + ' has been granted.');
+        msg.author.send(`Role ${role.name} has been granted.`);
       }
       break;
   }

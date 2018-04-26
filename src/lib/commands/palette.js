@@ -14,22 +14,22 @@ module.exports = function(msg, args) {
       let rnd = '';
       if (Math.random() < 1 / 16) rnd = ', ya dingus';
       msg.delete().catch(() => {});
-      msg.channel.send('Invalid command usage' + rnd + '! Proper usage: ``!palette [palette_name]``');
+      msg.channel.send(`Invalid command usage${rnd}! Proper usage: \`\`!palette [palette_name]\`\``);
       return;
     }
 
     // Find name of palette, spaces changed to dashes, for link purposes. Lowercased.
-    let paletteName = unabbreviate(args.reduce((acc, val) => acc + '-' + val)).toLowerCase();
+    let paletteName = unabbreviate(args.reduce((acc, val) => `${acc}-${val}`)).toLowerCase();
 
     // Create the embed
     let embed = new Discord.RichEmbed()
       .setTitle('Palette Not Found')
-      .setURL('https://lospec.com/palette-list/' + paletteName)
-      .setImage('https://lospec.com/palette-list/' + paletteName + '-32x.png');
+      .setURL(`https://lospec.com/palette-list/${paletteName}`)
+      .setImage(`https://lospec.com/palette-list/${paletteName}-32x.png`);
   
     let str = '';
     // Get the wepage to check if the palette exists
-    https.get('https://lospec.com/palette-list/' + paletteName, (res) => {
+    https.get(`https://lospec.com/palette-list/${paletteName}`, (res) => {
       res.on('data', (chunk) => { str += chunk.toString(); });
       
       res.on('end', () => {
@@ -53,7 +53,7 @@ module.exports = function(msg, args) {
 
             // Convert the hexadecimal to ASCII
             let char = hex2ascii(htmlChar.match(/[0-9a-fA-F]+/)[0]);
-            console.log('hex: ' + htmlChar.match(/[0-9a-fA-F]+/)[0] + ', ASCII: ' + char);
+            console.log(`hex: ${htmlChar.match(/[0-9a-fA-F]+/)[0]}, ASCII: ${char}`);
 
             // Insert swap out the &#xXX; garbage with nice, readable ASCII characters
             let before = title.slice(0, title.indexOf(htmlChar));
@@ -68,7 +68,7 @@ module.exports = function(msg, args) {
       });
     }).on('error', (err) => {
       // Oh god. Oh man. This should not happen.
-      console.log('Error getting lospec page (palette.js): ' + err.message);
+      console.log(`Error getting lospec page (palette.js): ${err.message}`);
 
       // Send the embed anyway. It should say "Palette Not Found"
       msg.channel.send({ embed });
@@ -123,14 +123,14 @@ function unabbreviate(str) {
   // Replace common abbrevations/typos with their full name / whatever name they use at lospec.
   switch (str) {
     case (str.match(/^en?d(es)?ga?-*[0-9]+-*x?$/) || false).input:
-      return 'Endesga-' + str.match('[0-9]+')[0];
+      return `Endesga-${str.match('[0-9]+')[0]}`;
     case (str.match(/^dbs?-*8$/) || false).input:
       return 'DawnBringers-8-color';
     case 'aseprite-default': str += '32';
     case (str.match(/^d(awn)?-*b(ringer)?-*[0-9]+$/i) || false).input:
-      return 'DawnBringer-' + str.slice(str.indexOf(str.match(/[0-9]+$/)[0]), str.length);
+      return `DawnBringer-${str.slice(str.indexOf(str.match(/[0-9]+$/)[0]), str.length)}`;
     case (str.match(/^andrew-*ken?sler-*[0-9]+$/) || false).input:
-      return 'Andrew-Kensler-' + str.slice(str.indexOf(str.match(/[0-9]+$/)[0]), str.length);
+      return `Andrew-Kensler-${str.slice(str.indexOf(str.match(/[0-9]+$/)[0]), str.length)}`;
     case 'apple-2':
       return 'Apple-II';
     case 'nes':

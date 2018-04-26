@@ -28,7 +28,7 @@ module.exports = function(msg, args) {
   // Check for custom help and link commands. Send the corresponding message.
   } else if (args[1].match(/help|usage|command|link|(web)?(page|site)/i)) {
     let out = '';
-    let arg = args[1] + ' ' + args[args.length];
+    let arg = `${args[1]} ${args[args.length]}`;
     if (arg.match(/link|(web)?(page|site)/i) !== null) out += link;
     if (arg.match(/help|usage|command/i)   !== null) out += help;
 
@@ -41,7 +41,7 @@ module.exports = function(msg, args) {
   let index = (args[args.length - 1].match(/^-[0-9]+$/)) ? Number(args.pop().slice(1)) : 1;
 
   // Find name of referenece.
-  let bossName = matchKeyword(args.splice(1).reduce((acc, val) => acc + ' ' + val).replace('<', '&lt;'));
+  let bossName = matchKeyword(args.splice(1).reduce((acc, val) => `${acc} ${val}`).replace('<', '&lt;'));
 
   // Create the embed, with default text.
   let embed = new Discord.RichEmbed()
@@ -150,12 +150,12 @@ module.exports = function(msg, args) {
 
         // Find the number of the image, and put it in a string
         let number = out.match(/#[0-9]+\b/i);
-        number = number ? number[0] + ' - ' : '';
+        number = number ? `${number[0]} - ` : '';
         // Add index to the string if it is not 1
-        let footer = imageType + ((parseInt(imageIndex) !== 1) ? ' - Index: ' + imageIndex : '') + ' - blog.studiominiboss.com/pixelart';
+        let footer = `${imageType + ((parseInt(imageIndex) !== 1) ? ` - Index: ${imageIndex}` : '')} - blog.studiominiboss.com/pixelart`;
 
         // Finally, set the title
-        embed.setTitle('MiniBoss Pixelart - ' + number + title);
+        embed.setTitle(`MiniBoss Pixelart - ${number}${title}`);
         if (footer) embed.setFooter(footer, 'http://i.imgur.com/y4c0rPv.png');
       }
     }
@@ -170,7 +170,7 @@ module.exports = function(msg, args) {
 
   // Error function.
   function crucialError(err, emeg = msg) {
-    console.log('Error getting miniboss image (miniboss.js): ' + err.message);
+    console.log(`Error getting miniboss image (miniboss.js): ${err.message}`);
     emeg.channel.send('An error ocurred trying to find the specified miniboss image. Please check your input for human error. If the input is flawless, please contact an admin.');
     emeg.delete().catch(() => {});
   }

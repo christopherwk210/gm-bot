@@ -43,7 +43,7 @@ module.exports = [
   {  // Links to any vegetation tutorial (provided they stay consistent with their naming (which they don't))
     match: /^veg([ei]tati?on)?[ ./(-]*(tut(orial)?[ ./()-]*)?(p((ar)?t)?)?[ ./()-]*([0-9]+)\)*/,
     value: 'Vegetation ',
-    action: (str, match) => match[7] > 2 ? '(part ' + match[7] + ')' : 'tutorial - part ' + match[7]
+    action: (str, match) => match[7] > 2 ? `(part ${match[7]})` : `tutorial - part ${match[7]}`
   },
   {
     match: /^(leaf|leave|moss|palm[ ./-]*tree)$/,

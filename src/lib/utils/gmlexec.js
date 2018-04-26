@@ -30,10 +30,10 @@ async function gmlexec(gml, cb) {
   page.on('console', async consoleOutput => {
 
     // Only deal with gmlex output
-    if (consoleOutput.text.indexOf('gmlex:') === 0) {
+    if (consoleOutput._text.indexOf('gmlex:') === 0) {
 
       // Clean output
-      let output = consoleOutput.text.replace('gmlex:', '');
+      let output = consoleOutput._text.replace('gmlex:', '');
 
       // Listen for tokens
       switch (output) {
@@ -73,7 +73,7 @@ async function gmlexec(gml, cb) {
   // Inject code
   await page.evaluate(async () => {
     let gmlexgml = await gmlexGML();
-    editor.setValue('trace("gmlex:gmlexbegin");' + gmlexgml + ';trace("gmlex:gmlexclose");');
+    editor.setValue(`trace("gmlex:gmlexbegin");${gmlexgml};trace("gmlex:gmlexclose");`);
 
     let statusElement = document.getElementById('ace_status-hint');
     setInterval(() => {
@@ -88,7 +88,7 @@ async function gmlexec(gml, cb) {
 
   // Timeout after 60 seconds
   timeOut = setTimeout(async () => {
-    cb('GML execution timed out. Trace log:\n\n' + JSON.stringify(gmlExecOutput.trace), null);
+    cb(`GML execution timed out. Trace log:\n\n${JSON.stringify(gmlExecOutput.trace)}`, null);
     await chrome.close();
   }, 1000 * 60);
 }

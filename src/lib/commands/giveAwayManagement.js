@@ -84,7 +84,7 @@ function quickCreate(msg, name, days) {
     if (res) {
       giveAways.getGiveAways().some(giveAway => {
         if (giveAway.giveAway === name) {
-          msg.channel.send('Ayyyy success :thumbsup:\n' + formatGiveawayStats(giveAway));
+          msg.channel.send(`Ayyyy success :thumbsup:\n${formatGiveawayStats(giveAway)}`);
           return true;
         }
       });
@@ -131,10 +131,10 @@ function giveAwayExists(name) {
 function formatGiveawayStats(giveAway) {
   let stats = '';
   stats += '```\n';
-  stats += 'Name: ' + giveAway.giveAway + '\n';
-  stats += 'Start: ' + new Date(giveAway.start * 1000).toString() + '\n';
-  stats += 'End: ' + new Date(giveAway.end * 1000).toString() + '\n';
-  stats += 'Number of participants: ' + giveAway.participants.length + '\n';
+  stats += `Name: ${giveAway.giveAway}\n`;
+  stats += `Start: ${new Date(giveAway.start * 1000).toString()}\n`;
+  stats += `End: ${new Date(giveAway.end * 1000).toString()}\n`;
+  stats += `Number of participants: ${giveAway.participants.length}\n`;
   if (giveAway.winners.length) {
     stats += 'Winners: ';
     giveAway.winners.forEach(winner => {

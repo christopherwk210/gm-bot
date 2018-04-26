@@ -5,8 +5,8 @@ const concat = require('concat-stream');
 const puppeteer = require('puppeteer');
 
 // Docs data
-const gms1 = require('../docs/searchdat-gms1');
-const validate = require('../docs/validate.js');
+const gms1 = require('../../assets/json/gms1-docs-urls.json');
+const validate = require('../utils/validate-gml.js');
 
 /**
  * Provide GMS2 doc URL
@@ -33,16 +33,16 @@ function helpUrlGMS2(msg, fn, image) {
           // Send a screenshot if requested
           if (image) {
             sendScreenshot(
-              'Here\'s the GMS2 documentation for `' + fn + '`',
-              'http://docs2.yoyogames.com/' + SearchFiles[i],
+              `Here's the GMS2 documentation for \`${fn}\``,
+              `http://docs2.yoyogames.com/${SearchFiles[i]}`,
               msg
             );
             return;
           }
           
           // Provide it
-          msg.channel.send('Here\'s the GMS2 documentation for `' + fn + '`, ' + msg.author).catch(() => {});
-          msg.channel.send(encodeURI('http://docs2.yoyogames.com/' + SearchFiles[i])).catch(() => {});
+          msg.channel.send(`Here's the GMS2 documentation for \`${fn}\`, ${msg.author}`).catch(() => {});
+          msg.channel.send(encodeURI(`http://docs2.yoyogames.com/${SearchFiles[i]}`)).catch(() => {});
 
           // Indiciate we found it
           found = true;
@@ -53,7 +53,7 @@ function helpUrlGMS2(msg, fn, image) {
       // If we haven't found jack...
       if (!found) {
         // Sorry pal
-        msg.author.send('`' + fn + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
+        msg.author.send(`\`${fn}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
       }
     }));
   });
@@ -74,8 +74,8 @@ function helpUrlGMS1(msg, fn, image) {
       // Send a screenshot if requested
       if (image) {
         sendScreenshot(
-          'Here\'s the GMS1 documentation for `' + fn + '`',
-          'http://docs.yoyogames.com/' + gms1.files[i],
+          `Here's the GMS1 documentation for \`${fn}\``,
+          `http://docs.yoyogames.com/${gms1.files[i]}`,
           msg
         );
         return;
@@ -85,8 +85,8 @@ function helpUrlGMS1(msg, fn, image) {
       let name = (msg.member && msg.member.nickname) || msg.author.username;
 
       // Put together a URL and serve it on a silver platter
-      msg.channel.send('Here\'s the GMS1 documentation for `' + fn + '`, ' + name).catch(() => {});
-      msg.channel.send(encodeURI('http://docs.yoyogames.com/' + gms1.files[i])).catch(() => {});
+      msg.channel.send(`Here's the GMS1 documentation for \`${fn}\`, ${name}`).catch(() => {});
+      msg.channel.send(encodeURI(`http://docs.yoyogames.com/${gms1.files[i]}`)).catch(() => {});
 
       // We struck gold, ma!
       found = true;
@@ -97,7 +97,7 @@ function helpUrlGMS1(msg, fn, image) {
   // No gold to be found
   if (!found) {
     // Tough luck
-    msg.author.send('`' + fn + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
+    msg.author.send(`\`${fn}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
   }
 }
 
@@ -185,7 +185,7 @@ function run(msg, args) {
         helpUrlGMS1(msg, args[1], image);
       } else {
         // Otherwise, provide the nopes
-        msg.author.send('`' + args[1] + '` was not a recognized GMS1 function. Type `!help` for help with commands.');
+        msg.author.send(`\`${args[1]}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
       }
       break;
   case 'GMS2':
@@ -195,12 +195,12 @@ function run(msg, args) {
       helpUrlGMS2(msg, args[1], image);
     } else {
       // Otherwise, kick 'em to the curb
-      msg.author.send('`' + args[1] + '` was not a recognized GMS2 function. Type `!help` for help with commands.');
+      msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
     }
     break;
   default:
     // What were they THINKING (invalid GMS version)
-    msg.author.send('`' + version + '` was not a valid option. Type `!help` for help with commands.');
+    msg.author.send(`\`${version}\` was not a valid option. Type \`!help\` for help with commands.`);
     break;
   }
 }

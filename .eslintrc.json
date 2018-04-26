@@ -200,7 +200,7 @@
         "no-undef": "off",
         "no-undef-init": "off",
         "no-undefined": "off",
-        "no-underscore-dangle": "error",
+        "no-underscore-dangle": "off",
         "no-unmodified-loop-condition": "off",
         "no-unneeded-ternary": "error",
         "no-use-before-define": "off",
@@ -237,7 +237,7 @@
         "prefer-promise-reject-errors": "off",
         "prefer-rest-params": "error",
         "prefer-spread": "error",
-        "prefer-template": "off",
+        "prefer-template": "warn",
         "quote-props": "off",
         "quotes": [
             "error",

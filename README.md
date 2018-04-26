@@ -128,6 +128,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   ├── json                   // JSON assets
 │   │   ├── auth.example.json    // Template for creating your own with proper discord key
 │   │   ├── bad-links.json       // URL blacklist
+│   │   ├── gms1-docs-urls.json  // URLs to GMS1 documentation pages
 │   │   ├── ids.json             // ID's of users who are messaged when bot errors
 │   │   └── jsbeautify.json      // jsbeautify rules for clean-code
 │   │
@@ -141,7 +142,9 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │
 │   └── text                   // Text-only assets
 │       ├── banner.txt           // Post-install banner
-│       └── getting-started      // Post-install message
+│       ├── getting-started.txt  // Post-install banner
+│       ├── gml-functions.txt    // List of all functions found in GML v1
+│       └── gml2-functions.txt   // List of all functions found exclusively in GML v2
 │
 ├── data                       // Holds database flat-files during runtime
 │
@@ -163,6 +166,7 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── giveAwayManagement.js // Responsible for `!gaa`
 │   │   ├── martketplace.js       // Responsible for `!marketplace`
 │   │   ├── miniboss.js           // Responsible for `!miniboss`
+│   │   ├── miniboss.keywords.js  // Holds keyword shortcuts for use in `!miniboss`
 │   │   ├── palette.js            // Responsible for `!palette`
 │   │   ├── pixelChalleng.js      // Responsible for `!pixelchallenge`
 │   │   ├── resize.js             // Responsible for `!resize`
@@ -170,14 +174,6 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── roleControl.js        // Responsible for `!role`
 │   │   ├── say.js                // Responsible for `!say`
 │   │   └── welcome.js            // Responsible for `!welcome` and sending the initial welcome
-│   │
-│   ├── docs                   // Extra scripts that help the `!docs` command
-│   │   ├── searchdat-gms1.js    // Contains valid GMS1 documentation urls
-│   │   └── validate.js          // Validates GML functions for GMS1 and 2
-│   │
-│   ├── logging                // Related to server logs
-│   │   ├── presenceLog.js       // Logs anon online user presence
-│   │   └── voipLog.js           // Logs voice channel activity
 │   │
 │   ├── modifiers              // Code block parsers
 │   │   ├── devmode.js           // Live code execution parsing
@@ -194,7 +190,10 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │       ├── detectStaff.js       // Detects if a GuildMember is staff (admin or ducky)
 │       ├── giveAwayLib.js       // Handles give away accessing, `!giveaway`
 │       ├── gmlexec.js           // Handles executing GML
-│       └── parseCommandList.js  // Parses command rule list
+│       ├── parseCommandList.js  // Parses command rule list
+│       ├── presence-log.js      // Logs anon online user presence
+│       ├── validate-gml.js      // Validates GML functions for GMS1 and 2
+│       └── voip-log.js          // Logs voice channel activity
 │
 └── tools        // Contains build tools
     ├── seed.js    // Simple node tool to seed the admin DB with sample user,

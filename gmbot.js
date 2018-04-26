@@ -29,8 +29,8 @@ const devmode = require('./src/lib/modifiers/devmode.js');
 const gml = require('./src/lib/modifiers/gml.js');
 const haste = require('./src/lib/modifiers/haste.js')
 const express = require('./src/express/express.js');
-const logVoip = require('./src/lib/logging/voipLog.js');
-const logPresence = require('./src/lib/logging/presenceLog.js');
+const logVoip = require('./src/lib/utils/voip-log.js');
+const logPresence = require('./src/lib/utils/presence-log.js');
 const parseCommandList = require('./src/lib/utils/parseCommandList.js');
 const welcome = require('./src/lib/commands/welcome.js');
 
@@ -68,7 +68,7 @@ try {
   auth = require('./src/assets/json/auth.json');
 } catch (e) {
   // Well shit, ya didn't read the instructions did ya?
-  console.log('No auth.json found. Please see /src/assets/auth.example.json.\n' + e.stack);
+  console.log(`No auth.json found. Please see /src/assets/auth.example.json.\n${e.stack}`);
 
   // Goodbye
   process.exit();
@@ -141,7 +141,7 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
 
     // Alert the peeps in charge of fixing it
     responsibleUsers.forEach(user => {
-      user.send('GMBot encountered an error on voice status update:\n\n' + e);
+      user.send(`GMBot encountered an error on voice status update:\n\n${e}`);
     });
   }
 }
@@ -197,14 +197,14 @@ function catchBadMessages(msg) {
 
     // Contact the dingus brigade
     responsibleUsers.forEach(user => {
-      user.send('Deleted a message with a bad link. The person that posted it was ' + msg.author.username + '\nThe content of the message was:\n\n' + msg.content);
+      user.send(`Deleted a message with a bad link. The person that posted it was ${msg.author.username}\nThe content of the message was:\n\n${msg.content}`);
     });
 
     // Delete the uh-oh
     msg.delete();
 
     // Publicly shame the dingus who did the dirty
-    msg.channel.send('Heads up! @' + msg.author.username + ' tried to post a malicious link. The admins have been made aware of this.');
+    msg.channel.send(`Heads up! @${msg.author.username} tried to post a malicious link. The admins have been made aware of this.`);
 
     return true;
   } else {
@@ -298,19 +298,19 @@ function handleImages(msg, imgOptions) {
 
 // Handle process-wide promise rejection
 process.on('unhandledRejection', (reason) => {
-  console.log('Unhandled promise: ' + reason);
+  console.log(`Unhandled promise: ${reason}`);
 });
 
 // Handle process-wide uncaught exceptions
 process.on('uncaughtException', (err) => {
   // Alert the folks behind the curtain
   responsibleUsers.forEach(user => {
-    user.send('GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n' + err);
+    user.send(`GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n${err}`);
   });
 });
 
 // Copyright information
-console.log('GameMakerBot v' + require('./package.json').version);
+console.log(`GameMakerBot v${require('./package.json').version}`);
 console.log('Copyright © 2018 Chris "topherlicious" Anselmo & Contributors\nThis program comes with ABSOLUTELY NO WARRANTY.\n');
 
 // Login the bot using the auth token from auth.json
