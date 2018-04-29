@@ -8,7 +8,7 @@ const fs = require('fs');
 // Cache path
 const jsonPath = './src/assets/json/gmgithub.json';
 // Name of user or organization requesting github content
-const userAgent = 'GamemakerDiscord';
+const userAgent = 'GameMakerDiscord';
 
 /**
  * Searches cached titles for GameMakerDiscord repositories
@@ -20,10 +20,28 @@ module.exports = function(message, args) {
   args.shift();
   // Check for refresh command or invalid command usage
   if (!args.length || args[0].toLowerCase() === 'refresh') {
-    message.channel.send(args.length
-                      ? 'Refreshed github command'
-                      : 'The /r/Gamemaker Discord **community github** is available at https://github.com/GameMakerDiscord.\nYou can request a specific repository with: ``!github repository_name``');
-    return refresh();
+    // Invalid command usage
+    if (!args.length) message.channel.send(
+      'The /r/Gamemaker Discord **community github** is available at ' +
+      'https://github.com/GameMakerDiscord.\nYou can request a specific ' +
+      'repository with: ``!github repository_name``'
+    );
+
+    let sendRefreshMessage = !!args.length;
+
+    // Refresh regardless of intention
+    refresh((err) => {
+      if (err) {
+        // Output user-friendly error messages
+        message.channel.send(err);
+        return;
+      }
+
+      // Intentional refresh
+      if (sendRefreshMessage) message.channel.send('Refreshed github command');
+    });
+
+    return;
   }
 
   // Create search regex from input
@@ -35,11 +53,14 @@ module.exports = function(message, args) {
     if (readErr) {
       console.log(readErr);
       message.channel.send('An error occured while attempting to read cached names. ' +
-                           'Please try again or contact a bot developer if the issue persists');
-      return refresh();
+        'Please try again or contact a bot developer if the issue persists');
+
+      // Refresh the cache to hopefully fix whatever's wrong with it
+      refresh((err) => { if (err) console.log(err); });
+      return;
     }
 
-    // Parse the json string, and create match flag
+    // Parse the json string and create match flag
     json = JSON.parse(json);
     let foundMatch = false;
 
@@ -61,27 +82,34 @@ module.exports = function(message, args) {
         }
 
         // Create request with aforementioned options
-        let str = '';
-        let req = https.request(options, res => {
-          // Concatinate all incoming data
-          res.on('data', data => { str += data.toString() });
-
-          res.on('end', () => {
-            // Parse concatinated data
-            json = JSON.parse(str);
-
-            // Create an embed containing the returned information
-            let embed = new Discord.RichEmbed({
-              title: name,
-              url: json.html_url,
-              description: json.description,
-              timestamp: new Date(),
-              footer: { text: `License: ${json.license.name}` }
-            }).setThumbnail(json.owner.avatar_url);
-
-            // Send the embed 🎉
-            message.channel.send(embed);
-          });
+        // Get all repositories in organization
+        request(options, (err, str) => {
+          // Check for error
+          if (err) {
+            console.log(err);
+            return;
+          }
+          
+          // Parse concatinated data
+          let data = JSON.parse(str);
+          
+          // Handle empty data
+          if (!data.length) {
+            callBack('ERROR: no data retrieved from refresh request in gmgithub.js');
+            return;
+          }
+          
+          // Add repo names to json string
+          for (repo of data) json += `"${repo.name}",`;
+          
+          // Remove last comma, close array and object
+          json = `${json.slice(0, -1)}]}`;
+          
+          // If json is not empty, write cache
+          if (json.length > emptyLen) {
+            fs.writeFile(jsonPath, json, () => console.log('Sucessfully refreshed gmgithub.json'));
+            callBack();
+          } else callBack('Failed to write gmgithub.json');
         });
 
         // Handle errors and finish sending request
@@ -100,32 +128,48 @@ module.exports = function(message, args) {
  * Caches repository names
  * @param {Channel} channel Discord channel
  */
-async function refresh() {
+async function refresh(callBack) {
+
   // Create options for GET request
   let options = {
     hostname: 'api.github.com',
-    path: '/orgs/GameMakerDiscord/repos',
+    path: '/orgs/GameMakerDiscord',
     method: 'GET',
     headers: { 'User-Agent': userAgent }
   }
 
-  // Create start of json string, store minimum size
-  let json = `{"lastRefresh":"${new Date()}","names":[`; // }}
-  let emptyLen = json.length + 2;
+  // Get repository amount, then get repository names
+  await request(options, (orgErr, orgStr) => {
+    // Check for error
+    if (orgErr) {
+      console.log(orgErr);
+      return;
+    }
 
-  // Send https request with options
-  let str = '';
-  let req = https.request(options, res => {
-    // Concatinate all data
-    res.on('data', data => { str += data.toString(); });
+    // Find repository amount
+    let repoCount = orgStr.match(/"public_repos":\s*([0-9]+)/)[1];
 
-    res.on('end', () => {
+    // Change url, but use same options
+    options.path = `/orgs/GameMakerDiscord/repos?per_page=${repoCount}`;
+
+    // Create start of json string, store minimum size
+    let json = `{"lastRefresh":"${new Date()}","names":[`; // }}
+    let emptyLen = json.length + 2;
+
+    // Get all reposirories in organization
+    request(options, (err, str) => {
+      // Check for error
+      if (err) {
+        console.log(err);
+        return;
+      }
+
       // Parse concatinated data
       let data = JSON.parse(str);
 
       // Handle empty data
       if (!data.length) {
-        console.log('ERROR: no data retrieved from refresh request in gmgithub.js');
+        callBack('ERROR: no data retrieved from refresh request in gmgithub.js');
         return;
       }
 
@@ -138,11 +182,28 @@ async function refresh() {
       // If json is not empty, write cache
       if (json.length > emptyLen) {
         fs.writeFile(jsonPath, json, () => console.log('Sucessfully refreshed gmgithub.json'));
-      } else console.log('Failed to write gmgithub.json');
+        callBack();
+        
+      } else callBack('Failed to write gmgithub.json');
     });
+  });
+}
+
+/**
+ * https request adapted for this script's usage
+ * @param {Object<httpsOptions>} options options for https request
+ * @param {Function} callBack function to run upon error or success
+ */
+function request(options, callBack) {
+  let str = '';
+  let req = https.request(options, res => {
+    // Concatinate all incoming data
+    res.on('data', data => { str += data.toString() });
+
+    res.on('end', () => { callBack((!str && 'Error requesting GMDG data') || '', str) });
   });
 
   // Handle error and finish sending request
-  req.on('error', err => console.log(err));
-  await req.end();
+  req.on('error', err => callBack(err));
+  req.end();
 }
