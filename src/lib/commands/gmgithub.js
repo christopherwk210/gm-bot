@@ -54,7 +54,6 @@ module.exports = function(message, args) {
       console.log(readErr);
       message.channel.send('An error occured while attempting to read cached names. ' +
         'Please try again or contact a bot developer if the issue persists');
-
       // Refresh the cache to hopefully fix whatever's wrong with it
       refresh((err) => { if (err) console.log(err); });
       return;
@@ -82,39 +81,22 @@ module.exports = function(message, args) {
         }
 
         // Create request with aforementioned options
-        // Get all repositories in organization
         request(options, (err, str) => {
-          // Check for error
-          if (err) {
-            console.log(err);
-            return;
-          }
-          
           // Parse concatinated data
-          let data = JSON.parse(str);
-          
-          // Handle empty data
-          if (!data.length) {
-            callBack('ERROR: no data retrieved from refresh request in gmgithub.js');
-            return;
-          }
-          
-          // Add repo names to json string
-          for (repo of data) json += `"${repo.name}",`;
-          
-          // Remove last comma, close array and object
-          json = `${json.slice(0, -1)}]}`;
-          
-          // If json is not empty, write cache
-          if (json.length > emptyLen) {
-            fs.writeFile(jsonPath, json, () => console.log('Sucessfully refreshed gmgithub.json'));
-            callBack();
-          } else callBack('Failed to write gmgithub.json');
-        });
+          json = JSON.parse(str);
 
-        // Handle errors and finish sending request
-        req.on('error', reqErr => console.log(reqErr));
-        req.end();
+          // Create an embed containing the returned information
+          let embed = new Discord.RichEmbed({
+            title: json.name,
+            url: json.html_url,
+            description: json.description,
+            timestamp: new Date(),
+            footer: { text: `License: ${json.license.name}` }
+          }).setThumbnail(json.owner.avatar_url);
+
+          // Send the embed 🎉
+          message.channel.send(embed);
+        });
 
         break;
       }
@@ -156,7 +138,7 @@ async function refresh(callBack) {
     let json = `{"lastRefresh":"${new Date()}","names":[`; // }}
     let emptyLen = json.length + 2;
 
-    // Get all reposirories in organization
+    // Get all repositories in organization
     request(options, (err, str) => {
       // Check for error
       if (err) {
@@ -183,7 +165,6 @@ async function refresh(callBack) {
       if (json.length > emptyLen) {
         fs.writeFile(jsonPath, json, () => console.log('Sucessfully refreshed gmgithub.json'));
         callBack();
-        
       } else callBack('Failed to write gmgithub.json');
     });
   });
