@@ -23,6 +23,7 @@ const say = require('./commands/say.js');
 const giveAwayManagement = require('./commands/giveAwayManagement.js');
 const marketplace = require('./commands/marketplace.js');
 const miniboss = require('./commands/miniboss.js');
+const gmgithub = require('./commands/gmgithub.js');
 
 // Project data
 const help = {
@@ -151,6 +152,11 @@ let coreCommands = [
     matches: ['palette', 'pallete', 'palete'],
     ...prefixedCommandRuleTemplate,
     action: palette
+  },
+  {
+    matches: ['github', 'community-github'],
+    ...prefixedCommandRuleTemplate,
+    action: gmgithub
   }
 ];
 
