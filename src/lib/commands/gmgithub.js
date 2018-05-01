@@ -90,9 +90,10 @@ module.exports = function(message, args) {
             title: json.name,
             url: json.html_url,
             description: json.description,
-            timestamp: new Date(),
-            footer: { text: `License: ${json.license.name}` }
-          }).setThumbnail(json.owner.avatar_url);
+            timestamp: new Date()
+          });
+          if (json.owner) embed.setThumbnail(json.owner.avatar_url);
+          if (json.license) embed.setFooter(`License: ${json.license.name}`);
 
           // Send the embed 🎉
           message.channel.send(embed);
@@ -121,7 +122,7 @@ async function refresh(callBack) {
   }
 
   // Get repository amount, then get repository names
-  await request(options, (orgErr, orgStr) => {
+  await request(options, (orgErr, orgStr, cb = callBack) => {
     // Check for error
     if (orgErr) {
       console.log(orgErr);
@@ -139,7 +140,7 @@ async function refresh(callBack) {
     let emptyLen = json.length + 2;
 
     // Get all repositories in organization
-    request(options, (err, str) => {
+    request(options, (err, str, ecb = cb) => {
       // Check for error
       if (err) {
         console.log(err);
@@ -151,7 +152,7 @@ async function refresh(callBack) {
 
       // Handle empty data
       if (!data.length) {
-        callBack('ERROR: no data retrieved from refresh request in gmgithub.js');
+        ecb('ERROR: no data retrieved from refresh request in gmgithub.js');
         return;
       }
 
@@ -164,8 +165,8 @@ async function refresh(callBack) {
       // If json is not empty, write cache
       if (json.length > emptyLen) {
         fs.writeFile(jsonPath, json, () => console.log('Sucessfully refreshed gmgithub.json'));
-        callBack();
-      } else callBack('Failed to write gmgithub.json');
+        ecb();
+      } else ecb('Failed to write gmgithub.json');
     });
   });
 }
