@@ -246,11 +246,16 @@ let easterEggs = [
     matches: ['lifetime'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
-      if (msg.member) {
+      if (args.length > 1) {
+        if (msg.guild) {
+          let member = msg.guild.members.get(args[1].replace(/[<!@>]+/g, ''));
+          if (member) {
+            msg.channel.send(`${member.displayName} has been a member of this server since ${member.joinedAt}.`);
+          } else msg.channel.send('Could not find specified user');
+        } else msg.channel.send('You can only use this in the /r/GameMaker server.');
+      } else if (msg.member) {
         msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
-      } else {
-        msg.channel.send('You can only use this in the /r/GameMaker server.');
-      }
+      } else msg.channel.send('You can only use this in the /r/GameMaker server.');
     }
   },
   {
