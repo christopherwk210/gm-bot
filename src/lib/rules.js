@@ -245,7 +245,7 @@ let easterEggs = [
   {
     matches: ['lifetime'],
     ...prefixedCommandRuleTemplate,
-    action: msg => {
+    action: (msg, args) => {
       if (args.length > 1) {
         if (msg.guild) {
           let member = msg.guild.members.get(args[1].replace(/[<!@>]+/g, ''));

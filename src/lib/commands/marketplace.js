@@ -53,7 +53,14 @@ module.exports = async function(msg, args) {
 
   // Shift away the command, then join the rest of the input into one string
   args.shift();
-  let query = args.reduce((acc, val) => `${acc} ${val}`);
+
+  let query;
+
+  if (args.length === 0) {
+    query = '';
+  } else {
+    query = args.reduce((acc, val) => `${acc} ${val}`);
+  }
 
   // Remove "" double quotes surrounding query, if the user is into that kind of stuff
   if (query.match(/^"/) && query.match(/"$/)) query = query.slice(1, -1);
