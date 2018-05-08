@@ -31,6 +31,10 @@ module.exports = [
     value: 'apple-II'
   },
   {
+    match: 'nyx-8',
+    value: 'nyx8'
+  },
+  {
     match: 'nes',
     value: 'Nintendo-Entertainment-System'
   },
