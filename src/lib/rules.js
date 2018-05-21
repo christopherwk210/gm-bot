@@ -54,8 +54,7 @@ let prefixedCommandRuleTemplate = {
 /**
  * Functional utility commands
  */
-let coreCommands = [
-  {
+let coreCommands = [{
     matches: ['welcome'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
@@ -163,8 +162,7 @@ let coreCommands = [
 /**
  * Admin only commands
  */
-let adminCommands = [
-  {
+let adminCommands = [{
     matches: ['say'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin',
@@ -181,8 +179,7 @@ let adminCommands = [
 /**
  * Voice channel related commands
  */
-let audioCommands = [
-  {
+let audioCommands = [{
     matches: ['play'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
@@ -229,8 +226,7 @@ let audioCommands = [
 /**
  * Misc silly shit
  */
-let easterEggs = [
-  {
+let easterEggs = [{
     matches: ['christmascycle'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
@@ -347,6 +343,46 @@ let easterEggs = [
     }
   },
   {
+    matches: ['mmm'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      const mes = msg.guild.emojis.find('name', 'meseta');
+      msg.react('🇲')
+        .then(() => msg.react('Ⓜ'))
+        .then(() => msg.react(mes))
+        .catch(() => {});
+
+    }
+  },
+  {
+    matches: ['<@361088614735544320>'],
+    action: msg => {
+      msg.react('🇸')
+        .then(() => msg.react('🇦'))
+        .then(() => msg.react('🇷'))
+        .then(() => msg.react('🅰'))
+        .catch(err => {
+          console.error(err)
+        });
+      console.log('i can consolelog');
+    }
+  },
+  {
+    matches: ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      msg.channel.send('<@141365209435471872>')
+    }
+  },
+  {
+    matches: ['💤👁️', '💤 👁'],
+    action: msg => {
+      msg.channel.send('<@240306552949440512>')
+    }
+  },
+  {
     matches: ['hmm'],
     exact: false,
     wholeMessage: true,
@@ -391,7 +427,7 @@ let easterEggs = [
     delete: true,
     action: msg => {
       msg.channel.send({
-        file: new Discord.Attachment( path.join(__dirname, '../assets/images/kissfromarose.gif') ),
+        file: new Discord.Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
         name: 'kiss-from-a-rose.gif'
       });
     }
