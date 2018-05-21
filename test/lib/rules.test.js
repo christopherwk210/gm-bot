@@ -17,6 +17,12 @@ const mock = {
         roles: []
       }
     },
+    guild: {
+      roles: [],
+      emojis: {
+        find: () => {}
+      }
+    },
     attachments: { values: () => [] },
     react: () => Promise.resolve(mock.msg)
   },

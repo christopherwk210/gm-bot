@@ -54,7 +54,8 @@ let prefixedCommandRuleTemplate = {
 /**
  * Functional utility commands
  */
-let coreCommands = [{
+let coreCommands = [
+  {
     matches: ['welcome'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
@@ -162,7 +163,8 @@ let coreCommands = [{
 /**
  * Admin only commands
  */
-let adminCommands = [{
+let adminCommands = [
+  {
     matches: ['say'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin',
@@ -179,7 +181,8 @@ let adminCommands = [{
 /**
  * Voice channel related commands
  */
-let audioCommands = [{
+let audioCommands = [
+  {
     matches: ['play'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
@@ -226,7 +229,8 @@ let audioCommands = [{
 /**
  * Misc silly shit
  */
-let easterEggs = [{
+let easterEggs = [
+  {
     matches: ['christmascycle'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
