@@ -19,11 +19,11 @@ module.exports = function(member) {
     return false;
   } else if (member.roles.has(roles.admin.id) || member.roles.has(roles.subredditMods.id)) {
     return 'admin';
-  } else if (member.roles.has(roles.rubberDuckies) || member.roles.has(roles.honouraryRubberDuckies)) {
+  } else if (member.roles.has(roles.rubberDuckies.id) || member.roles.has(roles.honouraryRubberDuckies.id)) {
     return 'rubber';
-  } else if (member.roles.has(roles.artDuckies)) {
+  } else if (member.roles.has(roles.artDuckies.id)) {
     return 'art';
-  } else if (member.roles.has(roles.audioDuckies)) {
+  } else if (member.roles.has(roles.audioDuckies.id)) {
     return 'audio';
   } else {
     return false;
