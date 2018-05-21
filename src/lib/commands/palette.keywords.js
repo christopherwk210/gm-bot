@@ -27,8 +27,16 @@ module.exports = [
     action: (str, match) => match[1]
   },
   {
+    match: /^(tony-?)?str(-?8)?$/,
+    value: '!STR8'
+  },
+  {
     match: 'apple-2',
     value: 'apple-II'
+  },
+  {
+    match: 'nyx-8',
+    value: 'nyx8'
   },
   {
     match: 'nes',

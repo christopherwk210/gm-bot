@@ -22,28 +22,37 @@ module.exports = function(msg, args) {
   }
 
   // Find name of palette, spaces changed to dashes, for link purposes. Lowercased.
-  let paletteName = matchKeyword(args.reduce((acc, val) => `${acc}-${val}`)).toLowerCase();
+  let paletteName = matchKeyword(args.reduce((acc, val) => `${acc}-${val}`));
+  let customLink = paletteName.startsWith('!');
+  paletteName = customLink
+    ? paletteName.slice(1)
+    : paletteName.toLowerCase();
+
+  // Get the link to send GET request to
+  let palettePage = customLink
+    ? `https://tonystr.net/palette/${paletteName}`
+    : `https://lospec.com/palette-list/${paletteName}`;
 
   // Create the embed
   let embed = new Discord.RichEmbed()
     .setTitle('Palette Not Found')
-    .setURL(`https://lospec.com/palette-list/${paletteName}`)
-    .setImage(`https://lospec.com/palette-list/${paletteName}-32x.png`);
+    .setURL(palettePage)
+    .setImage(`${palettePage}-32x.png`);
 
   let str = '';
   // Get the wepage to check if the palette exists
-  https.get(`https://lospec.com/palette-list/${paletteName}`, (res) => {
+  https.get(palettePage, (res) => {
     res.on('data', (chunk) => { str += chunk.toString(); });
 
     res.on('end', () => {
 
-      // Create a regex to find the <title>title</title>
-      let match = str.match(/(<\s*title[^>]*>(.+?)<\s*\/\s*title)>/gi);
+      // Use regex to find the <title>title</title>
+      let match = str.match(/(<\s*title\b[^>]*>(.+?)<\s*\/\s*title)>/gi);
 
       if (match) {
         let out = match[0];
         // Slice off the <title> tags, to just get the title
-        let pretaglen = out.match(/<\s*title[^>]*>/)[0].length;
+        let pretaglen = out.match(/<\s*title\b[^>]*>/)[0].length;
         let endtaglen = out.slice(pretaglen).match(/<\s*\/\s*title>/)[0].length;
         let title     = out.slice(pretaglen, -endtaglen);
 
