@@ -37,15 +37,32 @@ let channelService = {
   },
 
   /**
+   * Returns the server channel with the exact given name
+   * @param {string} name Channel name
+   */
+  getChannelByName: function(name) {
+    let match;
+
+    this.channels.some(channel => {
+      if (channel.name === name) {
+        match = channel;
+        return true;
+      }
+    });
+
+    return match;
+  },
+
+  /**
    * Returns the server channel with the exact given id number
    * @param {string} id Channel id
    */
   getChannelByID: function(id) {
     let match;
 
-    this.channels.some(role => {
-      if (role.id === id) {
-        match = role;
+    this.channels.some(channel => {
+      if (channel.id === id) {
+        match = channel;
         return true;
       }
     });
