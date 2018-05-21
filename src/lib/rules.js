@@ -369,10 +369,6 @@ let easterEggs = [
         .catch(err => {
           console.error(err)
         });
-
-      // Sara forgot to remove this, and I am keeping it here on purpose
-      // so that her shame is immortalized.
-      console.log('i can consolelog');
     }
   },
   {
