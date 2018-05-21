@@ -60,7 +60,25 @@ module.exports = function(message, args) {
     }
 
     // Parse the json string and create match flag
-    json = JSON.parse(json);
+    try {
+      json = JSON.parse(json);
+
+    // Refresh the file if it's borken, and prompt user to try again
+    } catch (jsonErr) {
+      console.log(jsonErr);
+      return refresh((err) => {
+        if (err) {
+          // Output user-friendly error messages
+          console.log(err);
+          return;
+        }
+
+        // Intentional refresh
+        if (sendRefreshMessage) message.channel.send(
+          'There was an error reading cached github data. Please try again.');
+      });
+    }
+
     let foundMatch = false;
 
     // refresh if more than one hour has passed since last refresh
@@ -83,7 +101,13 @@ module.exports = function(message, args) {
         // Create request with aforementioned options
         request(options, (err, str) => {
           // Parse concatinated data
-          json = JSON.parse(str);
+          try {
+            let data = JSON.parse(str);
+          } catch (jsonErr) {
+            console.log(jsonErr);
+            return message.channel.send(
+              'There was an error requesting github data. Please try again');
+          }
 
           // Create an embed containing the returned information
           let embed = new Discord.RichEmbed({
@@ -103,7 +127,8 @@ module.exports = function(message, args) {
       }
     }
     // Handle non-matched attempts
-    if (!foundMatch) message.channel.send(`Could not find any repository with the name "${args.join(' ')}"`);
+    if (!foundMatch) message.channel.send(
+      `Could not find any repository with the name "${args.join(' ')}"`);
   });
 };
 
@@ -122,7 +147,7 @@ async function refresh(callBack) {
   }
 
   // Get repository amount, then get repository names
-  await request(options, (orgErr, orgStr, cb = callBack) => {
+  await request(options, (orgErr, orgStr) => {
     // Check for error
     if (orgErr) {
       console.log(orgErr);
@@ -140,7 +165,7 @@ async function refresh(callBack) {
     let emptyLen = json.length + 2;
 
     // Get all repositories in organization
-    request(options, (err, str, ecb = cb) => {
+    request(options, (err, str) => {
       // Check for error
       if (err) {
         console.log(err);
@@ -148,13 +173,17 @@ async function refresh(callBack) {
       }
 
       // Parse concatinated data
-      let data = JSON.parse(str);
+      try {
+        let data = JSON.parse(str);
+      } catch (jsonErr) {
+        console.log(jsonErr);
+        return message.channel.send(
+          'There was an error requesting github data. Please try again');
+      }
 
       // Handle empty data
-      if (!data.length) {
-        ecb('ERROR: no data retrieved from refresh request in gmgithub.js');
-        return;
-      }
+      if (!data.length) return callBack(
+        'ERROR: no data retrieved from refresh request in gmgithub.js');
 
       // Add repo names to json string
       for (repo of data) json += `"${repo.name}",`;
@@ -164,9 +193,10 @@ async function refresh(callBack) {
 
       // If json is not empty, write cache
       if (json.length > emptyLen) {
-        fs.writeFile(jsonPath, json, () => console.log('Sucessfully refreshed gmgithub.json'));
-        ecb();
-      } else ecb('Failed to write gmgithub.json');
+        fs.writeFile(jsonPath, json, () => console.log(
+          'Sucessfully refreshed gmgithub.json'));
+        callBack();
+      } else callBack('Failed to write gmgithub.json');
     });
   });
 }
