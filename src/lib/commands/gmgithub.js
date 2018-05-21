@@ -189,8 +189,6 @@ async function refresh(callBack) {
           'There was an error requesting github data. Please try again');
       }
 
-      console.log(data);
-
       // Handle empty data
       if (!data.length) {
         return callBack('ERROR: no data retrieved from refresh request in gmgithub.js');
@@ -204,8 +202,7 @@ async function refresh(callBack) {
 
       // If json is not empty, write cache
       if (json.length > emptyLen) {
-        fs.writeFile(jsonPath, json, () => console.log(
-          'Sucessfully refreshed gmgithub.json'));
+        fs.writeFile(jsonPath, json, () => console.log('Sucessfully refreshed gmgithub.json'));
         callBack();
       } else callBack('Failed to write gmgithub.json');
     });
@@ -223,7 +220,7 @@ function request(options, callBack) {
     // Concatinate all incoming data
     res.on('data', data => { str += data.toString() });
 
-    res.on('end', () => { callBack((!str && 'Error requesting GMDG data') || '', str) });
+    res.on('end', () => callBack((!str && 'Error requesting GMDG data') || '', str));
   });
 
   // Handle error and finish sending request
