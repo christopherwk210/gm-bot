@@ -16,7 +16,6 @@ module.exports = function(msg, args) {
   }
 
   let role = 'noone';
-  let roles = roleService.roles;
 
   // Ensure there is a role passed
   if (roleName[0]) {
@@ -25,7 +24,7 @@ module.exports = function(msg, args) {
         role = roleService.getRoleByID('275366872189370369');
         break;
       case '3D':
-        role = roleService.getRoleByID('379657591657201674');;
+        role = roleService.getRoleByID('379657591657201674');
         break;
       case 'DUCKY':
         role = 'ducky';
