@@ -45,6 +45,7 @@ const welcome = require('./src/lib/commands/welcome.js');
 // Services
 let roleService = require('./src/lib/services/role.service');
 let guildService = require('./src/lib/services/guild.service');
+let channelService = require('./src/lib/services/channel.service');
 
 // Project data
 const ids = require('./src/assets/json/ids.json');
@@ -109,6 +110,7 @@ function onBotReady() {
   // Initialize services
   roleService.init(bot);
   guildService.init(bot);
+  channelService.init(bot);
 
   // Log user presence on startup
   logPresence(guildService.guild, db);
