@@ -110,15 +110,12 @@ function onBotReady() {
   roleService.init(bot);
   guildService.init(bot);
 
-  // Grab our guild
-  let guildCollection = bot.guilds.find('name','/r/GameMaker');
-
   // Log user presence on startup
-  logPresence(guildCollection, db);
+  logPresence(guildService.guild, db);
 
   // Begin logging on interval
   setInterval(() => {
-    logPresence(guildCollection, db);
+    logPresence(guildService.guild, db);
   }, profileInterval || 3600000);
 }
 
@@ -136,9 +133,9 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
     // Determine they are a member and in the voip channel
     if (newMember && newMember.voiceChannel && (newMember.voiceChannel.name.includes('casual') || newMember.voiceChannel.name.includes('chilled') || newMember.voiceChannel.name.includes('game'))) {
       // Fetch the proper roles
-      let voipRole = newMember.guild.roles.find('name', 'voip');
-      let voiceActivityRole = newMember.guild.roles.find('name', 'voice activity');
-      let voipAlumniRole = newMember.guild.roles.find('name', 'voip alumni');
+      let voipRole = roleService.getRoleByID('275366872189370369'); // 'voip' role
+      let voiceActivityRole = roleService.getRoleByID('390434366125506560'); // 'voice activity' role
+      let voipAlumniRole = roleService.getRoleByID('390563903085477888'); // 'voip alumni' role
 
       // Add voip role if they don't have it
       if (!newMember.roles.has(voipRole.id)) {
