@@ -48,7 +48,6 @@ let guildService = require('./src/lib/services/guild.service');
 let channelService = require('./src/lib/services/channel.service');
 
 // Project data
-const ids = require('./src/assets/json/ids.json');
 const badlinks = require('./src/assets/json/bad-links.json');
 
 // Database setup
@@ -100,12 +99,6 @@ bot.on('message', onBotMessage);                    // Message sent (in DM or in
 function onBotReady() {
   // Tell the world our feelings
   console.log('Squaring to go, captain.');
-
-  // Fetch net8floz
-  bot.fetchUser(ids.net8floz).then(user => { responsibleUsers.push(user); }, err => console.log(err));
-
-  // Fetch topherlicious
-  bot.fetchUser(ids.topherlicious).then(user => { responsibleUsers.push(user); }, err => console.log(err));
 
   // Initialize services
   roleService.init(bot);
@@ -318,10 +311,8 @@ process.on('unhandledRejection', (reason) => {
 
 // Handle process-wide uncaught exceptions
 process.on('uncaughtException', (err) => {
-  // Alert the folks behind the curtain
-  responsibleUsers.forEach(user => {
-    user.send(`GMBot has encoutered an uncaught exception. Attempting to a log of the error:\n\n${err}`);
-  });
+  let botTestingChannel = channelService.getChannelByID('417796218324910094');
+  botTestingChannel.send(`GMBot has encoutered an uncaught exception:\n${err}`);
 });
 
 // Copyright information

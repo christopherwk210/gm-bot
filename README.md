@@ -129,7 +129,6 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   ├── auth.example.json    // Template for creating your own with proper discord key
 │   │   ├── bad-links.json       // URL blacklist
 │   │   ├── gms1-docs-urls.json  // URLs to GMS1 documentation pages
-│   │   ├── ids.json             // ID's of users who are messaged when bot errors
 │   │   └── jsbeautify.json      // jsbeautify rules for clean-code
 │   │
 │   ├── markdown               // Markdown assets
@@ -183,6 +182,11 @@ The main entry point of the project is `./gmbot.js`. This file sets up initial c
 │   │   └── prettifier.js        // clean-code block parsing
 │   │
 │   ├── rules.js               // Contains all bot message matching rules
+│   │
+│   ├── services               // Persistent helper services
+│   │   ├── channel.service.js   // Contains server channel information and helpers 
+│   │   ├── guild.service.js     // Contains server guild information and helpers
+│   │   └── role.service.js      // Contains server role information and helpers
 │   │
 │   └── utils                  // Contains 'pure' helper functionality
 │       ├── choose.js            // Simple random array picker function

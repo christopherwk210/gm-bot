@@ -9,6 +9,11 @@ let channelService = {
   channels: [],
 
   /**
+   * All server categories
+   */
+  categoryChannels: [],
+
+  /**
    * All server text channels
    * @type {Array<*>}
    */
@@ -28,10 +33,19 @@ let channelService = {
     client.guilds.first().channels.array().forEach(guildChannel => {
       this.channels.push(guildChannel);
 
-      if (guildChannel.type === 'text') {
-        this.textChannels.push(guildChannel);
-      } else {
-        this.voiceChannels.push(guildChannel);
+      switch(guildChannel.type) {
+        case 'text':
+          this.textChannels.push(guildChannel);
+          break;
+        case 'voice':
+          this.voiceChannels.push(guildChannel);
+          break;
+        case 'category':
+          this.categoryChannels.push(guildChannel);
+          break;
+        default:
+          // uhh, should never get here
+          break;
       }
     });
   },
