@@ -18,7 +18,7 @@ let roleService = {
    * Initialize the role service with the bot client
    * @param {*} client Bot client object
    */
-  init: client => {
+  init: function(client) {
     let guild = client.guilds.first();
     guild.roles.array().forEach(role => {
       this.roleNames.push(role.name);

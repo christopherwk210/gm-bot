@@ -11,7 +11,7 @@ let guildSevice = {
    * Initialize the guild service with the bot client
    * @param {*} client Bot client object
    */
-  init: client => {
+  init: function(client) {
     this.guild = client.guilds.first();
   }
 };
