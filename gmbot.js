@@ -21,18 +21,30 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 // Project libs
-const database = require('./src/lib/utils/database.js');
 const rules = require('./src/lib/rules.js');
+
+// Modifiers
 const prettifier = require('./src/lib/modifiers/prettifier.js');
 const gmlive = require('./src/lib/modifiers/gmlive.js');
 const devmode = require('./src/lib/modifiers/devmode.js');
 const gml = require('./src/lib/modifiers/gml.js');
-const haste = require('./src/lib/modifiers/haste.js')
+const haste = require('./src/lib/modifiers/haste.js');
+
+// Express
 const express = require('./src/express/express.js');
+
+// Utils
+const database = require('./src/lib/utils/database.js');
 const logVoip = require('./src/lib/utils/voip-log.js');
 const logPresence = require('./src/lib/utils/presence-log.js');
 const parseCommandList = require('./src/lib/utils/parseCommandList.js');
+
+// Commands
 const welcome = require('./src/lib/commands/welcome.js');
+
+// Services
+let roleService = require('./src/lib/services/role.service');
+let guildService = require('./src/lib/services/guild.service');
 
 // Project data
 const ids = require('./src/assets/json/ids.json');
@@ -93,6 +105,10 @@ function onBotReady() {
 
   // Fetch topherlicious
   bot.fetchUser(ids.topherlicious).then(user => { responsibleUsers.push(user); }, err => console.log(err));
+
+  // Initialize services
+  roleService.init(bot);
+  guildService.init(bot);
 
   // Grab our guild
   let guildCollection = bot.guilds.find('name','/r/GameMaker');

@@ -4,6 +4,9 @@ const rules = require('../rules.js');
 const giveAways = require('../utils/giveAwayLib.js');
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
+let roleService = require('../services/role.service');
+let guildService = require('../services/guild.service');
+
 module.exports = function(msg, bot) {
   if (!msg.member) return false;
 
