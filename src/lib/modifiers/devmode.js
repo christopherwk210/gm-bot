@@ -6,6 +6,7 @@ const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
 let roleService = require('../services/role.service');
 let guildService = require('../services/guild.service');
+let channelService = require('../services/channel.service');
 
 module.exports = function(msg, bot) {
   if (!msg.member) return false;
