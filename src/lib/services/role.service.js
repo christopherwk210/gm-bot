@@ -9,16 +9,10 @@ let roleService = {
   roleNames: [],
 
   /**
-   * Contains all server role objects
-   * @type {object}
-   */
-  roles: {},
-
-  /**
    * Contains all server roles in an array
    * @type {Array<*>}
    */
-  rawRoles: [],
+  roles: [],
 
   /**
    * Initialize the role service with the bot client
@@ -28,8 +22,7 @@ let roleService = {
     let guild = client.guilds.first();
     guild.roles.array().forEach(role => {
       this.roleNames.push(role.name);
-      this.rawRoles.push(role);
-      this.roles[role.name] = role;
+      this.roles.push(role);
     });
   },
 
@@ -38,7 +31,16 @@ let roleService = {
    * @param {string} name Role name
    */
   getRoleByName: function(name) {
-    return this.roles[name];
+    let match;
+
+    this.roles.some(role => {
+      if (role.name === name) {
+        match = role;
+        return true;
+      }
+    });
+
+    return match;
   },
 
   /**
@@ -48,7 +50,7 @@ let roleService = {
   getRoleByID: function(id) {
     let match;
 
-    this.rawRoles.some(role => {
+    this.roles.some(role => {
       if (role.id === id) {
         match = role;
         return true;
