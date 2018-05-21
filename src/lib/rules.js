@@ -1,4 +1,4 @@
-﻿// Node libs
+// Node libs
 const fs = require('fs');
 const path = require('path');
 
@@ -54,8 +54,7 @@ let prefixedCommandRuleTemplate = {
 /**
  * Functional utility commands
  */
-let coreCommands = [
-  {
+let coreCommands = [{
     matches: ['welcome'],
     ...prefixedCommandRuleTemplate,
     action: msg => {
@@ -163,8 +162,7 @@ let coreCommands = [
 /**
  * Admin only commands
  */
-let adminCommands = [
-  {
+let adminCommands = [{
     matches: ['say'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin',
@@ -181,8 +179,7 @@ let adminCommands = [
 /**
  * Voice channel related commands
  */
-let audioCommands = [
-  {
+let audioCommands = [{
     matches: ['play'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
@@ -229,8 +226,7 @@ let audioCommands = [
 /**
  * Misc silly shit
  */
-let easterEggs = [
-  {
+let easterEggs = [{
     matches: ['christmascycle'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member),
@@ -347,34 +343,38 @@ let easterEggs = [
     action: msg => {
       const mes = msg.guild.emojis.find('name', 'meseta');
       msg.react('🇲')
-       .then(() => msg.react('Ⓜ'))
-       .then(() => msg.react(mes))
-       .catch(() => {});
+        .then(() => msg.react('Ⓜ'))
+        .then(() => msg.react(mes))
+        .catch(() => {});
 
     }
   },
   {
-	matches: ['<@361088614735544320>'],
-	action: msg => {
-	  const sara = msg.guild.emojis.get();
-	  msg.react('🇸')
-	    .then(() => msg.react('🇦'))
-	    .then(() => msg.react('🇷'))
-		.then(() => msg.react('🅰'))
-	    .catch(err => {console.error(err)});
-	}
+    matches: ['<@361088614735544320>'],
+    action: msg => {
+      msg.react('🇸')
+        .then(() => msg.react('🇦'))
+        .then(() => msg.react('🇷'))
+        .then(() => msg.react('🅰'))
+        .catch(err => {
+          console.error(err)
+        });
+      console.log('i can consolelog');
+    }
   },
   {
-    matches: ['<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>', '<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>'],
-	action: msg => {
-		msg.channel.send('<@141365209435471872>')
-	}
+    matches: ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      msg.channel.send('<@141365209435471872>')
+    }
   },
   {
-	matches: ['💤👁️'],
-	action: msg => {
-		msg.channel.send('<@240306552949440512>')
-	}
+    matches: ['💤👁️', '💤 👁'],
+    action: msg => {
+      msg.channel.send('<@240306552949440512>')
+    }
   },
   {
     matches: ['hmm'],
@@ -421,49 +421,10 @@ let easterEggs = [
     delete: true,
     action: msg => {
       msg.channel.send({
-        file: new Discord.Attachment( path.join(__dirname, '../assets/images/kissfromarose.gif') ),
+        file: new Discord.Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
         name: 'kiss-from-a-rose.gif'
       });
     }
-  },
-   {
-    matches: ['mmm'],
-    exact: false,
-    wholeMessage: true,
-    action: msg => {
-      const mes = msg.guild.emojis.find('name', 'meseta');
-	  msg.channel.send('test');
-      msg.react('🇲')
-       .then(() => msg.react('Ⓜ'))
-       .then(() => msg.react(mes))
-       .catch(() => {});
-
-    }
-  },
-  {
-	matches: ['<@361088614735544320>'],
-	action: msg => {
-      console.log('test');
-	  const sara = msg.guild.emojis.get();
-	  msg.react('🇸')
-	    .then(() => msg.react('🇦'))
-	    .then(() => msg.react('🇷'))
-		.then(() => msg.react('🅰️'))
-	    .catch(() => {});
-	}
-  },
-  {
-    matches: ['🇸🇮🇩🇴🇷🇦🇰🇭'],
-	action: msg => {
-		msg.channel.send('<@141365209435471872>');
-	}
-  },
-  {
-	matches: ['💤👁️', '💤 👁'],
-	action: msg => {
-		msg.channel.send('test');
-		msg.channel.send('<@240306552949440512>');
-	}
   }
 ];
 
