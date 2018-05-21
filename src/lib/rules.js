@@ -363,7 +363,7 @@ let easterEggs = [{
     }
   },
   {
-    matches: ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>'],
+    matches: ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
     exact: false,
     wholeMessage: true,
     action: msg => {
