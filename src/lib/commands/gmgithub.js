@@ -103,11 +103,10 @@ module.exports = function(message, args) {
 
         // Create request with aforementioned options
         request(options, (err, str) => {
-          let data;
-
+        
           // Parse concatinated data
           try {
-            data = JSON.parse(str);
+            json = JSON.parse(str);
           } catch (jsonErr) {
             console.log(jsonErr);
             return message.channel.send('There was an error requesting github data. Please try again');
