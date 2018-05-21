@@ -312,7 +312,7 @@ process.on('unhandledRejection', (reason) => {
 // Handle process-wide uncaught exceptions
 process.on('uncaughtException', (err) => {
   let botTestingChannel = channelService.getChannelByID('417796218324910094');
-  botTestingChannel.send(`GMBot has encoutered an uncaught exception:\n${err}`);
+  botTestingChannel.send(`GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``);
 });
 
 // Copyright information
