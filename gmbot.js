@@ -126,7 +126,14 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
   // Attempt to add voip_text role
   try {
     // Determine they are a member and in the voip channel
-    if (newMember && newMember.voiceChannel && (newMember.voiceChannel.name.includes('casual') || newMember.voiceChannel.name.includes('chilled') || newMember.voiceChannel.name.includes('game'))) {
+    if (
+      newMember && newMember.voiceChannel &&
+      (
+        newMember.voiceChannel.id === '332567530025779200' || // Casual
+        newMember.voiceChannel.id === '262834612932182026' || // Coworking
+        newMember.voiceChannel.id === '295976186625130512'    // Playin a game
+      )
+    ) {
       // Fetch the proper roles
       let voipRole = roleService.getRoleByID('275366872189370369'); // 'voip' role
       let voiceActivityRole = roleService.getRoleByID('390434366125506560'); // 'voice activity' role
