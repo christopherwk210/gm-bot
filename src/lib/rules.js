@@ -176,7 +176,21 @@ let adminCommands = [
     pre: msg => detectStaff(msg.member) === 'admin',
     action: giveAwayManagement
   }
-]
+];
+
+/**
+ * Bot developer only commands
+ */
+let devCommands = [
+  {
+    matches: ['id'],
+    ...prefixedCommandRuleTemplate,
+    pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has('417797331409436682'),
+    action: msg => {
+      msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``).catch(() => {});
+    }
+  }
+];
 
 /**
  * Voice channel related commands
@@ -441,6 +455,7 @@ let easterEggs = [
 module.exports = [
   ...coreCommands,
   ...adminCommands,
+  ...devCommands,
   ...audioCommands,
   ...easterEggs
 ];
