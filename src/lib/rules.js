@@ -1,4 +1,4 @@
-// Node libs
+﻿// Node libs
 const fs = require('fs');
 const path = require('path');
 
@@ -341,6 +341,42 @@ let easterEggs = [
     }
   },
   {
+    matches: ['mmm'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      const mes = msg.guild.emojis.find('name', 'meseta');
+      msg.react('🇲')
+       .then(() => msg.react('Ⓜ'))
+       .then(() => msg.react(mes))
+       .catch(() => {});
+
+    }
+  },
+  {
+	matches: ['<@361088614735544320>'],
+	action: msg => {
+	  const sara = msg.guild.emojis.get();
+	  msg.react('🇸')
+	    .then(() => msg.react('🇦'))
+	    .then(() => msg.react('🇷'))
+		.then(() => msg.react('🅰'))
+	    .catch(err => {console.error(err)});
+	}
+  },
+  {
+    matches: ['🇸 🇮 🇩 🇴 🇷 🇦 🇰 🇭'],
+	action: msg => {
+		msg.channel.send('<@141365209435471872>')
+	}
+  },
+  {
+	matches: ['💤👁️'],
+	action: msg => {
+		msg.channel.send('<@240306552949440512>')
+	}
+  },
+  {
     matches: ['hmm'],
     exact: false,
     wholeMessage: true,
@@ -389,6 +425,45 @@ let easterEggs = [
         name: 'kiss-from-a-rose.gif'
       });
     }
+  },
+   {
+    matches: ['mmm'],
+    exact: false,
+    wholeMessage: true,
+    action: msg => {
+      const mes = msg.guild.emojis.find('name', 'meseta');
+	  msg.channel.send('test');
+      msg.react('🇲')
+       .then(() => msg.react('Ⓜ'))
+       .then(() => msg.react(mes))
+       .catch(() => {});
+
+    }
+  },
+  {
+	matches: ['<@361088614735544320>'],
+	action: msg => {
+      console.log('test');
+	  const sara = msg.guild.emojis.get();
+	  msg.react('🇸')
+	    .then(() => msg.react('🇦'))
+	    .then(() => msg.react('🇷'))
+		.then(() => msg.react('🅰️'))
+	    .catch(() => {});
+	}
+  },
+  {
+    matches: ['🇸🇮🇩🇴🇷🇦🇰🇭'],
+	action: msg => {
+		msg.channel.send('<@141365209435471872>');
+	}
+  },
+  {
+	matches: ['💤👁️', '💤 👁'],
+	action: msg => {
+		msg.channel.send('test');
+		msg.channel.send('<@240306552949440512>');
+	}
   }
 ];
 
