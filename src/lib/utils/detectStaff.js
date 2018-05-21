@@ -1,18 +1,29 @@
+let roleService = require('../services/role.service');
+
 /**
  * Detects if a member is staff or not
  * @param {GuildMember} member Discord.js GuildMember
  * @return {any} returns 'admin' || 'rubber' || 'art' || false
  */
 module.exports = function(member) {
+  let roles = {
+    admin: roleService.getRoleByID('262835321694060547'),
+    subredditMods: roleService.getRoleByID('262843600730062849'),
+    rubberDuckies: roleService.getRoleByID('262926334118985728'),
+    honouraryRubberDuckies: roleService.getRoleByID('390437904859660290'),
+    artDuckies: roleService.getRoleByID('345222078577901569'),
+    audioDuckies: roleService.getRoleByID('398875444360904704')
+  };
+
   if ((!member) || (!member.roles)) {
     return false;
-  } else if (member.roles.find('name', 'admin') || member.roles.find('name', 'admins') || member.roles.find('name', 'subreddit mods 📄')) {
+  } else if (member.roles.has(roles.admin.id) || member.roles.has(roles.subredditMods.id)) {
     return 'admin';
-  } else if (member.roles.find('name', 'rubber duckies') || member.roles.find('name', 'duckies🐤')) {
+  } else if (member.roles.has(roles.rubberDuckies) || member.roles.has(roles.honouraryRubberDuckies)) {
     return 'rubber';
-  } else if (member.roles.find('name', 'art duckies')) {
+  } else if (member.roles.has(roles.artDuckies)) {
     return 'art';
-  } else if (member.roles.find('name', 'audio duckies')) {
+  } else if (member.roles.has(roles.audioDuckies)) {
     return 'audio';
   } else {
     return false;
