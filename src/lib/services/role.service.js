@@ -24,6 +24,31 @@ let roleService = {
       this.roleNames.push(role.name);
       this.roles[role.name] = role;
     });
+  },
+
+  /**
+   * Returns the server role with the exact given name
+   * @param {string} name Role name
+   */
+  getRoleByName: function(name) {
+    return this.roles[name];
+  },
+
+  /**
+   * Returns the server role with the exact given id number
+   * @param {string} id Role id
+   */
+  getRoleByID: function(id) {
+    let match;
+
+    this.roles.some(role => {
+      if (role.id === id) {
+        match = role;
+        return true;
+      }
+    });
+
+    return match;
   }
 };
 
