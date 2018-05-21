@@ -1,3 +1,5 @@
+let roleService = require('../services/role.service');
+
 /**
  * Toggles a user role
  * @param {Message} msg Discord message
@@ -14,22 +16,16 @@ module.exports = function(msg, args) {
   }
 
   let role = 'noone';
-  let roles = msg.guild.roles;
+  let roles = roleService.roles;
 
   // Ensure there is a role passed
   if (roleName[0]) {
     switch (roleName[0].toUpperCase()) {
       case 'VOIP':
-        role = roles.find('name', 'voip');
+        role = roleService.getRoleByID('275366872189370369');
         break;
       case '3D':
-        let threeRole;
-        roles.forEach(singleRole => {
-          if (singleRole.name.indexOf('three') !== -1) {
-            threeRole = singleRole;
-          }
-        });
-        role = threeRole;
+        role = roleService.getRoleByID('379657591657201674');;
         break;
       case 'DUCKY':
         role = 'ducky';
