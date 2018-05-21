@@ -21,11 +21,13 @@ module.exports = function(message, args) {
   // Check for refresh command or invalid command usage
   if (!args.length || args[0].toLowerCase() === 'refresh') {
     // Invalid command usage
-    if (!args.length) message.channel.send(
-      'The /r/Gamemaker Discord **community github** is available at ' +
-      'https://github.com/GameMakerDiscord.\nYou can request a specific ' +
-      'repository with: ``!github repository_name``'
-    );
+    if (!args.length) {
+      message.channel.send(
+        'The /r/Gamemaker Discord **community github** is available at ' +
+        'https://github.com/GameMakerDiscord.\nYou can request a specific ' +
+        'repository with: ``!github repository_name``'
+      );
+    }
 
     let sendRefreshMessage = !!args.length;
 
@@ -74,8 +76,9 @@ module.exports = function(message, args) {
         }
 
         // Intentional refresh
-        if (sendRefreshMessage) message.channel.send(
-          'There was an error reading cached github data. Please try again.');
+        if (sendRefreshMessage) {
+          message.channel.send('There was an error reading cached github data. Please try again.');
+        }
       });
     }
 
@@ -100,14 +103,17 @@ module.exports = function(message, args) {
 
         // Create request with aforementioned options
         request(options, (err, str) => {
+          let data;
+
           // Parse concatinated data
           try {
-            let data = JSON.parse(str);
+            data = JSON.parse(str);
           } catch (jsonErr) {
             console.log(jsonErr);
-            return message.channel.send(
-              'There was an error requesting github data. Please try again');
+            return message.channel.send('There was an error requesting github data. Please try again');
           }
+
+          console.log(data);
 
           // Create an embed containing the returned information
           let embed = new Discord.RichEmbed({
@@ -127,8 +133,9 @@ module.exports = function(message, args) {
       }
     }
     // Handle non-matched attempts
-    if (!foundMatch) message.channel.send(
-      `Could not find any repository with the name "${args.join(' ')}"`);
+    if (!foundMatch) {
+      message.channel.send(`Could not find any repository with the name "${args.join(' ')}"`);
+      }
   });
 };
 
@@ -172,18 +179,23 @@ async function refresh(callBack) {
         return;
       }
 
+      let data;
+
       // Parse concatinated data
       try {
-        let data = JSON.parse(str);
+        data = JSON.parse(str);
       } catch (jsonErr) {
         console.log(jsonErr);
         return message.channel.send(
           'There was an error requesting github data. Please try again');
       }
 
+      console.log(data);
+
       // Handle empty data
-      if (!data.length) return callBack(
-        'ERROR: no data retrieved from refresh request in gmgithub.js');
+      if (!data.length) {
+        return callBack('ERROR: no data retrieved from refresh request in gmgithub.js');
+      }
 
       // Add repo names to json string
       for (repo of data) json += `"${repo.name}",`;
