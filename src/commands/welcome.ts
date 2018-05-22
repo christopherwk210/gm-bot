@@ -21,6 +21,6 @@ let messageEmbed = new Discord.RichEmbed({
  * Send the welcome message!
  * @param {User} member Discord user
  */
-module.exports = function(member) {
+export = function(member) {
   member.send(messageEmbed).catch(() => {});
 };

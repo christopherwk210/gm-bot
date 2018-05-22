@@ -40,7 +40,7 @@ import { logPresence } from './src/utils/presence-log';
 import { parseCommandList } from './src/utils/parseCommandList';
 
 // Commands
-const welcome = require('./src/commands/welcome.js');
+import welcome = require('./src/commands/welcome');
 
 // Services
 import { roleService } from './src/services/role.service';
@@ -48,7 +48,7 @@ import { guildService } from './src/services/guild.service';
 import { channelService } from './src/services/channel.service';
 
 // Project data
-const badlinks = require('./src/assets/json/bad-links.json');
+const badlinks = require('./shared/assets/json/bad-links.json');
 
 // Database setup
 let db = database.initializeDatabase();
@@ -77,10 +77,10 @@ let auth;
 // Import authorization token
 try {
   // Attempt to sync load auth.json
-  auth = require('./src/assets/json/auth.json');
+  auth = require('./shared/assets/json/auth.json');
 } catch (e) {
   // Well shit, ya didn't read the instructions did ya?
-  console.log(`No auth.json found. Please see /src/assets/auth.example.json.\n${e.stack}`);
+  console.log(`No auth.json found. Please see /src/assets/auth.example.json.\n\n${e.stack}`);
 
   // Goodbye
   process.exit();
