@@ -7,7 +7,7 @@ module.exports = {
    * @returns {object} The database object containing all DB references
    */
   initializeDatabase: function() {
-    let db = {};
+    let db: any = {};
     
     // Admin database
     // Responsible for logging admin actions on the front-end

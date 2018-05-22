@@ -1,3 +1,7 @@
+declare function gmlexGML();
+declare function gmlexCB(text);
+declare let editor;
+
 // Imports
 const puppeteer = require('puppeteer');
 
@@ -72,6 +76,7 @@ async function gmlexec(gml, cb) {
 
   // Inject code
   await page.evaluate(async () => {
+
     let gmlexgml = await gmlexGML();
     editor.setValue(`trace("gmlex:gmlexbegin");${gmlexgml};trace("gmlex:gmlexclose");`);
 

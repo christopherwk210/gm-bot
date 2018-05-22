@@ -9,10 +9,10 @@ const writeFile = util.promisify(fs.writeFile);
 const mkdir = util.promisify(fs.mkdir);
 
 // Load external messages
-let banner = fs.readFileSync('./src/assets/text/banner.txt', 'utf8');
-let intro = fs.readFileSync('./src/assets/text/getting-started.txt', 'utf8');
+let banner = fs.readFileSync(path.join(__dirname, '../assets/text/banner.txt'), 'utf8');
+let intro = fs.readFileSync(path.join(__dirname, '../assets/text/getting-started.txt'), 'utf8');
 
-let giveAwayDataPath = path.join(__dirname, '../data/giveAwaysData.json');
+let giveAwayDataPath = path.join(__dirname, '../../data/giveAwaysData.json');
 let giveAwayDataContainerPath = path.dirname(giveAwayDataPath);
 
 (async () => {
