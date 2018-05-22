@@ -5,11 +5,10 @@
   "main": "./gmbot",
   "license": "GPL-3.0",
   "scripts": {
-    "install": "node ./src/tools/post-install.js",
+    "install": "node ./tools/post-install.js",
     "lint": "eslint .",
     "lint.gmbot": "eslint gmbot.js",
     "start": "node gmbot.js",
-    "seed": "node src/tools/seed.js",
     "test": "mocha \"test/**/*.js\" --exit",
     "stub": "echo \"Skipping test first and lint second.\""
   },
