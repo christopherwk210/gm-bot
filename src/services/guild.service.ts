@@ -1,7 +1,7 @@
 /**
  * Contains information about the server guild
  */
-let guildSevice = {
+export let guildService = {
   /**
    * Represents the GM server guild
    */
@@ -15,5 +15,3 @@ let guildSevice = {
     this.guild = client.guilds.first();
   }
 };
-
-module.exports = guildSevice;

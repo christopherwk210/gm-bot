@@ -1,7 +1,7 @@
 /**
  * Contains information about all of the server's roles
  */
-let roleService = {
+export let roleService = {
   /**
    * Contains all server role names
    * @type {string[]}
@@ -60,5 +60,3 @@ let roleService = {
     return match;
   }
 };
-
-module.exports = roleService;

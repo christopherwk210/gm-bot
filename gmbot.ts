@@ -43,9 +43,9 @@ import { parseCommandList } from './src/utils/parseCommandList';
 const welcome = require('./src/commands/welcome.js');
 
 // Services
-let roleService = require('./src/services/role.service');
-let guildService = require('./src/services/guild.service');
-let channelService = require('./src/services/channel.service');
+import { roleService } from './src/services/role.service';
+import { guildService } from './src/services/guild.service';
+import { channelService } from './src/services/channel.service';
 
 // Project data
 const badlinks = require('./src/assets/json/bad-links.json');

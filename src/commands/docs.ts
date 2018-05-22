@@ -1,3 +1,6 @@
+declare let SearchTitles;
+declare let SearchFiles;
+
 // Node libs
 const vm = require('vm');
 const http = require('http');
@@ -5,8 +8,8 @@ const concat = require('concat-stream');
 const puppeteer = require('puppeteer');
 
 // Docs data
-const gms1 = require('../../assets/json/gms1-docs-urls.json');
-const validate = require('../utils/validate-gml.js');
+const gms1 = require('../../shared/assets/json/gms1-docs-urls.json');
+const validate = require('../utils/validate-gml');
 
 /**
  * Provide GMS2 doc URL

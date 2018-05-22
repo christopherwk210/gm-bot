@@ -1,7 +1,7 @@
 /**
  * Contains information about all of the server's channels
  */
-let channelService = {
+export let channelService = {
   /**
    * All server channels
    * @type {Array<*>}
@@ -84,5 +84,3 @@ let channelService = {
     return match;
   }
 };
-
-module.exports = channelService;
