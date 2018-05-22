@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+import Discord = require('discord.js');
 
 /**
  * Allows you to speak on the bot's behalf
@@ -7,7 +7,7 @@ const Discord = require('discord.js');
  */
 module.exports = function(msg, args) {
   let regex = /"([\s\S]*)"/g;
-  let fancy = args.indexOf('-f') !== -1;
+  let fancy: any = args.indexOf('-f') !== -1;
 
   // Catch message
   let match = msg.content.match(regex);
