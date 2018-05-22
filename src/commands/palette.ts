@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const https = require('https');
 // Keywords list
-const keywords = require('./palette.keywords.js');
+const keywords = require('./palette.keywords');
 
 /**
  * Sends a palette link along with an image of the pallete
