@@ -1,9 +1,11 @@
+import { Message } from "discord.js";
+
 /**
  * Parses a command list against a discord message
- * @param {Array<object>} commandList List of valid command rules
- * @param {Message} msg Discord message
+ * @param commandList List of valid command rules
+ * @param msg Discord message
  */
-export function parseCommandList(commandList, msg) {
+export function parseCommandList(commandList: any[], msg: Message) {
   let messageContent = msg.content;
   let success = false;
 
