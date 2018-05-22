@@ -1,7 +1,9 @@
 /* eslint-disable no-loop-func */
 
+declare let sendRefreshMessage;
+
 // Node libs
-const Discord = require('discord.js');
+import Discord = require('discord.js');
 const https = require('https');
 const fs = require('fs');
 
@@ -29,7 +31,7 @@ module.exports = function(message, args) {
       );
     }
 
-    let sendRefreshMessage = !!args.length;
+    let sendRefreshMessage: any = !!args.length;
 
     // Refresh regardless of intention
     refresh((err) => {
@@ -88,7 +90,7 @@ module.exports = function(message, args) {
     if (((new Date().getTime() - Date.parse(json.lastRefresh)) / 60000) > 60) refresh();
 
     // Loop through cached names, and attempt to match regex
-    for (name of json.names) {
+    for (let name of json.names) {
       if (name.match(regex)) {
         foundMatch = true;
 
@@ -111,8 +113,6 @@ module.exports = function(message, args) {
             console.log(jsonErr);
             return message.channel.send('There was an error requesting github data. Please try again');
           }
-
-          console.log(data);
 
           // Create an embed containing the returned information
           let embed = new Discord.RichEmbed({
@@ -142,7 +142,7 @@ module.exports = function(message, args) {
  * Caches repository names
  * @param {Channel} channel Discord channel
  */
-async function refresh(callBack) {
+async function refresh(callBack?) {
 
   // Create options for GET request
   let options = {
@@ -185,8 +185,10 @@ async function refresh(callBack) {
         data = JSON.parse(str);
       } catch (jsonErr) {
         console.log(jsonErr);
-        return message.channel.send(
-          'There was an error requesting github data. Please try again');
+
+        //TODO: message not defined in this context
+        // return message.channel.send(
+        //   'There was an error requesting github data. Please try again');
       }
 
       // Handle empty data
@@ -195,7 +197,7 @@ async function refresh(callBack) {
       }
 
       // Add repo names to json string
-      for (repo of data) json += `"${repo.name}",`;
+      for (let repo of data) json += `"${repo.name}",`;
 
       // Remove last comma, close array and object
       json = `${json.slice(0, -1)}]}`;
