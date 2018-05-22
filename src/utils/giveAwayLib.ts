@@ -1,6 +1,6 @@
 // Node libs
-const fs = require('fs');
-const path = require('path');
+import fs = require('fs');
+import path = require('path');
 const async = require('async');
 
 // Init

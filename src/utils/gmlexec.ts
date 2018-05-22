@@ -3,7 +3,7 @@ declare function gmlexCB(text);
 declare let editor;
 
 // Imports
-const puppeteer = require('puppeteer');
+import puppeteer = require('puppeteer');
 
 /**
  * Execute GML through GMLive

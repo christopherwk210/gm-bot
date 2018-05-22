@@ -1,6 +1,6 @@
 // Node libs
-const Discord = require('discord.js');
-const https = require('https');
+import Discord = require('discord.js');
+import https = require('https');
 // Keywords list
 const keywords = require('./palette.keywords');
 
