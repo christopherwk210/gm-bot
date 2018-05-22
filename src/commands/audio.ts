@@ -2,7 +2,7 @@
 const youtubedl = require('youtube-dl');
 
 // Project utils
-const choose = require('../utils/choose.js');
+import choose = require('../utils/choose');
 
 // Store the current connection
 let currentConnection;
