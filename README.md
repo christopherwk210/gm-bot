@@ -219,7 +219,7 @@ All of the bot command rules are located in `./src/lib/rules.js` under `module.e
                         // of searching for a substring
   exact: false,         // If omitted or true, it will match case-sensitively
   delete: true,         // Whether or not to delete a matched message (after calling the action)
-  action: msg => {      // Action is a callback that triggers when a match is hit,
+  action: (msg, args) => {      // Action is a callback that triggers when a match is hit,
                         // passes msg and args, where msg === Discord message, and
                         // args === command arguments split by a space character (' ')
   },

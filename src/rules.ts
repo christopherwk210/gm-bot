@@ -37,6 +37,9 @@ const help = {
 const choose = require('./utils/choose');
 const detectStaff = require('./utils/detectStaff');
 
+// Interface
+import { Rule } from './interfaces/rule.interface';
+
 // We are a ! kinda server
 let prefix = '!';
 
@@ -54,7 +57,7 @@ let prefixedCommandRuleTemplate = {
 /**
  * Functional utility commands
  */
-let coreCommands = [
+let coreCommands: Rule[] = [
   {
     matches: ['welcome'],
     ...prefixedCommandRuleTemplate,
@@ -163,7 +166,7 @@ let coreCommands = [
 /**
  * Admin only commands
  */
-let adminCommands = [
+let adminCommands: Rule[] = [
   {
     matches: ['say'],
     ...prefixedCommandRuleTemplate,
@@ -181,7 +184,7 @@ let adminCommands = [
 /**
  * Bot developer only commands
  */
-let devCommands = [
+let devCommands: Rule[] = [
   {
     matches: ['id'],
     ...prefixedCommandRuleTemplate,
@@ -195,7 +198,7 @@ let devCommands = [
 /**
  * Voice channel related commands
  */
-let audioCommands = [
+let audioCommands: Rule[] = [
   {
     matches: ['play'],
     ...prefixedCommandRuleTemplate,
@@ -243,7 +246,7 @@ let audioCommands = [
 /**
  * Misc silly shit
  */
-let easterEggs = [
+let easterEggs: Rule[] = [
   {
     matches: ['christmascycle'],
     ...prefixedCommandRuleTemplate,
