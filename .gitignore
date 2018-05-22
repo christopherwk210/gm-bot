@@ -1,3 +1,6 @@
+# Don't push distribution
+dist/
+
 # No node modules!
 node_modules/
 
