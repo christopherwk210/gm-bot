@@ -1,11 +1,11 @@
 // Node libs
-const fs = require('fs');
+import fs = require('fs');
 
 // Project data
-const resources = fs.readFileSync('./src/assets/markdown/resources.md', 'utf8');
+const resources = fs.readFileSync('./shared/assets/markdown/resources.md', 'utf8');
 
 // Project utils
-const detectStaff = require('../utils/detectStaff.js');
+const detectStaff = require('../utils/detectStaff');
 
 /**
  * Will send resources to a user or given user if being sent by an admin or rubber duck
