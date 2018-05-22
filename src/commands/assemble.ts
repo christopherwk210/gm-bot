@@ -1,4 +1,4 @@
-let roleService = require('../services/role.service');
+import { roleService } from '../services/role.service';
 
 /**
  * Ping the rubber duckies role
