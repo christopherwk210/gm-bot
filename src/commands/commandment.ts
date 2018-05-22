@@ -1,8 +1,8 @@
 // Node libs
-const fs = require('fs');
+import fs = require('fs');
 
 // Project data
-const commandmentList = fs.readFileSync('./src/assets/markdown/commandments.md', 'utf8');
+const commandmentList = fs.readFileSync('./shared/assets/markdown/commandments.md', 'utf8');
 const commandmentURLs = [
   'https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark',
   'https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly',
