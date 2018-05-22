@@ -15,7 +15,7 @@
  * @param {*} nm New member
  * @param {*} db Database reference
  */
-module.exports = function(om, nm, db) {
+export function logVoip(om, nm, db) {
   // console.log('voice event :' + om.selfMute + ":" + nm.selfMute + ':' + om.selfDeaf + ':' + nm.selfDeaf);   // debug: strange om.selfMute / Deaf behaviour
   if (!(om.selfMute !== nm.selfMute || om.selfDeaf !== nm.selfDeaf) || // exclude selfmute/death - read as 'dont act upon changes'
     typeof(om.selfMute) === 'undefined' || typeof(om.selfDeaf) === 'undefined' ) {  // see Note '!!!' 

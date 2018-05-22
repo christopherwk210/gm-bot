@@ -4,7 +4,7 @@
         code by ariak
 */
 
-module.exports = function(sc, db) { // server collection - singular!
+export function logPresence(sc, db) { // server collection - singular!
   let dataBlob = {
     timestamp: Date.now(),
     event: 'profile'

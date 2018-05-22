@@ -31,13 +31,13 @@ import { gml } from './src/modifiers/gml';
 import { haste } from './src/modifiers/haste';
 
 // Express
-import express = require('./src/express/express.js');
+import express = require('./src/express/express');
 
 // Utils
-const database = require('./src/utils/database.js');
-const logVoip = require('./src/utils/voip-log.js');
-const logPresence = require('./src/utils/presence-log.js');
-const parseCommandList = require('./src/utils/parseCommandList.js');
+import database = require('./src/utils/database');
+import { logVoip } from './src/utils/voip-log';
+import { logPresence } from './src/utils/presence-log';
+import { parseCommandList } from './src/utils/parseCommandList';
 
 // Commands
 const welcome = require('./src/commands/welcome.js');

@@ -3,7 +3,7 @@
  * @param {Array<object>} commandList List of valid command rules
  * @param {Message} msg Discord message
  */
-module.exports = function(commandList, msg) {
+export function parseCommandList(commandList, msg) {
   let messageContent = msg.content;
   let success = false;
 
