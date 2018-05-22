@@ -27,10 +27,10 @@ const gmgithub = require('./commands/gmgithub.ts');
 
 // Project data
 const help = {
-  all: fs.readFileSync('./src/assets/markdown/help.all.md', 'utf8'),
-  ducks: fs.readFileSync('./src/assets/markdown/help.ducks.md', 'utf8'),
-  ducksContinued: fs.readFileSync('./src/assets/markdown/help.ducks.cont.md', 'utf8'),
-  admins: fs.readFileSync('./src/assets/markdown/help.admins.md', 'utf8')
+  all: fs.readFileSync('./shared/assets/markdown/help.all.md', 'utf8'),
+  ducks: fs.readFileSync('./shared/assets/markdown/help.ducks.md', 'utf8'),
+  ducksContinued: fs.readFileSync('./shared/assets/markdown/help.ducks.cont.md', 'utf8'),
+  admins: fs.readFileSync('./shared/assets/markdown/help.admins.md', 'utf8')
 };
 
 // Project utils

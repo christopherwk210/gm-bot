@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
-const rules = require('../rules.js');
-const giveAways = require('../utils/giveAwayLib.js');
+const rules = require('../rules');
+const giveAways = require('../utils/giveAwayLib');
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
 let roleService = require('../services/role.service');
