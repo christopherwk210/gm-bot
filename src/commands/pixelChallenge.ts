@@ -8,7 +8,7 @@ let imgur = require('../../modules/imgur');
 let existsAsync = util.promisify(fs.exists);
 
 // Project imports
-const detectStaff = require('../utils/detectStaff.js');
+import { detectStaff } from '../utils/detectStaff';
 
 // Challenges data file location
 let challengesDataPath = path.join(__dirname, '../../data/pixelChallenges.json');
