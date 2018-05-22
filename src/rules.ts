@@ -6,24 +6,24 @@ const path = require('path');
 const Discord = require('discord.js');
 
 // Project libs
-const roleControl = require('./commands/roleControl.js');
-const docs = require('./commands/docs.js');
-const handleResources = require('./commands/resources.js');
-const giveAways = require('./utils/giveAwayLib.js');
-const assemble = require('./commands/assemble.js');
-const commandment = require('./commands/commandment.js');
-const welcome = require('./commands/welcome.js');
-const audio = require('./commands/audio.js');
-const changeLog = require('./commands/changeLog.js');
-const christmas = require('./commands/christmas.js');
-const resize = require('./commands/resize.js');
-const pixelchallenge = require('./commands/pixelChallenge.js');
-const palette = require('./commands/palette.js');
-const say = require('./commands/say.js');
-const giveAwayManagement = require('./commands/giveAwayManagement.js');
-const marketplace = require('./commands/marketplace.js');
-const miniboss = require('./commands/miniboss.js');
-const gmgithub = require('./commands/gmgithub.js');
+const roleControl = require('./commands/roleControl.ts');
+const docs = require('./commands/docs.ts');
+const handleResources = require('./commands/resources.ts');
+const giveAways = require('./utils/giveAwayLib.ts');
+const assemble = require('./commands/assemble.ts');
+const commandment = require('./commands/commandment.ts');
+const welcome = require('./commands/welcome.ts');
+const audio = require('./commands/audio.ts');
+const changeLog = require('./commands/changeLog.ts');
+const christmas = require('./commands/christmas.ts');
+const resize = require('./commands/resize.ts');
+const pixelchallenge = require('./commands/pixelChallenge.ts');
+const palette = require('./commands/palette.ts');
+const say = require('./commands/say.ts');
+const giveAwayManagement = require('./commands/giveAwayManagement.ts');
+const marketplace = require('./commands/marketplace.ts');
+const miniboss = require('./commands/miniboss.ts');
+const gmgithub = require('./commands/gmgithub.ts');
 
 // Project data
 const help = {
@@ -34,8 +34,8 @@ const help = {
 };
 
 // Project utils
-const choose = require('./utils/choose.js');
-const detectStaff = require('./utils/detectStaff.js');
+const choose = require('./utils/choose.ts');
+const detectStaff = require('./utils/detectStaff.ts');
 
 // We are a ! kinda server
 let prefix = '!';
