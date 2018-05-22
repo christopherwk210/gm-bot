@@ -33,12 +33,12 @@ function sendReleaseScreenshot(msg) {
       document.querySelector('.older-ver-div').remove();
       document.querySelector('#two').remove();
       document.querySelector('.description').remove();
-      document.querySelectorAll('p').forEach(p => {
+      Array.from(document.querySelectorAll('p')).forEach(p => {
         if (p.innerText.length === 0) {
           p.remove();   
         }
       });
-      document.querySelectorAll('br').forEach(br => {
+      Array.from(document.querySelectorAll('br')).forEach(br => {
         br.remove();
       });
       res();
