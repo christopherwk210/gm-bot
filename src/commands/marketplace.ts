@@ -72,7 +72,7 @@ module.exports = async function(msg, args) {
   }
 
   // Get start time to determine how long it takes to get results
-  let startTime = new Date();
+  let startTime: any = new Date();
 
   // Create a loading message
   let loadingMessage;
@@ -111,8 +111,8 @@ module.exports = async function(msg, args) {
       // Save the link and image path
       res.push({
         url: items[i].querySelector('a').href,
-        image: items[i].querySelector('.feature-image').src,
-        title: items[i].querySelector('.feature-link').title,
+        image: (<any>items[i].querySelector('.feature-image')).src,
+        title: (<any>items[i].querySelector('.feature-link')).title,
         type: items[i].querySelector('.feature-detail a').innerHTML,
         price: items[i].querySelector('.feature-price small').innerHTML
       });
@@ -129,7 +129,7 @@ module.exports = async function(msg, args) {
   }
 
   // Finish time
-  let endTime = new Date();
+  let endTime: any = new Date();
 
   if (result.length === 0) {
     msg.channel.send(`No results found!\nYour search was: \`${query}\``);
