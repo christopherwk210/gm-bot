@@ -1,8 +1,8 @@
 /* eslint-disable max-depth */
 
-const Discord = require('discord.js');
+import Discord = require('discord.js');
 const http = require('http');
-const keywords = require('./miniboss.keywords.js');
+const keywords = require('./miniboss.keywords');
 
 /**
  * Sends a miniboss pixelart reference
@@ -111,7 +111,7 @@ module.exports = function(msg, args) {
           }
 
           let i = 0;
-          let imageIndex = index;
+          let imageIndex: any = index;
           // This will loop from the current <p> paragraph, look for images,
           // and end up with the image specified by the index argument (default: -1)
           while (index > 0) {
