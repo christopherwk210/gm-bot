@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Function definition paths
-const gmlFunctionFilePath = path.join(__dirname, '../../assets/text/gml-functions.txt');
-const gml2FunctionFilePath = path.join(__dirname, '../../assets/text/gml2-functions.txt');
+const gmlFunctionFilePath = path.join(__dirname, '../../shared/assets/text/gml-functions.txt');
+const gml2FunctionFilePath = path.join(__dirname, '../../shared/assets/text/gml2-functions.txt');
 
 // GMS1 function list
 const gmlFuncRaw = fs.readFileSync(gmlFunctionFilePath, { encoding: 'utf8' });
