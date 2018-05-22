@@ -135,9 +135,9 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
       )
     ) {
       // Fetch the proper roles
-      let voipRole = roleService.getRoleByID('275366872189370369'); // 'voip' role
+      let voipRole = roleService.getRoleByID('275366872189370369');          // 'voip' role
       let voiceActivityRole = roleService.getRoleByID('390434366125506560'); // 'voice activity' role
-      let voipAlumniRole = roleService.getRoleByID('390563903085477888'); // 'voip alumni' role
+      let voipAlumniRole = roleService.getRoleByID('390563903085477888');    // 'voip alumni' role
 
       // Add voip role if they don't have it
       if (!newMember.roles.has(voipRole.id)) {
