@@ -1,5 +1,5 @@
 // Project libs
-const giveAways = require('../utils/giveAwayLib.js');
+const giveAways = require('../utils/giveAwayLib');
 
 /**
  * Allows giveaway management from within Discord
@@ -74,8 +74,8 @@ function quickCreate(msg, name, days) {
   } else if (!days) {
     msg.author.send('You need to supply a length dude. Something like: `!gaa -q myCoolGiveaway 2`');    
   } else {
-    let now = new Date();
-    let later = new Date();
+    let now: any = new Date();
+    let later: any = new Date();
     later.setDate(now.getDate() + parseInt(days));
 
     // Create the giveaway
