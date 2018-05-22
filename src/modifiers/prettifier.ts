@@ -2,7 +2,7 @@ const beautify = require('js-beautify').js_beautify;
 const cleanCodeExp = new RegExp(/([`]{3})clean-code([^```]*)([`]{3})/g);
 const beautifyOptions = require('../../assets/json/jsbeautify.json');
 
-module.exports = function(msg) {
+export function prettifier(msg) {
   // Test for the correct code block
   if (cleanCodeExp.test(msg.content)) {
     // Delete the old message

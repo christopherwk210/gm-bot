@@ -1,7 +1,7 @@
 const http = require('http');
 const hasteExp = new RegExp(/([`]{3})haste([^```]*)([`]{3})/g);
 
-module.exports = function(msg) {
+export function haste(msg) {
   if (hasteExp.test(msg.content)) {
 
     // Fetch the code block contents

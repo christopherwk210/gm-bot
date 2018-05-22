@@ -17,35 +17,35 @@
  */
 
 // Init discord api
-const Discord = require('discord.js');
+import Discord = require('discord.js');
 const bot = new Discord.Client();
 
 // Project libs
-const rules = require('./src/lib/rules.js');
+import rules = require('./src/rules');
 
 // Modifiers
-const prettifier = require('./src/lib/modifiers/prettifier.js');
-const gmlive = require('./src/lib/modifiers/gmlive.js');
-const devmode = require('./src/lib/modifiers/devmode.js');
-const gml = require('./src/lib/modifiers/gml.js');
-const haste = require('./src/lib/modifiers/haste.js');
+import { prettifier } from './src/modifiers/prettifier';
+import { gmlive } from './src/modifiers/gmlive';
+import { devmode } from './src/modifiers/devmode';
+import { gml } from './src/modifiers/gml';
+import { haste } from './src/modifiers/haste';
 
 // Express
 const express = require('./src/express/express.js');
 
 // Utils
-const database = require('./src/lib/utils/database.js');
-const logVoip = require('./src/lib/utils/voip-log.js');
-const logPresence = require('./src/lib/utils/presence-log.js');
-const parseCommandList = require('./src/lib/utils/parseCommandList.js');
+const database = require('./src/utils/database.js');
+const logVoip = require('./src/utils/voip-log.js');
+const logPresence = require('./src/utils/presence-log.js');
+const parseCommandList = require('./src/utils/parseCommandList.js');
 
 // Commands
-const welcome = require('./src/lib/commands/welcome.js');
+const welcome = require('./src/commands/welcome.js');
 
 // Services
-let roleService = require('./src/lib/services/role.service');
-let guildService = require('./src/lib/services/guild.service');
-let channelService = require('./src/lib/services/channel.service');
+let roleService = require('./src/services/role.service');
+let guildService = require('./src/services/guild.service');
+let channelService = require('./src/services/channel.service');
 
 // Project data
 const badlinks = require('./src/assets/json/bad-links.json');

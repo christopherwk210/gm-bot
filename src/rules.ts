@@ -452,7 +452,7 @@ let easterEggs = [
 ];
 
 // Message rules
-module.exports = [
+export = [
   ...coreCommands,
   ...adminCommands,
   ...devCommands,

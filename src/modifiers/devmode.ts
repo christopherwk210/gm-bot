@@ -8,7 +8,7 @@ let roleService = require('../services/role.service');
 let guildService = require('../services/guild.service');
 let channelService = require('../services/channel.service');
 
-module.exports = function(msg, bot) {
+export function devmode(msg, bot) {
   if (!msg.member) return false;
 
   // Only topherlicious (and TonyStr) can use this feature!

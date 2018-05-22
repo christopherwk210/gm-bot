@@ -1,6 +1,6 @@
 const gmliveExp = new RegExp(/([`]{3})gmlive([^```]*)([`]{3})/g);
 
-module.exports = function(msg) {
+export function gmlive(msg) {
   if (gmliveExp.test(msg.content)) {
     // Delete the old message
     msg.delete().catch(() => {});

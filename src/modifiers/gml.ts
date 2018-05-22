@@ -2,7 +2,7 @@ const gmlexec = require('../utils/gmlexec.js');
 const detectStaff = require('../utils/detectStaff');
 const gmlExp = new RegExp(/(`{3})gml((?:[^`]+|`{1,2}[^`])*)(`{3})/g);
 
-module.exports = function(msg) {
+export function gml(msg) {
   if (!msg.member) {
     return false;
   }
