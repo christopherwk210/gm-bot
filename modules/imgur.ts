@@ -15,12 +15,12 @@ var glob      = require('glob');
 // registered 'node-imgur' app and is available
 // here for public, anonymous usage via this node
 // module only.
-var IMGUR_CLIENT_ID    = process.env.IMGUR_CLIENT_ID || 'f0ea04148a54268';
-var IMGUR_API_URL      = process.env.IMGUR_API_URL || 'https://api.imgur.com/3/';
+var IMGUR_CLIENT_ID    = (<any>process.env).IMGUR_CLIENT_ID || 'f0ea04148a54268';
+var IMGUR_API_URL      = (<any>process.env).IMGUR_API_URL || 'https://api.imgur.com/3/';
 var IMGUR_USERNAME     = null;
 var IMGUR_PASSWORD     = null;
 var IMGUR_ACCESS_TOKEN = null;
-var IMGUR_MASHAPE_KEY  = process.env.IMGUR_MASHAPE_KEY;
+var IMGUR_MASHAPE_KEY  = (<any>process.env).IMGUR_MASHAPE_KEY;
 
 // An IIFE that returns the OS-specific home directory
 // as a location to optionally store the imgur client id
@@ -42,7 +42,7 @@ imgur.VERSION = '0.3.0';
 imgur._imgurRequest = function (operation, payload, extraFormParams) {
     var deferred = Q.defer();
     var form     = null;
-    var options  = {
+    var options: any  = {
         uri:      IMGUR_API_URL,
         method:   null,
         encoding: 'utf8',
@@ -159,7 +159,7 @@ imgur._getAuthorizationHeader = function () {
     if (IMGUR_ACCESS_TOKEN) {
         deferred.resolve('Bearer ' + IMGUR_ACCESS_TOKEN);
     } else if (IMGUR_USERNAME && IMGUR_PASSWORD) {
-        var options = {
+        var options: any = {
             uri:      'https://api.imgur.com/oauth2/authorize',
             method:   'GET',
             encoding: 'utf8',
@@ -495,7 +495,7 @@ imgur.initSearchParams = function(query, options) {
  */
 imgur.uploadFile = function (file, albumId, title, description) {
     var deferred = Q.defer(),
-        extraFormParams = {};
+        extraFormParams: any = {};
 
     if (typeof albumId === 'string' && albumId.length) {
         extraFormParams.album = albumId;
@@ -546,7 +546,7 @@ imgur.uploadFile = function (file, albumId, title, description) {
  */
 imgur.uploadUrl = function (url, albumId, title, description) {
     var deferred = Q.defer(),
-        extraFormParams = {};
+        extraFormParams: any = {};
 
     if (typeof albumId === 'string' && albumId.length) {
         extraFormParams.album = albumId;
@@ -589,7 +589,7 @@ imgur.uploadUrl = function (url, albumId, title, description) {
 imgur.uploadBase64 = function (base64, albumId, title, description) {
     var
         deferred = Q.defer(),
-        extraFormParams = {};
+        extraFormParams: any = {};
 
     if (typeof albumId === 'string' && albumId.length) {
         extraFormParams.album = albumId;

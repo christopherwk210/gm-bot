@@ -1,9 +1,9 @@
 // Node libs
-const async = require('async');
-const path = require('path');
-const fs = require('fs');
-const util = require('util');
-let imgur = require('../../../modules/imgur.js');
+import async = require('async');
+import path = require('path');
+import fs = require('fs');
+import util = require('util');
+let imgur = require('../../modules/imgur');
 
 let existsAsync = util.promisify(fs.exists);
 
@@ -95,7 +95,7 @@ function pixelChallenge(msg, args) {
   }
 
   // Get all message attachments
-  let attachments = Array.from(msg.attachments.values());
+  let attachments: any[] = Array.from(msg.attachments.values());
 
   // Ensure an attachment exists
   if (!attachments.length) {

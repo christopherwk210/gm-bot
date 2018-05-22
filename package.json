@@ -29,6 +29,7 @@
   "author": "Chris Anselmo <christopherwk210@gmail.com>",
   "homepage": "https://bitbucket.org/christopherwk210/gm-bot",
   "dependencies": {
+    "@types/node": "^10.1.2",
     "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "concat-stream": "^1.6.2",
