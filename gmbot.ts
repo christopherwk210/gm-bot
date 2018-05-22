@@ -31,7 +31,7 @@ import { gml } from './src/modifiers/gml';
 import { haste } from './src/modifiers/haste';
 
 // Express
-const express = require('./src/express/express.js');
+import express = require('./src/express/express.js');
 
 // Utils
 const database = require('./src/utils/database.js');

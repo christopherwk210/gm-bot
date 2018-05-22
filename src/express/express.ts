@@ -19,7 +19,7 @@ app.use('//gmlive', express.static(path.join(__dirname, 'gmlive')));
  * @param {*} dmLog In-memory reference to current DM bot logs
  * @param {*} db In memory database
  */
-const run = function(bot, dmLog, db) {
+export function run(bot, dmLog, db) {
   app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'gmlive/index.html')));
 
   // Run the server
@@ -27,5 +27,3 @@ const run = function(bot, dmLog, db) {
     console.log('Express server listening on 8080.');
   });
 };
-
-module.exports.run = run;
