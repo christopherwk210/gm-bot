@@ -38,7 +38,7 @@ function resize(msg, args) {
   }
 
   // Loop through each image
-  attachments.forEach(image => {
+  attachments.forEach((image: any) => {
 
     // Download the image serverside
     jimp.read(image.url, (err, jimpImage) => {

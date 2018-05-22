@@ -1,5 +1,5 @@
 // Node libs
-const puppeteer = require('puppeteer');
+import puppeteer = require('puppeteer');
 
 /**
  * Sends a screenshot of the most recent changes to discord
