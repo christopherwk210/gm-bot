@@ -12,11 +12,11 @@ logs/
 .DS_Store
 
 # Don't put the databases online!
-/src/data/
+data/
 *.db
 
 # Keep my auth outta the web!
-/src/assets/json/auth.json
+assets/json/auth.json
 
 # I don't want your stinkin IDE settings!
 /.idea
