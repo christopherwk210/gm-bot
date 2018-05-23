@@ -47,6 +47,7 @@ import { roleService } from './src/services/role.service';
 import { guildService } from './src/services/guild.service';
 import { channelService } from './src/services/channel.service';
 import { markdownService } from './src/services/markdown.service';
+import { textService } from './src/services/text.service';
 
 // Project data
 const badlinks = require('./shared/assets/json/bad-links.json');
@@ -103,6 +104,7 @@ function onBotReady() {
   guildService.init(bot);
   channelService.init(bot);
   markdownService.loadAllMarkdownFiles();
+  textService.loadAllTextFiles();
 
   // Tell the world our feelings
   console.log('Squaring to go, captain.');

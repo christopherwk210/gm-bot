@@ -1,16 +1,10 @@
- // Node libs
-const fs = require('fs');
-const path = require('path');
-
-// Function definition paths
-const gmlFunctionFilePath = path.join(__dirname, '../../shared/assets/text/gml-functions.txt');
-const gml2FunctionFilePath = path.join(__dirname, '../../shared/assets/text/gml2-functions.txt');
+import { textService } from '../services/text.service';
 
 // GMS1 function list
-const gmlFuncRaw = fs.readFileSync(gmlFunctionFilePath, { encoding: 'utf8' });
+const gmlFuncRaw = textService.files['gml-functions'];
 
 // GMS2 exclusive function list
-const gml2FuncRaw = fs.readFileSync(gml2FunctionFilePath, { encoding: 'utf8' });
+const gml2FuncRaw = textService.files['gml2-functions'];
 
 const gml = {
   /**
