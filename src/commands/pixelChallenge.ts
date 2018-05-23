@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+
 // Node libs
 import async = require('async');
 import path = require('path');
@@ -44,7 +46,7 @@ loadEntries();
 /**
  * Handles pixel challenge entries
  */
-function pixelChallenge(msg, args) {
+function pixelChallenge(msg: Message, args: string[]) {
 
   if (!msg.member) {
     msg.channel.send('You can only do that in the /r/GameMaker Discord Server, you silly!');
@@ -136,7 +138,7 @@ function pixelChallenge(msg, args) {
   }
 }
 
-async function createImgurAlbum(msg) {
+async function createImgurAlbum(msg: Message) {
   let album, msgRef;
   let errors = [];
 

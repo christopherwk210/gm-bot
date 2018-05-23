@@ -1,12 +1,14 @@
+import { Message } from 'discord.js';
+
 // Node libs
 const jimp = require('jimp');
 const Discord = require('discord.js');
 
 /**
  * Resizes an attached image of a discord message
- * @param {Message} msg Discord message
+ * @param msg Discord message
  */
-function resize(msg, args) {
+function resize(msg: Message, args: string[]) {
 
   // Ensure an argument was passed
   if (args.length < 2) {
@@ -15,7 +17,7 @@ function resize(msg, args) {
   }
 
   // Get the size factor
-  let scaleFactor = args[1];
+  let scaleFactor: any = args[1];
   scaleFactor = parseFloat(scaleFactor);
 
   // Make sure they didn't enter something stupid

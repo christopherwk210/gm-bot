@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+
 // Node libs
 import fs = require('fs');
 
@@ -9,10 +11,10 @@ const detectStaff = require('../utils/detectStaff');
 
 /**
  * Will send resources to a user or given user if being sent by an admin or rubber duck
- * @param {Message} msg Discord msg
- * @param {Array<string>} args Command args
+ * @param msg Discord msg
+ * @param args Command args
  */
-module.exports = function(msg, args) {
+module.exports = function(msg: Message, args: string[]) {
   // If the author is an admin or duck
   if (detectStaff(msg.member)) {
     // If they have supplied an argument

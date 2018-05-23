@@ -1,12 +1,14 @@
+import { Message } from 'discord.js';
+
 // Project libs
 const giveAways = require('../utils/giveAwayLib');
 
 /**
  * Allows giveaway management from within Discord
- * @param {*} msg 
- * @param {Array<string>} args 
+ * @param msg 
+ * @param args 
  */
-module.exports = function(msg, args) {
+module.exports = function(msg: Message, args: string[]) {
   if (args.length < 2) {
     sendGiveAwayList(msg);
   } else {
@@ -29,10 +31,10 @@ module.exports = function(msg, args) {
 
 /**
  * Draws a winner for a giveaway
- * @param {*} msg 
- * @param {string} name giveaway name
+ * @param msg 
+ * @param name giveaway name
  */
-function drawWinner(msg, name) {
+function drawWinner(msg: Message, name: string) {
   let exists = giveAwayExists(name);
 
   if (exists) {
@@ -49,10 +51,10 @@ function drawWinner(msg, name) {
 
 /**
  * Deletes a giveaway
- * @param {*} msg 
- * @param {string} name 
+ * @param msg 
+ * @param name 
  */
-function deleteGiveaway(msg, name) {
+function deleteGiveaway(msg: Message, name: string) {
   let exists = giveAwayExists(name);
 
   if (exists) {
@@ -65,10 +67,10 @@ function deleteGiveaway(msg, name) {
 
 /**
  * Quickly creates a giveaway that starts immediately and ends in one year
- * @param {*} msg 
- * @param {string} name 
+ * @param msg 
+ * @param name 
  */
-function quickCreate(msg, name, days) {
+function quickCreate(msg: Message, name: string, days) {
   if (!name) {
     msg.author.send('You need to supply a name dude. Something like: `!gaa -q myCoolGiveaway 2`');
   } else if (!days) {
@@ -96,9 +98,9 @@ function quickCreate(msg, name, days) {
 
 /**
  * Replies to a message with an organized list of current giveaways
- * @param {*} msg 
+ * @param msg 
  */
-function sendGiveAwayList(msg) {
+function sendGiveAwayList(msg: Message) {
   let currentGiveaways = giveAways.getGiveAways();
 
   let giveAwayList = 'Current giveaways:\n\n';
@@ -111,9 +113,9 @@ function sendGiveAwayList(msg) {
 
 /**
  * Determine if a giveaway exists
- * @param {string} name Name of giveaway
+ * @param name Name of giveaway
  */
-function giveAwayExists(name) {
+function giveAwayExists(name: string) {
   let exists = false;
   giveAways.getGiveAways().some(giveAway => {
     if (giveAway.giveAway === name) {
@@ -128,7 +130,13 @@ function giveAwayExists(name) {
  * Formats a string with stats about a giveaway
  * @param {*} giveAway 
  */
-function formatGiveawayStats(giveAway) {
+function formatGiveawayStats(giveAway: {
+  giveAway: string;
+  start: number;
+  end: number;
+  participants: any[];
+  winners: any[];
+}) {
   let stats = '';
   stats += '```\n';
   stats += `Name: ${giveAway.giveAway}\n`;

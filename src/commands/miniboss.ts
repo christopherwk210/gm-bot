@@ -1,15 +1,17 @@
 /* eslint-disable max-depth */
 
+import { Message } from 'discord.js';
+
 import Discord = require('discord.js');
-const http = require('http');
+import http = require('http');
 const keywords = require('./miniboss.keywords');
 
 /**
  * Sends a miniboss pixelart reference
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command arguments
+ * @param msg Discord message
+ * @param args Command arguments
 */
-module.exports = function(msg, args) {
+module.exports = function(msg: Message, args: string[]) {
 
   // Create link- and help- message
   let link = 'Here\'s a list of useful pixelart references:\n' +
@@ -89,7 +91,7 @@ module.exports = function(msg, args) {
 
           // Find <a> anchor tag surrounding image title (and sometimes image,
           // because this website is very inconsistent).
-          let titleTag = out.match(/<\s*a\b[^>]*>.*?<\/a>/gi);
+          let titleTag: any = out.match(/<\s*a\b[^>]*>.*?<\/a>/gi);
           if (!titleTag) return;
 
           titleTag = titleTag[0];
@@ -149,7 +151,7 @@ module.exports = function(msg, args) {
         }
 
         // Find the number of the image, and put it in a string
-        let number = out.match(/#[0-9]+\b/i);
+        let number: any = out.match(/#[0-9]+\b/i);
         number = number ? `${number[0]} - ` : '';
         // Add index to the string if it is not 1
         let footer = `${imageType + ((parseInt(imageIndex) !== 1) ? ` - Index: ${imageIndex}` : '')} - blog.studiominiboss.com/pixelart`;
@@ -178,9 +180,9 @@ module.exports = function(msg, args) {
 
 /**
  * Attempts to match the input string against a keyword, and returns related tag
- * @param {String} string message string
+ * @param string message string
 */
-function matchKeyword(string) {
+function matchKeyword(string: string) {
   // Remove 's' from end of string, and lowercase it.
   const str = (string.match(/s$/i) ? string.slice(0, -1) : string).toLowerCase();
 

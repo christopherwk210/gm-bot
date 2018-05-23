@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+
 // Third-Party libs
 const youtubedl = require('youtube-dl');
 
@@ -18,10 +20,10 @@ let volume = 100;
 
 /**
  * Plays audio!
- * @param {Message} msg Discord message
- * @param {Array<string>} args Message args
+ * @param msg Discord message
+ * @param args Message args
  */
-function play(msg, args) {
+function play(msg: Message, args: string[]) {
   if (validateVoiceConnection(msg)) {
     let options = generateOptions(args);
 
@@ -58,12 +60,12 @@ function play(msg, args) {
 
 /**
  * Fetches the audio resource at the given URL
- * @param {Message} msg Discord message
- * @param {string} url Resource URL
+ * @param msg Discord message
+ * @param url Resource URL
  * @param {object} [options] Options object
  * @param {boolean} [options.silent] If true, won't send the user any messages
  */
-function fetchAudio(msg, url, options) {
+function fetchAudio(msg: Message, url: string, options) {
   // Get the resource info
   youtubedl.getInfo(url, ['-q', '--no-warnings', '--force-ipv4'], (err, info) => {
     // Verify the info.
@@ -91,11 +93,11 @@ function fetchAudio(msg, url, options) {
 
 /**
  * Processes the queue triggering audio playback
- * @param {Message} msg Discord message
- * @param {Array<any>} queue Audio playback queue
+ * @param msg Discord message
+ * @param queue Audio playback queue
  * @param {object} [options] User options
  */
-function processQueue(msg, _queue, options) {
+function processQueue(msg: Message, _queue: any[], options) {
   if (_queue.length < 1) {
     // No more tunes to play! Disconnect
     disconnect();
@@ -161,10 +163,10 @@ function processQueue(msg, _queue, options) {
 
 /**
  * Pauses audio
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command args
+ * @param msg Discord message
+ * @param args Command args
  */
-function pause(msg, args) {
+function pause(msg: Message, args: string[]) {
   let options = generateOptions(args);
 
   // Get the voice connection.
@@ -187,10 +189,10 @@ function pause(msg, args) {
 
 /**
  * Resumes playback
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command args
+ * @param msg Discord message
+ * @param args Command args
  */
-function resume(msg, args) {
+function resume(msg: Message, args: string[]) {
   let options = generateOptions(args);
 
   // Get the voice connection.
@@ -210,10 +212,10 @@ function resume(msg, args) {
 
 /**
  * Skips message
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command args
+ * @param msg Discord message
+ * @param args Command args
  */
-function skip(msg, args) {
+function skip(msg: Message, args: string[]) {
   let options = generateOptions(args);
 
   // Get the voice connection.
@@ -230,10 +232,9 @@ function skip(msg, args) {
 
 /**
  * Sends the user the current queue
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command args
+ * @param msg Discord message
  */
-function getQueue(msg) {
+function getQueue(msg: Message) {
   if (queue.length < 1) {
     msg.author.send('Queue is empty!');
     return;
@@ -253,10 +254,10 @@ function getQueue(msg) {
 
 /**
  * Sets the internal stream volume
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command args
+ * @param msg Discord message
+ * @param args Command args
  */
-function setVolume(msg, args) {
+function setVolume(msg: Message, args: string[]) {
   if (!args[1]) {
     msg.author.send(`Current volume: ${volume}`);
     return;
@@ -278,9 +279,9 @@ function setVolume(msg, args) {
 
 /**
  * Stops playing audio and disconnects
- * @param {Message} msg Discord message
+ * @param msg Discord message
  */
-function stop(msg) {
+function stop(msg: Message) {
   if (validateVoiceConnection(msg)) {
     // Dump the queue
     queue.splice(0, queue.length);
@@ -292,9 +293,9 @@ function stop(msg) {
 
 /**
  * Returns an options object from command args
- * @param {Array<string>} args Command args
+ * @param args Command args
  */
-function generateOptions(args) {
+function generateOptions(args: string[]) {
   let options;
 
   options = {
@@ -319,9 +320,9 @@ function disconnect() {
 
 /**
  * Validates that a user is in a guild voice channel
- * @param {Message} msg Discord message
+ * @param msg Discord message
  */
-function validateVoiceConnection(msg) {
+function validateVoiceConnection(msg: Message) {
   if ((msg.member) && (msg.member.voiceChannel)) {
     return true;
   } else {

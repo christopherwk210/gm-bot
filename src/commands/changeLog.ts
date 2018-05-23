@@ -1,20 +1,22 @@
+import { Message } from 'discord.js';
+
 // Node libs
 import puppeteer = require('puppeteer');
 
 /**
  * Sends a screenshot of the most recent changes to discord
- * @param {Message} msg Discord message
+ * @param msg Discord message
  */
-module.exports = msg => {
+module.exports = (msg: Message) => {
   sendReleaseScreenshot(msg);
 }
 
 /**
  * Takes a screenshot of the release notes and sends it to the chat
- * @param {Message} msg Discord message
+ * @param msg Discord message
  */
-function sendReleaseScreenshot(msg) {
-  msg.channel.send('Loading release notes...').then(async message => {
+function sendReleaseScreenshot(msg: Message) {
+  msg.channel.send('Loading release notes...').then(async (message: Message) => {
     // Launch chrome
     let browser = await puppeteer.launch();
 

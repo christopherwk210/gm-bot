@@ -38,7 +38,7 @@ const choose = require('./utils/choose');
 const detectStaff = require('./utils/detectStaff');
 
 // Interface
-import { Rule } from './interfaces/rule.interface';
+import { Rule, TextChannelMessage } from './interfaces/rule.interface';
 
 // We are a ! kinda server
 let prefix = '!';
@@ -189,7 +189,7 @@ let devCommands: Rule[] = [
     matches: ['id'],
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has('417797331409436682'),
-    action: msg => {
+    action: (msg: TextChannelMessage) => {
       msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``).catch(() => {});
     }
   }

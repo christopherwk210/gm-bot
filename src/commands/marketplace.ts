@@ -1,5 +1,7 @@
 /* eslint-disable no-empty */
 
+import { Message } from 'discord.js';
+
 // Discord
 const Discord = require('discord.js');
 
@@ -9,10 +11,29 @@ const puppeteer = require('puppeteer');
 // Marketplace query URL
 const searchURL = 'https://marketplace.yoyogames.com/search/results?utf8=✓&query=';
 
+interface MarketplaceResult {
+  /** Asset title */
+  title: string;
+
+  /** Asset page url */
+  url: string;
+
+  /** URL of asset icon */
+  thumbnail: string;
+
+  /** Asset type */
+  type: string;
+
+  /** Asset price tag */
+  price: string;
+
+  image?: any;
+}
+
 /**
  * Formats a query string to be valid for marketplace searches
  */
-function fixQuery(q) {
+function fixQuery(q: string) {
   // Convert whitespaces to plus symbols
   let fixedSpaced = q.replace(/[\s]/g, '+');
 
@@ -21,20 +42,10 @@ function fixQuery(q) {
 }
 
 /**
- * Marketplace asset descriptor object
- * @typedef {Object} MarketplaceResult
- * @property {string} title Asset title
- * @property {string} url Asset page url
- * @property {string} thumbnail URL of asset icon
- * @property {string} type Asset type
- * @property {string} price Asset price tag
- */
-
-/**
  * Create a Discord rich embed for a given marketplace search result
- * @param {MarketplaceResult} result
+ * @param result
  */
-function createResultEmbed(result) {
+function createResultEmbed(result: MarketplaceResult) {
   return new Discord.RichEmbed({
     title: result.title,
     url: result.url,
@@ -46,10 +57,10 @@ function createResultEmbed(result) {
 
 /**
  * Searches the marketplace for assets
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command arguments
+ * @param msg Discord message
+ * @param args Command arguments
 */
-module.exports = async function(msg, args) {
+module.exports = async function(msg: Message, args: string[]) {
 
   // Shift away the command, then join the rest of the input into one string
   args.shift();
@@ -97,9 +108,8 @@ module.exports = async function(msg, args) {
 
   /**
    * Array of marketplace asset results
-   * @type {MarketplaceResult[]}
    */
-  const result = await page.evaluate(() => {
+  const result: MarketplaceResult[] = await page.evaluate(() => {
     let res = [];
 
     // Find all results on page

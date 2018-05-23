@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+
 // Node libs
 import fs = require('fs');
 
@@ -23,9 +25,9 @@ const commandmentURLs = [
 
 /**
  * Convert roman numeral to number
- * @param {string} str Roman numeral string
+ * @param str Roman numeral string
  */
-function fromRoman(str) {
+function fromRoman(str: string) {
   let romanString = str;
   let result = 0;
   let decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
@@ -39,7 +41,7 @@ function fromRoman(str) {
   return result;
 }
 
-module.exports = function(msg, args) {
+module.exports = function(msg: Message, args: string[]) {
   // Make sure an argument was provided
   if (args[1]) {
     // If they want a list

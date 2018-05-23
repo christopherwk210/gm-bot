@@ -1,11 +1,12 @@
+import { Message } from 'discord.js';
 import { roleService } from '../services/role.service';
 
 /**
  * Ping the rubber duckies role
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command arguments
+ * @param msg Discord message
+ * @param args Command arguments
  */
-module.exports = async function(msg, args) {
+module.exports = async function(msg: Message, args: string[]) {
   // Make sure this is in the server
   if ((msg.member) && (msg.member.roles)) {
 

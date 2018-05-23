@@ -1,17 +1,20 @@
+import { Message } from 'discord.js';
+
 // Node libs
 import Discord = require('discord.js');
 import https = require('https');
+
 // Keywords list
 const keywords = require('./palette.keywords');
 
 /**
  * Sends a palette link along with an image of the pallete
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command arguments
+ * @param msg Discord message
+ * @param args Command arguments
  */
-module.exports = function(msg, args) {
+module.exports = function(msg: Message, args: string[]) {
   // Remove the command "!palette" from the args array
-  args.shift(-1);
+  args.shift();
 
   // Exit if the user has not provided a palette name
   if (args.length < 1) {
@@ -86,9 +89,9 @@ module.exports = function(msg, args) {
 
 /**
  * Converts hexadecimal string to ASCII string
- * @param {String} hexx String containing hexadecimal values
+ * @param hexx String containing hexadecimal values
 */
-function hex2ascii(hexx) {
+function hex2ascii(hexx: string) {
   let hex = hexx.toString();
   let str = '';
   for (let i = 0; i < hex.length; i += 2) {
@@ -99,9 +102,9 @@ function hex2ascii(hexx) {
 
 /**
  * Matches keywords/abbreviations/typos, and returns lospec-friendly palette names
- * @param {String} str String
+ * @param str String
 */
-function matchKeyword(rawStr) {
+function matchKeyword(rawStr: string) {
   // Remove unwanted characters from the string
   let str = rawStr.replace(/['":/*&^%$#@!+=;|?~(){}\[\]\\><`]/g, '').toLowerCase();
   // Check if a string ends with one or more numbers, but does not have a

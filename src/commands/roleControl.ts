@@ -1,11 +1,13 @@
+import { Message } from 'discord.js';
+
 let roleService = require('../services/role.service');
 
 /**
  * Toggles a user role
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command arguments
+ * @param msg Discord message
+ * @param args Command arguments
  */
-module.exports = function(msg, args) {
+module.exports = function(msg: Message, args: string[]) {
   // Get the role from the argument
   let roleName = args.splice(1);
 

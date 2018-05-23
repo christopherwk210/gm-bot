@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 
 export interface Rule {
 
@@ -25,8 +25,7 @@ export interface Rule {
    * @param msg Original discord message
    * @param args Message contents, split on space character
    */
-  // action(msg: Message, args: string[]);
-  action: any;
+  action(msg: Message | TextChannelMessage, args: string[]);
 
   /**
    * Prevalidation callback which is called every message after a match is found.
@@ -34,6 +33,9 @@ export interface Rule {
    * if a user has permission or not.
    * @param msg Original discord message
    */
-  // pre?(msg: Message): boolean;
-  pre?: any;
+  pre?(msg: Message): boolean;
 };
+
+export interface TextChannelMessage extends Message {
+  channel: TextChannel;
+}

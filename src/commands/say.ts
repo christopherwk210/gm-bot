@@ -1,11 +1,13 @@
+import { Message } from 'discord.js';
+
 import Discord = require('discord.js');
 
 /**
  * Allows you to speak on the bot's behalf
- * @param {*} msg 
- * @param {Array<string>} args 
+ * @param msg 
+ * @param args 
  */
-module.exports = function(msg, args) {
+module.exports = function(msg: Message, args: string[]) {
   let regex = /"([\s\S]*)"/g;
   let fancy: any = args.indexOf('-f') !== -1;
 

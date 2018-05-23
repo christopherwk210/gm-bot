@@ -1,3 +1,5 @@
+import { Message } from 'discord.js';
+
 declare let SearchTitles;
 declare let SearchFiles;
 
@@ -13,10 +15,10 @@ const validate = require('../utils/validate-gml');
 
 /**
  * Provide GMS2 doc URL
- * @param {Message} msg The Discord message asking for help
- * @param {string} fn Function name to lookup
+ * @param msg The Discord message asking for help
+ * @param fn Function name to lookup
  */
-function helpUrlGMS2(msg, fn, image) {
+function helpUrlGMS2(msg: Message, fn: string, image) {
   // Download super saucy secret file from YYG server
   http.get('http://docs2.yoyogames.com/files/searchdat.js', (res) => {
     // Read like a normal bot
@@ -64,10 +66,10 @@ function helpUrlGMS2(msg, fn, image) {
 
 /**
  * Provide GMS1 doc URL
- * @param {Message} msg The Discord message asking for help
- * @param {string} fn Function name to lookup
+ * @param msg The Discord message asking for help
+ * @param fn Function name to lookup
  */
-function helpUrlGMS1(msg, fn, image) {
+function helpUrlGMS1(msg: Message, fn: string, image) {
   let found = false;
 
   // Loop through valid titles
@@ -106,12 +108,12 @@ function helpUrlGMS1(msg, fn, image) {
 
 /**
  * Takes a screenshot of a website and sends it to the discord chat
- * @param {string} messageText Message to send with screenshot
- * @param {string} URL Website to take a screenshot of
- * @param {Message} msg Discord message
+ * @param messageText Message to send with screenshot
+ * @param URL Website to take a screenshot of
+ * @param msg Discord message
  */
-function sendScreenshot(messageText, URL, msg) {
-  msg.channel.send('Loading documentation...').then(async message => {
+function sendScreenshot(messageText: string, URL: string, msg: Message) {
+  msg.channel.send('Loading documentation...').then(async (message: Message) => {
     // Launch chrome
     let browser = await puppeteer.launch();
   
@@ -152,10 +154,10 @@ function sendScreenshot(messageText, URL, msg) {
 
 /**
  * Commence documentation fetching!
- * @param {Message} msg Discord message
- * @param {Array<string>} args Command arguments
+ * @param msg Discord message
+ * @param args Command arguments
  */
-function run(msg, args) {
+function run(msg: Message, args: string[]) {
   // Default to GMS2 documentation
   let version = 'GMS2';
   let image = false;

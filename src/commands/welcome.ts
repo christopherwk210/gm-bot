@@ -1,3 +1,5 @@
+import { GuildMember } from 'discord.js';
+
 // Discord
 const Discord = require('discord.js');
 
@@ -21,6 +23,6 @@ let messageEmbed = new Discord.RichEmbed({
  * Send the welcome message!
  * @param {User} member Discord user
  */
-export = function(member) {
+export = function(member: GuildMember) {
   member.send(messageEmbed).catch(() => {});
 };

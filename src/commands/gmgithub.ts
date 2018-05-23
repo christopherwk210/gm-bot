@@ -1,10 +1,12 @@
 /* eslint-disable no-loop-func */
 
+import { Message } from 'discord.js';
+
 declare let sendRefreshMessage;
 
 // Node libs
 import Discord = require('discord.js');
-const https = require('https');
+import https = require('https');
 const fs = require('fs');
 
 // Cache path
@@ -14,10 +16,10 @@ const userAgent = 'GameMakerDiscord';
 
 /**
  * Searches cached titles for GameMakerDiscord repositories
- * @param {Message} message Discord message
- * @param {Array<String>} args Command arguments
+ * @param message Discord message
+ * @param args Command arguments
  */
-module.exports = function(message, args) {
+module.exports = function(message: Message, args: string[]) {
   // Remove "!github" command
   args.shift();
   // Check for refresh command or invalid command usage
@@ -140,7 +142,7 @@ module.exports = function(message, args) {
 
 /**
  * Caches repository names
- * @param {Channel} channel Discord channel
+ * @param channel Discord channel
  */
 async function refresh(callBack?) {
 
@@ -213,10 +215,10 @@ async function refresh(callBack?) {
 
 /**
  * https request adapted for this script's usage
- * @param {Object<httpsOptions>} options options for https request
- * @param {Function} callBack function to run upon error or success
+ * @param options options for https request
+ * @param callBack function to run upon error or success
  */
-function request(options, callBack) {
+function request(options: https.RequestOptions, callBack: Function) {
   let str = '';
   let req = https.request(options, res => {
     // Concatinate all incoming data
