@@ -1,6 +1,7 @@
 // Node libs
 import fs = require('fs');
 import path = require('path');
+import { Message } from 'discord.js';
 const async = require('async');
 
 // Init
@@ -32,10 +33,10 @@ if (fs.existsSync(filePath)) {
 
 /**
  * Handles a Discord message containing the giveaway command
- * @param {*} msg 
- * @param {Array<string>} args 
+ * @param msg 
+ * @param args 
  */
-function handleMessage(msg, args) {
+function handleMessage(msg: Message, args: string[]) {
   let activeGAs = Object.keys(data);
   let activeGACount = activeGAs.length;
 
@@ -61,10 +62,10 @@ function handleMessage(msg, args) {
 
 /**
  * Draw winner!
- * @param {string} name 
- * @param {*} count 
+ * @param name 
+ * @param count 
  */
-function draw(name, count) {
+function draw(name: string, count: any) {
   if (data[name] === undefined) {
     console.log(`Giveaway ${name} doesn't exist, could not draw winner.`);
     return false;
@@ -109,10 +110,10 @@ function draw(name, count) {
 
 /**
  * Sign up a user for a giveaway
- * @param {*} msg 
- * @param {string} name Giveaway name
+ * @param msg 
+ * @param name Giveaway name
  */
-function signup(msg, name) {
+function signup(msg: Message, name: string) {
   let err;
   let now = Date.now() / 1000;
   let giveaway = data[name];
@@ -150,11 +151,11 @@ function signup(msg, name) {
 
 /**
  * Create giveaway
- * @param {string} name 
+ * @param name 
  * @param {*} start 
  * @param {*} end 
  */
-function createGiveaway(name, start, end) {
+function createGiveaway(name: string, start, end) {
   if (data[name]) {
     console.log(`Giveaway ${name} already exists! Could not create giveaway.`);
     return false;
@@ -175,9 +176,9 @@ function createGiveaway(name, start, end) {
 
 /**
  * Deletes an existing giveaway
- * @param {string} name 
+ * @param name 
  */
-function deleteGiveaway(name) {
+function deleteGiveaway(name: string) {
   if (data[name]) {
     delete data[name];
     saveData();
@@ -209,9 +210,9 @@ function getGiveAways() {
 
 /**
  * Reply to a message with a list of all giveaways
- * @param {*} msg 
+ * @param msg 
  */
-function replyList(msg) {
+function replyList(msg: Message) {
   let valid = '';
 
   for (let g in data) {
@@ -229,10 +230,10 @@ function replyList(msg) {
 
 /**
  * Reply to a message as a signup error
- * @param {*} msg 
- * @param {string} errMsg 
+ * @param msg 
+ * @param errMsg 
  */
-function replyError(msg, errMsg) {
+function replyError(msg: Message, errMsg: string) {
   msg.author.send(`Signup Error: ${errMsg}`).catch(() => {});
 }
 

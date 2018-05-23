@@ -1,8 +1,8 @@
 /**
  * Returns a random item from the given array
- * @param {Array<any>} a Any array of values
+ * @param a Any array of values
  */
-export = function(a) {
+export = function(a: any[]) {
   if (!a) {
     return;
   }

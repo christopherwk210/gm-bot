@@ -1,11 +1,11 @@
 import { roleService } from '../services/role.service';
+import { GuildMember } from 'discord.js';
 
 /**
  * Detects if a member is staff or not
- * @param {GuildMember} member Discord.js GuildMember
- * @return {any} returns 'admin' || 'rubber' || 'art' || false
+ * @param member Discord.js GuildMember
  */
-export function detectStaff(member) {
+export function detectStaff(member: GuildMember): 'admin'|'rubber'|'art'|'audio'|false {
   let roles = {
     admin: roleService.getRoleByID('262835321694060547'),
     subredditMods: roleService.getRoleByID('262843600730062849'),
