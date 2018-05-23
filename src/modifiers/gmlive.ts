@@ -1,6 +1,8 @@
+import { Message } from "discord.js";
+
 const gmliveExp = new RegExp(/([`]{3})gmlive([^```]*)([`]{3})/g);
 
-export function gmlive(msg) {
+export function gmlive(msg: Message) {
   if (gmliveExp.test(msg.content)) {
     // Delete the old message
     msg.delete().catch(() => {});

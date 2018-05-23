@@ -1,3 +1,5 @@
+import { Message, Client } from "discord.js";
+
 /* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
 const rules = require('../rules');
@@ -8,7 +10,7 @@ let roleService = require('../services/role.service');
 let guildService = require('../services/guild.service');
 let channelService = require('../services/channel.service');
 
-export function devmode(msg, bot) {
+export function devmode(msg: Message, bot: Client) {
   if (!msg.member) return false;
 
   // Only topherlicious (and TonyStr) can use this feature!

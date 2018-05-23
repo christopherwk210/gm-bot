@@ -1,8 +1,10 @@
+import { Message } from "discord.js";
+
 const beautify = require('js-beautify').js_beautify;
 const cleanCodeExp = new RegExp(/([`]{3})clean-code([^```]*)([`]{3})/g);
 const beautifyOptions = require('../../shared/assets/json/jsbeautify.json');
 
-export function prettifier(msg) {
+export function prettifier(msg: Message) {
   // Test for the correct code block
   if (cleanCodeExp.test(msg.content)) {
     // Delete the old message

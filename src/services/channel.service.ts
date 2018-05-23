@@ -1,35 +1,38 @@
+import { Client, TextChannel, VoiceChannel, CategoryChannel } from "discord.js";
+
+interface ChannelService {
+  /** All server channels */
+  channels: Array<TextChannel | VoiceChannel | CategoryChannel>;
+
+  /** All server categories */
+  categoryChannels: CategoryChannel[];
+
+  /** All server text channels */
+  textChannels: TextChannel[];
+
+  /** All server voice channels */
+  voiceChannels: VoiceChannel[];
+
+  /** Initialize the channel service with the bot client */
+  init(client: Client);
+
+  /** Returns the server channel with the exact given name */
+  getChannelByName(name: string);
+
+  /** Returns the server channel with the exact given id number */
+  getChannelByID(id: string)
+}
+
 /**
  * Contains information about all of the server's channels
  */
-export let channelService = {
-  /**
-   * All server channels
-   * @type {Array<*>}
-   */
+export let channelService: ChannelService = {
   channels: [],
-
-  /**
-   * All server categories
-   */
   categoryChannels: [],
-
-  /**
-   * All server text channels
-   * @type {Array<*>}
-   */
   textChannels: [],
-
-  /**
-   * All server voice channels
-   * @type {Array<*>}
-   */
   voiceChannels: [],
 
-  /**
-   * Initialize the channel service with the bot client
-   * @param {*} client Bot client object
-   */
-  init: function(client) {
+  init: function(client: Client) {
     client.guilds.first().channels.array().forEach(guildChannel => {
       this.channels.push(guildChannel);
 
@@ -50,10 +53,6 @@ export let channelService = {
     });
   },
 
-  /**
-   * Returns the server channel with the exact given name
-   * @param {string} name Channel name
-   */
   getChannelByName: function(name) {
     let match;
 
@@ -67,10 +66,6 @@ export let channelService = {
     return match;
   },
 
-  /**
-   * Returns the server channel with the exact given id number
-   * @param {string} id Channel id
-   */
   getChannelByID: function(id) {
     let match;
 

@@ -1,7 +1,9 @@
+import { Message } from "discord.js";
+
 const http = require('http');
 const hasteExp = new RegExp(/([`]{3})haste([^```]*)([`]{3})/g);
 
-export function haste(msg) {
+export function haste(msg: Message) {
   if (hasteExp.test(msg.content)) {
 
     // Fetch the code block contents
