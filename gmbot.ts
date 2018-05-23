@@ -1,19 +1,7 @@
 /**
- * GameMakerBot
- * Copyright © 2018 Chris Anselmo <christopherwk210@gmail.com> & contributors.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see http://www.gnu.org/licenses/.
+ * GameMakerBot!
+ * Chris "Topher" Anselmo <christopherwk210@gmail.com> & contributors.
+ * MIT License
  */
 
 // Init discord api
@@ -184,21 +172,19 @@ function onBotMessageUpdate(oldMsg: Discord.Message, newMsg: Discord.Message) {
  */
 function onBotMessage(msg: Discord.Message) {
   // Don't respond to bots
-  if (msg.author.bot) { return; }
+  if (msg.author.bot) return;
 
-  // Intercept all DM's
-  if (msg.channel.type === 'dm') {
-    // Log this DM
-    handleDM(msg);
-  } else {
-    // Check for image spam
+  // Check for image spam
+  if (msg.channel.type !== 'dm') {
     handleImages(msg, imageOptions);
   }
 
   // Catch bad links
   if (!catchBadMessages(msg)) {
+
     // Parse message for commands or matches
     if (!parseCommandList(rules, msg)) {
+      
       // If no command was hit, check for modifiers
       prettifier(msg) || gmlive(msg) || gml(msg) || devmode(msg, bot) || haste(msg);
     }
@@ -233,37 +219,6 @@ function catchBadMessages(msg: Discord.Message) {
 
 function detectBadLink(str: string) {
   return new RegExp(badlinks.join('|')).test(str);
-}
-
-/**
- * Handles keeping track of the most recent DM's to the bot
- * for use with the bot front-end
- * @param msg The message that was sent
- */
-function handleDM(msg: Discord.Message) {
-  // If this user has not yet sent a message during this session
-  if (dmLog[msg.author.username] === undefined) {
-    // Take initial note of it under their name
-    dmLog[msg.author.username] = {
-      user_id: msg.author ? msg.author.id : -1,   // Their ID
-      message_id: msg.id,        // The message ID
-      new_message: msg.content,  // The newest message content
-      messages: [                // Log of old messages
-        {
-          user: msg.author.username,  // Author username
-          message: msg.content        // Message content
-        }
-      ]
-    }
-  } else {
-    // The user has already sent a message during this session
-    dmLog[msg.author.username].message_id = msg.id;       // Record their ID (a little redundant)
-    dmLog[msg.author.username].new_message = msg.content; // Indicate the new message content
-    dmLog[msg.author.username].messages.push({            // Store this message with the rest
-      user: msg.author.username, // Author username
-      message: msg.content       // Message content
-    });
-  }
 }
 
 /**
@@ -326,12 +281,12 @@ process.on('uncaughtException', (err) => {
 
   let botTestingChannel = channelService.getChannelByID('417796218324910094');
   botTestingChannel.send(errorMessage);
+
   console.log(`\n${errorMessage}\n`);
 });
 
 // Copyright information
 console.log(`GameMakerBot v${require('./package.json').version}`);
-console.log('Copyright © 2018 Chris "topherlicious" Anselmo & Contributors\nThis program comes with ABSOLUTELY NO WARRANTY.\n');
 
 // Login the bot using the auth token from auth.json
 bot.login(auth.token);

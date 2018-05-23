@@ -1,13 +1,12 @@
 {
   "name": "gamemakerbot",
-  "version": "3.6.0",
+  "version": "4.0.0",
   "description": "The bot used by the /r/GameMaker Discord server.",
   "main": "./gmbot",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "scripts": {
     "install": "ts-node ./tools/post-install.ts",
     "lint": "eslint .",
-    "lint.gmbot": "eslint gmbot.js",
     "start": "ts-node gmbot.ts",
     "test": "mocha \"test/**/*.js\" --exit",
     "stub": "echo \"Skipping test first and lint second.\""
