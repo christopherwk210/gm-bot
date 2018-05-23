@@ -46,6 +46,7 @@ import welcome = require('./src/commands/welcome');
 import { roleService } from './src/services/role.service';
 import { guildService } from './src/services/guild.service';
 import { channelService } from './src/services/channel.service';
+import { markdownService } from './src/services/markdown.service';
 
 // Project data
 const badlinks = require('./shared/assets/json/bad-links.json');
@@ -97,13 +98,14 @@ bot.on('message', onBotMessage);                    // Message sent (in DM or in
  * Called when the bot has reported ready status
  */
 function onBotReady() {
-  // Tell the world our feelings
-  console.log('Squaring to go, captain.');
-
   // Initialize services
   roleService.init(bot);
   guildService.init(bot);
   channelService.init(bot);
+  markdownService.loadAllMarkdownFiles();
+
+  // Tell the world our feelings
+  console.log('Squaring to go, captain.');
 
   // Log user presence on startup
   logPresence(guildService.guild, db);
@@ -116,10 +118,10 @@ function onBotReady() {
 
 /**
  * Called whenever a user changes voice state
- * @param {GuildMember} oldMember The member before the voice state update
- * @param {GuildMember} newMember The member after the voice state update
+ * @param oldMember The member before the voice state update
+ * @param newMember The member after the voice state update
  */
-function onBotVoiceStateUpdate(oldMember, newMember) {
+function onBotVoiceStateUpdate(oldMember: Discord.GuildMember, newMember: Discord.GuildMember) {
   // Log voip data
   logVoip(oldMember, newMember, db);
 
@@ -163,10 +165,10 @@ function onBotVoiceStateUpdate(oldMember, newMember) {
 
 /**
  * Called whenever a message is updated
- * @param {Message} oldMsg The message before the update
- * @param {Message} newMsg The message after the update
+ * @param oldMsg The message before the update
+ * @param newMsg The message after the update
  */
-function onBotMessageUpdate(oldMsg, newMsg) {
+function onBotMessageUpdate(oldMsg: Discord.Message, newMsg: Discord.Message) {
   // Don't respond to bots
   if (newMsg.author.bot) { return; }
 
@@ -176,9 +178,9 @@ function onBotMessageUpdate(oldMsg, newMsg) {
 
 /**
  * Called whenever a message is created
- * @param {Message} msg The created message
+ * @param msg The created message
  */
-function onBotMessage(msg) {
+function onBotMessage(msg: Discord.Message) {
   // Don't respond to bots
   if (msg.author.bot) { return; }
 
@@ -203,9 +205,9 @@ function onBotMessage(msg) {
 
 /**
  * Catches bad links as specified in the bad-links.json
- * @param {Message} msg The discord message to parse
+ * @param msg The discord message to parse
  */
-function catchBadMessages(msg) {
+function catchBadMessages(msg: Discord.Message) {
   if (detectBadLink(msg.content)) {
     // RED ALERT OH SHIT
     console.log('Deleted a message containing a bad link.');
@@ -227,16 +229,16 @@ function catchBadMessages(msg) {
   }
 }
 
-function detectBadLink(str) {
+function detectBadLink(str: string) {
   return new RegExp(badlinks.join('|')).test(str);
 }
 
 /**
  * Handles keeping track of the most recent DM's to the bot
  * for use with the bot front-end
- * @param {Message} msg The message that was sent
+ * @param msg The message that was sent
  */
-function handleDM(msg) {
+function handleDM(msg: Discord.Message) {
   // If this user has not yet sent a message during this session
   if (dmLog[msg.author.username] === undefined) {
     // Take initial note of it under their name
@@ -264,14 +266,14 @@ function handleDM(msg) {
 
 /**
  * Handles a user uploading too many images in a given time frame
- * @param {Message} msg The message that was sent
+ * @param msg The message that was sent
  */
-function handleImages(msg, imgOptions) {
+function handleImages(msg: Discord.Message, imgOptions) {
   // Be certain this was in a channel
   if (msg.member) {
     // If the user is no higher than a voip user
-    if ((msg.member.highestRole === '@everyone') ||
-    (msg.member.highestRole === 'voip')) {
+    if ((msg.member.highestRole.name === '@everyone') ||
+    (msg.member.highestRole.name === 'voip')) {
       // Get the attachments
       let attachments = msg.attachments.array();
 
@@ -318,8 +320,11 @@ process.on('unhandledRejection', (reason) => {
 
 // Handle process-wide uncaught exceptions
 process.on('uncaughtException', (err) => {
+  let errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
+
   let botTestingChannel = channelService.getChannelByID('417796218324910094');
-  botTestingChannel.send(`GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``);
+  botTestingChannel.send(errorMessage);
+  console.log(`\n${errorMessage}\n`);
 });
 
 // Copyright information

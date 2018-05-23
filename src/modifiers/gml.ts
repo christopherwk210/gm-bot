@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 
 const gmlexec = require('../utils/gmlexec');
-const detectStaff = require('../utils/detectStaff');
+import { detectStaff } from '../utils/detectStaff';
 const gmlExp = new RegExp(/(`{3})gml((?:[^`]+|`{1,2}[^`])*)(`{3})/g);
 
 export function gml(msg: Message) {

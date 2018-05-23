@@ -6,7 +6,7 @@ import path = require('path');
 import Discord = require('discord.js');
 
 // Project libs
-const roleControl = require('./commands/roleControl');
+import roleControl = require('./commands/roleControl');
 const docs = require('./commands/docs');
 const handleResources = require('./commands/resources');
 const giveAways = require('./utils/giveAwayLib');
@@ -25,19 +25,14 @@ const marketplace = require('./commands/marketplace');
 const miniboss = require('./commands/miniboss');
 const gmgithub = require('./commands/gmgithub');
 
-// Project data
-const help = {
-  all: fs.readFileSync('./shared/assets/markdown/help.all.md', 'utf8'),
-  ducks: fs.readFileSync('./shared/assets/markdown/help.ducks.md', 'utf8'),
-  ducksContinued: fs.readFileSync('./shared/assets/markdown/help.ducks.cont.md', 'utf8'),
-  admins: fs.readFileSync('./shared/assets/markdown/help.admins.md', 'utf8')
-};
-
 // Project utils
 const choose = require('./utils/choose');
 const detectStaff = require('./utils/detectStaff');
 
-// Interface
+// Services
+import { markdownService } from './services/markdown.service';
+
+// Interfaces
 import { Rule, TextChannelMessage } from './interfaces/rule.interface';
 
 // We are a ! kinda server
@@ -89,14 +84,14 @@ let coreCommands: Rule[] = [
       // Deliver the proper message
       switch (command) {
         case 'admin':
-          msg.author.send(help.admins).catch(() => {});
+          msg.author.send(markdownService.files['help.admins']).catch(() => {});
         case 'art':
         case 'rubber':
         case 'audio':
-          msg.author.send(help.ducks).catch(() => {});
-          msg.author.send(help.ducksContinued).catch(() => {});
+          msg.author.send(markdownService.files['help.ducks']).catch(() => {});
+          msg.author.send(markdownService.files['help.ducks.cont']).catch(() => {});
         default:
-          msg.author.send(help.all).catch(() => {});
+          msg.author.send(markdownService.files['help.all']).catch(() => {});
       }
     }
   },

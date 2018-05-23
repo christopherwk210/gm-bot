@@ -7,7 +7,7 @@ let roleService = require('../services/role.service');
  * @param msg Discord message
  * @param args Command arguments
  */
-module.exports = function(msg: Message, args: string[]) {
+export = function(msg: Message, args: string[]) {
   // Get the role from the argument
   let roleName = args.splice(1);
 

@@ -7,7 +7,7 @@ import fs = require('fs');
 const resources = fs.readFileSync('./shared/assets/markdown/resources.md', 'utf8');
 
 // Project utils
-const detectStaff = require('../utils/detectStaff');
+import { detectStaff } from '../utils/detectStaff';
 
 /**
  * Will send resources to a user or given user if being sent by an admin or rubber duck
