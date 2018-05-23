@@ -18,10 +18,8 @@ app.use('//gmlive', express.static(path.join(__dirname, 'gmlive')));
 /**
  * Init the express server providing needed references
  * @param bot Bot client reference
- * @param {*} dmLog In-memory reference to current DM bot logs
- * @param {*} db In memory database
  */
-export function run(bot: Client, dmLog, db) {
+export function run(bot: Client) {
   app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'gmlive/index.html')));
 
   // Run the server

@@ -5,8 +5,8 @@
  */
 
 // Init discord api
-import Discord = require('discord.js');
-const bot = new Discord.Client();
+import { Message, Client, GuildMember } from 'discord.js';
+const bot = new Client();
 
 // Project libs
 import rules = require('./src/rules');
@@ -22,9 +22,6 @@ import { haste } from './src/modifiers/haste';
 import express = require('./src/express/express');
 
 // Utils
-import database = require('./src/utils/database');
-import { logVoip } from './src/utils/voip-log';
-import { logPresence } from './src/utils/presence-log';
 import { parseCommandList } from './src/utils/parseCommandList';
 
 // Commands
@@ -36,21 +33,10 @@ import { guildService } from './src/services/guild.service';
 import { channelService } from './src/services/channel.service';
 import { markdownService } from './src/services/markdown.service';
 import { textService } from './src/services/text.service';
+import { jsonService } from './src/services/json.service';
 
 // Project data
 const badlinks = require('./shared/assets/json/bad-links.json');
-
-// Database setup
-let db = database.initializeDatabase();
-
-// Temp user storage
-let responsibleUsers = [];
-
-// Keep recent bot-dm log history in memory for the front-end
-let dmLog = {};
-
-// How often to log user presence
-let profileInterval = 3600000;
 
 // Image upload limitting
 let imageOptions = {
@@ -61,18 +47,17 @@ let imageOptions = {
   imageTimer: 1000 * 60 * 5 // 5 minutes
 };
 
+// Initialize file based services
+markdownService.loadAllMarkdownFiles();
+textService.loadAllTextFiles();
+jsonService.loadAlljsonFiles();
+
 // Auth token
-let auth;
+let auth = jsonService.files['auth'];
 
-// Import authorization token
-try {
-  // Attempt to sync load auth.json
-  auth = require('./shared/assets/json/auth.json');
-} catch (e) {
-  // Well shit, ya didn't read the instructions did ya?
-  console.log(`No auth.json found. Please see /src/assets/auth.example.json.\n\n${e.stack}`);
-
-  // Goodbye
+// Well shit, ya didn't read the instructions did ya?
+if (!auth) {
+  console.log('No auth.json found. Please see README.md and ./shared/assets/auth.example.json.');
   process.exit();
 }
 
@@ -91,19 +76,9 @@ function onBotReady() {
   roleService.init(bot);
   guildService.init(bot);
   channelService.init(bot);
-  markdownService.loadAllMarkdownFiles();
-  textService.loadAllTextFiles();
 
   // Tell the world our feelings
   console.log('Squaring to go, captain.');
-
-  // Log user presence on startup
-  logPresence(guildService.guild, db);
-
-  // Begin logging on interval
-  setInterval(() => {
-    logPresence(guildService.guild, db);
-  }, profileInterval || 3600000);
 }
 
 /**
@@ -111,10 +86,7 @@ function onBotReady() {
  * @param oldMember The member before the voice state update
  * @param newMember The member after the voice state update
  */
-function onBotVoiceStateUpdate(oldMember: Discord.GuildMember, newMember: Discord.GuildMember) {
-  // Log voip data
-  logVoip(oldMember, newMember, db);
-
+function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
   // Attempt to add voip_text role
   try {
     // Determine they are a member and in the voip channel
@@ -144,12 +116,7 @@ function onBotVoiceStateUpdate(oldMember: Discord.GuildMember, newMember: Discor
     }
   } catch(e) {
     // Something went wrong
-    console.log('An error occurred trying to auto-add the voip role on user joining the voip channel');
-
-    // Alert the peeps in charge of fixing it
-    responsibleUsers.forEach(user => {
-      user.send(`GMBot encountered an error on voice status update:\n\n${e}`);
-    });
+    console.log(`GMBot encountered an error on voice status update:\n\n${e}`);
   }
 }
 
@@ -158,9 +125,9 @@ function onBotVoiceStateUpdate(oldMember: Discord.GuildMember, newMember: Discor
  * @param oldMsg The message before the update
  * @param newMsg The message after the update
  */
-function onBotMessageUpdate(oldMsg: Discord.Message, newMsg: Discord.Message) {
+function onBotMessageUpdate(oldMsg: Message, newMsg: Message) {
   // Don't respond to bots
-  if (newMsg.author.bot) { return; }
+  if (newMsg.author.bot) return;
 
   // Catch clean-code and gmlive edits
   prettifier(newMsg) || gmlive(newMsg);
@@ -170,7 +137,7 @@ function onBotMessageUpdate(oldMsg: Discord.Message, newMsg: Discord.Message) {
  * Called whenever a message is created
  * @param msg The created message
  */
-function onBotMessage(msg: Discord.Message) {
+function onBotMessage(msg: Message) {
   // Don't respond to bots
   if (msg.author.bot) return;
 
@@ -184,7 +151,7 @@ function onBotMessage(msg: Discord.Message) {
 
     // Parse message for commands or matches
     if (!parseCommandList(rules, msg)) {
-      
+
       // If no command was hit, check for modifiers
       prettifier(msg) || gmlive(msg) || gml(msg) || devmode(msg, bot) || haste(msg);
     }
@@ -195,15 +162,13 @@ function onBotMessage(msg: Discord.Message) {
  * Catches bad links as specified in the bad-links.json
  * @param msg The discord message to parse
  */
-function catchBadMessages(msg: Discord.Message) {
+function catchBadMessages(msg: Message) {
   if (detectBadLink(msg.content)) {
     // RED ALERT OH SHIT
     console.log('Deleted a message containing a bad link.');
 
     // Contact the dingus brigade
-    responsibleUsers.forEach(user => {
-      user.send(`Deleted a message with a bad link. The person that posted it was ${msg.author.username}\nThe content of the message was:\n\n${msg.content}`);
-    });
+    console.log(`Deleted a message with a bad link. The person that posted it was ${msg.author.username}\nThe content of the message was:\n\n${msg.content}`);
 
     // Delete the uh-oh
     msg.delete();
@@ -225,7 +190,7 @@ function detectBadLink(str: string) {
  * Handles a user uploading too many images in a given time frame
  * @param msg The message that was sent
  */
-function handleImages(msg: Discord.Message, imgOptions) {
+function handleImages(msg: Message, imgOptions) {
   // Be certain this was in a channel
   if (msg.member) {
     // If the user is no higher than a voip user
@@ -292,7 +257,7 @@ console.log(`GameMakerBot v${require('./package.json').version}`);
 bot.login(auth.token);
 
 // Express setup
-express.run(bot, dmLog, db);
+express.run(bot);
 
 // For testing
 module.exports = {
