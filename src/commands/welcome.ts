@@ -1,4 +1,5 @@
 import { GuildMember } from 'discord.js';
+import { markdownService } from '../services/markdown.service';
 
 // Discord
 const Discord = require('discord.js');
@@ -7,7 +8,7 @@ const Discord = require('discord.js');
 import fs = require('fs');
 
 // Project data
-const welcome = fs.readFileSync('./shared/assets/markdown/welcome.md', 'utf8');
+const welcome = markdownService.files['welcome'];
 
 // Create the embed
 let messageEmbed = new Discord.RichEmbed({

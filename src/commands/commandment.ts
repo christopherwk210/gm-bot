@@ -1,10 +1,11 @@
 import { Message } from 'discord.js';
+import { markdownService } from '../services/markdown.service';
 
 // Node libs
 import fs = require('fs');
 
 // Project data
-const commandmentList = fs.readFileSync('./shared/assets/markdown/commandments.md', 'utf8');
+const commandmentList = markdownService.files['commandments'];
 const commandmentURLs = [
   'https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark',
   'https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly',

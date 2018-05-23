@@ -1,10 +1,11 @@
 import { Message } from 'discord.js';
+import { markdownService } from '../services/markdown.service';
 
 // Node libs
 import fs = require('fs');
 
 // Project data
-const resources = fs.readFileSync('./shared/assets/markdown/resources.md', 'utf8');
+const resources = markdownService.files['resources'];
 
 // Project utils
 import { detectStaff } from '../utils/detectStaff';
