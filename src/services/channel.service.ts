@@ -1,59 +1,45 @@
-import { Client, TextChannel, VoiceChannel, CategoryChannel } from "discord.js";
-
-interface ChannelService {
-  /** All server channels */
-  channels: Array<TextChannel | VoiceChannel | CategoryChannel>;
-
-  /** All server categories */
-  categoryChannels: CategoryChannel[];
-
-  /** All server text channels */
-  textChannels: TextChannel[];
-
-  /** All server voice channels */
-  voiceChannels: VoiceChannel[];
-
-  /** Initialize the channel service with the bot client */
-  init(client: Client);
-
-  /** Returns the server channel with the exact given name */
-  getChannelByName(name: string);
-
-  /** Returns the server channel with the exact given id number */
-  getChannelByID(id: string)
-}
+import { Client, TextChannel, VoiceChannel, CategoryChannel, GuildChannel } from "discord.js";
 
 /**
  * Contains information about all of the server's channels
  */
-export let channelService: ChannelService = {
-  channels: [],
-  categoryChannels: [],
-  textChannels: [],
-  voiceChannels: [],
+class ChannelService {
+  /** All server channels */
+  channels: Array<GuildChannel> = [];
 
-  init: function(client: Client) {
+  /** All server categories */
+  categoryChannels: CategoryChannel[] = [];
+
+  /** All server text channels */
+  textChannels: TextChannel[] = [];
+
+  /** All server voice channels */
+  voiceChannels: VoiceChannel[] = [];
+
+  /** Initialize the channel service with the bot client */
+  init(client: Client) {
     client.guilds.first().channels.array().forEach(guildChannel => {
       this.channels.push(guildChannel);
 
       switch(guildChannel.type) {
         case 'text':
-          this.textChannels.push(guildChannel);
+          this.textChannels.push(<TextChannel>guildChannel);
           break;
         case 'voice':
-          this.voiceChannels.push(guildChannel);
+          this.voiceChannels.push(<VoiceChannel>guildChannel);
           break;
         case 'category':
-          this.categoryChannels.push(guildChannel);
+          this.categoryChannels.push(<CategoryChannel>guildChannel);
           break;
         default:
           // uhh, should never get here
           break;
       }
     });
-  },
+  }
 
-  getChannelByName: function(name) {
+  /** Returns the server channel with the exact given name */
+  getChannelByName(name: string) {
     let match;
 
     this.channels.some(channel => {
@@ -64,9 +50,10 @@ export let channelService: ChannelService = {
     });
 
     return match;
-  },
+  }
 
-  getChannelByID: function(id) {
+  /** Returns the server channel with the exact given id number */
+  getChannelByID(id: string) {
     let match;
 
     this.channels.some(channel => {
@@ -78,4 +65,6 @@ export let channelService: ChannelService = {
 
     return match;
   }
-};
+}
+
+export let channelService = new ChannelService();

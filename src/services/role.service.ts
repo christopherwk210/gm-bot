@@ -1,38 +1,26 @@
 import { Role, Client } from "discord.js";
 
-interface RoleService {
+/**
+ * Contains information about the server roles
+ */
+class RoleService {
   /** Contains all server role names */
-  roleNames: string[];
+  roleNames: string[] = [];
 
   /** Contains all server roles in an array */
-  roles: Role[];
+  roles: Role[] = [];
 
   /** Initialize the role service with the bot client */
-  init(client: Client);
-
-  /** Returns the server role with the exact given name */
-  getRoleByName(name: string);
-
-  /** Returns the server role with the exact given id number */
-  getRoleByID(id: string);
-}
-
-/**
- * Contains information about all of the server's roles
- */
-export let roleService: RoleService = {
-  roleNames: [],
-  roles: [],
-
-  init: function(client) {
+  init(client: Client) {
     let guild = client.guilds.first();
     guild.roles.array().forEach(role => {
       this.roleNames.push(role.name);
       this.roles.push(role);
     });
-  },
+  }
 
-  getRoleByName: function(name) {
+  /** Returns the server role with the exact given name */
+  getRoleByName(name: string) {
     let match;
 
     this.roles.some(role => {
@@ -43,9 +31,10 @@ export let roleService: RoleService = {
     });
 
     return match;
-  },
+  }
 
-  getRoleByID: function(id) {
+  /** Returns the server role with the exact given id number */
+  getRoleByID(id: string) {
     let match;
 
     this.roles.some(role => {
@@ -57,4 +46,6 @@ export let roleService: RoleService = {
 
     return match;
   }
-};
+}
+
+export let roleService = new RoleService();
