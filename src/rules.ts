@@ -6,7 +6,6 @@ import path = require('path');
 import Discord = require('discord.js');
 
 // Project libs
-import roleControl = require('./commands/roleControl');
 const docs = require('./commands/docs');
 const handleResources = require('./commands/resources');
 const assemble = require('./commands/assemble');
@@ -22,7 +21,12 @@ const giveAwayManagement = require('./commands/giveAwayManagement');
 const marketplace = require('./commands/marketplace');
 const miniboss = require('./commands/miniboss');
 const gmgithub = require('./commands/gmgithub');
-import { WelcomeCommand } from './commands/welcome';
+
+import {
+  WelcomeCommand,
+  ResourcesCommand,
+  RoleControlCommand
+} from './commands';
 
 // Project utils
 import { detectStaff, choose } from './shared';
@@ -41,16 +45,8 @@ import { Command, Rule, TextChannelMessage, Type, markdownService } from './shar
  */
 let coreCommands: (Rule|Type<any>)[] = [
   WelcomeCommand,
-  {
-    matches: ['resources'],
-    ...prefixedCommandRuleTemplate,
-    action: handleResources
-  },
-  {
-    matches: ['role'],
-    ...prefixedCommandRuleTemplate,
-    action: roleControl
-  },
+  ResourcesCommand,
+  RoleControlCommand,
   {
     matches: ['help'],
     ...prefixedCommandRuleTemplate,

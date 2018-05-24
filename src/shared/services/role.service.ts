@@ -20,8 +20,8 @@ class RoleService {
   }
 
   /** Returns the server role with the exact given name */
-  getRoleByName(name: string) {
-    let match;
+  getRoleByName(name: string): Role {
+    let match: Role;
 
     this.roles.some(role => {
       if (role.name === name) {
@@ -34,8 +34,8 @@ class RoleService {
   }
 
   /** Returns the server role with the exact given id number */
-  getRoleByID(id: string) {
-    let match;
+  getRoleByID(id: string): Role {
+    let match: Role;
 
     this.roles.some(role => {
       if (role.id === id) {

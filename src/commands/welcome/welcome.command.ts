@@ -1,6 +1,6 @@
 import { RichEmbed, Message, GuildMember, User } from 'discord.js';
-import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../config';
-import { Command, CommandClass, markdownService } from '../shared';
+import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
+import { Command, CommandClass, markdownService } from '../../shared';
 
 @Command({
   matches: ['welcome'],
