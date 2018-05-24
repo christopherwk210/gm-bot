@@ -5,12 +5,12 @@ import async = require('async');
 import path = require('path');
 import fs = require('fs');
 import util = require('util');
-let imgur = require('../../modules/imgur');
 
+let imgur = require('../../modules/imgur');
 let existsAsync = util.promisify(fs.exists);
 
 // Project imports
-import { detectStaff } from '../shared/utils/detectStaff';
+import { detectStaff } from '../shared';
 
 // Challenges data file location
 let challengesDataPath = path.join(__dirname, '../../data/pixelChallenges.json');

@@ -2,7 +2,7 @@
  * Returns a random item from the given array
  * @param a Any array of values
  */
-export = function(a: any[]) {
+export function choose(a: any[]) {
   if (!a) {
     return;
   }

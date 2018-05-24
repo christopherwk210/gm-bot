@@ -36,7 +36,7 @@ if (fs.existsSync(filePath)) {
  * @param msg 
  * @param args 
  */
-function handleMessage(msg: Message, args: string[]) {
+export function handleGiveawayMessage(msg: Message, args: string[]) {
   let activeGAs = Object.keys(data);
   let activeGACount = activeGAs.length;
 
@@ -65,7 +65,7 @@ function handleMessage(msg: Message, args: string[]) {
  * @param name 
  * @param count 
  */
-function draw(name: string, count: any) {
+export function drawGiveawayWinner(name: string, count: any) {
   if (data[name] === undefined) {
     console.log(`Giveaway ${name} doesn't exist, could not draw winner.`);
     return false;
@@ -155,7 +155,7 @@ function signup(msg: Message, name: string) {
  * @param {*} start 
  * @param {*} end 
  */
-function createGiveaway(name: string, start, end) {
+export function createGiveaway(name: string, start, end) {
   if (data[name]) {
     console.log(`Giveaway ${name} already exists! Could not create giveaway.`);
     return false;
@@ -178,7 +178,7 @@ function createGiveaway(name: string, start, end) {
  * Deletes an existing giveaway
  * @param name 
  */
-function deleteGiveaway(name: string) {
+export function deleteGiveaway(name: string) {
   if (data[name]) {
     delete data[name];
     saveData();
@@ -189,7 +189,7 @@ function deleteGiveaway(name: string) {
 /**
  * Returns all active giveaways
  */
-function getGiveAways() {
+export function getGiveAways() {
   let valid = [];
 
   for (let g in data) {
@@ -236,11 +236,3 @@ function replyList(msg: Message) {
 function replyError(msg: Message, errMsg: string) {
   msg.author.send(`Signup Error: ${errMsg}`).catch(() => {});
 }
-
-module.exports = {
-  message: handleMessage,
-  create: createGiveaway,
-  delete: deleteGiveaway,
-  draw,
-  getGiveAways
-};

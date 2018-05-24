@@ -22,21 +22,23 @@ import { haste } from './src/modifiers/haste';
 import express = require('./src/express/express');
 
 // Utils
-import { parseCommandList } from './src/shared/utils/parseCommandList';
-
-// Commands
-import { WelcomeCommand } from './src/commands/welcome';
+import { parseCommandList } from './src/shared';
 
 // Services
-import { roleService } from './src/shared/services/role.service';
-import { guildService } from './src/shared/services/guild.service';
-import { channelService } from './src/shared/services/channel.service';
-import { markdownService } from './src/shared/services/markdown.service';
-import { textService } from './src/shared/services/text.service';
-import { jsonService } from './src/shared/services/json.service';
+import {
+  roleService,
+  guildService,
+  channelService,
+  markdownService,
+  textService,
+  jsonService
+} from './src/shared';
 
 // Config
 import { shouldDieOnException } from './src/config';
+
+// Commands
+import { WelcomeCommand } from './src/commands/welcome';
 
 // Image upload limitting
 let imageOptions = {

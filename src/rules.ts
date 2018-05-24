@@ -25,9 +25,10 @@ const gmgithub = require('./commands/gmgithub');
 import { WelcomeCommand } from './commands/welcome';
 
 // Project utils
-const giveAways = require('./shared/utils/giveAwayLib');
-const choose = require('./shared/utils/choose');
-import { detectStaff } from './shared/utils/detectStaff';
+import { detectStaff, choose } from './shared';
+
+// Giveaway Functions
+import { handleGiveawayMessage } from './shared';
 
 // Config
 import { prefixedCommandRuleTemplate } from './config';
@@ -83,7 +84,7 @@ let coreCommands: (Rule|Type<any>)[] = [
   {
     matches: ['giveaway', 'giveaways'],
     ...prefixedCommandRuleTemplate,
-    action: giveAways.message
+    action: handleGiveawayMessage
   },
   {
     matches: ['3d'],

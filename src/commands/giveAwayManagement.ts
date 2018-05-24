@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 // Project libs
-const giveAways = require('../shared/utils/giveAwayLib');
+import { deleteGiveaway, getGiveAways, createGiveaway, drawGiveawayWinner } from '../shared';
 
 /**
  * Allows giveaway management from within Discord
@@ -17,7 +17,7 @@ module.exports = function(msg: Message, args: string[]) {
         quickCreate(msg, args[2], args[3]);
         break;
       case '-x':
-        deleteGiveaway(msg, args[2]);
+        deleteGa(msg, args[2]);
         break;
       case '-d':
         drawWinner(msg, args[2]);
@@ -38,7 +38,7 @@ function drawWinner(msg: Message, name: string) {
   let exists = giveAwayExists(name);
 
   if (exists) {
-    let winners = giveAways.draw(name, 1);
+    let winners = drawGiveawayWinner(name, 1);
     if (winners) {
       msg.channel.send(`A winner has been drawn for the ${name} giveaway! Winner: <@${winners[winners.length - 1].userID}>`);
     } else {
@@ -54,11 +54,11 @@ function drawWinner(msg: Message, name: string) {
  * @param msg 
  * @param name 
  */
-function deleteGiveaway(msg: Message, name: string) {
+function deleteGa(msg: Message, name: string) {
   let exists = giveAwayExists(name);
 
   if (exists) {
-    giveAways.delete(name);
+    deleteGiveaway(name);
     msg.channel.send(`Deleted giveaway "${name}".`);
   } else {
     msg.channel.send(`Could not find giveaway with the name "${name}".`);
@@ -81,10 +81,10 @@ function quickCreate(msg: Message, name: string, days) {
     later.setDate(now.getDate() + parseInt(days));
 
     // Create the giveaway
-    let res = giveAways.create(name, now / 1000, later / 1000);
+    let res = createGiveaway(name, now / 1000, later / 1000);
 
     if (res) {
-      giveAways.getGiveAways().some(giveAway => {
+      getGiveAways().some(giveAway => {
         if (giveAway.giveAway === name) {
           msg.channel.send(`Ayyyy success :thumbsup:\n${formatGiveawayStats(giveAway)}`);
           return true;
@@ -101,7 +101,7 @@ function quickCreate(msg: Message, name: string, days) {
  * @param msg 
  */
 function sendGiveAwayList(msg: Message) {
-  let currentGiveaways = giveAways.getGiveAways();
+  let currentGiveaways = getGiveAways();
 
   let giveAwayList = 'Current giveaways:\n\n';
   currentGiveaways.forEach(giveAway => {
@@ -117,7 +117,7 @@ function sendGiveAwayList(msg: Message) {
  */
 function giveAwayExists(name: string) {
   let exists = false;
-  giveAways.getGiveAways().some(giveAway => {
+  getGiveAways().some(giveAway => {
     if (giveAway.giveAway === name) {
       exists = true;
       return true;
@@ -128,7 +128,7 @@ function giveAwayExists(name: string) {
 
 /**
  * Formats a string with stats about a giveaway
- * @param {*} giveAway 
+ * @param giveAway 
  */
 function formatGiveawayStats(giveAway: {
   giveAway: string;

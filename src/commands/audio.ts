@@ -4,7 +4,7 @@ import { Message } from 'discord.js';
 const youtubedl = require('youtube-dl');
 
 // Project utils
-import choose = require('../shared/utils/choose');
+import { choose } from '../shared';
 
 // Store the current connection
 let currentConnection;

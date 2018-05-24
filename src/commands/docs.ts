@@ -14,7 +14,7 @@ import puppeteer = require('puppeteer');
 import { jsonService } from '../shared/services/json.service';
 
 // Docs data
-import { gml } from '../shared/utils/validate-gml';
+import { gml } from '../shared';
 const gms1 = jsonService.files['gms1-docs-urls'];
 
 /**
