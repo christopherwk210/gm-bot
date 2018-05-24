@@ -6,7 +6,6 @@ import { RuleOptions } from '../interfaces/rule.interface';
  */
 export function Command(commandRuleOptions: RuleOptions) {
   return (constr: Function) => {
-    console.log(`Create command ${commandRuleOptions.matches}`);
-    console.log(constr);
+    constr.prototype._rules = commandRuleOptions;
   }
 }

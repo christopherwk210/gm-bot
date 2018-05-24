@@ -79,6 +79,16 @@ function handleRule(command: Rule, msg: Message, messageContent: string, args: s
   return success;
 }
 
-function handleCommand(command: Type<any>, msg: Message, messageContent: string, args: string[]): boolean {
-  return false;
+function handleCommand(Command: Type<any>, msg: Message, messageContent: string, args: string[]): boolean {
+  // Create new instance of command
+  let cmd = new Command();
+
+  // "Cast" to rule
+  let rule: Rule = {
+    ...Command.prototype._rules,
+    action: cmd.action,
+    pre: cmd.pre
+  };
+
+  return handleRule(rule, msg, messageContent, args);
 }

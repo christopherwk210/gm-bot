@@ -27,7 +27,7 @@ import { WelcomeCommand } from './commands/welcome';
 // Project utils
 const giveAways = require('./shared/utils/giveAwayLib');
 const choose = require('./shared/utils/choose');
-const detectStaff = require('./shared/utils/detectStaff');
+import { detectStaff } from './shared/utils/detectStaff';
 
 // Config
 import { prefixedCommandRuleTemplate } from './config';
@@ -177,43 +177,43 @@ let audioCommands: Rule[] = [
   {
     matches: ['play'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: audio.play
   },
   {
     matches: ['resume'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: audio.resume
   },
   {
     matches: ['pause'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: audio.pause
   },
   {
     matches: ['skip'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: audio.skip
   },
   {
     matches: ['queue'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: audio.getQueue
   },
   {
     matches: ['volume'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: audio.setVolume
   },
   {
     matches: ['kick'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: audio.stop
   }
 ];
@@ -225,13 +225,13 @@ let easterEggs: Rule[] = [
   {
     matches: ['christmascycle'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: msg => christmas.cycle(msg)
   },
   {
     matches: ['christmasautocycle'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: msg => christmas.autoCycle(msg)
   },
   {
@@ -259,7 +259,7 @@ let easterEggs: Rule[] = [
   {
     matches: ['quackquackquack', 'assemble'],
     ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member),
+    pre: msg => !!detectStaff(msg.member),
     action: assemble
   },
   {
