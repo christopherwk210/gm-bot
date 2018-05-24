@@ -11,10 +11,10 @@ import concat = require('concat-stream');
 import puppeteer = require('puppeteer');
 
 // Services
-import { jsonService } from '../services/json.service';
+import { jsonService } from '../shared/services/json.service';
 
 // Docs data
-import { gml } from '../utils/validate-gml';
+import { gml } from '../shared/utils/validate-gml';
 const gms1 = jsonService.files['gms1-docs-urls'];
 
 /**
@@ -149,7 +149,7 @@ function sendScreenshot(messageText: string, URL: string, msg: Message) {
     await browser.close();
   
     // Send the message
-    msg.channel.send(messageText, {
+    msg.channel.send(messageText, <any>{
       file: image,
       name: 'capture.png'
     }).then(() => { message.delete(); }).catch(() => {});

@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { roleService } from '../services/role.service';
+import { roleService } from '../shared/services/role.service';
 
 /**
  * Ping the rubber duckies role

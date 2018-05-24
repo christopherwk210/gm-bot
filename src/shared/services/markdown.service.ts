@@ -3,7 +3,7 @@ import path = require('path');
 
 class MarkdownService {
   /** Location of all markdown files */
-  private markdownFileLocation: string = path.join(__dirname, '../../shared/assets/markdown');
+  private markdownFileLocation: string = path.join(__dirname, '../assets/markdown');
 
   /** Contains all markdown file contents by file name */
   files: {

@@ -29,7 +29,7 @@ export function haste(msg: Message) {
       res.setEncoding('utf8');
 
       // Create a callback to retrieve url
-      res.on('data', response => {
+      res.on('data', (response: string) => {
         // Parse the response for the key
         let key = JSON.parse(response).key;
         msg.channel.send(`Here's your GML hastebin link, ${msg.author} \nhttp://haste.gmcloud.org/${key}.gml`); // Post the hastebin link

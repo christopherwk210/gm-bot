@@ -6,7 +6,7 @@ const async = require('async');
 
 // Init
 let data = {}
-let filePath = path.join(__dirname, '../../data/giveAwaysData.json');
+let filePath = path.join(__dirname, '../../../data/giveAwaysData.json');
 
 // Create async queue to save data
 let queue = async.queue((task, callback) => {
@@ -26,7 +26,7 @@ function saveData() {
 
 // Load existing data or create it, if not present
 if (fs.existsSync(filePath)) {
-  data = require('../../data/giveAwaysData.json');
+  data = require('../../../data/giveAwaysData.json');
 } else {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
 }

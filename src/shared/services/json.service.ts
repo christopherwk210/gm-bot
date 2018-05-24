@@ -3,7 +3,7 @@ import path = require('path');
 
 class JSONService {
   /** Location of all json files */
-  private jsonFileLocation: string = path.join(__dirname, '../../shared/assets/json');
+  private jsonFileLocation: string = path.join(__dirname, '../assets/json');
 
   /** Contains all json file contents by file name */
   files: {

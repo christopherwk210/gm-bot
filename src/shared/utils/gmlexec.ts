@@ -31,7 +31,7 @@ async function gmlexec(gml: string, cb: Function) {
   let timeOut = null;
 
   // Listen for console output
-  page.on('console', async consoleOutput => {
+  page.on('console', async (consoleOutput: any) => {
 
     // Only deal with gmlex output
     if (consoleOutput._text.indexOf('gmlex:') === 0) {

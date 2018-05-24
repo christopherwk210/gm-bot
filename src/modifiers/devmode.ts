@@ -3,12 +3,12 @@ import { Message, Client } from "discord.js";
 /* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
 const rules = require('../rules');
-const giveAways = require('../utils/giveAwayLib');
+const giveAways = require('../shared/utils/giveAwayLib');
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
-let roleService = require('../services/role.service');
-let guildService = require('../services/guild.service');
-let channelService = require('../services/channel.service');
+let roleService = require('../shared/services/role.service');
+let guildService = require('../shared/services/guild.service');
+let channelService = require('../shared/services/channel.service');
 
 export function devmode(msg: Message, bot: Client) {
   if (!msg.member) return false;

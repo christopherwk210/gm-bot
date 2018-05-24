@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 // Project libs
-const giveAways = require('../utils/giveAwayLib');
+const giveAways = require('../shared/utils/giveAwayLib');
 
 /**
  * Allows giveaway management from within Discord

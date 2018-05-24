@@ -9,7 +9,6 @@ import Discord = require('discord.js');
 import roleControl = require('./commands/roleControl');
 const docs = require('./commands/docs');
 const handleResources = require('./commands/resources');
-const giveAways = require('./utils/giveAwayLib');
 const assemble = require('./commands/assemble');
 const commandment = require('./commands/commandment');
 const welcome = require('./commands/welcome');
@@ -26,14 +25,15 @@ const miniboss = require('./commands/miniboss');
 const gmgithub = require('./commands/gmgithub');
 
 // Project utils
-const choose = require('./utils/choose');
-const detectStaff = require('./utils/detectStaff');
+const giveAways = require('./shared/utils/giveAwayLib');
+const choose = require('./shared/utils/choose');
+const detectStaff = require('./shared/utils/detectStaff');
 
 // Services
-import { markdownService } from './services/markdown.service';
+import { markdownService } from './shared/services/markdown.service';
 
 // Interfaces
-import { Rule, TextChannelMessage } from './interfaces/rule.interface';
+import { Rule, TextChannelMessage } from './shared/interfaces/rule.interface';
 
 // We are a ! kinda server
 let prefix = '!';

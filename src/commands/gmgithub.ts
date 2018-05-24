@@ -55,7 +55,7 @@ module.exports = function(message: Message, args: string[]) {
   let regex = new RegExp(`^${args.join('-').replace(/[-_ ]/g, '[-_ ]?')}$`, 'i');
 
   // Read cache
-  fs.readFile(jsonPath, (readErr, json) => {
+  fs.readFile(jsonPath, (readErr, json: any) => {
     // Check for error, and act accordingly
     if (readErr) {
       console.log(readErr);

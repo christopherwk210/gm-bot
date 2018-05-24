@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { jsonService } from '../services/json.service';
+import { jsonService } from '../shared/services/json.service';
 const beautify = require('js-beautify').js_beautify;
 
 const beautifyOptions = jsonService.files['jsbeautify'];

@@ -1,5 +1,5 @@
 import { GuildMember } from 'discord.js';
-import { markdownService } from '../services/markdown.service';
+import { markdownService } from '../shared/services/markdown.service';
 
 // Discord
 const Discord = require('discord.js');

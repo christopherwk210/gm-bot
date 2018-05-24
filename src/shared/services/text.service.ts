@@ -3,7 +3,7 @@ import path = require('path');
 
 class TextService {
   /** Location of all text files */
-  private textFileLocation: string = path.join(__dirname, '../../shared/assets/text');
+  private textFileLocation: string = path.join(__dirname, '../assets/text');
 
   /** Contains all text file contents by file name */
   files: {

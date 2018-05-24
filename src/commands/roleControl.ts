@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 
-let roleService = require('../services/role.service');
+let roleService = require('../shared/services/role.service');
 
 /**
  * Toggles a user role

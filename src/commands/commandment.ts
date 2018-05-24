@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { markdownService } from '../services/markdown.service';
+import { markdownService } from '../shared/services/markdown.service';
 
 // Node libs
 import fs = require('fs');

@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { markdownService } from '../services/markdown.service';
+import { markdownService } from '../shared/services/markdown.service';
 
 // Node libs
 import fs = require('fs');
@@ -8,7 +8,7 @@ import fs = require('fs');
 const resources = markdownService.files['resources'];
 
 // Project utils
-import { detectStaff } from '../utils/detectStaff';
+import { detectStaff } from '../shared/utils/detectStaff';
 
 /**
  * Will send resources to a user or given user if being sent by an admin or rubber duck

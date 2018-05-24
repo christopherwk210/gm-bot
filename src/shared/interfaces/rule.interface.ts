@@ -1,7 +1,6 @@
 import { Message, TextChannel } from 'discord.js';
 
-export interface Rule {
-
+export interface RuleOptions {
   /** All synonyms for this command */
   matches: string[];
 
@@ -19,7 +18,9 @@ export interface Rule {
 
   /** Whether or not to delete a matched message (after calling the action) */
   delete?: boolean;
+}
 
+export interface Rule extends RuleOptions {
   /**
    * Action callback that is called when message satsifies match requirements
    * @param msg Original discord message
