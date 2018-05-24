@@ -1,7 +1,8 @@
-import { Message } from 'discord.js';
+import { Message, Attachment, RichEmbed, BufferResolvable } from 'discord.js';
 
 // Node libs
 import puppeteer = require('puppeteer');
+import { MessageOptions } from 'child_process';
 
 /**
  * Sends a screenshot of the most recent changes to discord
@@ -59,11 +60,14 @@ function sendReleaseScreenshot(msg: Message) {
 
     // Close the browser
     await browser.close();
+
+    let messageOptions: any = {
+      file: image,
+      name: 'capture.png',
+    };
     
     // Send the message
-    msg.channel.send('Release Notes:', {
-      file: image,
-      name: 'capture.png'
-    }).then(() => { message.delete(); }).catch(() => {});
+    msg.channel.send('Release Notes:', messageOptions)
+      .then(() => message.delete()).catch(() => {});
   });
 }
