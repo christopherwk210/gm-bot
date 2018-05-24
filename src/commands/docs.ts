@@ -1,17 +1,21 @@
 import { Message } from 'discord.js';
 
+// Prevent errors when running things in puppeteer context
 declare let SearchTitles;
 declare let SearchFiles;
 
 // Node libs
-const vm = require('vm');
-const http = require('http');
-const concat = require('concat-stream');
-const puppeteer = require('puppeteer');
+import vm = require('vm');
+import http = require('http');
+import concat = require('concat-stream');
+import puppeteer = require('puppeteer');
+
+// Services
+import { jsonService } from '../services/json.service';
 
 // Docs data
-const gms1 = require('../../shared/assets/json/gms1-docs-urls.json');
-const validate = require('../utils/validate-gml');
+import { gml } from '../utils/validate-gml';
+const gms1 = jsonService.files['gms1-docs-urls'];
 
 /**
  * Provide GMS2 doc URL
@@ -185,7 +189,7 @@ function run(msg: Message, args: string[]) {
   switch (version) {
     case 'GMS1':
       // Determine if the provided function is a valid GMS1 function
-      if (validate.gml.gms1(args[1])) {
+      if (gml.gms1(args[1])) {
         // If so, provide the helps
         helpUrlGMS1(msg, args[1], image);
       } else {
@@ -195,7 +199,7 @@ function run(msg: Message, args: string[]) {
       break;
   case 'GMS2':
     // Determine if the provided function is a valid GMS2 function
-    if (validate.gml.gms2(args[1])) {
+    if (gml.gms2(args[1])) {
       // If so, give 'em the goods
       helpUrlGMS2(msg, args[1], image);
     } else {

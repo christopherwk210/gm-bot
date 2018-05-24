@@ -1,8 +1,9 @@
 import { Message } from "discord.js";
-
+import { jsonService } from '../services/json.service';
 const beautify = require('js-beautify').js_beautify;
+
+const beautifyOptions = jsonService.files['jsbeautify'];
 const cleanCodeExp = new RegExp(/([`]{3})clean-code([^```]*)([`]{3})/g);
-const beautifyOptions = require('../../shared/assets/json/jsbeautify.json');
 
 export function prettifier(msg: Message) {
   // Test for the correct code block

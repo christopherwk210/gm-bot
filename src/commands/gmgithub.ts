@@ -7,10 +7,11 @@ declare let sendRefreshMessage;
 // Node libs
 import Discord = require('discord.js');
 import https = require('https');
-const fs = require('fs');
+import fs = require('fs');
 
 // Cache path
 const jsonPath = './src/assets/json/gmgithub.json';
+
 // Name of user or organization requesting github content
 const userAgent = 'GameMakerDiscord';
 

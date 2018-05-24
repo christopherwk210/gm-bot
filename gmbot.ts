@@ -35,9 +35,6 @@ import { markdownService } from './src/services/markdown.service';
 import { textService } from './src/services/text.service';
 import { jsonService } from './src/services/json.service';
 
-// Project data
-const badlinks = require('./shared/assets/json/bad-links.json');
-
 // Image upload limitting
 let imageOptions = {
   imageLog: {
@@ -54,6 +51,9 @@ jsonService.loadAlljsonFiles();
 
 // Auth token
 let auth = jsonService.files['auth'];
+
+// Bad links
+const badlinks = jsonService.files['bad-links'];
 
 // Well shit, ya didn't read the instructions did ya?
 if (!auth) {
@@ -159,7 +159,7 @@ function onBotMessage(msg: Message) {
 }
 
 /**
- * Catches bad links as specified in the bad-links.json
+ * Catches bad links as specified in the bad-links json
  * @param msg The discord message to parse
  */
 function catchBadMessages(msg: Message) {
@@ -244,8 +244,9 @@ process.on('unhandledRejection', (reason) => {
 process.on('uncaughtException', (err) => {
   let errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
+  // Send error to the bot testing channel
   let botTestingChannel = channelService.getChannelByID('417796218324910094');
-  botTestingChannel.send(errorMessage);
+  if (botTestingChannel) botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);
 });

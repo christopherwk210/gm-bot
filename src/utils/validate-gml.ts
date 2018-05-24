@@ -6,7 +6,7 @@ const gmlFuncRaw = textService.files['gml-functions'];
 // GMS2 exclusive function list
 const gml2FuncRaw = textService.files['gml2-functions'];
 
-const gml = {
+export const gml = {
   /**
    * Determine if a function is located in the given gml list
    * @param func Function to check
@@ -52,5 +52,3 @@ const gml = {
     return this.gml(func, gmlFuncRaw + gml2FuncRaw);
   }
 };
-
-module.exports.gml = gml;
