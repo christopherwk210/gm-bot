@@ -11,7 +11,6 @@ const docs = require('./commands/docs');
 const handleResources = require('./commands/resources');
 const assemble = require('./commands/assemble');
 const commandment = require('./commands/commandment');
-const welcome = require('./commands/welcome');
 const audio = require('./commands/audio');
 const changeLog = require('./commands/changeLog');
 const christmas = require('./commands/christmas');
@@ -23,43 +22,24 @@ const giveAwayManagement = require('./commands/giveAwayManagement');
 const marketplace = require('./commands/marketplace');
 const miniboss = require('./commands/miniboss');
 const gmgithub = require('./commands/gmgithub');
+import { WelcomeCommand } from './commands/welcome';
 
 // Project utils
 const giveAways = require('./shared/utils/giveAwayLib');
 const choose = require('./shared/utils/choose');
 const detectStaff = require('./shared/utils/detectStaff');
 
-// Services
-import { markdownService } from './shared/services/markdown.service';
+// Config
+import { prefixedCommandRuleTemplate } from './config';
 
-// Interfaces
-import { Rule, TextChannelMessage } from './shared/interfaces/rule.interface';
-
-// We are a ! kinda server
-let prefix = '!';
-
-/**
- * Prefixed rules all include these options, so it's easier to just create
- * a template object that we can spread onto the rules we need it in.
- */
-let prefixedCommandRuleTemplate = {
-  prefix: prefix,
-  position: 0,
-  exact: false,
-  delete: true
-};
+// Shared
+import { Command, Rule, TextChannelMessage, Type, markdownService } from './shared';
 
 /**
  * Functional utility commands
  */
-let coreCommands: Rule[] = [
-  {
-    matches: ['welcome'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      welcome(msg.author);
-    }
-  },
+let coreCommands: (Rule|Type<any>)[] = [
+  WelcomeCommand,
   {
     matches: ['resources'],
     ...prefixedCommandRuleTemplate,

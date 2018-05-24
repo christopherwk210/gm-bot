@@ -22,7 +22,7 @@ export interface RuleOptions {
 
 export interface Rule extends RuleOptions {
   /**
-   * Action callback that is called when message satsifies match requirements
+   * Callback function that is triggered when message satsifies match requirements
    * @param msg Original discord message
    * @param args Message contents, split on space character
    */
@@ -33,8 +33,9 @@ export interface Rule extends RuleOptions {
    * If a truthy value is returned, it will call the rule action. Useful for determining
    * if a user has permission or not.
    * @param msg Original discord message
+   * @param args Message contents, split on space character
    */
-  pre?(msg: Message): boolean;
+  pre?(msg: Message, args: string[]): boolean;
 };
 
 export interface TextChannelMessage extends Message {

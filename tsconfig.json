@@ -11,5 +11,8 @@
   },
   "files": [
     "gmbot.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
   ]
 }

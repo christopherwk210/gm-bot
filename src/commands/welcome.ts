@@ -1,29 +1,35 @@
-import { GuildMember } from 'discord.js';
-import { markdownService } from '../shared/services/markdown.service';
+import { RichEmbed, Message, GuildMember, User } from 'discord.js';
+import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../config';
+import { Command, CommandClass, markdownService } from '../shared';
 
-// Discord
-const Discord = require('discord.js');
+@Command({
+  matches: ['welcome'],
+  ...prefixedCommandRuleTemplate
+})
+export class WelcomeCommand implements CommandClass {
 
-// Node libs
-import fs = require('fs');
-
-// Project data
-const welcome = markdownService.files['welcome'];
-
-// Create the embed
-let messageEmbed = new Discord.RichEmbed({
-  color: 26659,
-  description: welcome,
-  timestamp: new Date(),
-  footer: {
-    text: 'This is an automated message'
+  action(msg: Message) {
+    WelcomeCommand.sendWelcomeMessage(msg.author);
   }
-});
 
-/**
- * Send the welcome message!
- * @param {User} member Discord user
- */
-export = function(member: GuildMember) {
-  member.send(messageEmbed).catch(() => {});
-};
+  /**
+   * Send the server welcome message to the given user
+   * @param user 
+   */
+  static sendWelcomeMessage(user: User | GuildMember) {
+    // Get the welcome message contents
+    let welcome = markdownService.files['welcome'];
+
+    // Create a RichEmbed with the message
+    let messageEmbed = new RichEmbed({
+      color: defaultEmbedColor,
+      description: welcome,
+      timestamp: new Date(),
+      footer: {
+        text: 'This is an automated message'
+      }
+    });
+
+    user.send(messageEmbed);
+  }
+}

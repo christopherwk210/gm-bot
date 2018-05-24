@@ -25,7 +25,7 @@ import express = require('./src/express/express');
 import { parseCommandList } from './src/shared/utils/parseCommandList';
 
 // Commands
-import welcome = require('./src/commands/welcome');
+import { WelcomeCommand } from './src/commands/welcome';
 
 // Services
 import { roleService } from './src/shared/services/role.service';
@@ -34,6 +34,9 @@ import { channelService } from './src/shared/services/channel.service';
 import { markdownService } from './src/shared/services/markdown.service';
 import { textService } from './src/shared/services/text.service';
 import { jsonService } from './src/shared/services/json.service';
+
+// Config
+import { shouldDieOnException } from './src/config';
 
 // Image upload limitting
 let imageOptions = {
@@ -63,10 +66,10 @@ if (!auth) {
 
 // Bot callbacks
 bot.on('ready', onBotReady);                        // Bot is loaded
-bot.on('guildMemberAdd', welcome);                  // A new member has joined
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
+bot.on('guildMemberAdd', WelcomeCommand.sendWelcomeMessage) // A new member has joined
 
 /**
  * Called when the bot has reported ready status
@@ -249,6 +252,8 @@ process.on('uncaughtException', (err) => {
   if (botTestingChannel) botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);
+
+  if (shouldDieOnException) process.exit(-1);
 });
 
 // Copyright information
