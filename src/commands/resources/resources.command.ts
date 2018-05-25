@@ -2,14 +2,17 @@ import { Message } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass, detectStaff, markdownService } from '../../shared';
 
-// Project data
-const resources = markdownService.files['resources'];
-
 @Command({
   matches: ['resources'],
   ...prefixedCommandRuleTemplate
 })
 export class ResourcesCommand implements CommandClass {
+  resources: string;
+
+  constructor() {
+    this.resources = markdownService.files['resources'];
+  }
+
   /**
    * Will send resources to a user or given user if being sent by an admin or rubber duck
    * @param msg 
@@ -26,18 +29,18 @@ export class ResourcesCommand implements CommandClass {
 
         if (user) {
           // Send them resources!
-          user.send(resources);
+          user.send(this.resources);
         } else {
           // Whoops, no member found
           msg.author.send('An error occurred with your request... Did you mention a valid user?');
         }
       } else {
         // We don't want to send it to another user, send it to us
-        msg.author.send(resources);
+        msg.author.send(this.resources);
       }
     } else {
       // We can only mean ourselves!
-      msg.author.send(resources);
+      msg.author.send(this.resources);
     }
   }
 }

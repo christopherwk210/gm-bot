@@ -1,11 +1,8 @@
-// Node libs
 import fs = require('fs');
 import path = require('path');
+import { Attachment } from 'discord.js';
 
-// Third-party libs
-import Discord = require('discord.js');
-
-// Project libs
+// Commands
 const docs = require('./commands/docs');
 const handleResources = require('./commands/resources');
 const assemble = require('./commands/assemble');
@@ -25,7 +22,8 @@ const gmgithub = require('./commands/gmgithub');
 import {
   WelcomeCommand,
   ResourcesCommand,
-  RoleControlCommand
+  RoleControlCommand,
+  HelpCommand
 } from './commands';
 
 // Project utils
@@ -47,31 +45,7 @@ let coreCommands: (Rule|Type<any>)[] = [
   WelcomeCommand,
   ResourcesCommand,
   RoleControlCommand,
-  {
-    matches: ['help'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      let command;
-
-      // Determine the correct help message to deliver
-      if ((msg.member)) {
-        command = detectStaff(msg.member);
-      }
-
-      // Deliver the proper message
-      switch (command) {
-        case 'admin':
-          msg.author.send(markdownService.files['help.admins']).catch(() => {});
-        case 'art':
-        case 'rubber':
-        case 'audio':
-          msg.author.send(markdownService.files['help.ducks']).catch(() => {});
-          msg.author.send(markdownService.files['help.ducks.cont']).catch(() => {});
-        default:
-          msg.author.send(markdownService.files['help.all']).catch(() => {});
-      }
-    }
-  },
+  HelpCommand,
   {
     matches: ['docs', 'doc'],
     ...prefixedCommandRuleTemplate,
@@ -419,7 +393,7 @@ let easterEggs: Rule[] = [
     delete: true,
     action: msg => {
       msg.channel.send({
-        file: new Discord.Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
+        file: new Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
         name: 'kiss-from-a-rose.gif'
       });
     }
