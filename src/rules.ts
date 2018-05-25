@@ -23,7 +23,8 @@ import {
   HelpCommand,
   DocsCommand,
   ChangelogCommand,
-  ResizeCommand
+  ResizeCommand,
+  PixelChallengeCommand
 } from './commands';
 
 // Project utils
@@ -49,12 +50,7 @@ let coreCommands: (Rule|Type<any>)[] = [
   DocsCommand,
   ChangelogCommand,
   ResizeCommand,
-  {
-    matches: ['pixelchallenge'],
-    ...prefixedCommandRuleTemplate,
-    action: pixelchallenge,
-    delete: false
-  },
+  PixelChallengeCommand,
   {
     matches: ['mp', 'marketplace'],
     ...prefixedCommandRuleTemplate,

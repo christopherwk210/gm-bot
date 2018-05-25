@@ -92,11 +92,14 @@ export class PixelChallengeCommand implements CommandClass {
    * @param msg 
    * @param args
    */
-  action(msg: Message, args: string[]) {
+  async action(msg: Message, args: string[]) {
     if (!msg.member) {
       msg.channel.send('You can only do that in the /r/GameMaker Discord Server, you silly!');
       return;
     }
+
+    // Reload what's on disk
+    await this.loadEntries();
 
     if (detectStaff(msg.member)) {
 
