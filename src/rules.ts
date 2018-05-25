@@ -1,4 +1,3 @@
-import fs = require('fs');
 import path = require('path');
 import { Attachment } from 'discord.js';
 
@@ -8,9 +7,7 @@ const handleResources = require('./commands/resources');
 const assemble = require('./commands/assemble');
 const commandment = require('./commands/commandment');
 const audio = require('./commands/audio');
-const changeLog = require('./commands/changeLog');
 const christmas = require('./commands/christmas');
-const resize = require('./commands/resize');
 const pixelchallenge = require('./commands/pixelChallenge');
 const palette = require('./commands/palette');
 const say = require('./commands/say');
@@ -24,7 +21,9 @@ import {
   ResourcesCommand,
   RoleControlCommand,
   HelpCommand,
-  DocsCommand
+  DocsCommand,
+  ChangelogCommand,
+  ResizeCommand
 } from './commands';
 
 // Project utils
@@ -48,16 +47,8 @@ let coreCommands: (Rule|Type<any>)[] = [
   RoleControlCommand,
   HelpCommand,
   DocsCommand,
-  {
-    matches: ['changelog'],
-    ...prefixedCommandRuleTemplate,
-    action: changeLog
-  },
-  {
-    matches: ['resize', 'upscale', 'upsize'],
-    ...prefixedCommandRuleTemplate,
-    action: resize
-  },
+  ChangelogCommand,
+  ResizeCommand,
   {
     matches: ['pixelchallenge'],
     ...prefixedCommandRuleTemplate,
