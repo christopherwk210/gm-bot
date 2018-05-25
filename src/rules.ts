@@ -23,11 +23,12 @@ import {
   WelcomeCommand,
   ResourcesCommand,
   RoleControlCommand,
-  HelpCommand
+  HelpCommand,
+  DocsCommand
 } from './commands';
 
 // Project utils
-import { detectStaff, choose } from './shared';
+import { detectStaff, choose, createTextRule } from './shared';
 
 // Giveaway Functions
 import { handleGiveawayMessage } from './shared';
@@ -46,23 +47,7 @@ let coreCommands: (Rule|Type<any>)[] = [
   ResourcesCommand,
   RoleControlCommand,
   HelpCommand,
-  {
-    matches: ['docs', 'doc'],
-    ...prefixedCommandRuleTemplate,
-    action: docs
-  },
-  {
-    matches: ['giveaway', 'giveaways'],
-    ...prefixedCommandRuleTemplate,
-    action: handleGiveawayMessage
-  },
-  {
-    matches: ['3d'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      roleControl(msg, ['3d', '3D']);
-    }
-  },
+  DocsCommand,
   {
     matches: ['changelog'],
     ...prefixedCommandRuleTemplate,
@@ -78,13 +63,6 @@ let coreCommands: (Rule|Type<any>)[] = [
     ...prefixedCommandRuleTemplate,
     action: pixelchallenge,
     delete: false
-  },
-  {
-    matches: ['lospec', 'palettes', 'palette-list'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send('Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list').catch(() => {});
-    }
   },
   {
     matches: ['mp', 'marketplace'],
@@ -106,7 +84,24 @@ let coreCommands: (Rule|Type<any>)[] = [
     matches: ['github', 'community-github'],
     ...prefixedCommandRuleTemplate,
     action: gmgithub
-  }
+  },
+  {
+    matches: ['giveaway', 'giveaways'],
+    ...prefixedCommandRuleTemplate,
+    action: handleGiveawayMessage
+  },
+  {
+    matches: ['3d'],
+    ...prefixedCommandRuleTemplate,
+    action: msg => {
+      let roleCommand = new RoleControlCommand();
+      roleCommand.action(msg, ['3d', '3D']);
+    }
+  },
+  createTextRule(
+    ['lospec', 'palettes', 'palette-list'],
+    'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
+  )
 ];
 
 /**
@@ -136,7 +131,7 @@ let devCommands: Rule[] = [
     ...prefixedCommandRuleTemplate,
     pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has('417797331409436682'),
     action: (msg: TextChannelMessage) => {
-      msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``).catch(() => {});
+      msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
     }
   }
 ];
@@ -233,24 +228,17 @@ let easterEggs: Rule[] = [
     pre: msg => !!detectStaff(msg.member),
     action: assemble
   },
-  {
-    matches: ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send(
-        `${choose([
-          'Paging',
-          'Come in',
-          'Oi, where are ya',
-          'Where art thou',
-          'Someone needs ya',
-          'Your presence is requested',
-          `For some reason, ${msg.author} thinks you should be here`,
-          `${msg.author} has summoned the great and all powerful`
-        ])} <@144913457429348352>`
-      ).catch(() => {});
-    }
-  },
+  createTextRule(
+    ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
+    `${choose([
+      'Paging',
+      'Come in',
+      'Oi, where are ya',
+      'Where art thou',
+      'Someone needs ya',
+      'Your presence is requested'
+    ])} <@144913457429348352>`
+  ),
   {
     matches: ['commandment'],
     ...prefixedCommandRuleTemplate,
@@ -263,34 +251,22 @@ let easterEggs: Rule[] = [
       commandment(msg, ['rtfm', 'I']);
     }
   },
-  {
-    matches: ['bgmhammer'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send(':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:').catch(() => {});
-    }
-  },
-  {
-    matches: ['dinguses'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send(':raised_hand: ***dinguses*** :raised_back_of_hand:');
-    }
-  },
-  {
-    matches: ['dingus'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send(':raised_hand: ***dingus*** :raised_back_of_hand:');
-    }
-  },
-  {
-    matches: ['givesidadonut'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send(':doughnut:').catch(() => {});
-    }
-  },
+  createTextRule(
+    ['bgmhammer'],
+    ':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:'
+  ),
+  createTextRule(
+    ['dinguses'],
+    ':raised_hand: ***dinguses*** :raised_back_of_hand:'
+  ),
+  createTextRule(
+    ['dingus'],
+    ':raised_hand: ***dingus*** :raised_back_of_hand:'
+  ),
+  createTextRule(
+    ['givesidadonut'],
+    ':doughnut:'
+  ),
   {
     matches: ['good bot'],
     exact: false,
@@ -305,8 +281,7 @@ let easterEggs: Rule[] = [
     wholeMessage: true,
     action: msg => {
       msg.react('🇲')
-        .then(() => msg.react('Ⓜ'))
-        .catch(() => {});
+        .then(() => msg.react('Ⓜ'));
     }
   },
   {
@@ -334,20 +309,14 @@ let easterEggs: Rule[] = [
         });
     }
   },
-  {
-    matches: ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
-    exact: false,
-    wholeMessage: true,
-    action: msg => {
-      msg.channel.send('<@141365209435471872>')
-    }
-  },
-  {
-    matches: ['💤👁️', '💤 👁'],
-    action: msg => {
-      msg.channel.send('<@240306552949440512>')
-    }
-  },
+  createTextRule(
+    ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
+    '<@141365209435471872>'
+  ),
+  createTextRule(
+    ['💤👁️', '💤 👁'],
+    '<@240306552949440512>'
+  ),
   {
     matches: ['hmm'],
     exact: false,
@@ -355,37 +324,27 @@ let easterEggs: Rule[] = [
     action: msg => {
       msg.react('🇭')
         .then(() => msg.react('🇲'))
-        .then(() => msg.react('Ⓜ'))
-        .catch(() => {});
+        .then(() => msg.react('Ⓜ'));
     }
   },
   {
     matches: ['<@295327000372051968>'],
     action: msg => {
-      msg.react('👋').catch(() => {});
+      msg.react('👋');
     }
   },
-  {
-    matches: ['🎁 💀'],
-    position: 0,
-    action: msg => {
-      msg.channel.send('<@277615099034730506>').catch(() => {});
-    }
-  },
-  {
-    matches: ['1⃣ 3⃣'],
-    position: 0,
-    action: msg => {
-      msg.channel.send('<@121017818778042368>').catch(() => {});
-    }
-  },
-  {
-    matches: ['inversekinematics'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => {
-      msg.channel.send('<@227032791013916672>').catch(() => {});
-    }
-  },
+  createTextRule(
+    ['🎁 💀', '🎁💀'],
+    '<@277615099034730506>'
+  ),
+  createTextRule(
+    ['1⃣ 3⃣', '1⃣3⃣'],
+    '<@121017818778042368>'
+  ),
+  createTextRule(
+    ['inversekinematics'],
+    '<@227032791013916672>'
+  ),
   {
     matches: ['~kissfromarose~'],
     exact: false,
