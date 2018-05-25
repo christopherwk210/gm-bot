@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 // Node libs
-import async = require('async');
+import { queue } from 'async';
 import path = require('path');
 import fs = require('fs');
 import util = require('util');
@@ -21,7 +21,7 @@ let currentPixelChallenge = {
 };
 
 // Create async queue to save pixel entries
-let queue = async.queue((task, callback) => {
+let aqueue = queue((task, callback) => {
   fs.unlink(challengesDataPath, () => {
     fs.writeFile(challengesDataPath, JSON.stringify(currentPixelChallenge), 'utf8', () => {
       callback();
@@ -82,7 +82,7 @@ function pixelChallenge(msg: Message, args: string[]) {
         }
       });
 
-      queue.push({}, () => {});
+      aqueue.push({}, () => {});
 
       msg.delete();
       return;
@@ -120,7 +120,7 @@ function pixelChallenge(msg: Message, args: string[]) {
 
       msg.channel.send(`Updated existing entry for ${msg.author}.`);
 
-      queue.push({}, () => {});
+      aqueue.push({}, () => {});
     }
   });
 
@@ -134,7 +134,7 @@ function pixelChallenge(msg: Message, args: string[]) {
 
     msg.channel.send(`Challenge entry for ${msg.author} recorded.`);
 
-    queue.push({}, () => {});
+    aqueue.push({}, () => {});
   }
 }
 
