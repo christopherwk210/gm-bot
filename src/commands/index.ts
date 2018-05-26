@@ -11,3 +11,4 @@ export * from './github/github.command';
 export * from './say/say.command';
 export * from './miniboss/miniboss.command';
 export * from './giveaway-management/giveaway-management.command';
+export * from './assemble/assemble.command';

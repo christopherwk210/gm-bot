@@ -1,6 +1,9 @@
 import { Rule } from '..';
 import { prefixedCommandRuleTemplate } from '../../config';
 
+/**
+ * Helper class to help construct simple rules
+ */
 export class RuleFactory {
   /**
    * Creates a simple rule that responds with text

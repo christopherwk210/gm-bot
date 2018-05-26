@@ -5,7 +5,6 @@ import { Attachment } from 'discord.js';
 import { prefixedCommandRuleTemplate } from './config';
 
 // Commands
-const assemble = require('./commands/assemble');
 const commandment = require('./commands/commandment');
 const audio = require('./commands/audio');
 const christmas = require('./commands/christmas');
@@ -24,7 +23,8 @@ import {
   MarketplaceCommand,
   GithubCommand,
   SayCommand,
-  GiveawayManagementCommand
+  GiveawayManagementCommand,
+  AssembleCommand
 } from './commands';
 
 // Project utils
@@ -50,6 +50,7 @@ let coreCommands: (Rule|Type<any>)[] = [
   PixelChallengeCommand,
   MarketplaceCommand,
   GithubCommand,
+  AssembleCommand,
   // {
   //   matches: ['miniboss', 'mb', 'pedro', 'saint11'],
   //   ...prefixedCommandRuleTemplate,
@@ -150,7 +151,8 @@ let audioCommands: Rule[] = [
 /**
  * Misc silly shit
  */
-let easterEggs: Rule[] = [
+let easterEggs: (Rule|Type<any>)[] = [
+  AssembleCommand,
   {
     matches: ['christmascycle'],
     ...prefixedCommandRuleTemplate,
@@ -186,12 +188,6 @@ let easterEggs: Rule[] = [
     }
   },
   {
-    matches: ['quackquackquack', 'assemble'],
-    ...prefixedCommandRuleTemplate,
-    pre: msg => !!detectStaff(msg.member),
-    action: assemble
-  },
-  {
     matches: ['commandment'],
     ...prefixedCommandRuleTemplate,
     action: commandment
@@ -199,9 +195,7 @@ let easterEggs: Rule[] = [
   {
     matches: ['rtfm'],
     ...prefixedCommandRuleTemplate,
-    action: msg => {
-      commandment(msg, ['rtfm', 'I']);
-    }
+    action: msg => commandment(msg, ['rtfm', 'I'])
   },
   RuleFactory.createTextRule(
     ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
