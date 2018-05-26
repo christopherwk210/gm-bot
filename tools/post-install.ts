@@ -1,7 +1,7 @@
 // Node libs
-let fs = require('fs');
-let util = require('util');
-let path = require('path');
+import fs = require('fs');
+import util = require('util');
+import path = require('path');
 
 // Async
 const exists = util.promisify(fs.exists);
@@ -9,11 +9,11 @@ const writeFile = util.promisify(fs.writeFile);
 const mkdir = util.promisify(fs.mkdir);
 
 // Load external messages
-let banner = fs.readFileSync(path.join(__dirname, '../src/shared/assets/text/banner.txt'), 'utf8');
-let intro = fs.readFileSync(path.join(__dirname, '../src/shared/assets/text/getting-started.txt'), 'utf8');
+const banner = fs.readFileSync(path.join(__dirname, '../src/shared/assets/text/banner.txt'), 'utf8');
+const intro = fs.readFileSync(path.join(__dirname, '../src/shared/assets/text/getting-started.txt'), 'utf8');
 
-let giveAwayDataPath = path.join(__dirname, '../data/giveAwaysData.json');
-let giveAwayDataContainerPath = path.dirname(giveAwayDataPath);
+const giveAwayDataPath = path.join(__dirname, '../data/giveAwaysData.json');
+const giveAwayDataContainerPath = path.dirname(giveAwayDataPath);
 
 (async () => {
   // 'Touch' giveAwaysData.json to prevent missing file errors on first load

@@ -1,25 +1,32 @@
-let template = `
 import { Message } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 
 @Command({
-  matches: ['changelog'],
+  matches: ['$0'],
   ...prefixedCommandRuleTemplate
 })
-export class ChangelogCommand implements CommandClass {
+export class $1Command implements CommandClass {
 
   constructor() {
     
   }
 
   /**
-   * 
+   * Command action
    * @param msg 
    * @param args
    */
   action(msg: Message, args: string[]) {
 
   }
+
+  /**
+   * Command validation action
+   * @param msg 
+   * @param args
+   */
+  pre(msg: Message, args: string[]) {
+    return true;
+  }
 }
-`
