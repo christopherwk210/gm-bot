@@ -4,12 +4,12 @@ import { Attachment } from 'discord.js';
 // Config
 import { prefixedCommandRuleTemplate } from './config';
 
-// Commands
 const audio = require('./commands/audio');
 const christmas = require('./commands/christmas');
 const palette = require('./commands/palette');
 // const miniboss = require('./commands/miniboss');
 
+// Commands
 import {
   WelcomeCommand,
   ResourcesCommand,
@@ -29,7 +29,7 @@ import {
 } from './commands';
 
 // Project utils
-import { detectStaff, choose, RuleFactory } from './shared';
+import { detectStaff, choose, RuleFactory, guildService } from './shared';
 
 // Giveaway Functions
 import { handleGiveawayMessage } from './shared';
@@ -170,14 +170,7 @@ let easterEggs: (Rule|Type<any>)[] = [
   },
   RuleFactory.createTextRule(
     ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
-    `${choose([
-      'Paging',
-      'Come in',
-      'Oi, where are ya',
-      'Where art thou',
-      'Someone needs ya',
-      'Your presence is requested'
-    ])} <@144913457429348352>`
+    `${choose(['Paging', 'Come in', 'Where art thou', 'Someone needs ya',])} <@144913457429348352>`
   ),
   RuleFactory.createTextRule(
     ['bgmhammer'],
@@ -215,6 +208,14 @@ let easterEggs: (Rule|Type<any>)[] = [
     ['inversekinematics'],
     '<@227032791013916672>'
   ),
+  RuleFactory.createReactionRule(
+    ['<@295327000372051968>'],
+    ['👋']
+  ),
+  RuleFactory.createReactionRule(
+    ['<@361088614735544320>'],
+    ['🇦', '🇷', '🅰']
+  ),
   {
     ...RuleFactory.createReactionRule(
       ['hmm'],
@@ -223,10 +224,6 @@ let easterEggs: (Rule|Type<any>)[] = [
     exact: false,
     wholeMessage: true
   },
-  RuleFactory.createReactionRule(
-    ['<@295327000372051968>'],
-    ['👋']
-  ),
   {
     ...RuleFactory.createReactionRule(
       ['good bot'],
@@ -244,22 +241,13 @@ let easterEggs: (Rule|Type<any>)[] = [
     wholeMessage: true
   },
   {
-    matches: ['mmm'],
+    ...RuleFactory.createReactionRule(
+      ['mmm'],
+      ['🇲', 'Ⓜ', guildService.guild.emojis.find('name', 'meseta')]
+    ),
     exact: false,
-    wholeMessage: true,
-    action: msg => {
-      const mes = msg.guild.emojis.find('name', 'meseta');
-      msg.react('🇲')
-        .then(() => msg.react('Ⓜ'))
-        .then(() => msg.react(mes))
-        .catch(() => {});
-
-    }
+    wholeMessage: true
   },
-  RuleFactory.createReactionRule(
-    ['<@361088614735544320>'],
-    ['🇦', '🇷', '🅰']
-  ),
   {
     matches: ['~kissfromarose~'],
     exact: false,

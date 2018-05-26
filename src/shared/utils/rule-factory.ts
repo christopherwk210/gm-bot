@@ -1,5 +1,6 @@
 import { Rule } from '..';
 import { prefixedCommandRuleTemplate } from '../../config';
+import { Emoji } from 'discord.js';
 
 /**
  * Helper class to help construct simple rules
@@ -26,7 +27,7 @@ export class RuleFactory {
    * @param matches 
    * @param reactions 
    */
-  static createReactionRule(matches: string[], reactions: string[]): Rule {
+  static createReactionRule(matches: string[], reactions: (string|Emoji)[]): Rule {
     let rule: Rule = {
       matches,
       action: async msg => {
