@@ -21,4 +21,4 @@ export * from './utils/giveaway-lib';
 export * from './utils/gmlexec';
 export * from './utils/parse-command-list';
 export * from './utils/validate-gml';
-export * from './utils/text-rule';
+export * from './utils/rule-factory';

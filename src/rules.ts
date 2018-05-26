@@ -10,9 +10,7 @@ const commandment = require('./commands/commandment');
 const audio = require('./commands/audio');
 const christmas = require('./commands/christmas');
 const palette = require('./commands/palette');
-const say = require('./commands/say');
-const giveAwayManagement = require('./commands/giveAwayManagement');
-const miniboss = require('./commands/miniboss');
+// const miniboss = require('./commands/miniboss');
 
 import {
   WelcomeCommand,
@@ -30,7 +28,7 @@ import {
 } from './commands';
 
 // Project utils
-import { detectStaff, choose, createTextRule } from './shared';
+import { detectStaff, choose, RuleFactory } from './shared';
 
 // Giveaway Functions
 import { handleGiveawayMessage } from './shared';
@@ -52,11 +50,11 @@ let coreCommands: (Rule|Type<any>)[] = [
   PixelChallengeCommand,
   MarketplaceCommand,
   GithubCommand,
-  {
-    matches: ['miniboss', 'mb', 'pedro', 'saint11'],
-    ...prefixedCommandRuleTemplate,
-    action: miniboss
-  },
+  // {
+  //   matches: ['miniboss', 'mb', 'pedro', 'saint11'],
+  //   ...prefixedCommandRuleTemplate,
+  //   action: miniboss
+  // },
   {
     // Because no one knows how to spell palette
     matches: ['palette', 'pallete', 'palete'],
@@ -73,7 +71,7 @@ let coreCommands: (Rule|Type<any>)[] = [
     ...prefixedCommandRuleTemplate,
     action: msg => new RoleControlCommand().action(msg, ['3d', '3D'])
   },
-  createTextRule(
+  RuleFactory.createTextRule(
     ['lospec', 'palettes', 'palette-list'],
     'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
   )
@@ -193,17 +191,6 @@ let easterEggs: Rule[] = [
     pre: msg => !!detectStaff(msg.member),
     action: assemble
   },
-  createTextRule(
-    ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
-    `${choose([
-      'Paging',
-      'Come in',
-      'Oi, where are ya',
-      'Where art thou',
-      'Someone needs ya',
-      'Your presence is requested'
-    ])} <@144913457429348352>`
-  ),
   {
     matches: ['commandment'],
     ...prefixedCommandRuleTemplate,
@@ -216,38 +203,80 @@ let easterEggs: Rule[] = [
       commandment(msg, ['rtfm', 'I']);
     }
   },
-  createTextRule(
+  RuleFactory.createTextRule(
+    ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
+    `${choose([
+      'Paging',
+      'Come in',
+      'Oi, where are ya',
+      'Where art thou',
+      'Someone needs ya',
+      'Your presence is requested'
+    ])} <@144913457429348352>`
+  ),
+  RuleFactory.createTextRule(
     ['bgmhammer'],
     ':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:'
   ),
-  createTextRule(
+  RuleFactory.createTextRule(
     ['dinguses'],
     ':raised_hand: ***dinguses*** :raised_back_of_hand:'
   ),
-  createTextRule(
+  RuleFactory.createTextRule(
     ['dingus'],
     ':raised_hand: ***dingus*** :raised_back_of_hand:'
   ),
-  createTextRule(
+  RuleFactory.createTextRule(
     ['givesidadonut'],
     ':doughnut:'
   ),
+  RuleFactory.createTextRule(
+    ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
+    '<@141365209435471872>'
+  ),
+  RuleFactory.createTextRule(
+    ['💤👁️', '💤 👁'],
+    '<@240306552949440512>'
+  ),
+  RuleFactory.createTextRule(
+    ['🎁 💀', '🎁💀'],
+    '<@277615099034730506>'
+  ),
+  RuleFactory.createTextRule(
+    ['1⃣ 3⃣', '1⃣3⃣'],
+    '<@121017818778042368>'
+  ),
+  RuleFactory.createTextRule(
+    ['inversekinematics'],
+    '<@227032791013916672>'
+  ),
   {
-    matches: ['good bot'],
+    ...RuleFactory.createReactionRule(
+      ['hmm'],
+      ['🇭', '🇲', 'Ⓜ']
+    ),
     exact: false,
-    wholeMessage: true,
-    action: msg => {
-      msg.react('❤');
-    }
+    wholeMessage: true
+  },
+  RuleFactory.createReactionRule(
+    ['<@295327000372051968>'],
+    ['👋']
+  ),
+  {
+    ...RuleFactory.createReactionRule(
+      ['good bot'],
+      ['❤']
+    ),
+    exact: false,
+    wholeMessage: true
   },
   {
-    matches: ['mm'],
+    ...RuleFactory.createReactionRule(
+      ['mm'],
+      ['🇲', 'Ⓜ']
+    ),
     exact: false,
-    wholeMessage: true,
-    action: msg => {
-      msg.react('🇲')
-        .then(() => msg.react('Ⓜ'));
-    }
+    wholeMessage: true
   },
   {
     matches: ['mmm'],
@@ -262,53 +291,9 @@ let easterEggs: Rule[] = [
 
     }
   },
-  {
-    matches: ['<@361088614735544320>'],
-    action: msg => {
-      msg.react('🇸')
-        .then(() => msg.react('🇦'))
-        .then(() => msg.react('🇷'))
-        .then(() => msg.react('🅰'))
-        .catch(err => {
-          console.error(err)
-        });
-    }
-  },
-  createTextRule(
-    ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
-    '<@141365209435471872>'
-  ),
-  createTextRule(
-    ['💤👁️', '💤 👁'],
-    '<@240306552949440512>'
-  ),
-  {
-    matches: ['hmm'],
-    exact: false,
-    wholeMessage: true,
-    action: msg => {
-      msg.react('🇭')
-        .then(() => msg.react('🇲'))
-        .then(() => msg.react('Ⓜ'));
-    }
-  },
-  {
-    matches: ['<@295327000372051968>'],
-    action: msg => {
-      msg.react('👋');
-    }
-  },
-  createTextRule(
-    ['🎁 💀', '🎁💀'],
-    '<@277615099034730506>'
-  ),
-  createTextRule(
-    ['1⃣ 3⃣', '1⃣3⃣'],
-    '<@121017818778042368>'
-  ),
-  createTextRule(
-    ['inversekinematics'],
-    '<@227032791013916672>'
+  RuleFactory.createReactionRule(
+    ['<@361088614735544320>'],
+    ['🇦', '🇷', '🅰']
   ),
   {
     matches: ['~kissfromarose~'],
