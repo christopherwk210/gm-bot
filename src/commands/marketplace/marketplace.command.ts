@@ -137,7 +137,7 @@ export class MarketplaceCommand implements CommandClass {
   }
 }
 
-export interface MarketplaceResult {
+interface MarketplaceResult {
   /** Asset title */
   title: string;
 

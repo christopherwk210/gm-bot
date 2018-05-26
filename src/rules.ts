@@ -1,6 +1,9 @@
 import path = require('path');
 import { Attachment } from 'discord.js';
 
+// Config
+import { prefixedCommandRuleTemplate } from './config';
+
 // Commands
 const assemble = require('./commands/assemble');
 const commandment = require('./commands/commandment');
@@ -21,7 +24,8 @@ import {
   ResizeCommand,
   PixelChallengeCommand,
   MarketplaceCommand,
-  GithubCommand
+  GithubCommand,
+  SayCommand
 } from './commands';
 
 // Project utils
@@ -30,11 +34,8 @@ import { detectStaff, choose, createTextRule } from './shared';
 // Giveaway Functions
 import { handleGiveawayMessage } from './shared';
 
-// Config
-import { prefixedCommandRuleTemplate } from './config';
-
-// Shared
-import { Command, Rule, TextChannelMessage, Type, markdownService } from './shared';
+// Types
+import { Rule, TextChannelMessage, Type } from './shared';
 
 /**
  * Functional utility commands
@@ -83,13 +84,8 @@ let coreCommands: (Rule|Type<any>)[] = [
 /**
  * Admin only commands
  */
-let adminCommands: Rule[] = [
-  {
-    matches: ['say'],
-    ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member) === 'admin',
-    action: say
-  },
+let adminCommands: (Rule|Type<any>)[] = [
+  SayCommand,
   {
     matches: ['gaa'],
     ...prefixedCommandRuleTemplate,

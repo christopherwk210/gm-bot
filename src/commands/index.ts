@@ -8,3 +8,4 @@ export * from './resize/resize.command';
 export * from './pixel-challenge/pixel-challenge.command';
 export * from './marketplace/marketplace.command';
 export * from './github/github.command';
+export * from './say/say.command';
