@@ -25,7 +25,8 @@ import {
   PixelChallengeCommand,
   MarketplaceCommand,
   GithubCommand,
-  SayCommand
+  SayCommand,
+  GiveawayManagementCommand
 } from './commands';
 
 // Project utils
@@ -70,10 +71,7 @@ let coreCommands: (Rule|Type<any>)[] = [
   {
     matches: ['3d'],
     ...prefixedCommandRuleTemplate,
-    action: msg => {
-      let roleCommand = new RoleControlCommand();
-      roleCommand.action(msg, ['3d', '3D']);
-    }
+    action: msg => new RoleControlCommand().action(msg, ['3d', '3D'])
   },
   createTextRule(
     ['lospec', 'palettes', 'palette-list'],
@@ -86,12 +84,7 @@ let coreCommands: (Rule|Type<any>)[] = [
  */
 let adminCommands: (Rule|Type<any>)[] = [
   SayCommand,
-  {
-    matches: ['gaa'],
-    ...prefixedCommandRuleTemplate,
-    pre: msg => detectStaff(msg.member) === 'admin',
-    action: giveAwayManagement
-  }
+  GiveawayManagementCommand
 ];
 
 /**
