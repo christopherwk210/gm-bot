@@ -9,3 +9,4 @@ export * from './pixel-challenge/pixel-challenge.command';
 export * from './marketplace/marketplace.command';
 export * from './github/github.command';
 export * from './say/say.command';
+export * from './miniboss/miniboss.command';

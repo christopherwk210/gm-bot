@@ -1,16 +1,14 @@
-/* eslint-disable no-confusing-arrow */
+import { Keyword } from '../../shared';
 
 /**
  * Returns a list of objects containing keywords associated with miniboss posts
- *
- * WARNING While creating keywords, Always omit the last 's' on the end of a keyword. Example: 'grass' > 'gras'.
+ * 
+ * While creating keywords, Always omit the last 's' on the end of a keyword.
+ * Example: 'grass' > 'gras'.
+ * 
  * Keywords should all be lowercased
- *
- * @arg {String|Regex} match Keyword(s) to match against
- * @arg {String} value Title of post or number (shorter = more efficient)
- * @arg {Function} [action] Optional function call. Return value is concatinated onto value
  */
-module.exports = [
+export const minibossKeywords: Keyword[] = [
   {  // adds '#' to pure number strings
     match: /^[0-9]+$/,
     value: '#',
