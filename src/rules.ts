@@ -5,7 +5,6 @@ import { Attachment } from 'discord.js';
 import { prefixedCommandRuleTemplate } from './config';
 
 // Commands
-const commandment = require('./commands/commandment');
 const audio = require('./commands/audio');
 const christmas = require('./commands/christmas');
 const palette = require('./commands/palette');
@@ -24,7 +23,8 @@ import {
   GithubCommand,
   SayCommand,
   GiveawayManagementCommand,
-  AssembleCommand
+  AssembleCommand,
+  CommandmentCommand
 } from './commands';
 
 // Project utils
@@ -153,6 +153,7 @@ let audioCommands: Rule[] = [
  */
 let easterEggs: (Rule|Type<any>)[] = [
   AssembleCommand,
+  CommandmentCommand,
   {
     matches: ['christmascycle'],
     ...prefixedCommandRuleTemplate,
@@ -186,16 +187,6 @@ let easterEggs: (Rule|Type<any>)[] = [
         msg.channel.send('You can only use this in the /r/GameMaker server.');
       }
     }
-  },
-  {
-    matches: ['commandment'],
-    ...prefixedCommandRuleTemplate,
-    action: commandment
-  },
-  {
-    matches: ['rtfm'],
-    ...prefixedCommandRuleTemplate,
-    action: msg => commandment(msg, ['rtfm', 'I'])
   },
   RuleFactory.createTextRule(
     ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],

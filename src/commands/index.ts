@@ -12,3 +12,4 @@ export * from './say/say.command';
 export * from './miniboss/miniboss.command';
 export * from './giveaway-management/giveaway-management.command';
 export * from './assemble/assemble.command';
+export * from './commandment/commandment.command';
