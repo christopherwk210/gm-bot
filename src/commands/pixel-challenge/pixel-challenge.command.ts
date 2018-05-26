@@ -7,7 +7,7 @@ import fs = require('fs');
 import util = require('util');
 
 let existsAsync = util.promisify(fs.exists);
-let imgur = require('../../modules/imgur');
+let imgur = require('../../../modules/imgur');
 
 @Command({
   matches: ['pixelchallenge'],

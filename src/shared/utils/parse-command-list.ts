@@ -83,12 +83,58 @@ function handleCommand(Command: Type<any>, msg: Message, messageContent: string,
   // Create new instance of command
   let cmd = new Command();
 
-  // "Cast" to rule
-  let rule: Rule = {
+  // "Cast" rule options
+  let rules: Rule = {
     ...Command.prototype._rules,
-    action: cmd.action,
-    pre: cmd.pre
   };
 
-  return handleRule(rule, msg, messageContent, args);
+  let success = false;
+
+  // Iterate over matches
+  rules.matches.some(currentMatch => {
+    let match = currentMatch;
+
+    // Use prefix if specified
+    if (rules.prefix) {
+      match = rules.prefix + match;
+    }
+    
+    // Move everything to uppercase if we don't care about exact matching
+    if ((rules.exact !== undefined) && (!rules.exact)) {
+      messageContent = messageContent.toUpperCase();
+      match = match.toUpperCase();
+    }
+
+    // Determine our condition
+    let condition;
+    if (rules.wholeMessage) {
+      condition = messageContent === match;
+    } else {
+      condition = rules.position === undefined ? messageContent.indexOf(match) !== -1 : messageContent.indexOf(match) === rules.position;
+    }
+
+    // Match made
+    if (condition) {
+      // Validate pre callback
+      if (cmd.pre) {
+        if (!cmd.pre(msg, args)) {
+
+          // Pre invalidated, short circuit
+          return true;
+        }
+      }
+
+      // Execute command action
+      cmd.action(msg, args);
+
+      // Delete message if specified
+      if (rules.delete) {
+        msg.delete();
+      }
+
+      return success = true;
+    }
+  });
+
+  return success;
 }

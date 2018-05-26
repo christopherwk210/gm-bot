@@ -38,7 +38,7 @@ import {
 import { shouldDieOnException } from './src/config';
 
 // Commands
-import { WelcomeCommand } from './src/commands/welcome';
+import { WelcomeCommand } from './src/commands';
 
 // Image upload limitting
 let imageOptions = {

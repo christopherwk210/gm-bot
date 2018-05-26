@@ -86,8 +86,8 @@ export let jsonService = new JSONService();
 
 export interface AsyncWriter {
   /**
-   * Push an object or string to be written asynchronously
-   * Resolves on completion with an object containing any errors,
+   * Push an object or string to be written asynchronously.
+   * Resolves on completion with an object containing errors,
    * if any
    */
   (contents: Object|string): Promise<any>;

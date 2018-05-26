@@ -2,19 +2,14 @@ import path = require('path');
 import { Attachment } from 'discord.js';
 
 // Commands
-const docs = require('./commands/docs');
-const handleResources = require('./commands/resources');
 const assemble = require('./commands/assemble');
 const commandment = require('./commands/commandment');
 const audio = require('./commands/audio');
 const christmas = require('./commands/christmas');
-const pixelchallenge = require('./commands/pixelChallenge');
 const palette = require('./commands/palette');
 const say = require('./commands/say');
 const giveAwayManagement = require('./commands/giveAwayManagement');
-const marketplace = require('./commands/marketplace');
 const miniboss = require('./commands/miniboss');
-const gmgithub = require('./commands/gmgithub');
 
 import {
   WelcomeCommand,
@@ -24,7 +19,9 @@ import {
   DocsCommand,
   ChangelogCommand,
   ResizeCommand,
-  PixelChallengeCommand
+  PixelChallengeCommand,
+  MarketplaceCommand,
+  GithubCommand
 } from './commands';
 
 // Project utils
@@ -51,11 +48,8 @@ let coreCommands: (Rule|Type<any>)[] = [
   ChangelogCommand,
   ResizeCommand,
   PixelChallengeCommand,
-  {
-    matches: ['mp', 'marketplace'],
-    ...prefixedCommandRuleTemplate,
-    action: marketplace
-  },
+  MarketplaceCommand,
+  GithubCommand,
   {
     matches: ['miniboss', 'mb', 'pedro', 'saint11'],
     ...prefixedCommandRuleTemplate,
@@ -66,11 +60,6 @@ let coreCommands: (Rule|Type<any>)[] = [
     matches: ['palette', 'pallete', 'palete'],
     ...prefixedCommandRuleTemplate,
     action: palette
-  },
-  {
-    matches: ['github', 'community-github'],
-    ...prefixedCommandRuleTemplate,
-    action: gmgithub
   },
   {
     matches: ['giveaway', 'giveaways'],
