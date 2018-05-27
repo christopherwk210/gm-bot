@@ -8,8 +8,9 @@
 import { Message, Client, GuildMember } from 'discord.js';
 const bot = new Client();
 
-// Project libs
-import rules = require('./src/rules');
+// Rules!
+import { loadRules } from './src/rules';
+let rules = [];
 
 // Modifiers
 import { prettifier } from './src/modifiers/prettifier';
@@ -62,7 +63,7 @@ const badlinks = jsonService.files['bad-links'];
 
 // Well shit, ya didn't read the instructions did ya?
 if (!auth) {
-  console.log('No auth.json found. Please see README.md and ./shared/assets/auth.example.json.');
+  console.log('No auth.json found. Please see README.md and ./src/shared/assets/auth.example.json.');
   process.exit();
 }
 
@@ -81,6 +82,9 @@ function onBotReady() {
   roleService.init(bot);
   guildService.init(bot);
   channelService.init(bot);
+
+  // Load all rules
+  rules = loadRules();
 
   // Tell the world our feelings
   console.log('Squaring to go, captain.');
@@ -245,7 +249,7 @@ process.on('unhandledRejection', (reason) => {
   console.log(`Unhandled promise: ${reason}`);
 });
 
-// Handle process-wide uncaught exceptions
+// Handle process-wide exceptions
 process.on('uncaughtException', (err) => {
   let errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
@@ -266,9 +270,3 @@ bot.login(auth.token);
 
 // Express setup
 express.run(bot);
-
-// For testing
-module.exports = {
-  handleImages: handleImages,
-  detectBadLink: detectBadLink
-};
