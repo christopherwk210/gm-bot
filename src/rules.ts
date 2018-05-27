@@ -25,7 +25,8 @@ import {
   AssembleCommand,
   CommandmentCommand,
   LifetimeCommand,
-  ChristmasCommand
+  ChristmasCommand,
+  AudioCommand
 } from './commands';
 
 // Project utils
@@ -39,6 +40,7 @@ import { Rule, TextChannelMessage, Type } from './shared';
 
 /** Loads all rules into memory */
 export function loadRules() {
+
   /**
    * Functional utility commands
    */
@@ -54,6 +56,7 @@ export function loadRules() {
     MarketplaceCommand,
     GithubCommand,
     AssembleCommand,
+    AudioCommand,
     // {
     //   matches: ['miniboss', 'mb', 'pedro', 'saint11'],
     //   ...prefixedCommandRuleTemplate,
@@ -100,54 +103,6 @@ export function loadRules() {
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
-    }
-  ];
-
-  /**
-   * Voice channel related commands
-   */
-  let audioCommands: Rule[] = [
-    {
-      matches: ['play'],
-      ...prefixedCommandRuleTemplate,
-      pre: msg => !!detectStaff(msg.member),
-      action: audio.play
-    },
-    {
-      matches: ['resume'],
-      ...prefixedCommandRuleTemplate,
-      pre: msg => !!detectStaff(msg.member),
-      action: audio.resume
-    },
-    {
-      matches: ['pause'],
-      ...prefixedCommandRuleTemplate,
-      pre: msg => !!detectStaff(msg.member),
-      action: audio.pause
-    },
-    {
-      matches: ['skip'],
-      ...prefixedCommandRuleTemplate,
-      pre: msg => !!detectStaff(msg.member),
-      action: audio.skip
-    },
-    {
-      matches: ['queue'],
-      ...prefixedCommandRuleTemplate,
-      pre: msg => !!detectStaff(msg.member),
-      action: audio.getQueue
-    },
-    {
-      matches: ['volume'],
-      ...prefixedCommandRuleTemplate,
-      pre: msg => !!detectStaff(msg.member),
-      action: audio.setVolume
-    },
-    {
-      matches: ['kick'],
-      ...prefixedCommandRuleTemplate,
-      pre: msg => !!detectStaff(msg.member),
-      action: audio.stop
     }
   ];
 
@@ -256,7 +211,6 @@ export function loadRules() {
     ...coreCommands,
     ...adminCommands,
     ...devCommands,
-    ...audioCommands,
     ...easterEggs
   ];
 }

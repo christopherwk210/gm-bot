@@ -34,7 +34,7 @@ export class HelpCommand implements CommandClass {
       case 'admin':
         msg.author.send(this.helpFiles.admins);
       case 'art':
-      case 'rubber':
+      case 'code':
       case 'audio':
         msg.author.send(this.helpFiles.ducks);
         msg.author.send(this.helpFiles.ducksContinued);
