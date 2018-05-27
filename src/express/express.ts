@@ -1,14 +1,11 @@
-import { Client } from "discord.js";
+import * as path from 'path';
+import { Client } from 'discord.js';
 
-var path = require('path');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
 
-// Express libs
-var express = require('express'),
-    app = express();
-
-// Middlewares
-var bodyParser = require('body-parser'),
-    cors = require('cors');
+let app = express();
 
 // Apply middlewares
 app.use(bodyParser.json());
@@ -19,7 +16,7 @@ app.use('//gmlive', express.static(path.join(__dirname, 'gmlive')));
  * Init the express server providing needed references
  * @param bot Bot client reference
  */
-export function run(bot: Client) {
+export default function runExpressServer(bot: Client) {
   app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'gmlive/index.html')));
 
   // Run the server

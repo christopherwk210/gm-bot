@@ -20,7 +20,7 @@ import { gml } from './src/modifiers/gml';
 import { haste } from './src/modifiers/haste';
 
 // Express
-import express = require('./src/express/express');
+import runExpressServer from './src/express/express';
 
 // Utils
 import { parseCommandList } from './src/shared';
@@ -269,4 +269,4 @@ console.log(`GameMakerBot v${require('./package.json').version}`);
 bot.login(auth.token);
 
 // Express setup
-express.run(bot);
+runExpressServer(bot);
