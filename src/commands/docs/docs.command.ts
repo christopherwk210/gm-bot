@@ -45,18 +45,8 @@ export class DocsCommand implements CommandClass {
       msg.author.send('You did not include a function name. Type `!help` for help with commands.');
       return;
     } else if (args.length > 2) {
-      let v1 = args.indexOf('gms1');
-      let v2 = args.indexOf('gms2');
-
-      if (v1 !== -1) {
-        version = args[v1].toUpperCase();
-      } else if (v2 !== -1) {
-        version = args[v2].toUpperCase();
-      }
-
-      if (args.indexOf('-i') !== -1) {
-        image = true;
-      }
+      version = ~args.indexOf('gms1') || ~args.indexOf('GMS1') ? 'GMS1' : 'GMS2';
+      if (args.indexOf('-i') !== -1) image = true;
     }
 
     // Switch on version
@@ -71,20 +61,20 @@ export class DocsCommand implements CommandClass {
           msg.author.send(`\`${args[1]}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
         }
         break;
-    case 'GMS2':
-      // Determine if the provided function is a valid GMS2 function
-      if (validateGMS2(args[1])) {
-        // If so, give 'em the goods
-        this.helpUrlGMS2(msg, args[1], image);
-      } else {
-        // Otherwise, kick 'em to the curb
-        msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
-      }
-      break;
-    default:
-      // What were they THINKING (invalid GMS version)
-      msg.author.send(`\`${version}\` was not a valid option. Type \`!help\` for help with commands.`);
-      break;
+      case 'GMS2':
+        // Determine if the provided function is a valid GMS2 function
+        if (validateGMS2(args[1])) {
+          // If so, give 'em the goods
+          this.helpUrlGMS2(msg, args[1], image);
+        } else {
+          // Otherwise, kick 'em to the curb
+          msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
+        }
+        break;
+      default:
+        // Invalid GMS version (this is actually impossible to reach, here just in case functionality changes)
+        msg.author.send(`\`${version}\` was not a valid option. Type \`!help\` for help with commands.`);
+        break;
     }
   }
 
@@ -109,12 +99,9 @@ export class DocsCommand implements CommandClass {
           );
           return;
         }
-        
-        // Get name of whoever sent the message
-        let name = (msg.member && msg.member.nickname) || msg.author.username;
 
         // Put together a URL and serve it on a silver platter
-        msg.channel.send(`Here's the GMS1 documentation for \`${fn}\`, ${name}`);
+        msg.channel.send(`Here's the GMS1 documentation for \`${fn}\`, ${msg.author}`);
         msg.channel.send(encodeURI(`http://docs.yoyogames.com/${this.gms1DocumentationUrls.files[i]}`));
 
         // We struck gold, ma!
@@ -182,10 +169,10 @@ export class DocsCommand implements CommandClass {
   }
 
   /**
-   * Takes a screenshot of a website and sends it to the discord chat
+   * Takes a screenshot of a GMS docs page and sends it to the discord chat
    * @param messageText Message to send with screenshot
    * @param URL Website to take a screenshot of
-   * @param msg Discord message
+   * @param msg
    */
   sendScreenshot(messageText: string, URL: string, msg: Message) {
     msg.channel.send('Loading documentation...').then(async (message: Message) => {

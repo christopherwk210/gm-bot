@@ -3,11 +3,11 @@ import { prefixedCommandRuleTemplate } from '../../config';
 import { Emoji } from 'discord.js';
 
 /**
- * Helper class to help construct simple rules
+ * Helper class to construct simple rules
  */
 export class RuleFactory {
   /**
-   * Creates a simple rule that responds with text
+   * Creates a simple rule that responds to a message
    * @param matches Command matches
    * @param content Content to reply with
    * @param DM Reply to user via DM instead of channel, default false 
@@ -23,7 +23,7 @@ export class RuleFactory {
   }
 
   /**
-   * Creates a simple
+   * Creates a simple rule that will react to a message
    * @param matches 
    * @param reactions 
    */

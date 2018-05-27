@@ -18,7 +18,7 @@ export * from './services/text.service';
 export * from './utils/choose';
 export * from './utils/detect-staff';
 export * from './utils/giveaway-lib';
-export * from './utils/gmlexec';
+export * from './utils/execute-gml';
 export * from './utils/parse-command-list';
 export * from './utils/validate-gml';
 export * from './utils/rule-factory';

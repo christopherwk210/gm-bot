@@ -10,7 +10,7 @@ import puppeteer = require('puppeteer');
  * @param gml GML to execute
  * @param cb Callback
  */
-export async function gmlexec(gml: string, cb: Function) {
+export async function executeGML(gml: string, cb: Function) {
 
   // Fix GML
   gml = gml.replace(/show_debug_message\(/g, 'show_debug_message("gmlex:" + ');

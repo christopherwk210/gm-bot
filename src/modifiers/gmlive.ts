@@ -12,6 +12,7 @@ export function gmlive(msg: Message) {
 
     // Get just the code
     let rawCode = code[0].substr(9,code[0].length - 12);
+    
     // Make a gmlive link
     let url = `http://yal.cc/r/gml/?mode=2d&gml=${Buffer.from(rawCode).toString('base64')}`;
 

@@ -1,8 +1,4 @@
-import { Message, Client } from "discord.js";
-
-/* eslint-disable no-unused-vars */
-const Discord = require('discord.js');
-const rules = require('../rules');
+import { Message, Client, RichEmbed, Attachment } from 'discord.js';
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
 // Shared
@@ -24,13 +20,11 @@ export function devmode(msg: Message, bot: Client) {
     let rawCode = code[0].substr(11,code[0].length - 14);
 
     // Create helper functions
-    // eslint-disable-next-line func-style
     let reply = function(str) {
       msg.channel.send(str);
     };
 
     // Execute code
-    // eslint-disable-next-line no-eval
     eval(rawCode);
 
     return true;
@@ -38,4 +32,3 @@ export function devmode(msg: Message, bot: Client) {
     return false;
   }
 };
-/* eslint-enable no-unused-vars */

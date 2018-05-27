@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { detectStaff, gmlexec } from '../shared';
+import { detectStaff, executeGML } from '../shared';
 
 const gmlExp = new RegExp(/(`{3})gml((?:[^`]+|`{1,2}[^`])*)(`{3})/g);
 
@@ -21,7 +21,7 @@ export function gml(msg: Message) {
     let rawCode = code[0].substr(6,code[0].length - 9);
 
     // Execute GML
-    gmlexec(rawCode, (err, data) => {
+    executeGML(rawCode, (err, data) => {
       if (err) {
         console.log(err);
         msg.channel.send(err);
