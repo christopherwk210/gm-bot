@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 import { jsonService } from '../shared/services/json.service';
-const beautify = require('js-beautify').js_beautify;
+import { js_beautify } from 'js-beautify';
 
 const beautifyOptions = jsonService.files['jsbeautify'];
 const cleanCodeExp = new RegExp(/([`]{3})clean-code([^```]*)([`]{3})/g);
@@ -23,7 +23,7 @@ export function prettifier(msg: Message) {
     for (let i = 0; i < code.length; i++) {
       // Replace all code with pretty code
       let originalCode = code[i].substr(13,code[i].length - 16);
-      prettyCode = beautify(originalCode, beautifyOptions);
+      prettyCode = js_beautify(originalCode, beautifyOptions);
       res = res.replace(originalCode, prettyCode);
     }
 

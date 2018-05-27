@@ -2,9 +2,9 @@ import { Message } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass, detectStaff, jsonService, AsyncWriter } from '../../shared';
 
-import path = require('path');
-import fs = require('fs');
-import util = require('util');
+import * as path from 'path';
+import * as fs from 'fs';
+import * as util from 'util';
 
 let existsAsync = util.promisify(fs.exists);
 let imgur = require('../../../modules/imgur');

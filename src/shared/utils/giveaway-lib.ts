@@ -1,8 +1,8 @@
 // Node libs
-import fs = require('fs');
-import path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as async from 'async';
 import { Message } from 'discord.js';
-const async = require('async');
 
 // Init
 let data = {}

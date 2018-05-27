@@ -1,4 +1,4 @@
-import path = require('path');
+import * as path from 'path';
 
 /** Project option references */
 export const Project = {

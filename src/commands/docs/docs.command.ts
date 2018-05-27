@@ -1,7 +1,8 @@
-import vm = require('vm');
-import http = require('http');
+import * as vm from 'vm';
+import * as http from 'http';
+import * as puppeteer from 'puppeteer';
 import concat = require('concat-stream');
-import puppeteer = require('puppeteer');
+
 import { Message } from 'discord.js';
 
 import { prefixedCommandRuleTemplate } from '../../config';

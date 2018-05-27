@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 
-import http = require('http');
+import * as http from 'http';
 const hasteExp = new RegExp(/([`]{3})haste([^```]*)([`]{3})/g);
 
 export function haste(msg: Message) {

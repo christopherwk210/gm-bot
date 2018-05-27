@@ -1,9 +1,8 @@
-import fs = require('fs');
-import path = require('path');
-import util = require('util');
-
-import prompts = require('prompts');
-import mkdirp = require('mkdirp');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as util from 'util';
+import * as prompts from 'prompts';
+import mkdirp from 'mkdirp';
 
 import { commandSchema, Schematic } from './schematics';
 

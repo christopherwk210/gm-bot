@@ -1,4 +1,4 @@
-import http = require('http');
+import * as http from 'http';
 import { Message, RichEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';

@@ -1,7 +1,7 @@
 import { Message, RichEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
-import https = require('https');
+import * as https from 'https';
 
 @Command({
   matches: ['github', 'community-github', 'gh'],

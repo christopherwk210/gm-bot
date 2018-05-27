@@ -1,7 +1,7 @@
 import { Message, RichEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
-import puppeteer = require('puppeteer');
+import * as puppeteer from 'puppeteer';
 
 @Command({
   matches: ['mp', 'marketplace'],

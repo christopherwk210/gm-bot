@@ -1,7 +1,7 @@
 // Node libs
-import fs = require('fs');
-import util = require('util');
-import path = require('path');
+import * as fs from 'fs';
+import * as util from 'util';
+import * as path from 'path';
 
 // Async
 const exists = util.promisify(fs.exists);
