@@ -11,13 +11,19 @@ export class RuleFactory {
    * @param matches Command matches
    * @param content Content to reply with
    * @param DM Reply to user via DM instead of channel, default false 
+   * @param wholeMessage When true, sets exact to false and checks the whole message, default false
    */
-  static createReplyRule(matches: string[], content: any, DM: boolean = false): Rule {
+  static createReplyRule(matches: string[], content: any, DM = false, wholeMessage = false): Rule {
     let rule: Rule = {
       matches,
       ...prefixedCommandRuleTemplate,
       action: DM ? msg => msg.author.send(content) : msg => msg.channel.send(content)
     };
+
+    if (wholeMessage) {
+      rule.wholeMessage = true;
+      rule.exact = false;
+    }
 
     return rule;
   }
@@ -26,8 +32,9 @@ export class RuleFactory {
    * Creates a simple rule that will react to a message
    * @param matches 
    * @param reactions 
+   * @param wholeMessage When true, sets exact to false and checks the whole message, default false
    */
-  static createReactionRule(matches: string[], reactions: (string|Emoji)[]): Rule {
+  static createReactionRule(matches: string[], reactions: (string|Emoji)[], wholeMessage = false): Rule {
     let rule: Rule = {
       matches,
       action: async msg => {
@@ -38,6 +45,11 @@ export class RuleFactory {
         }
       }
     };
+
+    if (wholeMessage) {
+      rule.wholeMessage = true;
+      rule.exact = false;
+    }
 
     return rule;
   }

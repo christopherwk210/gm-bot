@@ -4,7 +4,6 @@ import { Attachment } from 'discord.js';
 // Config
 import { prefixedCommandRuleTemplate } from './config';
 
-const audio = require('./commands/audio');
 const palette = require('./commands/palette');
 // const miniboss = require('./commands/miniboss');
 
@@ -41,9 +40,7 @@ import { Rule, TextChannelMessage, Type } from './shared';
 /** Loads all rules into memory */
 export function loadRules() {
 
-  /**
-   * Functional utility commands
-   */
+  /** Functional utility commands */
   let coreCommands: (Rule|Type<any>)[] = [
     WelcomeCommand,
     ResourcesCommand,
@@ -84,17 +81,13 @@ export function loadRules() {
     )
   ];
 
-  /**
-   * Admin only commands
-   */
+  /** Admin only commands */
   let adminCommands: (Rule|Type<any>)[] = [
     SayCommand,
     GiveawayManagementCommand
   ];
 
-  /**
-   * Bot developer only commands
-   */
+  /** Bot developer only commands */
   let devCommands: Rule[] = [
     {
       matches: ['id'],
@@ -106,14 +99,16 @@ export function loadRules() {
     }
   ];
 
-  /**
-   * Random fun stuffs
-   */
+  /** Random fun stuffs */
   let easterEggs: (Rule|Type<any>)[] = [
     AssembleCommand,
     CommandmentCommand,
     LifetimeCommand,
-    ChristmasCommand,
+    ChristmasCommand
+  ];
+
+  /** Reply RuleFactor rules */
+  let replyRules: Rule[] = [
     RuleFactory.createReplyRule(
       ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
       `${choose(['Paging', 'Come in', 'Where art thou', 'Someone needs ya',])} <@144913457429348352>`
@@ -134,19 +129,20 @@ export function loadRules() {
       ['givesidadonut'],
       ':doughnut:'
     ),
-    {
-      ...RuleFactory.createReplyRule(
-        ['~kissfromarose~'],
-        {
-          file: new Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
-          name: 'kiss-from-a-rose.gif'
-        }
-      ),
-      exact: false,
-      wholeMessage: true
-    },
     RuleFactory.createReplyRule(
-      ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
+      ['~kissfromarose~'],
+      {
+        file: new Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
+        name: 'kiss-from-a-rose.gif'
+      },
+      false,
+      true
+    ),
+    RuleFactory.createReplyRule(
+      [
+        '<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>',
+        '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'
+      ],
       '<@141365209435471872>'
     ),
     RuleFactory.createReplyRule(
@@ -164,7 +160,11 @@ export function loadRules() {
     RuleFactory.createReplyRule(
       ['inversekinematics'],
       '<@227032791013916672>'
-    ),
+    )
+  ];
+
+  /** React RuleFactor rules */
+  let reactRules: Rule[] = [
     RuleFactory.createReactionRule(
       ['<@295327000372051968>'],
       ['👋']
@@ -173,44 +173,34 @@ export function loadRules() {
       ['<@361088614735544320>'],
       ['🇦', '🇷', '🅰']
     ),
-    {
-      ...RuleFactory.createReactionRule(
-        ['hmm'],
-        ['🇭', '🇲', 'Ⓜ']
-      ),
-      exact: false,
-      wholeMessage: true
-    },
-    {
-      ...RuleFactory.createReactionRule(
-        ['good bot'],
-        ['❤']
-      ),
-      exact: false,
-      wholeMessage: true
-    },
-    {
-      ...RuleFactory.createReactionRule(
-        ['mm'],
-        ['🇲', 'Ⓜ']
-      ),
-      exact: false,
-      wholeMessage: true
-    },
-    {
-      ...RuleFactory.createReactionRule(
-        ['mmm'],
-        ['🇲', 'Ⓜ', guildService.guild.emojis.find('name', 'meseta')]
-      ),
-      exact: false,
-      wholeMessage: true
-    }
+    RuleFactory.createReactionRule(
+      ['hmm'],
+      ['🇭', '🇲', 'Ⓜ'],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['good bot'],
+      ['❤'],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['mm'],
+      ['🇲', 'Ⓜ'],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['mmm'],
+      ['🇲', 'Ⓜ', guildService.guild.emojis.find('name', 'meseta')],
+      true
+    )
   ];
 
   return [
     ...coreCommands,
     ...adminCommands,
     ...devCommands,
-    ...easterEggs
+    ...easterEggs,
+    ...replyRules,
+    ...reactRules
   ];
 }
