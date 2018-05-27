@@ -73,7 +73,7 @@ let coreCommands: (Rule|Type<any>)[] = [
     ...prefixedCommandRuleTemplate,
     action: msg => new RoleControlCommand().action(msg, ['3d', '3D'])
   },
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['lospec', 'palettes', 'palette-list'],
     'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
   )
@@ -168,43 +168,54 @@ let easterEggs: (Rule|Type<any>)[] = [
     pre: msg => !!detectStaff(msg.member),
     action: msg => christmas.autoCycle(msg)
   },
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
     `${choose(['Paging', 'Come in', 'Where art thou', 'Someone needs ya',])} <@144913457429348352>`
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['bgmhammer'],
     ':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:'
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['dinguses'],
     ':raised_hand: ***dinguses*** :raised_back_of_hand:'
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['dingus'],
     ':raised_hand: ***dingus*** :raised_back_of_hand:'
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['givesidadonut'],
     ':doughnut:'
   ),
-  RuleFactory.createTextRule(
+  {
+    ...RuleFactory.createReplyRule(
+      ['~kissfromarose~'],
+      {
+        file: new Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
+        name: 'kiss-from-a-rose.gif'
+      }
+    ),
+    exact: false,
+    wholeMessage: true
+  },
+  RuleFactory.createReplyRule(
     ['<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>', '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
     '<@141365209435471872>'
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['💤👁️', '💤 👁'],
     '<@240306552949440512>'
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['🎁 💀', '🎁💀'],
     '<@277615099034730506>'
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['1⃣ 3⃣', '1⃣3⃣'],
     '<@121017818778042368>'
   ),
-  RuleFactory.createTextRule(
+  RuleFactory.createReplyRule(
     ['inversekinematics'],
     '<@227032791013916672>'
   ),
@@ -247,18 +258,6 @@ let easterEggs: (Rule|Type<any>)[] = [
     ),
     exact: false,
     wholeMessage: true
-  },
-  {
-    matches: ['~kissfromarose~'],
-    exact: false,
-    wholeMessage: true,
-    delete: true,
-    action: msg => {
-      msg.channel.send({
-        file: new Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
-        name: 'kiss-from-a-rose.gif'
-      });
-    }
   }
 ];
 

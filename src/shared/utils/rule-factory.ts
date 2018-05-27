@@ -9,14 +9,14 @@ export class RuleFactory {
   /**
    * Creates a simple rule that responds with text
    * @param matches Command matches
-   * @param text Text to reply with
+   * @param content Content to reply with
    * @param DM Reply to user via DM instead of channel, default false 
    */
-  static createTextRule(matches: string[], text: string, DM: boolean = false): Rule {
+  static createReplyRule(matches: string[], content: any, DM: boolean = false): Rule {
     let rule: Rule = {
       matches,
       ...prefixedCommandRuleTemplate,
-      action: DM ? msg => msg.author.send(text) : msg => msg.channel.send(text)
+      action: DM ? msg => msg.author.send(content) : msg => msg.channel.send(content)
     };
 
     return rule;
