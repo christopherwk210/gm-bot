@@ -14,3 +14,4 @@ export * from './giveaway-management/giveaway-management.command';
 export * from './assemble/assemble.command';
 export * from './commandment/commandment.command';
 export * from './lifetime/lifetime.command';
+export * from './christmas/christmas.command';

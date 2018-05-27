@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
       "module": "commonjs",
-      "target": "es6",
+      "target": "es7",
       "preserveConstEnums": true,
       "sourceMap": true,
       "moduleResolution": "node",

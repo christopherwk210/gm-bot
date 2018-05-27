@@ -25,7 +25,8 @@ import {
   GiveawayManagementCommand,
   AssembleCommand,
   CommandmentCommand,
-  LifetimeCommand
+  LifetimeCommand,
+  ChristmasCommand
 } from './commands';
 
 // Project utils
@@ -150,24 +151,13 @@ let audioCommands: Rule[] = [
 ];
 
 /**
- * Misc silly shit
+ * Random fun stuffs
  */
 let easterEggs: (Rule|Type<any>)[] = [
   AssembleCommand,
   CommandmentCommand,
   LifetimeCommand,
-  {
-    matches: ['christmascycle'],
-    ...prefixedCommandRuleTemplate,
-    pre: msg => !!detectStaff(msg.member),
-    action: msg => christmas.cycle(msg)
-  },
-  {
-    matches: ['christmasautocycle'],
-    ...prefixedCommandRuleTemplate,
-    pre: msg => !!detectStaff(msg.member),
-    action: msg => christmas.autoCycle(msg)
-  },
+  ChristmasCommand,
   RuleFactory.createReplyRule(
     ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
     `${choose(['Paging', 'Come in', 'Where art thou', 'Someone needs ya',])} <@144913457429348352>`
