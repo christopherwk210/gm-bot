@@ -10,6 +10,7 @@ class MarkdownService {
     [key: string]: string;
   } = {};
 
+  /** Loads all Markdown files under ../assets/markdown into memory */
   loadAllMarkdownFiles() {
     let markdownFiles = fs.readdirSync(this.markdownFileLocation);
 

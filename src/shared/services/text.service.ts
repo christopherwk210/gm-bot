@@ -10,6 +10,7 @@ class TextService {
     [key: string]: string;
   } = {};
 
+  /** Loads all TXT files under ../assets/text into memory */
   loadAllTextFiles() {
     let textFiles = fs.readdirSync(this.textFileLocation);
 
