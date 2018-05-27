@@ -11,11 +11,6 @@ export class GithubCommand implements CommandClass {
   /** API url */
   api = 'https://chrisanselmo.com/gmd_ghorg_api';
 
-  /**
-   * Command action
-   * @param msg 
-   * @param args
-   */
   async action(msg: Message, args: string[]) {
     let loadingMessage: Message | Message[], query: string;
 
@@ -53,7 +48,7 @@ export class GithubCommand implements CommandClass {
 
     // Perform search
     let repos: any[] = githubInfo.repos;
-    let searchResult = repos.find(repo => repo.name.toUpperCase() === query.toUpperCase() || !!~repo.name.toUpperCase().indexOf(query.toUpperCase()));
+    let searchResult = repos.find(repo => !!~repo.name.toUpperCase().indexOf(query.toUpperCase()));
 
     if (!searchResult) {
       (<Message>loadingMessage).delete();
