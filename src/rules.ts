@@ -132,7 +132,7 @@ export function loadRules() {
     RuleFactory.createReplyRule(
       ['~kissfromarose~'],
       {
-        file: new Attachment(path.join(__dirname, '../assets/images/kissfromarose.gif')),
+        file: new Attachment(path.join(__dirname, './shared/assets/images/kissfromarose.gif')),
         name: 'kiss-from-a-rose.gif'
       },
       false,
