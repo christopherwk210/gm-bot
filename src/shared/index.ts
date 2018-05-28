@@ -13,6 +13,7 @@ export * from './services/json.service';
 export * from './services/markdown.service';
 export * from './services/role.service';
 export * from './services/text.service';
+export * from './services/giveaway.service';
 
 // Utils
 export * from './utils/detect-staff';
