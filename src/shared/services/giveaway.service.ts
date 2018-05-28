@@ -1,20 +1,21 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import { Snowflake, GuildMember } from 'discord.js';
 import { jsonService, AsyncWriter } from '../';
-import { Snowflake } from 'discord.js';
+import '../utils/choose';
 
 /**
- * Manages server giveaways, depends on jsonService
+ * Manages server giveaways
  */
 class GiveawayService {
   /** Path to the giveaway JSON file */
-  giveawayDataPath = path.join(__dirname, '../../../data/giveAwaysData.json');
+  private giveawayDataPath = path.join(__dirname, '../../../data/giveAwaysData.json');
 
   /** Async giveaway JSON writer */
-  asyncWriter: AsyncWriter;
+  private asyncWriter: AsyncWriter;
 
   /** All current giveaway data */
-  giveawayData: GiveawayContainer;
+  private giveawayData: GiveawayContainer;
 
   constructor() {
     this.giveawayData = this.loadExistingData();
@@ -22,7 +23,7 @@ class GiveawayService {
   }
 
   /** Loads existing data, or creates it if not present */
-  loadExistingData() {
+  private loadExistingData() {
     let exists = fs.existsSync(this.giveawayDataPath);
     if (exists) {
       return fs.readFileSync(this.giveawayDataPath, 'utf8');
@@ -33,7 +34,7 @@ class GiveawayService {
   }
 
   /** Saves all current giveaway data */
-  save() {
+  private save() {
     this.asyncWriter(this.giveawayData);
   }
 
@@ -64,12 +65,73 @@ class GiveawayService {
    * @param name Name of the giveaway to delete
    */
   deleteGiveaway(name: string) {
-    return delete this.giveawayData[name];
+    delete this.giveawayData[name];
+    this.save();
   }
 
   /** Returns an array of all active giveaways */
   giveawayArray() {
     return Object.values(this.giveawayData);
+  }
+
+  /**
+   * Sign a user up for the giveaway
+   * @param name Name of giveaway to sign-up for
+   * @param user 
+   * @returns Error message, if any
+   */
+  signup(name: string, user: GuildMember) {
+    let now = Date.now();
+    let giveaway = this.giveawayData[name];
+
+    // Account for errors
+    if (!giveaway) return `A giveaway for ${name} doesn't exist!`;
+    if (now < giveaway.start.getTime()) return `The ${name} giveaway hasn't started yet!`;
+    if (now > giveaway.end.getTime()) return `The ${name} giveaway signup period has concluded!`;
+    if (!giveaway.participants.find(entry => entry.id === user.id)) return 'No duplicate entries!';
+
+    // Add user to giveaway
+    giveaway.participants.push({
+      id: user.id,
+      name: user.displayName
+    });
+
+    this.save();
+    return null;
+  }
+
+  /**
+   * Draw winners for a giveaway
+   * @param name Giveaway name
+   * @param count Number of winners to draw, default 1
+   * @returns Array of newly drawn winners, or error string
+   */
+  drawWinner(name: string, count: number = 1) {
+    let giveaway = this.giveawayData[name];
+
+    // Account for errors
+    if (!giveaway) return `A giveaway for ${name} doesn't exist!`;
+    if (!giveaway.participants.length) return `The ${name} giveaway has no entries!`;
+
+    // Don't overdraw!
+    count = Math.min(count, giveaway.participants.length);
+    
+    let newWinners: Participant[] = [];
+
+    for (let i = 0; i < count; i++) {
+      // Choose a winner
+      let winner = giveaway.participants.choose();
+
+      // Remove winer from participants array
+      giveaway.participants = giveaway.participants.filter(entry => entry.id !== winner.id);
+
+      // Add them to the winner circle
+      giveaway.winners.push(winner);
+      newWinners.push(winner);
+    }
+
+    this.save();
+    return newWinners;
   }
 }
 
@@ -83,8 +145,8 @@ interface Participant {
   /** Participant ID */
   id: Snowflake;
 
-  /** Participant username */
-  username: string;
+  /** Participant display name */
+  name: string;
 }
 
 export interface Giveaway {

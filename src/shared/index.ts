@@ -17,7 +17,6 @@ export * from './services/giveaway.service';
 
 // Utils
 export * from './utils/detect-staff';
-export * from './utils/giveaway-lib';
 export * from './utils/execute-gml';
 export * from './utils/parse-command-list';
 export * from './utils/validate-gml';

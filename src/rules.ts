@@ -25,15 +25,13 @@ import {
   CommandmentCommand,
   LifetimeCommand,
   ChristmasCommand,
-  AudioCommand
+  AudioCommand,
+  GiveawayCommand
 } from './commands';
 
 // Project utils
 import { detectStaff, RuleFactory, guildService } from './shared';
 import './shared/utils/choose';
-
-// Giveaway Functions
-import { handleGiveawayMessage } from './shared';
 
 // Types
 import { Rule, TextChannelMessage, Type } from './shared';
@@ -55,6 +53,7 @@ export function loadRules() {
     GithubCommand,
     AssembleCommand,
     AudioCommand,
+    GiveawayCommand,
     // {
     //   matches: ['miniboss', 'mb', 'pedro', 'saint11'],
     //   ...prefixedCommandRuleTemplate,
@@ -65,11 +64,6 @@ export function loadRules() {
       matches: ['palette', 'pallete', 'palete'],
       ...prefixedCommandRuleTemplate,
       action: palette
-    },
-    {
-      matches: ['giveaway', 'giveaways'],
-      ...prefixedCommandRuleTemplate,
-      action: handleGiveawayMessage
     },
     {
       matches: ['3d'],

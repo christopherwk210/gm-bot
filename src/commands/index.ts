@@ -16,3 +16,4 @@ export * from './commandment/commandment.command';
 export * from './lifetime/lifetime.command';
 export * from './christmas/christmas.command';
 export * from './audio/audio.command';
+export * from './giveaway/giveaway.command';

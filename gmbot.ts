@@ -32,7 +32,8 @@ import {
   channelService,
   markdownService,
   textService,
-  jsonService
+  jsonService,
+  giveawayService
 } from './src/shared';
 
 // Config
