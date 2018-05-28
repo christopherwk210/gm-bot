@@ -37,8 +37,39 @@ class GiveawayService {
     this.asyncWriter(this.giveawayData);
   }
 
-  drawWinner(name: string, count: number) {
+  /**
+   * Creates a new giveaway and it returns it, false if already exists
+   * @param name Giveaway name
+   * @param start Start date
+   * @param end End date
+   */
+  createGiveaway(name: string, start: Date, end: Date) {
+    if (this.giveawayData[name]) return false;
 
+    this.giveawayData[name] = {
+      name,
+      start,
+      end,
+      participants: [],
+      winners: []
+    };
+
+    this.save();
+
+    return this.giveawayData[name];
+  }
+
+  /**
+   * Deletes a giveaway
+   * @param name Name of the giveaway to delete
+   */
+  deleteGiveaway(name: string) {
+    return delete this.giveawayData[name];
+  }
+
+  /** Returns an array of all active giveaways */
+  giveawayArray() {
+    return Object.values(this.giveawayData);
   }
 }
 
@@ -57,6 +88,9 @@ interface Participant {
 }
 
 export interface Giveaway {
+  /** Name of the giveaway */
+  name: string;
+
   /** Date and time the giveaway begins */
   start: Date;
 

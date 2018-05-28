@@ -60,7 +60,7 @@ export class ChristmasCommand implements CommandClass {
    */
   cycle() {
     // Turn all available colors into an array
-    let colorArray = Object.keys(this.colors).map(color => this.colors[color]);
+    let colorArray = Object.values(this.colors);
 
     // Iterate over each role
     Object.keys(this.roles).forEach(key => {
