@@ -1,4 +1,4 @@
-import { Role, Client } from "discord.js";
+import { Role, Client } from 'discord.js';
 
 /**
  * Contains information about the server roles

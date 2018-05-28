@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message } from 'discord.js';
 
 const gmliveExp = new RegExp(/([`]{3})gmlive([^```]*)([`]{3})/g);
 

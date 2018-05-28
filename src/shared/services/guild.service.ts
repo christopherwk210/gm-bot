@@ -1,4 +1,4 @@
-import { Guild, Client } from "discord.js";
+import { Guild, Client } from 'discord.js';
 
 /**
  * Contains information about the server guild

@@ -1,4 +1,4 @@
-import { Client, TextChannel, VoiceChannel, CategoryChannel, GuildChannel } from "discord.js";
+import { Client, TextChannel, VoiceChannel, CategoryChannel, GuildChannel } from 'discord.js';
 
 /**
  * Contains information about all of the server's channels

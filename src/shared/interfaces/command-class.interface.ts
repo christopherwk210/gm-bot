@@ -1,5 +1,5 @@
-import { Message } from "discord.js";
-import { TextChannelMessage } from "./rule.interface";
+import { Message } from 'discord.js';
+import { TextChannelMessage } from './rule.interface';
 
 export interface CommandClass {
   /**

@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message } from 'discord.js';
 
 import * as http from 'http';
 const hasteExp = new RegExp(/([`]{3})haste([^```]*)([`]{3})/g);

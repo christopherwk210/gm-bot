@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message } from 'discord.js';
 import { jsonService } from '../shared/services/json.service';
 import { js_beautify } from 'js-beautify';
 
