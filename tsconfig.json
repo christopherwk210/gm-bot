@@ -8,7 +8,7 @@
       "outDir": "dist",
       "baseUrl": ".",
       "experimentalDecorators": true,
-      "lib": [ "es2017" ]
+      "lib": [ "dom", "es2017" ]
   },
   "files": [
     "gmbot.ts"
