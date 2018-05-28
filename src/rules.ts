@@ -29,7 +29,8 @@ import {
 } from './commands';
 
 // Project utils
-import { detectStaff, choose, RuleFactory, guildService } from './shared';
+import { detectStaff, RuleFactory, guildService } from './shared';
+import './shared/utils/choose';
 
 // Giveaway Functions
 import { handleGiveawayMessage } from './shared';
@@ -111,7 +112,7 @@ export function loadRules() {
   let replyRules: Rule[] = [
     RuleFactory.createReplyRule(
       ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
-      `${choose(['Paging', 'Come in', 'Where art thou', 'Someone needs ya',])} <@144913457429348352>`
+      `${['Paging', 'Come in', 'Where art thou', 'Someone needs ya'].choose()} <@144913457429348352>`
     ),
     RuleFactory.createReplyRule(
       ['bgmhammer'],

@@ -1,8 +1,12 @@
-/**
- * Returns a random item from the given array
- * @param a Any array of values
- * @see {@link http://stackoverflow.com/a/4550514}
- */
-export function choose(a: any[]) {
-  return a[Math.floor(Math.random() * a.length)];
-};
+declare interface Array<T> {
+  /**
+   * Returns a random item from an array
+   * @see {@link http://stackoverflow.com/a/4550514 }
+   * @method
+   */
+  choose: () => T;
+}
+
+Array.prototype.choose = function(this: any[]) {
+  return this[Math.floor(Math.random() * this.length)];
+}

@@ -15,7 +15,6 @@ export * from './services/role.service';
 export * from './services/text.service';
 
 // Utils
-export * from './utils/choose';
 export * from './utils/detect-staff';
 export * from './utils/giveaway-lib';
 export * from './utils/execute-gml';
