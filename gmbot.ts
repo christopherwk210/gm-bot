@@ -252,8 +252,8 @@ process.on('uncaughtException', (err) => {
 // Copyright information
 console.log(`GameMakerBot v${require('./package.json').version}`);
 
+// Express setup
+runExpressServer();
+
 // Login the bot using the auth token from auth.json
 bot.login(auth.token);
-
-// Express setup
-runExpressServer(bot);

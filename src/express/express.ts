@@ -13,10 +13,9 @@ app.use(cors());
 app.use('//gmlive', express.static(path.join(__dirname, 'gmlive')));
 
 /**
- * Init the express server providing needed references
- * @param bot Bot client reference
+ * Init the express server
  */
-export default function runExpressServer(bot: Client) {
+export default function runExpressServer() {
   app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'gmlive/index.html')));
 
   // Run the server
