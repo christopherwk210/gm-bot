@@ -8,15 +8,15 @@ import * as http from 'http';
 })
 export class HasteModifier implements ModifierClass {
 
-  async action(msg: Message, contents: string[], match: string) {
+  async action(msg: Message, contents: string[]) {
     let replies: string[] = [];
 
     // Get hastebin links for each code block
-    for (let content of contents) {
+    for (let codeBlock of contents) {
       let link: string;
 
       try {
-        link = await this.getHasteBinLink(content);
+        link = await this.getHasteBinLink(codeBlock);
       } catch(e) {
         console.error(e);
         msg.channel.send('An error occurred while connecting to hastebin!');

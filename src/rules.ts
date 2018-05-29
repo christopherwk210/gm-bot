@@ -32,7 +32,8 @@ import {
 // Modifiers
 import {
   CleanCodeModifier,
-  HasteModifier
+  HasteModifier,
+  GmliveModifier
 } from './modifiers';
 
 // Project utils
@@ -208,11 +209,12 @@ export function loadRules() {
 
 /** Loads all modifiers into memory */
 export function loadModifiers() {
-  
+
   /** All bot code block modifiers */
   let modifiers: Type<any>[] = [
     CleanCodeModifier,
-    HasteModifier
+    HasteModifier,
+    GmliveModifier
   ];
 
   return [
