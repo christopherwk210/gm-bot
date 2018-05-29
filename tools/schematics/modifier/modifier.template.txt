@@ -1,0 +1,33 @@
+import { Message } from 'discord.js';
+import { Modifier, ModifierClass } from '../../shared';
+
+@Modifier({
+  match: '$0',
+  delete: true
+})
+export class $1Modifier implements ModifierClass {
+  constructor() {
+    // Initialization code here, if any (constructor can be removed if not needed)
+  }
+
+  /**
+   * Modifier action
+   * @param msg Original discord message
+   * @param contents Contents of all matched code blocks
+   * @param match Modifier match string
+   */
+  action(msg: Message, contents: string[], match: string) {
+
+  }
+
+  /**
+   * Prevalidation callback, can be removed if not needed
+   * @param msg Original discord message
+   * @param contents Contents of all matched code blocks
+   * @param match Modifier match string
+   */
+  pre(msg: Message, args: string[]) {
+    // By returning true, we signify that validation has passed, causing the action to trigger
+    return true;
+  }
+}

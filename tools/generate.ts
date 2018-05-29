@@ -4,7 +4,11 @@ import * as util from 'util';
 import * as prompts from 'prompts';
 import * as mkdirp from 'mkdirp';
 
-import { commandSchema, Schematic } from './schematics';
+import {
+  Schematic,
+  commandSchema,
+  modifierSchema
+} from './schematics';
 
 // Promisification
 const exists = util.promisify(fs.exists);
@@ -13,7 +17,8 @@ const writeFile = util.promisify(fs.writeFile);
 
 /** Array of all available schematics */
 const schematics: Schematic[] = [
-  commandSchema
+  commandSchema,
+  modifierSchema
 ];
 
 // Determine what schematic the user provided
