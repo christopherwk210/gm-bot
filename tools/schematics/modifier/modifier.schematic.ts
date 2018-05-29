@@ -18,6 +18,7 @@ export const modifierSchema: Schematic = {
       return { err: 'No modifier name provided!' };
     }
 
+    // Transform name
     let kebabName = stringToKebabCase(inputResults[0]);
     let pascalName = stringToPascalCase(inputResults[0]);
 

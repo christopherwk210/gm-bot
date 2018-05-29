@@ -18,6 +18,7 @@ export const commandSchema: Schematic = {
       return { err: 'No command name provided!' };
     }
 
+    // Transform name
     let kebabName = stringToKebabCase(inputResults[0]);
     let pascalName = stringToPascalCase(inputResults[0]);
 

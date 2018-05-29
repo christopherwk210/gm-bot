@@ -1,5 +1,5 @@
 import { Message, RichEmbed } from 'discord.js';
-import { prefixedCommandRuleTemplate } from '../../config';
+import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass, detectStaff } from '../../shared';
 
 @Command({
@@ -43,7 +43,7 @@ export class SayCommand implements CommandClass {
           icon_url: 'https://cdn.discordapp.com/app-icons/295327000372051968/a073c2f3f8904916d98d873b90517665.png',
           url: 'https://bitbucket.org/christopherwk210/gm-bot'
         },
-        color: 26659,
+        color: defaultEmbedColor,
         timestamp: new Date(),
         description: message
       });

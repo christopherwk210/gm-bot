@@ -16,8 +16,6 @@ export function stringToPascalCase(str: string) {
  */
 export function stringToKebabCase(str: string) {
   return str.match(/[a-z]+/gi)
-    .map(word => {
-      return word.toLowerCase();
-    })
+    .map(word => word.toLowerCase())
     .join('-');
 }

@@ -1,5 +1,5 @@
 import { Message, RichEmbed } from 'discord.js';
-import { prefixedCommandRuleTemplate } from '../../config';
+import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import * as puppeteer from 'puppeteer';
 
@@ -131,7 +131,7 @@ export class MarketplaceCommand implements CommandClass {
       title: result.title,
       url: result.url,
       description: `${result.type.replace(/s$/i, '')}\n${result.price}`,
-      color: 26659,
+      color: defaultEmbedColor,
       timestamp: new Date()
     }).setThumbnail(result.image);
   }

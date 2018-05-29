@@ -4,6 +4,7 @@ import { Message } from 'discord.js';
 
 import Discord = require('discord.js');
 import http = require('http');
+import { defaultEmbedColor } from '../config';
 const keywords = require('./miniboss.keywords');
 
 /**
@@ -47,7 +48,7 @@ module.exports = function(msg: Message, args: string[]) {
 
   // Create the embed, with default text.
   let embed = new Discord.RichEmbed()
-    .setColor(2236468)
+    .setColor(defaultEmbedColor)
     .setTitle('Miniboss Image Not Found');
 
   // Get the wepage to check if the image exists
