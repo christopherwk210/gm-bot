@@ -11,7 +11,7 @@ export const modifierSchema: Schematic = {
   name: 'modifier',
   template: fs.readFileSync(templatePath, 'utf8'),
   inputs: [
-    'What is the name of your modifier?'
+    'What is the name of your code modifier?'
   ],
   preWrite: async function(inputResults) {
     if (!inputResults[0]) {
@@ -33,7 +33,7 @@ export const modifierSchema: Schematic = {
     if (res) {
       res.err ? console.error(res.err) : console.error(res);
     } else {
-      console.log('Modifier successfully generated!\nYou still need to correctly add it to [N/A]');
+      console.log('Modifier successfully generated!\nYou still need to correctly add it to the rules in ./src/rules.ts');
     }
   }
 };

@@ -29,6 +29,12 @@ import {
   GiveawayCommand
 } from './commands';
 
+// Modifiers
+import {
+  CleanCodeModifier,
+  HasteModifier
+} from './modifiers';
+
 // Project utils
 import { detectStaff, RuleFactory, guildService } from './shared';
 import './shared/utils/choose';
@@ -69,11 +75,7 @@ export function loadRules() {
       matches: ['3d'],
       ...prefixedCommandRuleTemplate,
       action: msg => new RoleControlCommand().action(msg, ['3d', '3D'])
-    },
-    RuleFactory.createReplyRule(
-      ['lospec', 'palettes', 'palette-list'],
-      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
-    )
+    }
   ];
 
   /** Admin only commands */
@@ -155,6 +157,10 @@ export function loadRules() {
     RuleFactory.createReplyRule(
       ['inversekinematics'],
       '<@227032791013916672>'
+    ),
+    RuleFactory.createReplyRule(
+      ['lospec', 'palettes', 'palette-list'],
+      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
     )
   ];
 
@@ -197,5 +203,19 @@ export function loadRules() {
     ...easterEggs,
     ...replyRules,
     ...reactRules
+  ];
+}
+
+/** Loads all modifiers into memory */
+export function loadModifiers() {
+  
+  /** All bot code block modifiers */
+  let modifiers: Type<any>[] = [
+    CleanCodeModifier,
+    HasteModifier
+  ];
+
+  return [
+    ...modifiers
   ];
 }
