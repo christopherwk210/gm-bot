@@ -2,7 +2,7 @@ import { Message, Client, RichEmbed, Attachment } from 'discord.js';
 const devModeExp = new RegExp(/([`]{3})!devmode([^```]*)([`]{3})/g);
 
 // Shared
-import { roleService, guildService, channelService, getGiveAways } from '../shared';
+import { roleService, guildService, channelService, giveawayService } from '../shared';
 
 export function devmode(msg: Message, bot: Client) {
   if (!msg.member) return false;

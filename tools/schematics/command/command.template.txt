@@ -9,24 +9,25 @@ import { Command, CommandClass } from '../../shared';
 export class $1Command implements CommandClass {
 
   constructor() {
-    
+    // Initialization code here, if any (constructor can be removed if not needed)
   }
 
   /**
    * Command action
-   * @param msg 
-   * @param args
+   * @param msg Original discord message
+   * @param args Message contents, split on space character
    */
   action(msg: Message, args: string[]) {
 
   }
 
   /**
-   * Command validation action
-   * @param msg 
-   * @param args
+   * Command validation action, can be removed if not needed
+   * @param msg Original discord message
+   * @param args Message contents, split on space character
    */
   pre(msg: Message, args: string[]) {
+    // By returning true, we signify that validation has passed, causing the action to trigger
     return true;
   }
 }

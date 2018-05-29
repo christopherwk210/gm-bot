@@ -1,8 +1,10 @@
 // Decorators
 export * from './decorators/command.decorator';
+export * from './decorators/modifier.decorator';
 
 // Interfaces
 export * from './interfaces/command-class.interface';
+export * from './interfaces/modifier.interface';
 export * from './interfaces/rule.interface';
 export * from './interfaces/type.interface';
 

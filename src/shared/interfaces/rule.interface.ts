@@ -1,7 +1,7 @@
 import { Message, TextChannel } from 'discord.js';
 
 export interface RuleOptions {
-  /** All synonyms for this command */
+  /** All matches to recognize for this command */
   matches: string[];
 
   /** The prefix for this command, to match before any of the matches */
@@ -16,7 +16,7 @@ export interface RuleOptions {
   /** If omitted or true, it will match case-sensitively */
   exact?: boolean;
 
-  /** Whether or not to delete a matched message (after calling the action) */
+  /** Whether or not to delete the matched message (after calling the action) */
   delete?: boolean;
 }
 
