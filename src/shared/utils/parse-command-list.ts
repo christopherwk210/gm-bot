@@ -5,6 +5,7 @@ import { Type, Rule } from '..';
  * Parses a command list against a discord message
  * @param commandList List of valid command rules
  * @param msg Discord message
+ * @returns True if command was matched and executed
  */
 export function parseCommandList(commandList: (Rule|Type<any>)[], msg: Message) {
   let messageContent = msg.content;
@@ -27,6 +28,13 @@ export function parseCommandList(commandList: (Rule|Type<any>)[], msg: Message) 
   return success;
 };
 
+/**
+ * Matches a rule against a message and executes if matched
+ * @param command Rule to match and execute
+ * @param msg Message to execute on
+ * @param messageContent Contents of the message
+ * @param args Message contents, split on space character
+ */
 function handleRule(command: Rule, msg: Message, messageContent: string, args: string[]): boolean {
   let success = false;
 
@@ -79,6 +87,13 @@ function handleRule(command: Rule, msg: Message, messageContent: string, args: s
   return success;
 }
 
+/**
+ * Matches a command class against a message and executes if matched
+ * @param Command Command to match and execute
+ * @param msg Message to execute on
+ * @param messageContent Contents of the message
+ * @param args Message contents, split on space character
+ */
 function handleCommand(Command: Type<any>, msg: Message, messageContent: string, args: string[]): boolean {
   // Create new instance of command
   let cmd = new Command();
@@ -115,14 +130,8 @@ function handleCommand(Command: Type<any>, msg: Message, messageContent: string,
 
     // Match made
     if (condition) {
-      // Validate pre callback
-      if (cmd.pre) {
-        if (!cmd.pre(msg, args)) {
-
-          // Pre invalidated, short circuit
-          return true;
-        }
-      }
+      // Ensure prevalidation passes if present
+      if (cmd.pre && !cmd.pre(msg, args)) return true;
 
       // Execute command action
       cmd.action(msg, args);
