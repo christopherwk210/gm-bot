@@ -21,5 +21,6 @@ export * from './services/giveaway.service';
 export * from './utils/detect-staff';
 export * from './utils/execute-gml';
 export * from './utils/parse-command-list';
+export * from './utils/parse-modifier-list';
 export * from './utils/validate-gml';
 export * from './utils/rule-factory';

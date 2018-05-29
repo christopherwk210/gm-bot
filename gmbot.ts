@@ -8,22 +8,14 @@
 import { Message, Client, GuildMember } from 'discord.js';
 const bot = new Client();
 
-// Rules!
-import { loadRules } from './src/rules';
-let rules = [];
+// Config
+import { shouldDieOnException } from './src/config';
 
-// Modifiers
-import { prettifier } from './src/modifiers/prettifier';
-import { gmlive } from './src/modifiers/gmlive';
-import { devmode } from './src/modifiers/devmode';
-import { gml } from './src/modifiers/gml';
-import { haste } from './src/modifiers/haste';
+// Utils
+import { parseCommandList, parseModifierList, Rule, Type } from './src/shared';
 
 // Express
 import runExpressServer from './src/express/express';
-
-// Utils
-import { parseCommandList } from './src/shared';
 
 // Services
 import {
@@ -36,11 +28,18 @@ import {
   giveawayService
 } from './src/shared';
 
-// Config
-import { shouldDieOnException } from './src/config';
+// Rules
+import { loadRules, loadModifiers } from './src/rules';
+let rules: (Rule|Type<any>)[] = [];
+let modifiers: Type<any>[] = [];
 
 // Commands
 import { WelcomeCommand } from './src/commands';
+
+// Initialize file based services
+markdownService.loadAllMarkdownFiles();
+textService.loadAllTextFiles();
+jsonService.loadAlljsonFiles();
 
 // Image upload limitting
 let imageOptions = {
@@ -51,16 +50,9 @@ let imageOptions = {
   imageTimer: 1000 * 60 * 5 // 5 minutes
 };
 
-// Initialize file based services
-markdownService.loadAllMarkdownFiles();
-textService.loadAllTextFiles();
-jsonService.loadAlljsonFiles();
-
-// Auth token
-let auth = jsonService.files['auth'];
-
-// Bad links
+// Load JSONs
 const badlinks = jsonService.files['bad-links'];
+const auth = jsonService.files['auth'];
 
 // Well shit, ya didn't read the instructions did ya?
 if (!auth) {
@@ -73,7 +65,7 @@ bot.on('ready', onBotReady);                        // Bot is loaded
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
-bot.on('guildMemberAdd', WelcomeCommand.sendWelcomeMessage) // A new member has joined
+bot.on('guildMemberAdd', WelcomeCommand.sendWelcomeMessage); // A new member has joined
 
 /**
  * Called when the bot has reported ready status
@@ -86,6 +78,7 @@ function onBotReady() {
 
   // Load all rules
   rules = loadRules();
+  modifiers = loadModifiers();
 
   // Tell the world our feelings
   console.log('Squaring to go, captain.');
@@ -138,9 +131,6 @@ function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
 function onBotMessageUpdate(oldMsg: Message, newMsg: Message) {
   // Don't respond to bots
   if (newMsg.author.bot) return;
-
-  // Catch clean-code and gmlive edits
-  prettifier(newMsg) || gmlive(newMsg);
 }
 
 /**
@@ -157,15 +147,13 @@ function onBotMessage(msg: Message) {
   }
 
   // Catch bad links
-  if (!catchBadMessages(msg)) {
+  if (catchBadMessages(msg)) return;
 
-    // Parse message for commands or matches
-    if (!parseCommandList(rules, msg)) {
+  // Parse message for commands or matches
+  if (parseCommandList(rules, msg)) return;
 
-      // If no command was hit, check for modifiers
-      prettifier(msg) || gmlive(msg) || gml(msg) || devmode(msg, bot) || haste(msg);
-    }
-  }
+  // If no command was hit, check for modifiers
+  parseModifierList(modifiers, msg);
 }
 
 /**
@@ -174,17 +162,15 @@ function onBotMessage(msg: Message) {
  */
 function catchBadMessages(msg: Message) {
   if (detectBadLink(msg.content)) {
-    // RED ALERT OH SHIT
+    // RED ALERT
     console.log('Deleted a message containing a bad link.');
-
-    // Contact the dingus brigade
     console.log(`Deleted a message with a bad link. The person that posted it was ${msg.author.username}\nThe content of the message was:\n\n${msg.content}`);
 
     // Delete the uh-oh
     msg.delete();
 
     // Publicly shame the dingus who did the dirty
-    msg.channel.send(`Heads up! @${msg.author.username} tried to post a malicious link. The admins have been made aware of this.`);
+    msg.channel.send(`Heads up! ${msg.author} tried to post a malicious link. The admins have been made aware of this.`);
 
     return true;
   } else {
