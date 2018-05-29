@@ -11,7 +11,6 @@ import * as puppeteer from 'puppeteer';
  * @param cb Callback
  */
 export async function executeGML(gml: string, cb: Function) {
-
   // Fix GML
   gml = gml.replace(/show_debug_message\(/g, 'show_debug_message("gmlex:" + ');
   gml = gml.replace(/trace\(/g, 'trace("gmlex:" + ');

@@ -33,7 +33,9 @@ import {
 import {
   CleanCodeModifier,
   HasteModifier,
-  GmliveModifier
+  GmliveModifier,
+  GmlModifier,
+  DevmodeModifier
 } from './modifiers';
 
 // Project utils
@@ -214,7 +216,9 @@ export function loadModifiers() {
   let modifiers: Type<any>[] = [
     CleanCodeModifier,
     HasteModifier,
-    GmliveModifier
+    GmliveModifier,
+    GmlModifier,
+    DevmodeModifier
   ];
 
   return [

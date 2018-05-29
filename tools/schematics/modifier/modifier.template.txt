@@ -26,7 +26,7 @@ export class $1Modifier implements ModifierClass {
    * @param contents Contents of all matched code blocks
    * @param match Modifier match string
    */
-  pre(msg: Message, args: string[]) {
+  pre(msg: Message, contents: string[], match: string) {
     // By returning true, we signify that validation has passed, causing the action to trigger
     return true;
   }
