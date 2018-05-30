@@ -16,7 +16,7 @@ export class GmlModifier implements ModifierClass {
       if (err) {
         console.log(err);
         msg.channel.send(err);
-      } else {        
+      } else {
         let returnString = 'GML execution complete.\n\n**Trace Log:**\n```';
 
         data.trace.forEach(entry => {

@@ -1,11 +1,5 @@
 import { textService } from '../services/text.service';
 
-// GMS1 function list
-const gms1FunctionList = textService.files['gml-functions'];
-
-// GMS2 exclusive function list
-const gms2FunctionList = textService.files['gml2-functions'];
-
 /**
  * Determine if a function is located in the given gml list
  * @param func Function name to check
@@ -42,6 +36,12 @@ export function validate(func: string, list: string) {
  * @param func Function name to check
  */
 export function validateGMS1(func: string) {
+  // GMS1 function list
+  const gms1FunctionList = textService.files['gml-functions'];
+
+  // GMS2 exclusive function list
+  const gms2FunctionList = textService.files['gml2-functions'];
+
   return validate(func, gms1FunctionList);
 }
 
@@ -50,5 +50,11 @@ export function validateGMS1(func: string) {
  * @param func Function to check
  */
 export function validateGMS2(func: string) {
-  return this.gml(func, gms1FunctionList + gms2FunctionList);
+  // GMS1 function list
+  const gms1FunctionList = textService.files['gml-functions'];
+
+  // GMS2 exclusive function list
+  const gms2FunctionList = textService.files['gml2-functions'];
+
+  return validate(func, gms1FunctionList + gms2FunctionList);
 }

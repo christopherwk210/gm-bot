@@ -60,7 +60,6 @@ export async function executeGML(gml: string, cb: Function) {
   });
 
   // Navigate to local GMLive
-  // await page.goto('http://yal.cc/r/gml/');
   await page.goto('http://localhost:8080//gmlive/');
 
   // Add GML to the page
@@ -74,17 +73,19 @@ export async function executeGML(gml: string, cb: Function) {
   });
 
   // Inject code
-  await page.evaluate(async () => {
+  await page.evaluate(() => {
 
-    let gmlexgml = await gmlexGML();
-    editor.setValue(`trace("gmlex:gmlexbegin");${gmlexgml};trace("gmlex:gmlexclose");`);
+    gmlexGML().then(gmlexgml => {
+      editor.setValue(`trace("gmlex:gmlexbegin");${gmlexgml};trace("gmlex:gmlexclose");`);
 
-    let statusElement = document.getElementById('ace_status-hint');
-    setInterval(() => {
-      if (statusElement.classList.length !== 0) {
-        gmlexCB(statusElement.textContent);
-      }
-    }, 1000 / 60);
+      let statusElement = document.getElementById('ace_status-hint');
+      setInterval(() => {
+        if (statusElement.classList.length !== 0) {
+          gmlexCB(statusElement.textContent);
+        }
+      }, 1000 / 60);
+    });
+
   });
 
   // Execute GML
