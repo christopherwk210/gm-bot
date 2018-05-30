@@ -1,20 +1,14 @@
 import { Message, Client, RichEmbed, Attachment, Snowflake } from 'discord.js';
-import {
-  Modifier,
-  ModifierClass,
-  roleService,
-  guildService,
-  channelService,
-  giveawayService,
-  jsonService,
-  markdownService,
-  textService
-} from '../../shared';
+import { Modifier, ModifierClass } from '../../shared';
+import * as shared from '../../shared';
 
 @Modifier({
   match: '!devmode'
 })
 export class DevmodeModifier implements ModifierClass {
+  /** Keep a reference to the shared libraries for dev access */
+  shared = shared;
+
   /** Represents whitelisted users */
   whitelist: Snowflake[] = [
     '144913457429348352', // topherlicious
