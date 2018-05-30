@@ -17,11 +17,6 @@ export class MinibossCommand implements CommandClass {
   link = 'Here\'s a list of useful pixelart references:\n' +
          '<http://blog.studiominiboss.com/pixelart>\n';
 
-  /**
-   * Command action
-   * @param msg 
-   * @param args
-   */
   async action(msg: Message, args: string[]) {
     // User doesn't know what they are doing, send 'em the deets
     if (args.length <= 1) {

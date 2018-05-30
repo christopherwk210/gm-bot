@@ -4,9 +4,6 @@ import { Attachment } from 'discord.js';
 // Config
 import { prefixedCommandRuleTemplate } from './config';
 
-const palette = require('./commands/palette');
-// const miniboss = require('./commands/miniboss');
-
 // Commands
 import {
   WelcomeCommand,
@@ -27,7 +24,8 @@ import {
   ChristmasCommand,
   AudioCommand,
   GiveawayCommand,
-  MinibossCommand
+  MinibossCommand,
+  PaletteCommand
 } from './commands';
 
 // Modifiers
@@ -65,17 +63,7 @@ export function loadRules() {
     AudioCommand,
     GiveawayCommand,
     MinibossCommand,
-    // {
-    //   matches: ['miniboss', 'mb', 'pedro', 'saint11'],
-    //   ...prefixedCommandRuleTemplate,
-    //   action: miniboss
-    // },
-    {
-      // Because no one knows how to spell palette
-      matches: ['palette', 'pallete', 'palete'],
-      ...prefixedCommandRuleTemplate,
-      action: palette
-    },
+    PaletteCommand,
     {
       matches: ['3d'],
       ...prefixedCommandRuleTemplate,
