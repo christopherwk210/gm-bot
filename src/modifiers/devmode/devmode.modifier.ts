@@ -12,7 +12,7 @@ import {
 } from '../../shared';
 
 @Modifier({
-  match: 'devmode'
+  match: '!devmode'
 })
 export class DevmodeModifier implements ModifierClass {
   /** Represents whitelisted users */
