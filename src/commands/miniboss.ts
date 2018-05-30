@@ -17,10 +17,10 @@ module.exports = function(msg: Message, args: string[]) {
   // Create link- and help- message
   let link = 'Here\'s a list of useful pixelart references:\n' +
               '<http://blog.studiominiboss.com/pixelart>\n';
-  let help = '\nYou can use ``!miniboss <image number>`` or ``!miniboss <image name>`` ' +
+  let help = '\nYou can use `!miniboss <image number>` or !miniboss `<image name>` ' +
               '(without the <>) to get a specific post with image from the site.\n' +
-              'If the post has more than one image attached, you can use ``!miniboss <post> ' +
-              '<index>`` to link a specific image (where <post> is one of the commands above)';
+              'If the post has more than one image attached, you can use `!miniboss <post> ' +
+              '<index>` to link a specific image (where <post> is one of the commands above)';
 
   // Send both link and help if no arguments are provided
   if (args.length <= 1) {

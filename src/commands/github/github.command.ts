@@ -84,17 +84,15 @@ export class GithubCommand implements CommandClass {
     let chunks = [];
     return new Promise(resolve => {
       https.get(this.api, res => {
-        res.on('data', data => {
-          chunks.push(data.toString());
-        });
+        res.setEncoding('utf8');
+
+        res.on('data', data => chunks.push(data));
 
         res.on('end', () => {
           resolve( JSON.parse(chunks.join('')) );
         });
 
-        res.on('error', err => {
-          resolve(false);
-        });
+        res.on('error', err => resolve(false));
       }).end();
     });
   }
