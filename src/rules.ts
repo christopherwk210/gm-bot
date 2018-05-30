@@ -26,7 +26,8 @@ import {
   LifetimeCommand,
   ChristmasCommand,
   AudioCommand,
-  GiveawayCommand
+  GiveawayCommand,
+  MinibossCommand
 } from './commands';
 
 // Modifiers
@@ -63,6 +64,7 @@ export function loadRules() {
     AssembleCommand,
     AudioCommand,
     GiveawayCommand,
+    MinibossCommand,
     // {
     //   matches: ['miniboss', 'mb', 'pedro', 'saint11'],
     //   ...prefixedCommandRuleTemplate,

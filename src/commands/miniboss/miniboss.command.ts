@@ -4,8 +4,6 @@ import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import { load } from 'cheerio';
 
-import { minibossKeywords } from './miniboss.keywords';
-
 @Command({
   matches: ['miniboss', 'mb'],
   ...prefixedCommandRuleTemplate
@@ -47,13 +45,19 @@ export class MinibossCommand implements CommandClass {
     // Ensure valid information was returned
     if (!postInfo) return msg.channel.send(`Invalid usage!\n${this.help}`);
 
+    // Handle no post
     if (!postInfo.length) return msg.channel.send('Post not found!');
 
+    postInfo = postInfo[0];
+
+    // Create embed
     msg.channel.send(new RichEmbed({
       title: postInfo.title,
       color: defaultEmbedColor,
       url: postInfo.image,
-      image: postInfo.image,
+      image: {
+        url: postInfo.image
+      },
       footer: {
         icon_url: 'http://i.imgur.com/y4c0rPv.png',
         text: this.url
@@ -80,7 +84,7 @@ export class MinibossCommand implements CommandClass {
     let postData = await this.getMinibossPostData();
     if (!postData) return false;
 
-    return postData.filter(post => !!~post.title.indexOf(postName));
+    return postData.filter(post => !!~post.title.toUpperCase().indexOf(postName.toUpperCase()));
   }
 
   /** 
