@@ -37,6 +37,20 @@ npm start
 
 If there are any errors, they will be logged to the console.
 
+## Missing peer dependencies
+It is recommended that you install dependencies with the `--silent` flag so as to hide  unnecessary peer dependency warnings. These warnings are for peer dependencies of `discord.js`, the Discord API library used by GMBot. They are not required to run the bot itself, however the bot won't be able to use its audio capabilities without installing either `node-opus` or `opusscript`:
+```bash
+npm install node-opus
+```
+or:
+```bash
+npm install opusscript
+```
+Be sure to install one of these if you wish to work on anything related to the bots ability to join voice channels and play audio. Discord.js highly suggests using `node-opus` over `opusscript`.
+Your system must also have FFMPEG installed for this to work.
+
+There are other optional peer dependencies as well, which you can read about in the [discord.js docs](https://discord.js.org/#/docs/main/stable/general/welcome).
+
 ## A note on uncaught exceptions
 By default, uncaught exceptions will **not** halt the bot process. This is done so that the bot can log exceptions directly in Discord, however the Node documentation [warns against this](https://nodejs.org/api/process.html#process_warning_using_uncaughtexception_correctly). You can disable this feature by setting `shouldDieOnException` to `true` inside of the
 `gm-bot/src/config.ts` file.
