@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { Modifier, ModifierClass, executeGML, detectStaff } from '../../shared';
+import { Modifier, ModifierClass, executeGML, detectOutsideStaff } from '../../shared';
 
 @Modifier({
   match: 'gml'
@@ -33,6 +33,6 @@ export class GmlModifier implements ModifierClass {
    * @param msg 
    */
   pre(msg: Message) {
-    return !!detectStaff(msg.member);
+    return !!detectOutsideStaff(msg.author);
   }
 }

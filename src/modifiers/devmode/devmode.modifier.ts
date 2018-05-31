@@ -32,6 +32,6 @@ export class DevmodeModifier implements ModifierClass {
 
   /** Only allow whitelisted folks through */
   pre(msg: Message) {
-    return !!(~this.whitelist.indexOf(msg.member.id));
+    return !!(~this.whitelist.indexOf(msg.author.id));
   }
 }
