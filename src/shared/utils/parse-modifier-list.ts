@@ -1,8 +1,6 @@
 import { Message } from 'discord.js';
 import { Type, ModifierOptions } from '..';
 
-let regex = '```clean-code(\n|\r)[\s\S]*?(\n|\r)```';
-
 /**
  * Parses a modifier list against a discord message
  * @param modifierList List of modifier classes
@@ -66,8 +64,8 @@ function getModifierContent(messageContent: string, match: string) {
  * @param match Code block language to match
  */
 function constructModifierRegExp(match: string) {
-  let openingPattern = `\`\`\`${match}(\\n|\\r)`;
-  let closingPattern = `(\\n|\\r)\`\`\``;
+  let openingPattern = `\`\`\`${match}[\\s]*(\\n|\\r)`;
+  let closingPattern = `\`\`\``;
   let fullPattern = `${openingPattern}[\\s\\S]*?${closingPattern}`;
 
   return {
