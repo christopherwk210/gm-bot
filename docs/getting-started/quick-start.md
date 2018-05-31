@@ -1,6 +1,7 @@
 # Quick start
 In order to start development on GameMakerBot (GMBot for short), you'll need to have [Node](https://nodejs.org/) v9.2.0 or greater installed. You can check what version you have with `node -v`.
 
+## Installation
 Clone the repo with git using:
 ```bash
 git clone https://bitbucket.org/christopherwk210/gm-bot
@@ -36,4 +37,12 @@ npm start
 
 If there are any errors, they will be logged to the console.
 
+## A note on uncaught exceptions
+By default, uncaught exceptions will **not** halt the bot process. This is done so that the bot can log exceptions directly in Discord, however the Node documentation [warns against this](https://nodejs.org/api/process.html#process_warning_using_uncaughtexception_correctly). You can disable this feature by setting `shouldDieOnException` to `true` inside of the
+`gm-bot/src/config.ts` file.
+
 ## Running the documentation locally
+The documentation site can be run locally with:
+```bash
+npm run docs
+```
