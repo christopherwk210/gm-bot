@@ -92,9 +92,9 @@ function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
       )
     ) {
       // Fetch the proper roles
-      let voipRole = roleService.getRoleByID('275366872189370369');          // 'voip' role
-      let voiceActivityRole = roleService.getRoleByID('390434366125506560'); // 'voice activity' role
-      let voipAlumniRole = roleService.getRoleByID('390563903085477888');    // 'voip alumni' role
+      const voipRole = roleService.getRoleByID('275366872189370369');          // 'voip' role
+      const voiceActivityRole = roleService.getRoleByID('390434366125506560'); // 'voice activity' role
+      const voipAlumniRole = roleService.getRoleByID('390563903085477888');    // 'voip alumni' role
 
       // If there's no voip role to use... dont do anything else
       if (!voipRole) return;
@@ -110,7 +110,7 @@ function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
         newMember.addRole(voipAlumniRole);
       }
     }
-  } catch(e) {
+  } catch (e) {
     // Something went wrong
     console.log(`GMBot encountered an error on voice status update:\n\n${e}`);
   }
@@ -148,10 +148,10 @@ process.on('unhandledRejection', (reason) => {
 
 // Handle process-wide exceptions
 process.on('uncaughtException', (err) => {
-  let errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
+  const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
   // Send error to the bot testing channel
-  let botTestingChannel = channelService.getChannelByID('417796218324910094');
+  const botTestingChannel = channelService.getChannelByID('417796218324910094');
   if (botTestingChannel) botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);

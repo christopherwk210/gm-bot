@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "install": "ts-node ./tools/post-install.ts",
-    "lint": "eslint .",
+    "lint": "tslint 'gmbot.ts' && tslint 'src/**/*.ts'",
     "start": "ts-node gmbot.ts",
     "test": "mocha \"test/**/*.js\" --exit",
     "stub": "echo \"Skipping test first and lint second.\"",
@@ -63,11 +63,9 @@
     "youtube-dl": "^1.12.2"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "tslint": "^5.10.0"
   },
   "engines": {
     "node": ">=9.2.0"
