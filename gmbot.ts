@@ -41,17 +41,7 @@ markdownService.loadAllMarkdownFiles();
 textService.loadAllTextFiles();
 jsonService.loadAlljsonFiles();
 
-// Image upload limitting
-let imageOptions = {
-  imageLog: {
-    timers: []
-  },
-  imageCap: 3,              // 3 images within
-  imageTimer: 1000 * 60 * 5 // 5 minutes
-};
-
-// Load JSONs
-const badlinks = jsonService.files['bad-links'];
+// Load JSON
 const auth = jsonService.files['auth'];
 
 // Well shit, ya didn't read the instructions did ya?
@@ -106,6 +96,9 @@ function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
       let voiceActivityRole = roleService.getRoleByID('390434366125506560'); // 'voice activity' role
       let voipAlumniRole = roleService.getRoleByID('390563903085477888');    // 'voip alumni' role
 
+      // If there's no voip role to use... dont do anything else
+      if (!voipRole) return;
+
       // Add voip role if they don't have it
       if (!newMember.roles.has(voipRole.id)) {
         newMember.addRole(voipRole);
@@ -141,94 +134,11 @@ function onBotMessage(msg: Message) {
   // Don't respond to bots
   if (msg.author.bot) return;
 
-  // Check for image spam
-  if (msg.channel.type !== 'dm') {
-    handleImages(msg, imageOptions);
-  }
-
-  // Catch bad links
-  if (catchBadMessages(msg)) return;
-
   // Parse message for commands or matches
   if (parseCommandList(rules, msg)) return;
 
   // If no command was hit, check for modifiers
   parseModifierList(modifiers, msg);
-}
-
-/**
- * Catches bad links as specified in the bad-links json
- * @param msg The discord message to parse
- */
-function catchBadMessages(msg: Message) {
-  if (detectBadLink(msg.content)) {
-    // RED ALERT
-    console.log('Deleted a message containing a bad link.');
-    console.log(`Deleted a message with a bad link. The person that posted it was ${msg.author.username}\nThe content of the message was:\n\n${msg.content}`);
-
-    // Delete the uh-oh
-    msg.delete();
-
-    // Publicly shame the dingus who did the dirty
-    msg.channel.send(`Heads up! ${msg.author} tried to post a malicious link. The admins have been made aware of this.`);
-
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function detectBadLink(str: string) {
-  return new RegExp(badlinks.join('|')).test(str);
-}
-
-/**
- * Handles a user uploading too many images in a given time frame
- * @param msg The message that was sent
- */
-function handleImages(msg: Message, imgOptions) {
-  // Be certain this was in a channel
-  if (msg.member) {
-    // If the user is no higher than a voip user
-    if ((msg.member.highestRole.name === '@everyone') ||
-    (msg.member.highestRole.name === 'voip')) {
-      // Get the attachments
-      let attachments = msg.attachments.array();
-
-      // If there are any
-      if (attachments.length !== 0) {
-        // Iterate over them
-        attachments.forEach(attachment => {
-          // Ensure the attachment is an image
-          if (attachment.height !== undefined) {
-            // If this user hasn't recently uploaded
-            if ((imgOptions.imageLog[msg.author.id] === undefined) || (imgOptions.imageLog[msg.author.id] === 0)) {
-              // Increase the allowance counter for this user
-              imgOptions.imageLog[msg.author.id] = 1;
-
-              // Reset this user's counter in a short period of time
-              imgOptions.imageLog.timers[msg.author.id] = setTimeout(() => {
-                // Reset the counter for this user
-                imgOptions.imageLog[msg.author.id] = 0;
-              }, imgOptions.imageTimer);
-            } else { // This user has recently uploaded
-              // If the user has uploaded more than allowed
-              if (imgOptions.imageLog[msg.author.id] >= imgOptions.imageCap) {
-                // Delete the message
-                msg.delete();
-
-                // Send them a DM notifying them of this issue
-                msg.author.send('Your post was deleted because you have posted too many images recently! Please wait a few minutes and try again.');
-              } else {
-                // The user hasn't uploaded more than allowed, so just increment their counter
-                imgOptions.imageLog[msg.author.id]++;
-              }
-            }
-          }
-        });
-      }
-    }
-  }
 }
 
 // Handle process-wide promise rejection
