@@ -45,4 +45,5 @@ export interface MockMessage {
   };
   attachments: { values: any; };
   react: any;
+  [key: string]: any;
 }
