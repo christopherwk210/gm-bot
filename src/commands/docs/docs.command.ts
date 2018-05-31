@@ -135,11 +135,7 @@ export class DocsCommand implements CommandClass {
 
         if (remoteSrc.indexOf('<') === 0) {
           msg.author.send('GMS2 documentation is currently unavailable. Falling back to GMS1 documentation...');
-          if (validateGMS1(fn)) {
-            this.helpUrlGMS1(msg, fn, image);
-          } else {
-            msg.author.send(`\`${fn}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
-          }
+          this.action(msg, ['!docs', fn, 'gms1'])
           return;
         }
 
