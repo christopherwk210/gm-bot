@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GameMakerBot - The bot used by the /r/GameMaker Discord server.</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="The bot used by the /r/GameMaker Discord server.">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css">
+  <style>
+    section.cover .cover-main>p:last-child a {
+      color: #32a800;
+      border-color: #32a800;
+    }
+
+    section.cover .cover-main>p:last-child a:last-child {
+      background-color: #32a800;
+    }
+
+    .github-corner svg {
+      fill: #32a800;
+    }
+
+    .sidebar ul li.active>a {
+      color: #38bc00;
+    }
+
+    .progress {
+      background-color: #32a800;
+    }
+
+    .markdown-section blockquote {
+      border-color: #32a800;
+    }
+
+    .markdown-section a {
+      color: #32a800;
+    }
+
+    .sidebar {
+      border-right: 1px solid rgba(0,0,0,.2);
+    }
+
+    .sidebar-toggle span {
+      background-color: #32a800;
+    }
+
+    .markdown-section p.warn {
+      background: rgba(98, 234, 93, 0.1);
+    }
+
+    pre[data-lang="filepath"] {
+      margin-bottom: 0;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    pre[data-lang="filepath"] > code {
+      padding: 0.5em 5px;
+      color: #ccc;
+    }
+
+    pre[data-lang="filepath"]:after {
+      content: '';
+      padding: 0;
+      height: 1px;
+      bottom: 0;
+      left: 1em;
+      right: 1em;
+      top: 100%;
+      opacity: 0.3;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    pre[data-lang="filepath"] + pre {
+      margin-top: 0;
+    }
+
+    .markdown-section p.tip:before {
+      background-color: #BD4035;
+      color: #efefef;
+    }
+
+    .markdown-section p.tip {
+      border-left: 4px solid #BD4035;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'GameMakerBot',
+      repo: 'https://bitbucket.org/christopherwk210/gm-bot',
+      coverpage: true,
+      loadSidebar: true
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-json.min.js"></script>
+</body>
+</html>

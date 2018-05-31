@@ -10,7 +10,8 @@
     "start": "ts-node gmbot.ts",
     "test": "mocha \"test/**/*.js\" --exit",
     "stub": "echo \"Skipping test first and lint second.\"",
-    "g": "ts-node ./tools/generate.ts"
+    "g": "ts-node ./tools/generate.ts",
+    "docs": "docsify serve ./docs"
   },
   "precommit": [
     "stub"
@@ -44,6 +45,7 @@
     "concat-stream": "^1.6.2",
     "cors": "^2.8.1",
     "discord.js": "^11.3.2",
+    "docsify-cli": "^4.2.1",
     "express": "^4.16.3",
     "glob": "^7.1.2",
     "jimp": "^0.2.28",
