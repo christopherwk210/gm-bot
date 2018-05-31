@@ -17,10 +17,10 @@ export class HasteModifier implements ModifierClass {
 
       try {
         link = await this.getHasteBinLink(codeBlock);
-      } catch(e) {
+      } catch (e) {
         console.error(e);
         msg.channel.send('An error occurred while connecting to hastebin!');
-        return
+        return;
       }
 
       replies.push(`Here's your GML hastebin link, ${msg.author}\n${link}`);

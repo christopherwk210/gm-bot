@@ -31,7 +31,7 @@ export class MinibossCommand implements CommandClass {
       let imageName = args.splice(1).join(' ');
       postInfo = await this.getPostByImageName(imageName);
     } else {
-      let imageNumber = parseInt(args[1]);
+      let imageNumber = parseInt(args[1], 10);
       postInfo = isNaN(imageNumber) ?
         await this.getPostByImageName(args[1]) :
         await this.getPostByNumber(imageNumber);
@@ -97,13 +97,13 @@ export class MinibossCommand implements CommandClass {
     let bodyText = $('body')
       .text()
       .replace('Reading text with a timer is a bit stressful, so I added still frames of this tutorial:', '');
-  
+
     // Get all gifs
     let gifs = $('img').filter((i, img) => !!~img.attribs['src'].indexOf('gif'));
 
     // Get all post titles
     let titles = bodyText.match(/#[0-9]+( | )([^#])+/g);
-  
+
     // Retrieve the source links for each image
     let imageSourceList = gifs.toArray().map(img => img.attribs['src']);
 

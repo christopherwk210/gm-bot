@@ -38,7 +38,7 @@ export class AssembleCommand implements CommandClass {
             await ducks.setMentionable(false);
             await audio.setMentionable(false);
             await art.setMentionable(false);
-          } catch(e) {
+          } catch (e) {
             console.log(`Error with assemble command: ${'\n'}${e}`);
           }
         }

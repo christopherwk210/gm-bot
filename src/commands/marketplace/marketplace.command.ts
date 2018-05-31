@@ -43,7 +43,7 @@ export class MarketplaceCommand implements CommandClass {
     let loadingMessage;
     try {
       loadingMessage = await msg.channel.send(`Searching the marketplace for ${query}...`);
-    } catch(e) {
+    } catch (e) {
       // If we can't send messages here, then we can't provide results... no point in continuing.
       return;
     }
@@ -92,7 +92,7 @@ export class MarketplaceCommand implements CommandClass {
     if (loadingMessage) {
       try {
         await loadingMessage.delete();
-      } catch(e) {}
+      } catch (e) {}
     }
 
     // Finish time

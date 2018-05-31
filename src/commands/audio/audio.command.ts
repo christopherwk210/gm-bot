@@ -35,7 +35,7 @@ export class AudioCommand implements CommandClass {
       return;
     }
 
-    switch(args[0].slice(1)) {
+    switch (args[0].slice(1)) {
       case 'play':
         let url = args.find(item => !!~item.indexOf('http'));
         let voiceChannel = msg.member.voiceChannel;
@@ -85,7 +85,7 @@ export class AudioCommand implements CommandClass {
     let connection: VoiceConnection;
     try {
       connection = await voiceChannel.join();
-    } catch(e) {
+    } catch (e) {
       return 'Could not establish a voice connection!';
     }
 
@@ -96,7 +96,7 @@ export class AudioCommand implements CommandClass {
     let info;
     try {
       info = await asyncGetYoutubeInfo(url, ['-q', '--no-warnings', '--force-ipv4']);
-    } catch(e) {
+    } catch (e) {
       return 'Could not get info from URL!';
     }
 
@@ -137,7 +137,7 @@ export class AudioCommand implements CommandClass {
       this.queue.shift();
       this.processQueue();
     });
-    
+
     this.dispatch.on('end', () => setTimeout(() => {
       this.queue.shift();
       this.processQueue();
@@ -162,13 +162,13 @@ export class AudioCommand implements CommandClass {
   /** Returns a formatted message containing all items in the queue */
   getQueueAsMessage() {
     if (!this.queue.length) return 'Queue is empty!';
-  
+
     // Set up a stringydoo
     let currentQueueMessage = 'Current playback queue:\n';
-  
+
     // Iterate over the queue
     this.queue.forEach((item, i) => currentQueueMessage += `${i + 1}: ${item.title}\n`);
-  
+
     // Supply the result
     return currentQueueMessage;
   }

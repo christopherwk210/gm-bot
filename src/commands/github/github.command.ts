@@ -12,7 +12,8 @@ export class GithubCommand implements CommandClass {
   api = 'https://chrisanselmo.com/gmd_ghorg_api';
 
   async action(msg: Message, args: string[]) {
-    let loadingMessage: Message | Message[], query: string;
+    let loadingMessage: Message | Message[];
+    let query: string;
 
     // Get search query
     args.shift();
@@ -31,7 +32,7 @@ export class GithubCommand implements CommandClass {
     // Loading message
     try {
       loadingMessage = await msg.channel.send(`Searching the community GitHub for ${query}...`);
-    } catch(e) {
+    } catch (e) {
       // If we can't send messages here, then we can't provide results... no point in continuing.
       return;
     }

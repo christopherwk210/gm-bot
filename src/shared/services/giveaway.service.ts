@@ -22,22 +22,6 @@ class GiveawayService {
     this.asyncWriter = jsonService.getAsyncWriter(this.giveawayDataPath, true);
   }
 
-  /** Loads existing data, or creates it if not present */
-  private loadExistingData() {
-    let exists = fs.existsSync(this.giveawayDataPath);
-    if (exists) {
-      return fs.readFileSync(this.giveawayDataPath, 'utf8');
-    } else {
-      fs.writeFileSync(this.giveawayDataPath, '{}', 'utf8');
-      return {};
-    }
-  }
-
-  /** Saves all current giveaway data */
-  private save() {
-    this.asyncWriter(this.giveawayData);
-  }
-
   /**
    * Creates a new giveaway and it returns it, false if already exists
    * @param name Giveaway name
@@ -115,7 +99,7 @@ class GiveawayService {
 
     // Don't overdraw!
     count = Math.min(count, giveaway.participants.length);
-    
+
     let newWinners: Participant[] = [];
 
     for (let i = 0; i < count; i++) {
@@ -132,6 +116,22 @@ class GiveawayService {
 
     this.save();
     return newWinners;
+  }
+
+  /** Loads existing data, or creates it if not present */
+  private loadExistingData() {
+    let exists = fs.existsSync(this.giveawayDataPath);
+    if (exists) {
+      return fs.readFileSync(this.giveawayDataPath, 'utf8');
+    } else {
+      fs.writeFileSync(this.giveawayDataPath, '{}', 'utf8');
+      return {};
+    }
+  }
+
+  /** Saves all current giveaway data */
+  private save() {
+    this.asyncWriter(this.giveawayData);
   }
 }
 
@@ -160,7 +160,7 @@ export interface Giveaway {
   end: Date;
 
   /** Participating users list */
-  participants: Participant[]
+  participants: Participant[];
 
   /** Participants who have been drawn as winners */
   winners: Participant[];

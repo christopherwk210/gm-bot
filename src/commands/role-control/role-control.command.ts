@@ -26,7 +26,10 @@ export class RoleControlCommand implements CommandClass {
 
     // Ensure we aren't in DM
     if ((msg.guild === null) || (msg.guild === undefined) || !msg.member) {
-      msg.author.send('`!role` does not work inside direct messages, and can sometimes fail when a user name has unicode characters in it. Please contact topherlicious or one of the other admins if you need help with your role.');
+      msg.author.send(
+        '`!role` does not work inside direct messages, and can sometimes fail when a user name has unicode characters in it.' +
+        ' Please contact one of the admins if you need help with your role.'
+      );
       return;
     }
 
@@ -57,7 +60,7 @@ export class RoleControlCommand implements CommandClass {
     } else {
       // Otherwise, add it
       msg.member.addRole(role);
-      
+
       // Tell em
       msg.author.send(`Role ${role.name} has been granted.`);
     }

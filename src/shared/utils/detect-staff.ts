@@ -6,7 +6,7 @@ import { guildService } from '..';
  * Detects if a member is staff or not
  * @param member
  */
-export function detectStaff(member: GuildMember): 'admin'|'code'|'art'|'audio'|false {
+export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | false {
   let roles = {
     admin: '262835321694060547',
     subredditMods: '262843600730062849',
@@ -23,14 +23,14 @@ export function detectStaff(member: GuildMember): 'admin'|'code'|'art'|'audio'|f
   if (member.roles.has(roles.audioDuckies)) return 'audio';
 
   return false;
-};
+}
 
 /**
  * Fetches a user's /r/GameMaker guild membership if it exists,
  * and runs detectStaff against it
  * @param user 
  */
-export function detectOutsideStaff(user: User): 'admin'|'code'|'art'|'audio'|false {
+export function detectOutsideStaff(user: User): 'admin' | 'code' | 'art' | 'audio' | false {
   if (user.bot) return false;
   if (!user.client.guilds.has(guildService.guild.id)) return false;
 

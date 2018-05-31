@@ -48,7 +48,7 @@ import { Rule, TextChannelMessage, Type } from './shared';
 export function loadRules() {
 
   /** Functional utility commands */
-  let coreCommands: (Rule|Type<any>)[] = [
+  let coreCommands: (Rule | Type<any>)[] = [
     WelcomeCommand,
     ResourcesCommand,
     RoleControlCommand,
@@ -72,7 +72,7 @@ export function loadRules() {
   ];
 
   /** Admin only commands */
-  let adminCommands: (Rule|Type<any>)[] = [
+  let adminCommands: (Rule | Type<any>)[] = [
     SayCommand,
     GiveawayManagementCommand
   ];
@@ -90,7 +90,7 @@ export function loadRules() {
   ];
 
   /** Random fun stuffs */
-  let easterEggs: (Rule|Type<any>)[] = [
+  let easterEggs: (Rule | Type<any>)[] = [
     AssembleCommand,
     CommandmentCommand,
     LifetimeCommand,

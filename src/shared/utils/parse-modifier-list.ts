@@ -19,7 +19,7 @@ export function parseModifierList(modifierList: Type<any>[], msg: Message) {
 
     // Get all matched code block contents
     let codeBlocks = getModifierContent(messageContent, rules.match);
-    
+
     // Skip on no match
     if (!codeBlocks) return false;
 
@@ -52,10 +52,10 @@ function getModifierContent(messageContent: string, match: string) {
   if (!matches) return false;
 
   // Get just the content
-  let codeBlocks = matches.map(match => {
-    match = match.replace(regExps.openingPattern, '');
-    match = match.replace(regExps.closingPattern, '');
-    return match;
+  let codeBlocks = matches.map(matched => {
+    matched = matched.replace(regExps.openingPattern, '');
+    matched = matched.replace(regExps.closingPattern, '');
+    return matched;
   });
 
   return codeBlocks;

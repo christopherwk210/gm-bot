@@ -2,13 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 class MarkdownService {
-  /** Location of all markdown files */
-  private markdownFileLocation: string = path.join(__dirname, '../assets/markdown');
-
   /** Contains all markdown file contents by file name */
   files: {
     [key: string]: string;
   } = {};
+
+  /** Location of all markdown files */
+  private markdownFileLocation: string = path.join(__dirname, '../assets/markdown');
 
   /** Loads all Markdown files under ../assets/markdown into memory */
   loadAllMarkdownFiles() {

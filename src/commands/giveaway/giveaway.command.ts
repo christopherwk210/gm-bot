@@ -10,7 +10,7 @@ export class GiveawayCommand implements CommandClass {
   action(msg: Message, args: string[]) {
     let activeGiveaways = giveawayService.giveawayArray();
 
-    switch(activeGiveaways.length) {
+    switch (activeGiveaways.length) {
       case 0:
         return msg.member.send('There are no currently active giveaways!');
       case 1:

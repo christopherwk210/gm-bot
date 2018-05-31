@@ -46,7 +46,7 @@ export class PaletteCommand implements CommandClass {
     // Get the palette page
     let palettePageHTML = await this.getPalettePage(paletteName);
     if (!palettePageHTML || !!~(<string>palettePageHTML).indexOf('The palette you requested could not be found.')) {
-      
+
       // Attempt to get the page with a separated number before we give up
       paletteName = paletteName.replace(/\d+$/g, '-$&');
       palettePageHTML = await this.getPalettePage(paletteName);
@@ -91,7 +91,7 @@ export class PaletteCommand implements CommandClass {
    * Returns a lospec palette page as HTML
    * @param palette Palette name
    */
-  getPalettePage(palette: string): Promise<string|boolean> {
+  getPalettePage(palette: string): Promise<string | boolean> {
     let chunks = [];
     return new Promise(resolve => {
       https.get(this.url + palette, res => {

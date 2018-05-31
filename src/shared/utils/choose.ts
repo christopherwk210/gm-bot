@@ -8,4 +8,4 @@ declare interface Array<T> {
 
 Array.prototype.choose = function(this: any[]) {
   return this[Math.floor(Math.random() * this.length)];
-}
+};

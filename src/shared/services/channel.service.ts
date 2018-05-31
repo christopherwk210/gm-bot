@@ -5,7 +5,7 @@ import { Client, TextChannel, VoiceChannel, CategoryChannel, GuildChannel } from
  */
 class ChannelService {
   /** All server channels */
-  channels: Array<GuildChannel> = [];
+  channels: GuildChannel[] = [];
 
   /** All server categories */
   categoryChannels: CategoryChannel[] = [];
@@ -21,9 +21,9 @@ class ChannelService {
     client.guilds.first().channels.array().forEach(guildChannel => {
       this.channels.push(guildChannel);
 
-      switch(guildChannel.type) {
+      switch (guildChannel.type) {
         case 'text':
-          this.textChannels.push(<TextChannel>guildChannel);
+          this.textChannels.push(<TextChannel> guildChannel);
           break;
         case 'voice':
           this.voiceChannels.push(<VoiceChannel>guildChannel);

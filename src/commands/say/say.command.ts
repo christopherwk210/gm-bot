@@ -15,26 +15,26 @@ export class SayCommand implements CommandClass {
   action(msg: Message, args: string[]) {
     let regex = /"([\s\S]*)"/g;
     let fancy: any = args.indexOf('-f') !== -1;
-  
+
     // Catch message
     let match = msg.content.match(regex);
-  
+
     // Err on no match
     if (!match || match.length < 1) {
       return;
     }
-  
+
     // Get only the first match (there will only be one)
     let message = msg.content.match(regex)[0];
-  
+
     // Trim " chars
     message = message.slice(1, message.length - 1);
-  
+
     // Make sure there's a message to send
     if (message.length === 0) {
       return;
     }
-  
+
     // Create a rich embed
     if (fancy) {
       fancy = new RichEmbed({
@@ -48,10 +48,10 @@ export class SayCommand implements CommandClass {
         description: message
       });
     }
-  
+
     // Check if channels were mentioned
     if (msg.mentions.channels.size > 0) {
-  
+
       // For each channel mentioned
       msg.mentions.channels.forEach(channel => {
         // Send the message

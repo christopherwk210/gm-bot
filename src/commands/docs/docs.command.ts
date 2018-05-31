@@ -125,7 +125,7 @@ export class DocsCommand implements CommandClass {
    */
   helpUrlGMS2(msg: Message, fn: string, image) {
     // Download super saucy secret file from YYG server
-    http.get('http://docs2.yoyogames.com/files/searchdat.js', (res) => {
+    http.get('http://docs2.yoyogames.com/files/searchdat.js', res => {
       // Read like a normal bot
       res.setEncoding('utf8');
 
@@ -135,7 +135,7 @@ export class DocsCommand implements CommandClass {
 
         if (remoteSrc.indexOf('<') === 0) {
           msg.author.send('GMS2 documentation is currently unavailable. Falling back to GMS1 documentation...');
-          this.action(msg, ['!docs', fn, 'gms1'])
+          this.action(msg, ['!docs', fn, 'gms1']);
           return;
         }
 
@@ -155,7 +155,7 @@ export class DocsCommand implements CommandClass {
               );
               return;
             }
-            
+
             // Provide it
             msg.channel.send(`Here's the GMS2 documentation for \`${fn}\`, ${msg.author}`);
             msg.channel.send(encodeURI(`http://docs2.yoyogames.com/${SearchFiles[i]}`));
@@ -185,34 +185,34 @@ export class DocsCommand implements CommandClass {
     msg.channel.send('Loading documentation...').then(async (message: Message) => {
       // Launch chrome
       let browser = await puppeteer.launch();
-    
+
       // Create a new page
       const page = await browser.newPage();
-    
+
       // Navigate to the URL
       await page.goto(URL);
-    
+
       // Remove the top useless elements of the docs page
       await page.evaluate(() => new Promise(res => {
         document.querySelector('table').remove();
         document.querySelector('br').remove();
         res();
       }));
-    
+
       // Set our viewport to be 1280 wide
       await page.setViewport({
         width: 1280,
         height: 1
       });
-    
+
       // Take a screenshot of the full page
       let image = await page.screenshot({
         fullPage: true
       });
-    
+
       // Close the browser
       await browser.close();
-    
+
       // Send the message
       msg.channel.send(messageText, <any>{
         file: image,

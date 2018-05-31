@@ -3,11 +3,11 @@ import * as path from 'path';
 import { queue, AsyncQueue } from 'async';
 
 class JSONService {
-  /** Location of all json files */
-  private jsonFileLocation: string = path.join(__dirname, '../assets/json');
-
   /** Contains all json file contents by file name */
   files: { [key: string]: any; } = {};
+
+  /** Location of all json files */
+  private jsonFileLocation: string = path.join(__dirname, '../assets/json');
 
   /** Contains all async JSON queue writers */
   private writerQueues: any[] = [];
@@ -23,7 +23,7 @@ class JSONService {
 
       try {
         this.files[fileName] = JSON.parse(fileContent);
-      } catch(e) {
+      } catch (e) {
         console.warn(`Could not parse JSON file: ${filePath}`);
       }
     });
@@ -52,25 +52,25 @@ class JSONService {
 
     // Create the async queue
     let queueWriter = queue((task: any, callback) => {
-      fs.unlink(filePath, (err) => {
+      fs.unlink(filePath, err => {
         if (err) {
           callback(err);
         } else {
-          fs.writeFile(filePath, task.contents, 'utf8', (err) => {
-            callback(err);
+          fs.writeFile(filePath, task.contents, 'utf8', error => {
+            callback(error);
           });
         }
       });
     }, 1);
 
     // Create the AsyncWriter function
-    return (contents: Object|string) => new Promise(resolve => {
+    return (contents: object | string) => new Promise(resolve => {
 
       // Stringify object
       if (typeof contents !== 'string') {
         try {
           contents = JSON.stringify(contents);
-        } catch(e) {
+        } catch (e) {
           resolve(e);
           return;
         }
@@ -78,16 +78,14 @@ class JSONService {
 
       // Push to queue
       queueWriter.push({ contents }, err => resolve(err));
-    })
-  };
+    });
+  }
 }
 
 export let jsonService = new JSONService();
 
-export interface AsyncWriter {
-  /**
-   * Push an object or string to be written asynchronously.
-   * Resolves on completion with an object containing errors, if any
-   */
-  (contents: Object|string): Promise<any>;
-}
+/**
+ * Push an object or string to be written asynchronously.
+ * Resolves on completion with an object containing errors, if any
+ */
+export type AsyncWriter = (contents: object | string) => Promise<any>;

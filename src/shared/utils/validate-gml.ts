@@ -7,9 +7,9 @@ import { textService } from '../services/text.service';
  */
 export function validate(func: string, list: string) {
   // Set up for global searching
-  let regex = new RegExp(func, 'g');
+  const regex = new RegExp(func, 'g');
+  const matches = [];
   let match;
-  let matches = [];
   let found = false;
 
   // Get all positions

@@ -19,7 +19,7 @@ export default function runExpressServer() {
   app.get('//gmlive', (req, res) => res.sendFile(path.join(__dirname, 'gmlive/index.html')));
 
   // Run the server
-  app.listen(8080, function () {
+  app.listen(8080, () => {
     console.log('Express server listening on 8080.');
   });
-};
+}

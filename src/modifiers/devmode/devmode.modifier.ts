@@ -21,12 +21,14 @@ export class DevmodeModifier implements ModifierClass {
    * @param contents 
    */
   action(msg: Message, contents: string[]) {
-    // Create helper functions
+    // Create helper function
+    // tslint:disable-next-line
     let reply = function(str) {
       msg.channel.send(str);
     };
 
     // Execute code
+    // tslint:disable-next-line
     eval(contents[0]);
   }
 

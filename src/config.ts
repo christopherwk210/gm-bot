@@ -8,7 +8,7 @@ export const prefix: string = '!';
  * Template options that include standard command defaults
  */
 export const prefixedCommandRuleTemplate = {
-  prefix: prefix,
+  prefix,
   position: 0,
   exact: false,
   delete: true

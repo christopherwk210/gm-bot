@@ -34,14 +34,14 @@ export class RuleFactory {
    * @param reactions 
    * @param wholeMessage When true, sets exact to false and checks the whole message, default false
    */
-  static createReactionRule(matches: string[], reactions: (string|Emoji)[], wholeMessage = false): Rule {
+  static createReactionRule(matches: string[], reactions: (string | Emoji)[], wholeMessage = false): Rule {
     let rule: Rule = {
       matches,
       action: async msg => {
         for (let reaction of reactions) {
           try {
             await msg.react(reaction);
-          } catch(e) {}
+          } catch (e) {}
         }
       }
     };

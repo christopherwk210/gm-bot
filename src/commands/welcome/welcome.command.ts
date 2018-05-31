@@ -7,11 +7,6 @@ import { Command, CommandClass, markdownService } from '../../shared';
   ...prefixedCommandRuleTemplate
 })
 export class WelcomeCommand implements CommandClass {
-
-  action(msg: Message) {
-    WelcomeCommand.sendWelcomeMessage(msg.author);
-  }
-
   /**
    * Send the server welcome message to the given user
    * @param user 
@@ -31,5 +26,9 @@ export class WelcomeCommand implements CommandClass {
     });
 
     user.send(messageEmbed);
+  }
+
+  action(msg: Message) {
+    WelcomeCommand.sendWelcomeMessage(msg.author);
   }
 }

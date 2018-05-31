@@ -12,7 +12,30 @@
       "no-string-literal": false,
       "no-console": false,
       "curly": [true, "ignore-same-line"],
-      "no-var-requires": false
+      "no-var-requires": false,
+      "no-conditional-assignment": false,
+      "arrow-parens": [true, "ban-single-arg-parens"],
+      "prefer-const": [false],
+      "no-empty": [true, "allow-empty-catch"],
+      "object-literal-sort-keys": false,
+      "member-access": [true, "no-public"],
+      "no-trailing-whitespace": [true, "ignore-comments", "ignore-jsdoc", "ignore-template-strings"],
+      "max-line-length": [true, 140],
+      "interface-name": [true, "never-prefix"],
+      "no-angle-bracket-type-assertion": false,
+      "whitespace": [
+        true,
+        "check-branch",
+        "check-decl",
+        "check-operator",
+        "check-module",
+        "check-separator",
+        "check-rest-spread",
+        "check-type",
+        "check-type-operator",
+        "check-preblock"
+      ],
+      "no-bitwise": false
     },
     "rulesDirectory": []
 }

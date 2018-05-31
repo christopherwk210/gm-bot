@@ -10,11 +10,11 @@ import * as puppeteer from 'puppeteer';
  * @param gml GML to execute
  * @param cb Callback
  */
-export async function executeGML(gml: string, cb: Function) {
+export async function executeGML(gml: string, cb: (err: string, data: { trace: any[] }) => void) {
   // Fix GML
   gml = gml.replace(/show_debug_message\(/g, 'show_debug_message("gmlex:" + ');
   gml = gml.replace(/trace\(/g, 'trace("gmlex:" + ');
-  
+
   // Launch chrome
   let chrome = await puppeteer.launch();
 

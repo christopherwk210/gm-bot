@@ -32,7 +32,7 @@ export class PixelChallengeCommand implements CommandClass {
 
   /**
    * Loads existing entries if they exist
-   */ 
+   */
   async loadEntries() {
     let existingChallenges = await existsAsync(this.challengesDataPath);
 
@@ -46,42 +46,43 @@ export class PixelChallengeCommand implements CommandClass {
    * @param msg 
    */
   async createImgurAlbum(msg: Message) {
-    let album, msgRef;
+    let album;
+    let msgRef;
     let errors = [];
-  
+
     try {
       msgRef = await msg.author.send('Creating album, please wait...');
-    } catch(e) {
+    } catch (e) {
       console.log(e);
       return;
     }
-  
+
     try {
       album = await imgur.createAlbum();
-    } catch(e) {
+    } catch (e) {
       console.log('imgur error:', e);
       msgRef.edit('Something went wrong when contacting the imgur api... :(');
       return;
     }
-  
+
     for (let entry of this.currentPixelChallenge.entries) {
       try {
         await imgur.uploadUrl(entry.link, album.data.deletehash, entry.name, entry.text.replace('!pixelchallenge', ''));
-      } catch(e) {
-        errors.push(entry)
+      } catch (e) {
+        errors.push(entry);
       }
     }
-  
+
     msgRef.edit(`Uploads complete. View album here: https://imgur.com/a/${album.data.id}.`);
-  
+
     if (errors.length > 0) {
       try {
         await msg.author.send('There were errors uploading some images. The following images did not upload correctly:');
-  
+
         errors.forEach(entry => {
-          msg.author.send(`user: ${entry.name}, link: <${entry.link}>`)
+          msg.author.send(`user: ${entry.name}, link: <${entry.link}>`);
         });
-      } catch(e) {
+      } catch (e) {
         // nil
       }
     }
@@ -161,7 +162,7 @@ export class PixelChallengeCommand implements CommandClass {
     this.currentPixelChallenge.entries.forEach(entry => {
       if (entry.name === msg.author.username) {
         found = true;
-        
+
         // Take first image
         entry.link = attachments[0].url;
 

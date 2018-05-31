@@ -5,7 +5,7 @@ import { RuleOptions } from '../interfaces/rule.interface';
  * @param commandRuleOptions All matching options for this command
  */
 export function Command(commandRuleOptions: RuleOptions) {
-  return (constr: Function) => {
+  return (constr: any) => {
     constr.prototype._rules = commandRuleOptions;
-  }
+  };
 }

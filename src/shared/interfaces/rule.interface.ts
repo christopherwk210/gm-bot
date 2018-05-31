@@ -36,7 +36,7 @@ export interface Rule extends RuleOptions {
    * @param args Message contents, split on space character
    */
   pre?(msg: Message, args: string[]): boolean;
-};
+}
 
 export interface TextChannelMessage extends Message {
   channel: TextChannel;

@@ -57,17 +57,17 @@ export class GiveawayManagementCommand implements CommandClass {
    * @returns Result message
    */
   quickCreate(name: string, days: string = '1') {
-    let parsedDays = parseInt(days);
-    
+    let parsedDays = parseInt(days, 10);
+
     // Account for stupidity
-    if (!name) return 'You need to supply a name dude. Something like: `!gaa -q myCoolGiveaway 2` for a giveaway named `myCoolGiveaway`.';
-    if (!days || isNaN(parsedDays)) return 'You need to supply a length in days! Something like: `!gaa -q myCoolGiveaway 2` for a giveaway that lasts 2 days.';
+    if (!name) return 'You need to supply a name dude! Something like: `!gaa -q myCoolGiveaway 2` for a giveaway named `myCoolGiveaway`.';
+    if (!days || isNaN(parsedDays)) return 'You need to supply a length! For example: `!gaa -q gaName 2` for a giveaway that lasts 2 days.';
 
     let now = new Date();
     let later = new Date();
 
     // Push the end date by the correct amount of days
-    later.setDate(now.getDate() + parseInt(days));
+    later.setDate(now.getDate() + parseInt(days, 10));
 
     // Create the giveaway
     let giveaway = giveawayService.createGiveaway(name, now, later);

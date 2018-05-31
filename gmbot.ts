@@ -30,7 +30,7 @@ import {
 
 // Rules
 import { loadRules, loadModifiers } from './src/rules';
-let rules: (Rule|Type<any>)[] = [];
+let rules: (Rule | Type<any>)[] = [];
 let modifiers: Type<any>[] = [];
 
 // Commands
@@ -142,12 +142,12 @@ function onBotMessage(msg: Message) {
 }
 
 // Handle process-wide promise rejection
-process.on('unhandledRejection', (reason) => {
+process.on('unhandledRejection', reason => {
   console.log(`Unhandled promise: ${reason}`);
 });
 
 // Handle process-wide exceptions
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
   const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
   // Send error to the bot testing channel

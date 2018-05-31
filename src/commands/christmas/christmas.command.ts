@@ -27,14 +27,14 @@ export class ChristmasCommand implements CommandClass {
     C: {
       role: roleService.getRoleByName('C'),
       color: this.colors.WHITE
-    },
+    }
   };
 
   /** Interval reference to auto-cycling */
   cycleInterval;
 
   action(msg: Message, args: string[]) {
-    switch(args[0].slice(1)) {
+    switch (args[0].slice(1)) {
       case 'christmasautocycle':
         this.setAutoCycle();
         break;

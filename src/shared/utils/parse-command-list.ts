@@ -7,7 +7,7 @@ import { Type, Rule } from '..';
  * @param msg Discord message
  * @returns True if command was matched and executed
  */
-export function parseCommandList(commandList: (Rule|Type<any>)[], msg: Message) {
+export function parseCommandList(commandList: (Rule | Type<any>)[], msg: Message) {
   let messageContent = msg.content;
   let args = messageContent.split(' ');
 
@@ -26,7 +26,7 @@ export function parseCommandList(commandList: (Rule|Type<any>)[], msg: Message) 
   });
 
   return success;
-};
+}
 
 /**
  * Matches a rule against a message and executes if matched
@@ -46,7 +46,7 @@ function handleRule(command: Rule, msg: Message, messageContent: string, args: s
     if (command.prefix) {
       match = command.prefix + match;
     }
-    
+
     // Move everything to uppercase if we don't care about exact matching
     if ((command.exact !== undefined) && (!command.exact)) {
       messageContent = messageContent.toUpperCase();
@@ -58,7 +58,9 @@ function handleRule(command: Rule, msg: Message, messageContent: string, args: s
     if (command.wholeMessage) {
       condition = messageContent === match;
     } else {
-      condition = command.position === undefined ? messageContent.indexOf(match) !== -1 : messageContent.indexOf(match) === command.position;
+      condition = command.position === undefined ?
+        messageContent.indexOf(match) !== -1 :
+        messageContent.indexOf(match) === command.position;
     }
 
     // Match made
@@ -100,7 +102,7 @@ function handleCommand(Command: Type<any>, msg: Message, messageContent: string,
 
   // "Cast" rule options
   let rules: Rule = {
-    ...Command.prototype._rules,
+    ...Command.prototype._rules
   };
 
   let success = false;
@@ -113,7 +115,7 @@ function handleCommand(Command: Type<any>, msg: Message, messageContent: string,
     if (rules.prefix) {
       match = rules.prefix + match;
     }
-    
+
     // Move everything to uppercase if we don't care about exact matching
     if ((rules.exact !== undefined) && (!rules.exact)) {
       messageContent = messageContent.toUpperCase();

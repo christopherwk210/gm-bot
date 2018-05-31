@@ -10,10 +10,6 @@ import { MessageOptions } from 'child_process';
   ...prefixedCommandRuleTemplate
 })
 export class ChangelogCommand implements CommandClass {
-  action(msg: Message) {
-    ChangelogCommand.sendReleaseScreenshot(msg);
-  }
-
   /**
    * Takes a screenshot of the release notes and sends it to the chat
    * @param msg Discord message
@@ -40,7 +36,7 @@ export class ChangelogCommand implements CommandClass {
         document.querySelector('.description').remove();
         Array.from(document.querySelectorAll('p')).forEach(p => {
           if (p.innerText.length === 0) {
-            p.remove();   
+            p.remove();
           }
         });
         Array.from(document.querySelectorAll('br')).forEach(br => {
@@ -54,7 +50,7 @@ export class ChangelogCommand implements CommandClass {
         width: 1280,
         height: 1
       });
-    
+
       // Take a screenshot of the full page
       let image = await page.screenshot({
         fullPage: true
@@ -65,12 +61,16 @@ export class ChangelogCommand implements CommandClass {
 
       let messageOptions: any = {
         file: image,
-        name: 'capture.png',
+        name: 'capture.png'
       };
-      
+
       // Send the message
       msg.channel.send('Release Notes:', messageOptions)
         .then(() => message.delete());
     });
+  }
+
+  action(msg: Message) {
+    ChangelogCommand.sendReleaseScreenshot(msg);
   }
 }
