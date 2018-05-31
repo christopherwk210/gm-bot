@@ -134,8 +134,12 @@ export class DocsCommand implements CommandClass {
         let found = false;
 
         if (remoteSrc.indexOf('<') === 0) {
-          msg.channel.send('GMS2 documentation is currently unavailable. Falling back to GMS1 documentation...');
-          this.helpUrlGMS1(msg, fn, image);
+          msg.author.send('GMS2 documentation is currently unavailable. Falling back to GMS1 documentation...');
+          if (validateGMS1(fn)) {
+            this.helpUrlGMS1(msg, fn, image);
+          } else {
+            msg.author.send(`\`${fn}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
+          }
           return;
         }
 
