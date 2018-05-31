@@ -13,7 +13,7 @@ export const commandSchema: Schematic = {
   inputs: [
     'What is the name of your command?'
   ],
-  preWrite: async function(inputResults) {
+  async preWrite(inputResults) {
     if (!inputResults[0]) {
       return { err: 'No command name provided!' };
     }

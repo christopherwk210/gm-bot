@@ -16,7 +16,7 @@ export interface Schematic {
    * final file, including extension. You can also return an object instead which
    * will be passed as the error object in the postWrite callback.
    */
-  preWrite: (inputResults: string[]) => Promise<string|Object>;
+  preWrite: (inputResults: string[]) => Promise<string | object>;
 
   /**
    * Post-write callback, this is where you should log the status of the generation

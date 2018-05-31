@@ -13,7 +13,7 @@ export const modifierSchema: Schematic = {
   inputs: [
     'What is the name of your code modifier?'
   ],
-  preWrite: async function(inputResults) {
+  async preWrite(inputResults) {
     if (!inputResults[0]) {
       return { err: 'No modifier name provided!' };
     }

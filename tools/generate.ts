@@ -23,7 +23,7 @@ const schematics: Schematic[] = [
 
 // Determine what schematic the user provided
 const mode = process.argv[process.argv.length - 1];
-let schema = schematics.find(schema => schema.name === mode);
+let schema = schematics.find(schematic => schematic.name === mode);
 
 // Execute schema if found
 if (schema) {
@@ -76,7 +76,7 @@ async function executeSchematic(schematic: Schematic) {
     if (!directoryExists) {
       try {
         await asyncMkdirp(fileDirectory);
-      } catch(e) {
+      } catch (e) {
         schematic.postWrite(`Write Error: Could not create directory ${fileDirectory}!`);
         return;
       }
