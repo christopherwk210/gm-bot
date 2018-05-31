@@ -22,6 +22,11 @@ function helpUrlGMS2(msg, fn, image) {
     // Let's check the goods
     res.pipe(concat({ encoding: 'string' }, remoteSrc => {
       let found = false;
+      
+      if (remoteSrc.indexOf('<') === 0) {
+        msg.channel.send('GMS2 documentation is currently unavailable. Please try again later.');
+        return;
+      }
 
       // Execute in context to access the inner JS
       vm.runInThisContext(remoteSrc, 'remote_modules/searchdat.js');
