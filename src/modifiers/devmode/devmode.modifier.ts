@@ -1,7 +1,10 @@
-import { Message, Client, Snowflake } from 'discord.js';
 import * as Discord from 'discord.js';
+import { Message, Client, Snowflake } from 'discord.js';
 import { Modifier, ModifierClass } from '../../shared';
 import * as shared from '../../shared';
+
+const RichEmbed = Discord.RichEmbed;
+const Attachment = Discord.Attachment;
 
 @Modifier({
   match: '!devmode'
@@ -9,8 +12,6 @@ import * as shared from '../../shared';
 export class DevmodeModifier implements ModifierClass {
   /** Keep a reference to the shared libraries for dev access */
   shared = shared;
-
-  discord = Discord;
 
   /** Represents whitelisted users */
   whitelist: Snowflake[] = [
