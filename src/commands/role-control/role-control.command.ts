@@ -3,7 +3,7 @@ import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass, roleService } from '../../shared';
 
 @Command({
-  matches: ['role'],
+  matches: ['role', '3d', 'voip'],
   ...prefixedCommandRuleTemplate
 })
 export class RoleControlCommand implements CommandClass {
@@ -21,8 +21,12 @@ export class RoleControlCommand implements CommandClass {
    * @param args 
    */
   action(msg: Message, args: string[]) {
-    // Get the role from the argument
-    let roleName = args.splice(1);
+    switch (args[0].toLowerCase()) {
+      case '!3d':
+        return this.action(msg, ['!role', '3d']);
+      case '!voip':
+        return this.action(msg, ['!role', 'voip']);
+    }
 
     // Ensure we aren't in DM
     if ((msg.guild === null) || (msg.guild === undefined) || !msg.member) {
@@ -33,6 +37,8 @@ export class RoleControlCommand implements CommandClass {
       return;
     }
 
+    // Get the role from the argument
+    let roleName = args.splice(1);
     let role;
 
     // Ensure there is a role passed
