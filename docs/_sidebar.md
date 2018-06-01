@@ -42,7 +42,7 @@
   * Modifiers
 
     * [Clean Code](/features/modifiers/clean-code.md)
-    * [Devmode](/features/modifiers/devmode.md)
+    * [Devmode](/deep-dive/dev-mode.md)
     * [GML](/features/modifiers/gml.md)
     * [GMLive](/features/modifiers/gmlive.md)
     * [Haste](/features/modifiers/haste.md)

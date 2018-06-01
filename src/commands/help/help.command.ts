@@ -1,5 +1,8 @@
-import { Message } from 'discord.js';
-import { prefixedCommandRuleTemplate } from '../../config';
+import * as fs from 'fs';
+import * as path from 'path';
+
+import { Message, RichEmbed } from 'discord.js';
+import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass, detectStaff, markdownService } from '../../shared';
 
 @Command({
@@ -22,6 +25,19 @@ export class HelpCommand implements CommandClass {
    * @param args 
    */
   action(msg: Message, args: string[]) {
+    if (args[1]) {
+      this.getDocsPage(args[1]).then(result => {
+        let embed = new RichEmbed({
+          description: result,
+          color: defaultEmbedColor,
+          timestamp: new Date()
+        });
+
+        msg.author.send(embed);
+      });
+      return;
+    }
+
     let command;
 
     // Determine the correct help message to deliver
@@ -41,5 +57,31 @@ export class HelpCommand implements CommandClass {
       default:
         msg.author.send(this.helpFiles.all);
     }
+  }
+
+  /**
+   * Returns a documentation page
+   * @param page 
+   */
+  getDocsPage(page: string): Promise<string> {
+    const commandDocsLocation = path.join(__dirname, '../../../docs/features/commands');
+
+    return new Promise(resolve => {
+      fs.readdir(commandDocsLocation, (err, files) => {
+        if (err) return resolve('Could not find the specified documentation.');
+        files.some(file => {
+          let fileName = path.basename(file, '.md');
+
+          if (fileName === page) {
+            let filePath = path.join(commandDocsLocation, file);
+            fs.readFile(filePath, 'utf8', (readErr, data) => {
+              if (readErr) return resolve('Could not read the specified documentation.');
+              resolve(data);
+            });
+            return true;
+          }
+        });
+      });
+    });
   }
 }
