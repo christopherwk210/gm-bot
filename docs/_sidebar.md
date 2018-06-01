@@ -38,3 +38,11 @@
     * [Role](/features/commands/role-control.md)
     * [Say](/features/commands/say.md)
     * [Welcome](/features/commands/welcome.md)
+
+  * Modifiers
+
+    * [Clean Code](/features/modifiers/clean-code.md)
+    * [Devmode](/features/modifiers/devmode.md)
+    * [GML](/features/modifiers/gml.md)
+    * [GMLive](/features/modifiers/gmlive.md)
+    * [Haste](/features/modifiers/haste.md)
