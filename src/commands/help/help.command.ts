@@ -89,7 +89,7 @@ export class HelpCommand implements CommandClass {
   /** Returns all command documentation file (topic) names */
   async getCommandNames() {
     let files: string[];
-    let fileNames: string[];
+    let fileNames: string[] = [];
 
     try {
       files = await readdir(this.commandDocsLocation);
@@ -108,7 +108,7 @@ export class HelpCommand implements CommandClass {
   /** Returns all modifier documentation file (topic) names */
   async getModifierNames() {
     let files: string[];
-    let fileNames: string[];
+    let fileNames: string[] = [];
 
     try {
       files = await readdir(this.modifierDocsLocation);
