@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { getMockMessage, MockMessage } from '../../../tools/test';
-import { Message } from 'discord.js';
 import { CommandmentCommand } from './commandment.command';
 
 let mockMessage: MockMessage;
