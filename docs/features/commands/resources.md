@@ -13,5 +13,6 @@ Sends the user a list of helpful links to online GameMaker resources.
 Sends a specific user a list of helpful links to online GameMaker resources
 
 ```
-!resources [@user] - Sends [@user] a list of resources
+!resources [@user]
 ```
+Sends `[@user]` a list of resources

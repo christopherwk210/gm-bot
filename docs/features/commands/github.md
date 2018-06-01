@@ -7,5 +7,6 @@
 Searches the community GitHub for a specific repo.
 
 ```
-!github [query] - Search the community GH for the given [query]
+!github [query]
 ```
+Search the community GH for the given `[query]`
