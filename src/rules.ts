@@ -95,6 +95,10 @@ export function loadRules() {
   /** Reply RuleFactor rules */
   let replyRules: Rule[] = [
     RuleFactory.createReplyRule(
+      ['lospec', 'palettes', 'palette-list'],
+      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
+    ),
+    RuleFactory.createReplyRule(
       ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
       `${['Paging', 'Come in', 'Where art thou', 'Someone needs ya'].choose()} <@144913457429348352>`
     ),
@@ -145,10 +149,6 @@ export function loadRules() {
     RuleFactory.createReplyRule(
       ['inversekinematics'],
       '<@227032791013916672>'
-    ),
-    RuleFactory.createReplyRule(
-      ['lospec', 'palettes', 'palette-list'],
-      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
     )
   ];
 

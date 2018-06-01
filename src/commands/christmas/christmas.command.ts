@@ -3,7 +3,7 @@ import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass, detectStaff, roleService } from '../../shared';
 
 @Command({
-  matches: ['christmascycle', 'christmasautocycle'],
+  matches: ['christmascycle', 'christmasautocycle', 'christmasstop'],
   ...prefixedCommandRuleTemplate
 })
 export class ChristmasCommand implements CommandClass {
@@ -37,6 +37,9 @@ export class ChristmasCommand implements CommandClass {
     switch (args[0].slice(1)) {
       case 'christmasautocycle':
         this.setAutoCycle();
+        break;
+      case 'christmasstop':
+        if (this.cycleInterval) clearInterval(this.cycleInterval);
         break;
       default:
       case 'christmascycle':

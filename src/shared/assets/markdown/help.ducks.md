@@ -25,7 +25,6 @@ Valid URLs: http://rg3.github.io/youtube-dl/supportedsites.html
 !volume [value] - Sets the streaming volume % of the bot (0-300)
 !kick           - Immediately kills queue and disconnects the bot from voice
 ```
-All of these commands will send you a DM which you can prevent by including `s` in your command: `!pause s`.
 
 **RTFM**
 `!rftm` is shorthand for `!commandment I`.
