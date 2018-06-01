@@ -10,4 +10,5 @@
     * [Services](/deep-dive/services.md)
     * [Utilities](/deep-dive/utilities.md)
   * [Express](/deep-dive/express.md)
+  * [Dev mode](/deep-dive/dev-mode.md)
   * [Tests and linting](/deep-dive/testing.md)

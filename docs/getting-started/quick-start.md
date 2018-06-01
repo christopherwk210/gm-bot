@@ -37,7 +37,7 @@ npm start
 
 That's it, your setup!
 
-!> I'm super pumped that you're interested in getting involved with the development of the bot! However, before you go nuts and start contributing, please make the admins aware of the changes you are interested in making. The bot is something shared by the whole community, and so any large new additions or changes are to be considered by the admin team prior to implementation. **If you implement a big command and create a pull request without talking to the admins first, it will most likely be declined.**
+!> Thanks for being interested in getting involved with the development of the bot! However, before you go nuts and start contributing, please make the admins aware of the changes you are interested in making. The bot is something shared by the whole community, and so any large new additions or changes are to be considered by the admin team prior to implementation. **If you implement a big command and create a pull request without talking to the admins first, it will most likely be declined.**
 
 To get started developing your own commands, check out [Creating commands](/getting-started/creating-commands).
 
