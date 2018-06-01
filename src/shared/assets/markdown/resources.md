@@ -1,7 +1,7 @@
 Here's a helpful resources list:
 
 ```
-GameMaker subreddit, and our parent community
+GameMaker subreddit
 http://www.reddit.com/r/gamemaker/
 
 Official forums, with multiple help-orientated subforums
@@ -12,9 +12,6 @@ https://www.reddit.com/r/gamemaker/comments/3lyoik/game_maker_handbook_resources
 
 Dozens of well made GML scripts and snippets
 http://www.gmlscripts.com/
-
-Community-led manual for GMS1
-http://gamemaker.communitymanual.com/
 
 Official reference manuals
 http://docs.yoyogames.com/
