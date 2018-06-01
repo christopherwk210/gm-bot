@@ -4,7 +4,7 @@ In order to start development on GameMakerBot (GMBot for short), you'll need to 
 ## Installation
 Clone the repo with git using:
 ```bash
-git clone https://bitbucket.org/christopherwk210/gm-bot
+git clone https://github.com/christopherwk210/gm-bot
 ```
 
 Once finished, enter the project directory and install its dependencies:
