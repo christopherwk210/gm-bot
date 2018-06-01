@@ -5,7 +5,7 @@
 
 > The bot used by the /r/GameMaker Discord server.
 
-[Repo](https://bitbucket.org/christopherwk210/gm-bot)
+[Repo](https://github.com/christopherwk210/gm-bot)
 [Dive In](#gamemakerbot)
 
 ![color](#081D00)
