@@ -8,13 +8,16 @@ gm-bot/src/commands/cool/cool.spec.ts
 ```
 ```typescript
 import { expect } from 'chai';
-import { getMockMessage, MockMessage } from '../../../tools/test';
 import { CoolCommand } from './cool.command';
 
+// Import mock message tools
+import { getMockMessage, MockMessage } from '../../../tools/test';
+
+// Create a mock message holder
 let mockMessage: MockMessage;
 
 beforeEach(() => {
-  // Create a fresh message mock before each test
+  // Get a fresh message mock before each test
   mockMessage = getMockMessage();
 });
 
@@ -34,5 +37,5 @@ describe('CoolCommand', () => {
     coolCommand.action(mockMessage as any, ['!cool']);
   });
 });
-
-``` 
+```
+One very important thing to note is that you must cast your `MockMessage` to type `any`. This is because your command or modifier will be expecting a `Message` type as the first argument, but we are passing a `MockMessage` type. Mock messages can't be casted to `Message` types either, as they don't share required properties.
