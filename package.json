@@ -5,8 +5,8 @@
   "main": "./gmbot",
   "license": "MIT",
   "scripts": {
-    "docs": "docsify serve ./docs",    
-    "g": "ts-node ./tools/generate.ts",    
+    "docs": "docsify serve ./docs",
+    "g": "ts-node ./tools/generate.ts",
     "install": "ts-node ./tools/post-install.ts",
     "lint": "tslint 'gmbot.ts' && tslint 'src/**/*.ts'",
     "start": "ts-node gmbot.ts",
