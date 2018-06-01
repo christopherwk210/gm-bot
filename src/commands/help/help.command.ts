@@ -38,12 +38,25 @@ export class HelpCommand implements CommandClass {
   async action(msg: Message, args: string[]) {
     if (args[1]) {
       let docsPage = await this.getDocsPage(args[1]);
-
+      let titleRegExp = /#\s[\s\S]+(\n|\r)/g;
       let embed = new RichEmbed({
-        description: docsPage,
         color: defaultEmbedColor,
         timestamp: new Date()
       });
+
+      let match = docsPage.match(titleRegExp);
+
+      if (match) {
+        let title = match[0];
+
+        docsPage = docsPage.replace(title, '');
+        title = title.replace('#', '').replace(/(\n|\r)/g, '');
+
+        embed.title = title;
+        embed.description = docsPage;
+      } else {
+        embed.description = docsPage;
+      }
 
       msg.author.send(embed);
       return;
