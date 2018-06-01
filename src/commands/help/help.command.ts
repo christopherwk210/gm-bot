@@ -16,6 +16,13 @@ import { Command, CommandClass, detectStaff, markdownService } from '../../share
 export class HelpCommand implements CommandClass {
   helpFiles: any = {};
 
+  // Documentation locations
+  commandDocsLocation = path.join(__dirname, '../../../docs/features/commands');
+  modifierDocsLocation = path.join(__dirname, '../../../docs/features/modifiers');
+
+  helpMessage =
+    'Hi, I\'m GameMakerBot. To get help with a specific command, use `!help topic`. Here are all of the topics you can get help with:\n\n';
+
   constructor() {
     this.helpFiles.admins = markdownService.files['help.admins'];
     this.helpFiles.ducks = markdownService.files['help.ducks'];
@@ -28,20 +35,36 @@ export class HelpCommand implements CommandClass {
    * @param msg 
    * @param args 
    */
-  action(msg: Message, args: string[]) {
+  async action(msg: Message, args: string[]) {
     if (args[1]) {
-      this.getDocsPage(args[1]).then(result => {
-        let embed = new RichEmbed({
-          description: result,
-          color: defaultEmbedColor,
-          timestamp: new Date()
-        });
+      let docsPage = await this.getDocsPage(args[1]);
 
-        msg.author.send(embed);
+      let embed = new RichEmbed({
+        description: docsPage,
+        color: defaultEmbedColor,
+        timestamp: new Date()
       });
+
+      msg.author.send(embed);
       return;
     }
 
+    let commands = await this.getCommandNames();
+    let modifiers = await this.getModifierNames();
+
+    let message = `${this.helpMessage}**Commands:**\n` +
+                  `\`\`\`${commands.join(', ')}\`\`\`\n**Modifiers**\n` +
+                  `\`\`\`${modifiers.join(', ')}\`\`\`\n`;
+
+    message += 'Commands are special functions that provide helpful features.\n' +
+               'Modifiers are special code block languages that the bot recognizes.';
+  }
+
+  /**
+   * Sends the old markdown help message
+   * @param msg 
+   */
+  deliverOldHelpMessage(msg: Message) {
     let command;
 
     // Determine the correct help message to deliver
@@ -63,18 +86,53 @@ export class HelpCommand implements CommandClass {
     }
   }
 
+  /** Returns all command documentation file (topic) names */
+  async getCommandNames() {
+    let files: string[];
+    let fileNames: string[];
+
+    try {
+      files = await readdir(this.commandDocsLocation);
+    } catch (e) {
+      return ['Missing documentation files... Please contact the admins.'];
+    }
+
+    files.forEach(file => {
+      let fileName = path.basename(file, '.md');
+      fileNames.push(fileName);
+    });
+
+    return fileNames;
+  }
+
+  /** Returns all modifier documentation file (topic) names */
+  async getModifierNames() {
+    let files: string[];
+    let fileNames: string[];
+
+    try {
+      files = await readdir(this.modifierDocsLocation);
+    } catch (e) {
+      return ['Missing documentation files... Please contact the admins.'];
+    }
+
+    files.forEach(file => {
+      let fileName = path.basename(file, '.md');
+      fileNames.push(fileName);
+    });
+
+    return fileNames;
+  }
+
   /**
    * Returns a documentation page
    * @param page 
    */
   async getDocsPage(page: string): Promise<string> {
-    const commandDocsLocation = path.join(__dirname, '../../../docs/features/commands');
-    const modifierDocsLocation = path.join(__dirname, '../../../docs/features/modifiers');
-
     // Load commands
     let files: string[];
     try {
-      files = await readdir(commandDocsLocation);
+      files = await readdir(this.commandDocsLocation);
     } catch (e) {
       return 'Missing documentation files... Please contact the admins.';
     }
@@ -83,7 +141,7 @@ export class HelpCommand implements CommandClass {
       let fileName = path.basename(file, '.md');
 
       if (fileName === page) {
-        let filePath = path.join(commandDocsLocation, file);
+        let filePath = path.join(this.commandDocsLocation, file);
         let fileContents: string;
 
         try {
@@ -98,7 +156,7 @@ export class HelpCommand implements CommandClass {
 
     // Load modifiers
     try {
-      files = await readdir(modifierDocsLocation);
+      files = await readdir(this.modifierDocsLocation);
     } catch (e) {
       return 'Missing documentation files... Please contact the admins.';
     }
@@ -107,7 +165,7 @@ export class HelpCommand implements CommandClass {
       let fileName = path.basename(file, '.md');
 
       if (fileName === page) {
-        let filePath = path.join(modifierDocsLocation, file);
+        let filePath = path.join(this.modifierDocsLocation, file);
         let fileContents: string;
 
         try {

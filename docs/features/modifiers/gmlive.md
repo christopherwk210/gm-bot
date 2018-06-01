@@ -6,8 +6,6 @@
 
 Sends a link to GMLive containing the code block contents.
 
-````markdown
-```gmlive
-trace("GMLive is great!");
-```
-````
+\`\`\`gmlive  
+trace("GMLive is great!");  
+\`\`\`
