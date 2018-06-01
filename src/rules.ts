@@ -63,12 +63,7 @@ export function loadRules() {
     AudioCommand,
     GiveawayCommand,
     MinibossCommand,
-    PaletteCommand,
-    {
-      matches: ['3d'],
-      ...prefixedCommandRuleTemplate,
-      action: msg => new RoleControlCommand().action(msg, ['3d', '3D'])
-    }
+    PaletteCommand
   ];
 
   /** Admin only commands */
