@@ -1,5 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as util from 'util';
+
+const readdir = util.promisify(fs.readdir);
+const readFile = util.promisify(fs.readFile);
 
 import { Message, RichEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
@@ -63,25 +67,59 @@ export class HelpCommand implements CommandClass {
    * Returns a documentation page
    * @param page 
    */
-  getDocsPage(page: string): Promise<string> {
+  async getDocsPage(page: string): Promise<string> {
     const commandDocsLocation = path.join(__dirname, '../../../docs/features/commands');
+    const modifierDocsLocation = path.join(__dirname, '../../../docs/features/modifiers');
 
-    return new Promise(resolve => {
-      fs.readdir(commandDocsLocation, (err, files) => {
-        if (err) return resolve('Could not find the specified documentation.');
-        files.some(file => {
-          let fileName = path.basename(file, '.md');
+    // Load commands
+    let files: string[];
+    try {
+      files = await readdir(commandDocsLocation);
+    } catch (e) {
+      return 'Missing documentation files... Please contact the admins.';
+    }
 
-          if (fileName === page) {
-            let filePath = path.join(commandDocsLocation, file);
-            fs.readFile(filePath, 'utf8', (readErr, data) => {
-              if (readErr) return resolve('Could not read the specified documentation.');
-              resolve(data);
-            });
-            return true;
-          }
-        });
-      });
-    });
+    for (let file of files) {
+      let fileName = path.basename(file, '.md');
+
+      if (fileName === page) {
+        let filePath = path.join(commandDocsLocation, file);
+        let fileContents: string;
+
+        try {
+          fileContents = await readFile(filePath, 'utf8');
+        } catch (e) {
+          return 'Error reading the specified documentation... Please contact the admins.';
+        }
+
+        return fileContents;
+      }
+    }
+
+    // Load modifiers
+    try {
+      files = await readdir(modifierDocsLocation);
+    } catch (e) {
+      return 'Missing documentation files... Please contact the admins.';
+    }
+
+    for (let file of files) {
+      let fileName = path.basename(file, '.md');
+
+      if (fileName === page) {
+        let filePath = path.join(modifierDocsLocation, file);
+        let fileContents: string;
+
+        try {
+          fileContents = await readFile(filePath, 'utf8');
+        } catch (e) {
+          return 'Error reading the specified documentation... Please contact the admins.';
+        }
+
+        return fileContents;
+      }
+    }
+
+    return 'Could not find the specified documentation.';
   }
 }
