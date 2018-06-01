@@ -27,7 +27,8 @@ The JSON service also includes helper functions for writing to JSON files:
 // This method returns a function that writes to the auth.json file asynchronously
 let asyncWriter = jsonService.getAsyncWriter('auth');
 
-// You can call the function passing in an object or string to write to the JSON file. If an object is passed, it will be converted to a string with JSON.stringify()
+// You can call the function passing in an object or string to write to the JSON file.
+// If an object is passed, it will be converted to a string with JSON.stringify()
 asyncWriter({ token: 'new token' }).then(err => {
   if (err) {
     console.error('Something went wrong, but this will proooobably never happen.');
