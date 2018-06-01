@@ -1,4 +1,4 @@
-![logo](bot.png)
+![logo](_media/bot.png)
 
 <!-- Empty i tag to prevent duplicate id generation -->
 # GameMakerBot <i></i>

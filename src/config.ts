@@ -4,9 +4,7 @@ export const shouldDieOnException: boolean = false;
 /** Server wide command prefix (Go ! or go home) */
 export const prefix: string = '!';
 
-/**
- * Template options that include standard command defaults
- */
+/** Template options that include standard command defaults */
 export const prefixedCommandRuleTemplate = {
   prefix,
   position: 0,

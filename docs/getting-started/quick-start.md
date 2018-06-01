@@ -27,15 +27,19 @@ gm-bot/src/shared/assets/json/auth.json
 }
 ```
 
-!> Never upload your auth file! Your token should be a secret to everyone. This file is automatically ignored by the project `.gitignore` file.
+?> Never upload your auth file! Your token should be a secret to everyone. This file is automatically ignored by the project `.gitignore` file.
 
-Once your auth file is in place, you're ready to go! The bot can be started with:
+Once your auth file is in place, the bot can be started with:
 
 ```bash
 npm start
 ```
 
-If there are any errors, they will be logged to the console.
+That's it, your setup!
+
+!> I'm super pumped that you're interested in getting involved with the development of the bot! However, before you go nuts and start contributing, please make the admins aware of the changes you are interested in making. The bot is something shared by the whole community, and so any large new additions or changes are to be considered by the admin team prior to implementation. **If you implement a big command and create a pull request without talking to the admins first, it will most likely be declined.**
+
+To get started developing your own commands, check out [Creating commands](/getting-started/creating-commands).
 
 ## Missing peer dependencies
 It is recommended that you install dependencies with the `--silent` flag so as to hide  unnecessary peer dependency warnings. These warnings are for peer dependencies of `discord.js`, the Discord API library used by GMBot. They are not required to run the bot itself, however the bot won't be able to use its audio capabilities without installing either `node-opus` or `opusscript`:
