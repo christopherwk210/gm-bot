@@ -3,7 +3,7 @@
 
 GameMakerBot is a robust Discord bot written in TypeScript that packs a *ton* of features. It includes a built in command parsing system, as well as a custom code block language parsing system. It can automatically generate command and code block modifier templates from the CLI to make it easy to contribute as well.
 
-See the documentation to learn more.
+See the [documentation](https://christopherwk210.github.io/gm-bot/) to learn more.
 
 ## Third-Party Contributors
 - YellowAfterlife#3735 for creating a custom GMLive implementation just for the bot
