@@ -112,9 +112,9 @@ To get started making your own CommandClass, you can run the generator script wi
 npm run g command
 ```
 
-You will be prompted to enter a name for your command, which should always be as short as possible. After entering a name, it will create a folder and class file under `gm-bot/src/commands/` for you to get started with. The template file will look something like this:
+You will be prompted to enter a name for your command, which should always be as short as possible. After entering a name, it will create a folder and class file under `gm-bot/src/commands/` for you to get started with. The created file will look something like this:
 ```filepath
-gm-bot/src/commands/sample.command.ts
+gm-bot/src/commands/sample/sample.command.ts
 ```
 ```typescript
 import { Message } from 'discord.js';
