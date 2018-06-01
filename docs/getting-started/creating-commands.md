@@ -63,17 +63,17 @@ Now that we have our rule, let's actually add it to the bot! Are you excited? Go
 
 The commands are broken up into smaller arrays for organizational purposes. Let's append a command to the `coreCommands` array, because our new rule is obviously an important command:
 ```typescript
-  /** Functional utility commands */
-  let coreCommands: (Rule | Type<any>)[] = [
-    // all the other commands are above this one...
-    {
-      matches: ['test'],
-      prefix: '?',
-      action: msg => {
-        msg.channel.send('hello world!');
-      }
+/** Functional utility commands */
+let coreCommands: (Rule | Type<any>)[] = [
+  // all the other commands are above this one...
+  {
+    matches: ['test'],
+    prefix: '?',
+    action: msg => {
+      msg.channel.send('hello world!');
     }
-  ];
+  }
+];
 ```
 
 That's it! Our new rule is correctly setup in the bot. Using this approach, however, is only ideal for very simple commands. Read on to learn about making a [CommandClass](#CommandClass-rules) for more complex rules.
@@ -91,7 +91,7 @@ let rule = {
   action: msg => {
     // Command stuffs
   }
-}
+};
 ```
 The `prefixedCommandRuleTemplate` contains the following preset options:
 ```typescript
