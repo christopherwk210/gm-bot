@@ -38,7 +38,7 @@ export class HelpCommand implements CommandClass {
   async action(msg: Message, args: string[]) {
     if (args[1]) {
       let docsPage = await this.getDocsPage(args[1]);
-      let titleRegExp = /#\s[\s\S]+(\n|\r)/g;
+      let titleRegExp = /#\s[\S ]+(\n|\r)/g;
       let embed = new RichEmbed({
         color: defaultEmbedColor,
         timestamp: new Date()
