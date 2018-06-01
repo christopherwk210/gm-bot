@@ -58,6 +58,8 @@ export class HelpCommand implements CommandClass {
 
     message += 'Commands are special functions that provide helpful features.\n' +
                'Modifiers are special code block languages that the bot recognizes.';
+
+    msg.author.send(message);
   }
 
   /**
