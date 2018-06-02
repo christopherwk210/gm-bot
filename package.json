@@ -8,7 +8,7 @@
     "docs": "docsify serve ./docs",
     "g": "ts-node ./tools/generate.ts",
     "install": "ts-node ./tools/post-install.ts",
-    "lint": "tslint 'gmbot.ts' && tslint 'src/**/*.ts'",
+    "lint": "tslint \"gmbot.ts\" && tslint \"src/**/*.ts\"",
     "start": "ts-node gmbot.ts",
     "test": "mocha -r ts-node/register \"src/**/*.spec.ts\" --exit"
   },
