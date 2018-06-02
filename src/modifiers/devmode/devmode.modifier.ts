@@ -16,13 +16,13 @@ export class DevmodeModifier implements ModifierClass {
   /** Represents whitelisted users */
   whitelist: Snowflake[] = [
     '144913457429348352', // topherlicious
-    '227032791013916672'  // TonyStr
+    '227032791013916672' // TonyStr
   ];
 
   /**
    * Executes code with eval, for development purposes only
-   * @param msg 
-   * @param contents 
+   * @param msg
+   * @param contents
    */
   action(msg: Message, contents: string[]) {
     // Create helper function
@@ -32,8 +32,12 @@ export class DevmodeModifier implements ModifierClass {
     };
 
     // Execute code
-    // tslint:disable-next-line
-    eval(contents[0]);
+    try {
+      // tslint:disable-next-line:no-eval
+      eval(contents[0]);
+    } catch (err) {
+      msg.channel.send('```Error:\n' + err + '\n```');
+    }
   }
 
   /** Only allow whitelisted folks through */
