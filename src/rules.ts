@@ -96,7 +96,10 @@ export function loadRules() {
   let replyRules: Rule[] = [
     RuleFactory.createReplyRule(
       ['lospec', 'palettes', 'palette-list'],
-      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
+      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list',
+      false,
+      true,
+      false
     ),
     RuleFactory.createReplyRule(
       ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
@@ -125,26 +128,36 @@ export function loadRules() {
         name: 'kiss-from-a-rose.gif'
       },
       false,
-      true
+      true,
+      false
     ),
     RuleFactory.createReplyRule(
-      [
-        '<:cokecan:442133530689011712> <:cokecan:442133530689011712> <:cokecan:442133530689011712>',
-        '<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'
-      ],
-      '<@141365209435471872>'
+      ['<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
+      '<@141365209435471872>',
+      false,
+      true,
+      false
     ),
     RuleFactory.createReplyRule(
       ['💤👁️', '💤 👁'],
-      '<@240306552949440512>'
+      '<@240306552949440512>',
+      false,
+      true,
+      false
     ),
     RuleFactory.createReplyRule(
       ['🎁 💀', '🎁💀'],
-      '<@277615099034730506>'
+      '<@277615099034730506>',
+      false,
+      true,
+      false
     ),
     RuleFactory.createReplyRule(
       ['1⃣ 3⃣', '1⃣3⃣'],
-      '<@121017818778042368>'
+      '<@121017818778042368>',
+      false,
+      true,
+      false
     ),
     RuleFactory.createReplyRule(
       ['inversekinematics'],
@@ -155,11 +168,11 @@ export function loadRules() {
   /** React RuleFactor rules */
   let reactRules: Rule[] = [
     RuleFactory.createReactionRule(
-      ['<@295327000372051968>'],
+      ['<@295327000372051968>', '<@!295327000372051968>'],
       ['👋']
     ),
     RuleFactory.createReactionRule(
-      ['<@361088614735544320>'],
+      ['<@361088614735544320>', '<@!361088614735544320>'],
       ['🇸', '🇦', '🇷', '🅰']
     ),
     RuleFactory.createReactionRule(
