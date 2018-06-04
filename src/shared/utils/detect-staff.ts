@@ -28,7 +28,7 @@ export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'au
 /**
  * Fetches a user's /r/GameMaker guild membership if it exists,
  * and runs detectStaff against it
- * @param user 
+ * @param user
  */
 export function detectOutsideStaff(user: User): 'admin' | 'code' | 'art' | 'audio' | false {
   if (user.bot) return false;

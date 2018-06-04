@@ -96,10 +96,7 @@ export function loadRules() {
   let replyRules: Rule[] = [
     RuleFactory.createReplyRule(
       ['lospec', 'palettes', 'palette-list'],
-      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list',
-      false,
-      true,
-      false
+      'Here\'s a list of useful palettes:\nhttps://lospec.com/palette-list'
     ),
     RuleFactory.createReplyRule(
       ['toph', 'tophy', 'tophie', 'topher', 'topherlicious', 'whosyourdaddy'],
@@ -128,36 +125,31 @@ export function loadRules() {
         name: 'kiss-from-a-rose.gif'
       },
       false,
-      true,
-      false
+      true
     ),
     RuleFactory.createReplyRule(
       ['<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
       '<@141365209435471872>',
       false,
-      true,
-      false
+      true
     ),
     RuleFactory.createReplyRule(
       ['💤👁️', '💤 👁'],
       '<@240306552949440512>',
       false,
-      true,
-      false
+      true
     ),
     RuleFactory.createReplyRule(
       ['🎁 💀', '🎁💀'],
       '<@277615099034730506>',
       false,
-      true,
-      false
+      true
     ),
     RuleFactory.createReplyRule(
       ['1⃣ 3⃣', '1⃣3⃣'],
       '<@121017818778042368>',
       false,
-      true,
-      false
+      true
     ),
     RuleFactory.createReplyRule(
       ['inversekinematics'],

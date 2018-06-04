@@ -33,6 +33,10 @@ export class PaletteCommand implements CommandClass {
     {
       alias: ['dbs', 'aseprite-default'],
       for: 'DawnBringers'
+    },
+    {
+      alias: ['db'],
+      for: 'DawnBringer'
     }
   ];
 
@@ -77,9 +81,9 @@ export class PaletteCommand implements CommandClass {
 
   /**
    * Handles common palette name alias by making replacements to the given name
-   * @param paletteName 
+   * @param paletteName
    */
-  handleAlias(paletteName: string) {
+  handleAlias(paletteName: string): string {
     this.paletteNameAlias.forEach(aliasMap => {
       aliasMap.alias.forEach(alias => paletteName = paletteName.replace(alias, aliasMap.for));
     });
@@ -92,11 +96,11 @@ export class PaletteCommand implements CommandClass {
    * @param palette Palette name
    */
   getPalettePage(palette: string): Promise<string | boolean> {
-    let chunks = [];
+    let chunks: string[] = [];
     return new Promise(resolve => {
       https.get(this.url + palette, res => {
         res.setEncoding('utf8');
-        res.on('data', data => chunks.push(data));
+        res.on('data', data => chunks.push(data.toString()));
         res.on('end', () => resolve(chunks.join('')));
         res.on('error', err => resolve(false));
       }).end();

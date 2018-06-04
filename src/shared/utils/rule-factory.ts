@@ -13,15 +13,13 @@ export class RuleFactory {
    * @param DM Reply to user via DM instead of channel, default false
    * @param wholeMessage When true, sets exact to false and checks the whole message, default false
    */
-  static createReplyRule(matches: string[], content: any, DM = false, wholeMessage = false, usePrefix = true): Rule {
+  static createReplyRule(matches: string[], content: any, DM: boolean = false, wholeMessage: boolean = false): Rule {
     let rule: Rule = {
       matches,
       delete: true,
       action: DM ? msg => msg.author.send(content) : msg => msg.channel.send(content),
-      prefix: usePrefix ? prefixedCommandRuleTemplate.prefix : ''
+      prefix: wholeMessage ? '' : prefixedCommandRuleTemplate.prefix
     }
-
-    console.log(rule.prefix);
 
     if (wholeMessage) {
       rule.wholeMessage = true;
