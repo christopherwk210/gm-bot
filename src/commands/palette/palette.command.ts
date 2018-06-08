@@ -20,23 +20,23 @@ export class PaletteCommand implements CommandClass {
     },
     {
       alias: ['nes'],
-      for: 'Nintendo-Entertainment-System'
+      for: 'nintendo-entertainment-system'
     },
     {
       alias: ['jmp'],
-      for: 'JMP-Japanese-Machine-Palette'
+      for: 'jmp-japanese-machine-palette'
     },
     {
       alias: ['dbs8', 'dbs-8', 'dbs 8'],
-      for: 'DawnBringers-8-color'
+      for: 'dawnbringers-8-color'
     },
     {
-      alias: ['dbs', 'aseprite-default'],
-      for: 'DawnBringers'
+      alias: ['aseprite-default'],
+      for: 'dawnbringer-32'
     },
     {
       alias: ['db'],
-      for: 'DawnBringer'
+      for: 'dawnbringer'
     }
   ];
 
