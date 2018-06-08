@@ -34,7 +34,7 @@ export class DevmodeModifier implements ModifierClass {
     // Execute code
     try {
       // tslint:disable-next-line:no-eval
-      eval(contents[0].replace(/(['"])#([0-9a-fA-F]{6})\1/g, '0x$2'));
+      eval(contents[0]);
     } catch (err) {
       msg.channel.send('```Error:\n' + err + '\n```');
     }
