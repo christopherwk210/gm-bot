@@ -25,7 +25,8 @@ import {
   AudioCommand,
   GiveawayCommand,
   MinibossCommand,
-  PaletteCommand
+  PaletteCommand,
+  UpvoteCommand
 } from './commands';
 
 // Modifiers
@@ -63,7 +64,8 @@ export function loadRules() {
     AudioCommand,
     GiveawayCommand,
     MinibossCommand,
-    PaletteCommand
+    PaletteCommand,
+    UpvoteCommand
   ];
 
   /** Admin only commands */
