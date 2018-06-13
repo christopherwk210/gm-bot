@@ -15,12 +15,13 @@ export class LifetimeCommand implements CommandClass {
   action(msg: Message, args: string[]) {
     if (args.length > 1) {
       if (msg.guild) {
-        let member = msg.guild.members.get(args[1].replace(/[<!@>]+/g, ''));
-        if (member) {
-          msg.channel.send(`${member.displayName} has been a member of this server since ${member.joinedAt}.`);
-        } else {
-          msg.channel.send('Could not find specified user');
-        }
+        msg.guild.fetchMember(args[1].replace(/[<!@>]+/g, '')).then(member => {
+          if (member) {
+            msg.channel.send(`${member.displayName} has been a member of this server since ${member.joinedAt}.`);
+          } else {
+            msg.channel.send('Could not find specified user');
+          }
+        });
       } else {
         msg.channel.send('You can only use this in the /r/GameMaker server.');
       }
