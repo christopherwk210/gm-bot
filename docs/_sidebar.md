@@ -37,6 +37,7 @@
     * [Resources](/features/commands/resources.md)
     * [Role](/features/commands/role-control.md)
     * [Say](/features/commands/say.md)
+    * [Upvote](/features/commands/upvote.md)
     * [Welcome](/features/commands/welcome.md)
 
   * Modifiers
