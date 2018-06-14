@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { getMockMessage, MockMessage } from '../../../tools/test';
-import { Message } from 'discord.js';
 import { parseCommandList } from './parse-command-list';
 import { Rule } from '..';
 
@@ -12,7 +11,7 @@ beforeEach(() => {
   mockMessage.content = 'abc';
   sampleRule = {
     matches: ['abc'],
-    action: (msg, args) => true
+    action: () => true
   };
 });
 
