@@ -23,8 +23,13 @@ export function parseCommandList(commandList: (Rule | Type<any>)[], msg: Message
  */
 function handleRuleOrCommand(command: Rule | Type<any>, msg: Message, messageContent: string, args: string[]): boolean {
   // Handle both rules and commands
-  let cmd = typeof command === 'function' ? new command() : { action: command.action, pre: command.pre };
-  let rules: Rule = typeof command === 'function' ? { ...command.prototype._rules } : command;
+  let cmd = (typeof command === 'function') ?
+    new command() :
+    { action: command.action, pre: command.pre };
+
+  let rules: Rule = (typeof command === 'function') ?
+    { ...command.prototype._rules } :
+    command;
 
   let success = false;
 
@@ -33,12 +38,10 @@ function handleRuleOrCommand(command: Rule | Type<any>, msg: Message, messageCon
     let match = currentMatch;
 
     // Use prefix if specified
-    if (rules.prefix) {
-      match = rules.prefix + match;
-    }
+    if (rules.prefix) match = rules.prefix + match;
 
     // Move everything to uppercase if we don't care about exact matching
-    if ((rules.exact !== undefined) && (!rules.exact)) {
+    if (rules.exact !== undefined && !rules.exact) {
       messageContent = messageContent.toUpperCase();
       match = match.toUpperCase();
     }
@@ -48,7 +51,7 @@ function handleRuleOrCommand(command: Rule | Type<any>, msg: Message, messageCon
     if (rules.wholeMessage) {
       condition = messageContent === match;
     } else {
-      condition = rules.position === undefined ?
+      condition = (rules.position === undefined) ?
         messageContent.indexOf(match) !== -1 :
         messageContent.indexOf(match) === rules.position;
     }
@@ -62,9 +65,7 @@ function handleRuleOrCommand(command: Rule | Type<any>, msg: Message, messageCon
       cmd.action(msg, args);
 
       // Delete message if specified
-      if (rules.delete) {
-        msg.delete();
-      }
+      if (rules.delete) msg.delete();
 
       return success = true;
     }
