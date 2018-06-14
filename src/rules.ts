@@ -1,8 +1,8 @@
 import * as path from 'path';
-import { Attachment } from 'discord.js';
+import { Attachment, RichEmbed } from 'discord.js';
 
 // Config
-import { prefixedCommandRuleTemplate } from './config';
+import { prefixedCommandRuleTemplate, defaultEmbedColor } from './config';
 
 // Commands
 import {
@@ -128,6 +128,18 @@ export function loadRules() {
       },
       false,
       true
+    ),
+    RuleFactory.createReplyRule(
+      ['codeformatting', 'backtick'],
+      new RichEmbed({
+        title: 'You can format your code by encapsulating it within three backticks before and after',
+        description: '\n\\`\\`\\`\nshow_debug_message("I\'m formatted!");\n\\`\\`\\`\n\n' +
+            'The above example displays:\n' +
+            '```\nshow_debug_message("I\'m formatted!");\n```\n' +
+            `The backtick key can be found above the TAB key on most keyboards.`,
+        image: { url: 'https://cdn.discordapp.com/attachments/441976514289074201/456562731903090697/backtick.png' },
+        color: defaultEmbedColor
+      })
     ),
     RuleFactory.createReplyRule(
       ['<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],

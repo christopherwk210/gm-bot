@@ -13,4 +13,4 @@ export const prefixedCommandRuleTemplate = {
 };
 
 /** Default color to use for RichEmbed's */
-export const defaultEmbedColor = 26659;
+export const defaultEmbedColor = 0x039D5B;
