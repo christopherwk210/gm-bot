@@ -3,7 +3,7 @@ import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass, detectStaff } from '../../shared';
 
 @Command({
-  matches: ['^', '+1'],
+  matches: ['^', '+1', '-1'],
   prefix: '',
   position: 0,
   exact: true,
@@ -12,11 +12,12 @@ import { Command, CommandClass, detectStaff } from '../../shared';
 })
 export class UpvoteCommand implements CommandClass {
   /**
-   * Upvotes message above when user types "^"
+   * Upvotes message above
    * @param msg
    * @param args
    */
   async action(msg: Message, args: string[]) {
+    let emoji = args[0] === '-1' ? '⬇' : '⬆';
     let fetchedMessages: Collection<string, Message>;
 
     try {
@@ -29,7 +30,7 @@ export class UpvoteCommand implements CommandClass {
     const found = messages.findIndex(message => message.id === msg.id);
 
     try {
-      await (!!~found ? messages[found + 1] : messages[0]).react('⬆');
+      await (!!~found ? messages[found + 1] : messages[0]).react(emoji);
     } catch (e) {}
 
     msg.delete();
