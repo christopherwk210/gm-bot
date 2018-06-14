@@ -139,9 +139,7 @@ export function loadRules() {
             `The backtick key can be found above the TAB key on most keyboards.`,
         image: { url: 'https://cdn.discordapp.com/attachments/441976514289074201/456562731903090697/backtick.png' },
         color: defaultEmbedColor
-      }),
-      false,
-      true
+      })
     ),
     RuleFactory.createReplyRule(
       ['<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],

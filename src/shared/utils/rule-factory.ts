@@ -18,7 +18,8 @@ export class RuleFactory {
       matches,
       delete: true,
       action: DM ? msg => msg.author.send(content) : msg => msg.channel.send(content),
-      prefix: wholeMessage ? '' : prefixedCommandRuleTemplate.prefix
+      prefix: wholeMessage ? '' : prefixedCommandRuleTemplate.prefix,
+      position: 0
     };
 
     if (wholeMessage) {
