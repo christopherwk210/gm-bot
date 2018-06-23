@@ -12,8 +12,8 @@ import * as puppeteer from 'puppeteer';
  */
 export async function executeGML(gml: string, cb: (err: string, data: { trace: any[] }) => void) {
   // Fix GML
-  gml = gml.replace(/show_debug_message\(/g, 'show_debug_message("gmlex:" + ');
-  gml = gml.replace(/trace\(/g, 'trace("gmlex:" + ');
+  gml = gml.replace(/show_debug_message\(/g, 'trace("gmlex:",');
+  gml = gml.replace(/trace\(/g, 'trace("gmlex:",');
 
   // Launch chrome
   let chrome = await puppeteer.launch();
@@ -30,13 +30,19 @@ export async function executeGML(gml: string, cb: (err: string, data: { trace: a
   let timeOut = null;
 
   // Listen for console output
-  page.on('console', async (consoleOutput: any) => {
+  page.on('console', async consoleOutput => {
+
+    let args = [];
+    for (let argument of consoleOutput.args()) {
+      let arg = await argument.jsonValue();
+      args.push(arg);
+    }
 
     // Only deal with gmlex output
-    if (consoleOutput._text.indexOf('gmlex:') === 0) {
+    if (consoleOutput.args[0].indexOf('gmlex:') === 0) {
 
       // Clean output
-      let output = consoleOutput._text.replace('gmlex:', '');
+      let output = consoleOutput.args[1];
 
       // Listen for tokens
       switch (output) {
@@ -76,7 +82,7 @@ export async function executeGML(gml: string, cb: (err: string, data: { trace: a
   await page.evaluate(() => {
 
     gmlexGML().then(gmlexgml => {
-      editor.setValue(`trace("gmlex:gmlexbegin");${gmlexgml};trace("gmlex:gmlexclose");`);
+      editor.setValue(`trace("gmlex:","gmlexbegin");${gmlexgml};trace("gmlex:","gmlexclose");`);
 
       let statusElement = document.getElementById('ace_status-hint');
       setInterval(() => {
