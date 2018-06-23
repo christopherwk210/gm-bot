@@ -142,6 +142,10 @@ export function loadRules() {
       })
     ),
     RuleFactory.createReplyRule(
+      ['jobsheet', 'jobboard'],
+      'If you are looking for work or want to put together a team, check out the server job sheet!\nLink: <http://bit.ly/2wOh95f>'
+    ),
+    RuleFactory.createReplyRule(
       ['<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
       '<@141365209435471872>',
       false,
