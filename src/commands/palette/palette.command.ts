@@ -41,7 +41,7 @@ export class PaletteCommand implements CommandClass {
   ];
 
   async action(msg: Message, args: string[]) {
-    if (args.length === 1) return msg.channel.send('Invalid command usage$! Proper usage: `!palette [palette_name]`');
+    if (args.length === 1) return msg.channel.send('Invalid command usage! Proper usage: `!palette [palette_name]`');
 
     // Get the palette name
     let paletteName = args.slice(1).join('-').toLowerCase();
