@@ -134,6 +134,11 @@ function onBotMessage(msg: Message) {
   // Don't respond to bots
   if (msg.author.bot) return;
 
+  // Apply the will of the almighty tophtoken manager
+  if (msg.member && !!~msg.member.displayName.toLowerCase().indexOf('tophtoken')) {
+    msg.react(guildService.guild.emojis.find('name', 'tophtoken'));
+  }
+
   // Parse message for commands or matches
   if (parseCommandList(rules, msg)) return;
 
