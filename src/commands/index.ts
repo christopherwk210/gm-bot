@@ -19,3 +19,4 @@ export * from './audio/audio.command';
 export * from './giveaway/giveaway.command';
 export * from './palette/palette.command';
 export * from './upvote/upvote.command';
+export * from './helpcard/helpcard.command';
