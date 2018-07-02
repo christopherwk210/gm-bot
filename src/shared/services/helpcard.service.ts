@@ -2,17 +2,21 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+/**
+ * Contains information related to Helpcards
+ */
 class HelpcardService {
-
-  imagePath: string = path.join(__dirname, '../assets/images/helpcards');
+  /** Holds helpcard names */
   imageNames: string[] = [];
+  imagePath: string = path.join(__dirname, '../assets/images/helpcards');
 
+  /** Initialize the Helpcard service */
   loadHelpcards() {
-      let imageFiles = fs.readdirSync(this.imagePath);
+    let imageFiles = fs.readdirSync(this.imagePath);
 
-      imageFiles.forEach(file => {
-        this.imageNames.push(file.slice(0, -4));
-      });
+    for (let img of imageFiles) {
+      this.imageNames.push(img.slice(0, -4));
+    }
   }
 }
 
