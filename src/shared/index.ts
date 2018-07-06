@@ -16,6 +16,7 @@ export * from './services/markdown.service';
 export * from './services/role.service';
 export * from './services/text.service';
 export * from './services/giveaway.service';
+export * from './services/helpcard.service';
 
 // Utils
 export * from './utils/detect-staff';

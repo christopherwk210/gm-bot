@@ -25,7 +25,8 @@ import {
   markdownService,
   textService,
   jsonService,
-  giveawayService
+  giveawayService,
+  helpcardService
 } from './src/shared';
 
 // Rules
@@ -40,6 +41,7 @@ import { WelcomeCommand } from './src/commands';
 markdownService.loadAllMarkdownFiles();
 textService.loadAllTextFiles();
 jsonService.loadAlljsonFiles();
+helpcardService.loadHelpcards();
 
 // Load JSON
 const auth = jsonService.files['auth'];
