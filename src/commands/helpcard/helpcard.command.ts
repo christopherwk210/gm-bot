@@ -18,10 +18,7 @@ export class HelpcardCommand implements CommandClass {
     }
 
     // Slice away the command and replace whitespace with underscores
-    let cardName = msg.content.slice(args[0].length).trim();
-    cardName = cardName.replace(/\s+/g, '_');
-
-    console.log(cardName);
+    let cardName = args.slice(1).join('_').trim();
 
     // Upload and send helpcard image if a valid match is found
     if (helpcardService.imageNames.includes(cardName)) {
