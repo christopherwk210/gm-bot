@@ -67,7 +67,7 @@ function handleRuleOrCommand(command: Rule | Type<any>, msg: Message, messageCon
       cmd.action(msg, args);
 
       // Delete message if specified
-      if (rules.delete) msg.delete();
+      if (rules.delete && msg.channel.type === 'text') msg.delete();
 
       return success = true;
     }
