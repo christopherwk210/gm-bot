@@ -36,7 +36,8 @@ import {
   HasteModifier,
   GmliveModifier,
   GmlModifier,
-  DevmodeModifier
+  DevmodeModifier,
+  WrongCodeModifier
 } from './modifiers';
 
 // Project utils
@@ -230,7 +231,8 @@ export function loadModifiers() {
     HasteModifier,
     GmliveModifier,
     GmlModifier,
-    DevmodeModifier
+    DevmodeModifier,
+    WrongCodeModifier
   ];
 
   return [
