@@ -24,6 +24,9 @@ export interface ModifierOptions {
   /** Code block language to match for this modifier */
   match: string;
 
+  /** Whether or not to treat 'match' as a global regex, and use that instead of default match option */
+  usesCustomPattern?: boolean;
+
   /** Whether or not to delete the matched message (after calling the action) */
   delete?: boolean;
 }

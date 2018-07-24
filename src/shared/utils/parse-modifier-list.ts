@@ -15,17 +15,20 @@ export function parseModifierList(modifierList: Type<any>[], msg: Message) {
     let modifier = new Modifier();
     let rules: ModifierOptions = Modifier.prototype._rules;
 
-    // Get all matched code block contents
-    let codeBlocks = getModifierContent(messageContent, rules.match);
+    let matches: string[]|false = rules.usesCustomPattern ?
+      // Match custom pattern, globally
+      msg.content.match(new RegExp(rules.match, 'g')) :
+      // Get all matched code block contents
+      getModifierContent(messageContent, rules.match);
 
     // Skip on no match
-    if (!codeBlocks) return false;
+    if (!matches) return false;
 
     // Ensure prevalidation passes if present
-    if (modifier.pre && !modifier.pre(msg, codeBlocks, rules.match)) return true;
+    if (modifier.pre && !modifier.pre(msg, matches, rules.match)) return true;
 
     // Execute order 66
-    modifier.action(msg, codeBlocks, rules.match);
+    modifier.action(msg, matches, rules.match);
 
     // Delete message if needed
     if (rules.delete) msg.delete();
@@ -64,7 +67,7 @@ function getModifierContent(messageContent: string, match: string) {
  * @param match Code block language to match
  */
 function constructModifierRegExp(match: string) {
-  let openingPattern = `\`\`\`${match}[\\s]*(\\n|\\r)`;
+  let openingPattern = `\`\`\`${match}\\s*(\\n|\\r)`;
   let closingPattern = `\`\`\``;
   let fullPattern = `${openingPattern}[\\s\\S]*?${closingPattern}`;
 
@@ -72,7 +75,7 @@ function constructModifierRegExp(match: string) {
     /** Matches just the opening pattern to the code block */
     openingPattern: new RegExp(openingPattern),
 
-    /** The full code block matching patter */
+    /** The full code block matching pattern */
     fullPattern: new RegExp(fullPattern, 'g'),
 
     /** Matches just the closing pattern to a code block */
