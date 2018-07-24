@@ -30,6 +30,7 @@ export class HelpcardCommand implements CommandClass {
       for (let card of helpcardService.imageNames) {
         // Continue until all card names are in the out string, or the out string is too long
         if ((out + `• ${card}\n`).length >= listCharLimit) break;
+
         // Add card name to out string
         out += `• ${card}\n`;
       }
@@ -42,12 +43,15 @@ export class HelpcardCommand implements CommandClass {
     if (args.length > 2 && args[1] === 'search') {
       // Create the default searchstring
       let searchString: string = args.slice(2).join('_').toLowerCase();
+
       // Keep track of search matches
       let attempts: string[] = [];
+
       // Attempt to match common differences
       if (helpcardService.imageNames.includes(searchString)) attempts.push(searchString);
       if (helpcardService.imageNames.includes(searchString.slice(-1))) attempts.push(searchString.slice(-1));
       if (helpcardService.imageNames.includes(searchString + 's')) attempts.push(searchString + 's');
+
       // Look for helpcard names incuding parts of the search string
       for (let arg of args.slice(2)) {
         for (let name of helpcardService.imageNames) {
@@ -59,14 +63,16 @@ export class HelpcardCommand implements CommandClass {
         msg.channel.send('Could not find specified helpcard');
         return;
       }
+
       // Send the single matched card if only one was found
       if (attempts.length === 1) {
         msg.channel.send(`Only matching helpcard: \`\`${attempts[0]}\`\``,
           new Attachment(`${helpcardService.imagePath}/${attempts[0]}.png`));
         return;
       }
+
       // Create a list over multiple matched card names, and send it
-      let out = 'Search results are:```\n';
+      let out = 'Search results for ' + searchString + ' are:```\n';
       for (let attempt of attempts) {
         out += `${attempt}\n`;
       }
