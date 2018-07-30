@@ -27,7 +27,8 @@ import {
   MinibossCommand,
   PaletteCommand,
   UpvoteCommand,
-  HelpcardCommand
+  HelpcardCommand,
+  DoneCommand
 } from './commands';
 
 // Modifiers
@@ -68,7 +69,8 @@ export function loadRules() {
     MinibossCommand,
     PaletteCommand,
     UpvoteCommand,
-    HelpcardCommand
+    HelpcardCommand,
+    DoneCommand
   ];
 
   /** Admin only commands */

@@ -54,7 +54,7 @@ class ChannelService {
 
   /** Returns the server channel with the exact given id number */
   getChannelByID(id: string) {
-    let match;
+    let match: GuildChannel;
 
     this.channels.some(channel => {
       if (channel.id === id) {

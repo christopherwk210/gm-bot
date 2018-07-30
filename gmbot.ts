@@ -5,7 +5,7 @@
  */
 
 // Init discord api
-import { Message, Client, GuildMember } from 'discord.js';
+import { Message, Client, GuildMember, TextChannel } from 'discord.js';
 const bot = new Client();
 
 // Config
@@ -26,6 +26,7 @@ import {
   textService,
   jsonService,
   giveawayService,
+  helpChannelService,
   helpcardService
 } from './src/shared';
 
@@ -67,6 +68,7 @@ function onBotReady() {
   roleService.init(bot);
   guildService.init(bot);
   channelService.init(bot);
+  helpChannelService.cacheHelpChannels();
 
   // Load all rules
   rules = loadRules();
@@ -136,6 +138,9 @@ function onBotMessage(msg: Message) {
   // Don't respond to bots
   if (msg.author.bot) return;
 
+  // Send the message along to the HelpChannelService
+  helpChannelService.handleMessage(msg);
+
   // Apply the will of the almighty tophtoken manager
   if (msg.member && !!~msg.member.displayName.toLowerCase().indexOf('tophtoken')) {
     msg.react(guildService.guild.emojis.find('name', 'tophtoken'));
@@ -158,7 +163,7 @@ process.on('uncaughtException', err => {
   const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
   // Send error to the bot testing channel
-  const botTestingChannel = channelService.getChannelByID('417796218324910094');
+  const botTestingChannel: TextChannel = <any>channelService.getChannelByID('417796218324910094');
   if (botTestingChannel) botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);

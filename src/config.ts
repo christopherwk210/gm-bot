@@ -12,5 +12,8 @@ export const prefixedCommandRuleTemplate = {
   delete: true
 };
 
+/** How long to wait before considering a help channel no longer busy, in milliseconds */
+export const helpChannelBusyTimeout = 1000 * 60 * 10;
+
 /** Default color to use for RichEmbed's */
 export const defaultEmbedColor = 0x039D5B;

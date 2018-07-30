@@ -17,6 +17,7 @@ export * from './services/role.service';
 export * from './services/text.service';
 export * from './services/giveaway.service';
 export * from './services/helpcard.service';
+export * from './services/help-channel.service';
 
 // Utils
 export * from './utils/detect-staff';
