@@ -1,5 +1,5 @@
 /** Determines if the bot should exit the process on an uncaught exception */
-export const shouldDieOnException: boolean = false;
+export const shouldDieOnException: boolean = true;
 
 /** Server wide command prefix (Go ! or go home) */
 export const prefix: string = '!';

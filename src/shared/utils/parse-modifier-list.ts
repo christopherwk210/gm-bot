@@ -15,7 +15,7 @@ export function parseModifierList(modifierList: Type<any>[], msg: Message) {
     let modifier = new Modifier();
     let rules: ModifierOptions = Modifier.prototype._rules;
 
-    let matches: string[]|false = rules.usesCustomPattern ?
+    let matches: string[] | false = rules.usesCustomPattern ?
       // Match custom pattern, globally
       msg.content.match(new RegExp(rules.match, 'g')) :
       // Get all matched code block contents
