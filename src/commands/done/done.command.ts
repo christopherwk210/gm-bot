@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
-import { Command, CommandClass, detectStaff, helpChannelService } from '../../shared';
+import { Command, CommandClass, detectStaff, helpChannelService, guildService } from '../../shared';
 
 @Command({
   matches: ['done'],
@@ -14,6 +14,11 @@ export class DoneCommand implements CommandClass {
    */
   action(msg: Message, args: string[]) {
     helpChannelService.markNotBusy(msg.channel.id);
+
+    if (!!~args.indexOf('silent') || !!~args.indexOf('s')) return;
+
+    const sirQuackers = guildService.guild.emojis.find('name', 'duckycode').toString();
+    msg.reply(`This channel is now available for another question ${sirQuackers}`);
   }
 
   /**

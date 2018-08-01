@@ -19,7 +19,7 @@ class HelpChannelService {
       helpChannelController.busy = true;
 
       const currentName = helpChannelController.channel.name;
-      helpChannelController.channel.setName(`${currentName.replace('_busy', '')}_busy`);
+      helpChannelController.channel.setName(`${currentName.replace('_busy', '').replace('__busy', '')}_busy`);
 
       this.createChannelControllerTimeout(helpChannelController);
     } else {
@@ -36,7 +36,7 @@ class HelpChannelService {
 
     if (helpChannelController) {
       const currentName = helpChannelController.channel.name;
-      helpChannelController.channel.setName(currentName.replace('_busy', ''));
+      helpChannelController.channel.setName(currentName.replace('_busy', '').replace('__busy', ''));
 
       clearTimeout(helpChannelController.timer);
 
