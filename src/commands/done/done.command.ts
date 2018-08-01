@@ -18,7 +18,7 @@ export class DoneCommand implements CommandClass {
     if (!!~args.indexOf('silent') || !!~args.indexOf('s')) return;
 
     const sirQuackers = guildService.guild.emojis.find('name', 'duckycode').toString();
-    msg.reply(`This channel is now available for another question ${sirQuackers}`);
+    msg.channel.send(`This channel is now available for another question ${sirQuackers}`);
   }
 
   /**
