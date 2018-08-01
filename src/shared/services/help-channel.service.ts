@@ -6,6 +6,7 @@ import { GuildChannel, TextChannel, Message } from 'discord.js';
  * Handles renaming the help channels when they're busy.
  */
 class HelpChannelService {
+  regex = /(?<=\d)[_]+busy$/g;
   helpChannels: HelpChannelController[] = [];
 
   handleMessage(msg: Message) {
@@ -19,7 +20,7 @@ class HelpChannelService {
       helpChannelController.busy = true;
 
       const currentName = helpChannelController.channel.name;
-      helpChannelController.channel.setName(`${currentName.replace('_busy', '').replace('__busy', '')}__busy`);
+      helpChannelController.channel.setName(`${currentName.replace(this.regex, '')}__busy`);
 
       this.createChannelControllerTimeout(helpChannelController);
     } else {
@@ -36,7 +37,7 @@ class HelpChannelService {
 
     if (helpChannelController) {
       const currentName = helpChannelController.channel.name;
-      helpChannelController.channel.setName(currentName.replace('_busy', '').replace('__busy', ''));
+      helpChannelController.channel.setName(currentName.replace(this.regex, ''));
 
       clearTimeout(helpChannelController.timer);
 
@@ -76,7 +77,7 @@ class HelpChannelService {
     const currentName = controller.channel.name;
 
     controller.timer = setTimeout(() => {
-      controller.channel.setName(currentName.replace('_busy', ''));
+      controller.channel.setName(currentName.replace(this.regex, ''));
       controller.busy = false;
     }, helpChannelBusyTimeout);
   }
