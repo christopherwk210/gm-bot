@@ -6,6 +6,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as util from 'util';
 
+let writeFileAsync = util.promisify(fs.writeFile);
 let existsAsync = util.promisify(fs.exists);
 let imgur = require('../../../modules/imgur');
 
@@ -38,6 +39,9 @@ export class PixelChallengeCommand implements CommandClass {
 
     if (existingChallenges) {
       this.currentPixelChallenge = require(this.challengesDataPath);
+    } else {
+      await writeFileAsync(this.challengesDataPath, { entries: [] });
+      this.currentPixelChallenge = { entries: [] };
     }
   }
 
