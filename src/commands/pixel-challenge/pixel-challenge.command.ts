@@ -183,7 +183,7 @@ export class PixelChallengeCommand implements CommandClass {
         link: attachments[0].url
       });
 
-      msg.channel.send(`Challenge entry for ${msg.author} recorded.`);
+      msg.channel.send(`Contest entry for ${msg.author} recorded.`);
 
       this.asyncWriter(this.currentPixelChallenge);
     }
