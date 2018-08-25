@@ -4,7 +4,7 @@ import { Command, CommandClass } from '../../shared';
 import jimp = require('jimp');
 import * as execBuffer from 'exec-buffer';
 import * as gifsicle from 'gifsicle';
-import * as  request from 'request';
+import * as request from 'request';
 
 @Command({
   matches: ['resize', 'upscale', 'upsize'],
@@ -72,6 +72,7 @@ export class ResizeCommand implements CommandClass {
         msg.channel.send(`There was an error reading ${image.filename}!`);
       }
 
+      // process image depending on filetype
       if (image.filename.toLowerCase().endsWith('.gif')) {
         this.processGif(image, scaleFactor, useBilinear, errorHandler, outputHandler);
       } else {
@@ -83,6 +84,8 @@ export class ResizeCommand implements CommandClass {
   /**
    * Resizes a gif
    * @param image
+   * @param scaleFactor
+   * @param useBilinear
    * @param errorHandler
    * @param outputHandler
    */
@@ -119,6 +122,8 @@ export class ResizeCommand implements CommandClass {
   /**
    * Resize image with jimp
    * @param image
+   * @param scaleFactor
+   * @param useBilinear
    * @param errorHandler
    * @param outputHandler
    */
@@ -140,4 +145,3 @@ export class ResizeCommand implements CommandClass {
   }
 
 }
-
