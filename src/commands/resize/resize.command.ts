@@ -1,7 +1,10 @@
 import { Message, Attachment } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
-import { read, RESIZE_BILINEAR, RESIZE_NEAREST_NEIGHBOR, MIME_PNG } from 'jimp';
+import jimp = require('jimp');
+import * as execBuffer from 'exec-buffer';
+import * as gifsicle from 'gifsicle';
+import * as request from 'request';
 
 @Command({
   matches: ['resize', 'upscale', 'upsize'],
@@ -10,7 +13,7 @@ import { read, RESIZE_BILINEAR, RESIZE_NEAREST_NEIGHBOR, MIME_PNG } from 'jimp';
 export class ResizeCommand implements CommandClass {
   /**
    * Resizes an attached image of a discord message
-   * @param msg 
+   * @param msg
    * @param args
    */
   action(msg: Message, args: string[]) {
@@ -46,34 +49,99 @@ export class ResizeCommand implements CommandClass {
     // Loop through each image
     attachments.forEach((image: any) => {
 
-      // Download the image serverside
-      read(image.url, (err, jimpImage) => {
-        if (err !== null || jimpImage === undefined) {
-          msg.channel.send(`There was an error reading ${image.filename}!`);
+      // output closure
+      function outputHandler(err, buffer) {
+        if (err) {
+          msg.channel.send(`There was an error scaling ${image.filename}!`);
           return;
         }
 
-        // Determine scaling mode
-        let mode = useBilinear ? RESIZE_BILINEAR : RESIZE_NEAREST_NEIGHBOR;
+        // Create a discord attachment
+        let newImage = new Attachment(buffer, image.filename);
 
-        // Scale and readout to buffer
-        jimpImage.scale(scaleFactor, mode).getBuffer(MIME_PNG, (jimpErr, buffer) => {
-          if (jimpErr) {
-            msg.channel.send(`There was an error scaling ${image.filename}!`);
-            return;
+        // Send the image to the channel
+        msg.channel.send(`Here's your image, ${msg.author}. Scaled by ${scaleFactor}x.`, newImage).then(() => {
+          if (uploadOriginal) {
+           msg.channel.send(`Here's the original image: ${image.url}`);
           }
-
-          // Create a discord attachment
-          let newImage = new Attachment(buffer, image.filename);
-
-          // Send the image to the channel
-          msg.channel.send(`Here's your image, ${msg.author}. Scaled by ${scaleFactor}x.`, newImage).then(() => {
-            if (uploadOriginal) {
-              msg.channel.send(`Here's the original image: ${image.url}`);
-            }
-          });
         });
-      });
+      }
+
+      // error closure
+      function errorHandler() {
+        msg.channel.send(`There was an error reading ${image.filename}!`);
+      }
+
+      // process image depending on filetype
+      if (image.filename.toLowerCase().endsWith('.gif')) {
+        this.processGif(image, scaleFactor, useBilinear, errorHandler, outputHandler);
+      } else {
+        this.processImage(image, scaleFactor, useBilinear, errorHandler, outputHandler);
+      }
     });
   }
+
+  /**
+   * Resizes a gif
+   * @param image
+   * @param scaleFactor
+   * @param useBilinear
+   * @param errorHandler
+   * @param outputHandler
+   */
+  processGif(image, scaleFactor, useBilinear, errorHandler, outputHandler) {
+
+    // Download and process animated gif
+    request({url: image.url, encoding: null}, (err, response, buffer) => {
+
+      if (err !== null || response.statusCode !== 200 || buffer === undefined) {
+        errorHandler();
+        return;
+      }
+
+      // Determine scaling mode
+      let mode = useBilinear ? 'mix' : 'box';
+
+      // Scale to and from buffer
+      execBuffer({
+        input: buffer,
+        bin: gifsicle,
+        args: [
+          '--scale', String(scaleFactor),
+          '--resize-method', mode,
+          '-o', execBuffer.output,
+          execBuffer.input
+        ]
+      }).then(outBuffer => {
+        outputHandler(null, outBuffer);
+      });
+
+    });
+  }
+
+  /**
+   * Resize image with jimp
+   * @param image
+   * @param scaleFactor
+   * @param useBilinear
+   * @param errorHandler
+   * @param outputHandler
+   */
+  processImage(image, scaleFactor, useBilinear, errorHandler, outputHandler) {
+
+    // Download and process static images
+    jimp.read(image.url).then(jimpImage => {
+        // Determine scaling mode
+        let mode = useBilinear ? jimp.RESIZE_BILINEAR : jimp.RESIZE_NEAREST_NEIGHBOR;
+
+        // Scale and readout to buffer
+        jimpImage.scale(scaleFactor, mode).getBuffer(jimp.MIME_PNG, (jimpErr, buffer) => {
+          outputHandler(jimpErr, buffer);
+        });
+    }).catch(err => {
+      errorHandler();
+      return;
+    });
+  }
+
 }
