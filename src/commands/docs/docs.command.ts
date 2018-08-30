@@ -40,7 +40,7 @@ export class DocsCommand implements CommandClass {
     // Default to GMS2 documentation
     let version = 'GMS2';
     let image = false;
-    let who_tag = undefined;
+    let whoTag;
 
     if (args.length === 1) {
       // Throw on unsupplied function
@@ -51,27 +51,27 @@ export class DocsCommand implements CommandClass {
       if (args.indexOf('-i') !== -1) image = true;
 
       // find a tag
-      who_tag = args.find(function(arg) {
-        return arg.match(/^<@\d+>$/) !== null
+      whoTag = args.find(arg => {
+        return arg.match(/^<@\d+>$/) !== null;
       });
     }
 
     // clean up tag
-    if (who_tag === undefined) {
-      who_tag = msg.author.id;
+    if (whoTag === undefined) {
+      whoTag = msg.author.id;
     } else {
       // Determine if author is staff
       let role = detectStaff(msg.member);
       if (role) {
-        who_tag = who_tag.replace(/[<!@>]+/g, '');
+        whoTag = whoTag.replace(/[<!@>]+/g, '');
       } else {
-        who_tag = msg.author.id;
+        whoTag = msg.author.id;
       }
     }
 
-    msg.guild.fetchMember(who_tag).then(member => {
+    msg.guild.fetchMember(whoTag).then(member => {
       if (!member) {
-        msg.author.send(`<@${who_tag}> was not a recognized user.`);
+        msg.author.send(`<@${whoTag}> was not a recognized user.`);
       } else {
         // Switch on version
         switch (version) {
