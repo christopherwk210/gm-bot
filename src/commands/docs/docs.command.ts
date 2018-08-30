@@ -40,6 +40,7 @@ export class DocsCommand implements CommandClass {
     // Default to GMS2 documentation
     let version = 'GMS2';
     let image = false;
+    let who_tag = undefined;
 
     if (args.length === 1) {
       // Throw on unsupplied function
@@ -48,43 +49,70 @@ export class DocsCommand implements CommandClass {
     } else if (args.length > 2) {
       version = ~args.indexOf('gms1') || ~args.indexOf('GMS1') ? 'GMS1' : 'GMS2';
       if (args.indexOf('-i') !== -1) image = true;
+
+      // find a tag
+      who_tag = args.find(function(arg) {
+        return args.match(/^<@\d+>$/) !== null
+      });
     }
 
-    // Switch on version
-    switch (version) {
-      case 'GMS1':
-        // Determine if the provided function is a valid GMS1 function
-        if (validateGMS1(args[1])) {
-          // If so, provide the helps
-          this.helpUrlGMS1(msg, args[1], image);
-        } else {
-          // Otherwise, provide the nopes
-          msg.author.send(`\`${args[1]}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
-        }
-        break;
-      case 'GMS2':
-        // Determine if the provided function is a valid GMS2 function
-        if (validateGMS2(args[1])) {
-          // If so, give 'em the goods
-          this.helpUrlGMS2(msg, args[1], image);
-        } else {
-          // Otherwise, kick 'em to the curb
-          msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
-        }
-        break;
-      default:
-        // Invalid GMS version (this is actually impossible to reach, here just in case functionality changes)
-        msg.author.send(`\`${version}\` was not a valid option. Type \`!help\` for help with commands.`);
-        break;
+    // clean up tag
+    if (who_tag === undefined) {
+      who_tag = msg.author.id;
+    } else {
+      // Determine if author is staff
+      let role = detectStaff(msg.author);
+      if (role) {
+        who_tag = who_tag.replace(/[<!@>]+/g, '');
+      } else {
+        who_tag = msg.author.id;
+      }
     }
+
+    msg.guild.fetchMember(who_tag).then(member => {
+      if (!member) {
+        msg.author.send(`<@${who_tag}> was not a recognized user.`);
+      } else {
+        // Switch on version
+        switch (version) {
+          case 'GMS1':
+            // Determine if the provided function is a valid GMS1 function
+            if (validateGMS1(args[1])) {
+              // If so, provide the helps
+              this.helpUrlGMS1(msg, args[1], image, member);
+            } else {
+              // Otherwise, provide the nopes
+              msg.author.send(`\`${args[1]}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
+            }
+            break;
+          case 'GMS2':
+            // Determine if the provided function is a valid GMS2 function
+            if (validateGMS2(args[1])) {
+              // If so, give 'em the goods
+              this.helpUrlGMS2(msg, args[1], image, member);
+            } else {
+              // Otherwise, kick 'em to the curb
+              msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
+            }
+            break;
+          default:
+            // Invalid GMS version (this is actually impossible to reach, here just in case functionality changes)
+            msg.author.send(`\`${version}\` was not a valid option. Type \`!help\` for help with commands.`);
+            break;
+        }
+      }
+    });
+
   }
 
   /**
    * Provide GMS1 doc URL
    * @param msg The Discord message asking for help
    * @param fn Function name to lookup
+   * @param image whether to include a screenshot
+   * @param who who to tag about the message
    */
-  helpUrlGMS1(msg: Message, fn: string, image) {
+  helpUrlGMS1(msg: Message, fn: string, image, who: string) {
     let found = false;
 
     // Loop through valid titles
@@ -102,7 +130,7 @@ export class DocsCommand implements CommandClass {
         }
 
         // Put together a URL and serve it on a silver platter
-        msg.channel.send(`Here's the GMS1 documentation for \`${fn}\`, ${msg.author}`);
+        msg.channel.send(`Here's the GMS1 documentation for \`${fn}\`, ${who}`);
         msg.channel.send(encodeURI(`http://docs.yoyogames.com/${this.gms1DocumentationUrls.files[i]}`));
 
         // We struck gold, ma!
@@ -122,8 +150,10 @@ export class DocsCommand implements CommandClass {
    * Provide GMS2 doc URL
    * @param msg The Discord message asking for help
    * @param fn Function name to lookup
+   * @param image whether to include a screenshot
+   * @param who who to tag about the message
    */
-  helpUrlGMS2(msg: Message, fn: string, image) {
+  helpUrlGMS2(msg: Message, fn: string, image, who: string) {
     // Download super saucy secret file from YYG server
     http.get('http://docs2.yoyogames.com/files/searchdat.js', res => {
       // Read like a normal bot
@@ -157,7 +187,7 @@ export class DocsCommand implements CommandClass {
             }
 
             // Provide it
-            msg.channel.send(`Here's the GMS2 documentation for \`${fn}\`, ${msg.author}`);
+            msg.channel.send(`Here's the GMS2 documentation for \`${fn}\`, ${who}`);
             msg.channel.send(encodeURI(`http://docs2.yoyogames.com/${SearchFiles[i]}`));
 
             // Indiciate we found it
