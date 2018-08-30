@@ -68,7 +68,7 @@ export class MinibossCommand implements CommandClass {
     let postData = await this.getMinibossPostData();
     if (!postData) return false;
 
-    return postData.filter(post => !!~post.title.indexOf(postNumber.toString()));
+    return postData.filter(post => !!(post.num === postNumber));
   }
 
   /**
@@ -102,18 +102,21 @@ export class MinibossCommand implements CommandClass {
     let gifs = $('img').filter((i, img) => !!~img.attribs['src'].indexOf('gif'));
 
     // Get all post titles
-    let titles = bodyText.match(/#[0-9]+( | )([^#])+/g);
+    let titles = bodyText.match(/#[0-9]+( | )([^#\n])+/g).reverse();
 
     // Retrieve the source links for each image
-    let imageSourceList = gifs.toArray().map(img => img.attribs['src']);
+    let imageSourceList = gifs.toArray().map(img => img.attribs['src']).reverse();
 
     // Combine all the data
     let minibossData: MinibossPost[] = [];
 
     imageSourceList.forEach((source, index) => {
+      let regex = /#([0-9]+).*/g;
+      let num = regex.exec(titles[index])[1];
       minibossData.push({
         title: titles[index],
-        image: source
+        image: source,
+        num: Number(num)
       });
     });
 
@@ -142,4 +145,7 @@ interface MinibossPost {
 
   /** Image URL */
   image: string;
+
+  /** Post title number */
+  num: number;
 }
