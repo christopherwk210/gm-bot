@@ -67,8 +67,8 @@ export class MinibossCommand implements CommandClass {
   async getPostByNumber(postNumber: number) {
     let postData = await this.getMinibossPostData();
     if (!postData) return false;
-    
-    return postData.filter(post => !!(post.num == postNumber));
+
+    return postData.filter(post => !!(post.num === postNumber));
   }
 
   /**
@@ -109,7 +109,7 @@ export class MinibossCommand implements CommandClass {
 
     // Combine all the data
     let minibossData: MinibossPost[] = [];
-    
+
     imageSourceList.forEach((source, index) => {
       let regex = /#([0-9]+).*/g;
       let num = regex.exec(titles[index])[1];
@@ -145,8 +145,7 @@ interface MinibossPost {
 
   /** Image URL */
   image: string;
-  
+
   /** Post title number */
   num: number;
 }
-
