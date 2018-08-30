@@ -61,7 +61,7 @@ export class ResizeCommand implements CommandClass {
         let newImage = new Attachment(buffer, image.filename);
 
         // Send the image to the channel
-        msg.channel.send(`Here's your image, ${msg.author}. Scaled by ${scaleFactor}x.`, newImage).then(() => {
+        msg.channel.send(`Image scaled by ${scaleFactor}x, ${msg.author}`, newImage).then(() => {
           if (uploadOriginal) {
            msg.channel.send(`Here's the original image: ${image.url}`);
           }
