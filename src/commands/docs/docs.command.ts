@@ -51,9 +51,7 @@ export class DocsCommand implements CommandClass {
       if (args.indexOf('-i') !== -1) image = true;
 
       // find a tag
-      whoTag = args.find(arg => {
-        return arg.match(/^<@\d+>$/) !== null;
-      });
+      whoTag = msg.mentions.members.first()
     }
 
     // clean up tag
@@ -63,7 +61,7 @@ export class DocsCommand implements CommandClass {
       // Determine if author is staff
       let role = detectStaff(msg.member);
       if (role) {
-        whoTag = whoTag.replace(/[<!@>]+/g, '');
+        whoTag = whoTag.id;
       } else {
         whoTag = msg.author.id;
       }
