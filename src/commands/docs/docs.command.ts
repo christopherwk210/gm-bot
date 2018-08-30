@@ -50,8 +50,8 @@ export class DocsCommand implements CommandClass {
       version = ~args.indexOf('gms1') || ~args.indexOf('GMS1') ? 'GMS1' : 'GMS2';
       if (args.indexOf('-i') !== -1) image = true;
 
-      // find a tag
-      whoTag = msg.mentions.members.first()
+      // find a mention tag
+      whoTag = msg.mentions.members.first();
     }
 
     // clean up tag
