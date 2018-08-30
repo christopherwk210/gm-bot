@@ -52,7 +52,7 @@ export class DocsCommand implements CommandClass {
 
       // find a tag
       who_tag = args.find(function(arg) {
-        return args.match(/^<@\d+>$/) !== null
+        return arg.match(/^<@\d+>$/) !== null
       });
     }
 
@@ -61,7 +61,7 @@ export class DocsCommand implements CommandClass {
       who_tag = msg.author.id;
     } else {
       // Determine if author is staff
-      let role = detectStaff(msg.author);
+      let role = detectStaff(msg.member);
       if (role) {
         who_tag = who_tag.replace(/[<!@>]+/g, '');
       } else {
@@ -112,7 +112,7 @@ export class DocsCommand implements CommandClass {
    * @param image whether to include a screenshot
    * @param who who to tag about the message
    */
-  helpUrlGMS1(msg: Message, fn: string, image, who: string) {
+  helpUrlGMS1(msg: Message, fn: string, image, who) {
     let found = false;
 
     // Loop through valid titles
@@ -153,7 +153,7 @@ export class DocsCommand implements CommandClass {
    * @param image whether to include a screenshot
    * @param who who to tag about the message
    */
-  helpUrlGMS2(msg: Message, fn: string, image, who: string) {
+  helpUrlGMS2(msg: Message, fn: string, image, who) {
     // Download super saucy secret file from YYG server
     http.get('http://docs2.yoyogames.com/files/searchdat.js', res => {
       // Read like a normal bot
