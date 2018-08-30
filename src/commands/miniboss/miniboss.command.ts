@@ -94,9 +94,9 @@ export class MinibossCommand implements CommandClass {
     const $ = load(<string>html);
 
     // Load the body text and remove that one stupid post that messes everything up
-let bodyText = c('body')
-  .text()
-  .replace('Reading text with a timer is a bit stressful, so I added still frames of this tutorial:', '');
+    let bodyText = $('body')
+      .text()
+      .replace('Reading text with a timer is a bit stressful, so I added still frames of this tutorial:', '');
 
     // Get all gifs
     let gifs = $('img').filter((i, img) => !!~img.attribs['src'].indexOf('gif'));
@@ -110,12 +110,12 @@ let bodyText = c('body')
     // Combine all the data
     let minibossData: MinibossPost[] = [];
 
-imageSourceList.forEach((source, index) => {
-  minibossData.push({
-    title: titles[index],
-    image: source
-  });
-});
+    imageSourceList.forEach((source, index) => {
+      minibossData.push({
+        title: titles[index],
+        image: source
+      });
+    });
 
     return minibossData.reverse();
   }
