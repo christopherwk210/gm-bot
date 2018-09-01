@@ -144,7 +144,7 @@ export class DocsCommand implements CommandClass {
    * @param msg The Discord message asking for help
    * @param fn Function name to lookup
    * @param image whether to include a screenshot
-   * @param whoTag who to tag about the message
+   * @param who who to tag about the message
    */
   helpUrlGMS2(msg: Message, fn: string, image, who) {
     // Download super saucy secret file from YYG server
