@@ -51,15 +51,14 @@ export class DocsCommand implements CommandClass {
       if (args.indexOf('-i') !== -1) image = true;
 
       // find a mention tag
-      if (msg.mentions.users !== null && detectStaff(msg.member)) {
+      if (msg.mentions.users.first() !== undefined  && detectStaff(msg.member)) {
+        whoTag = msg.mentions.users.first().id;
 
         // check if tagged user is a member of of the server
-        if (msg.mentions.members === null || msg.mentions.users.first().id !== msg.mentions.members.first().id) {
+        if (msg.mentions.members.first() === undefined || msg.mentions.users.first().id !== msg.mentions.members.first().id) {
           msg.author.send(`<@${whoTag}> was not a recognized user.`);
           return;
         }
-
-        whoTag = msg.mentions.users.first().id;
       }
     }
 
