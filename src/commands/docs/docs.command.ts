@@ -53,15 +53,15 @@ export class DocsCommand implements CommandClass {
       // find a mention tag
       let taggedMember = msg.mentions.members;
       let taggedUser = msg.mentions.users;
-      
+
       if (msg.mentions.users !== null && detectStaff(msg.member)) {
-          
+
         // check if tagged user is a member of of the server
-        if (msg.mentions.members === null || msg.mentions.users.first().id != msg.mentions.members.first().id) {
+        if (msg.mentions.members === null || msg.mentions.users.first().id !== msg.mentions.members.first().id) {
           msg.author.send(`<@${whoTag}> was not a recognized user.`);
           return;
         }
-        
+
         whoTag = msg.mentions.users.first().id;
       }
     }
@@ -247,4 +247,3 @@ export class DocsCommand implements CommandClass {
     });
   }
 }
-
