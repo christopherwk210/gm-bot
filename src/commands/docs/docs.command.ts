@@ -51,9 +51,6 @@ export class DocsCommand implements CommandClass {
       if (args.indexOf('-i') !== -1) image = true;
 
       // find a mention tag
-      let taggedMember = msg.mentions.members;
-      let taggedUser = msg.mentions.users;
-
       if (msg.mentions.users !== null && detectStaff(msg.member)) {
 
         // check if tagged user is a member of of the server
@@ -66,7 +63,7 @@ export class DocsCommand implements CommandClass {
       }
     }
 
-    // clean up tag
+    // tag self if no tag provided
     if (whoTag === undefined) {
       whoTag = msg.author.id;
     }
