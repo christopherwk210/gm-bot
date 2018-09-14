@@ -49,7 +49,7 @@ class HelpChannelService {
     this.addHelpChannel('262836222089625602');
     this.addHelpChannel('295210810823802882');
     this.addHelpChannel('331106795378442240');
-    this.addHelpChannel('424619731077824532');
+    this.addHelpChannel('490232902110674964');
   }
 
   /**
