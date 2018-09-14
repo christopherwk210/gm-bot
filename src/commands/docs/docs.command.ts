@@ -51,55 +51,49 @@ export class DocsCommand implements CommandClass {
       if (args.indexOf('-i') !== -1) image = true;
 
       // find a mention tag
-      whoTag = msg.mentions.members.first();
-    }
+      if (msg.mentions.users.first() !== undefined  && detectStaff(msg.member)) {
+        whoTag = msg.mentions.users.first().id;
 
-    // clean up tag
-    if (whoTag === undefined) {
-      whoTag = msg.author.id;
-    } else {
-      // Determine if author is staff
-      let role = detectStaff(msg.member);
-      if (role) {
-        whoTag = whoTag.id;
-      } else {
-        whoTag = msg.author.id;
-      }
-    }
-
-    msg.guild.fetchMember(whoTag).then(member => {
-      if (!member) {
-        msg.author.send(`<@${whoTag}> was not a recognized user.`);
-      } else {
-        // Switch on version
-        switch (version) {
-          case 'GMS1':
-            // Determine if the provided function is a valid GMS1 function
-            if (validateGMS1(args[1])) {
-              // If so, provide the helps
-              this.helpUrlGMS1(msg, args[1], image, member);
-            } else {
-              // Otherwise, provide the nopes
-              msg.author.send(`\`${args[1]}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
-            }
-            break;
-          case 'GMS2':
-            // Determine if the provided function is a valid GMS2 function
-            if (validateGMS2(args[1])) {
-              // If so, give 'em the goods
-              this.helpUrlGMS2(msg, args[1], image, member);
-            } else {
-              // Otherwise, kick 'em to the curb
-              msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
-            }
-            break;
-          default:
-            // Invalid GMS version (this is actually impossible to reach, here just in case functionality changes)
-            msg.author.send(`\`${version}\` was not a valid option. Type \`!help\` for help with commands.`);
-            break;
+        // check if tagged user is a member of of the server
+        if (msg.mentions.members.first() === undefined || msg.mentions.users.first().id !== msg.mentions.members.first().id) {
+          msg.author.send(`<@${whoTag}> was not a recognized user.`);
+          return;
         }
       }
-    });
+    }
+
+    // tag self if no tag provided
+    if (whoTag === undefined) {
+      whoTag = msg.author.id;
+    }
+
+    // Switch on version
+    switch (version) {
+      case 'GMS1':
+        // Determine if the provided function is a valid GMS1 function
+        if (validateGMS1(args[1])) {
+          // If so, provide the helps
+          this.helpUrlGMS1(msg, args[1], image, whoTag);
+        } else {
+          // Otherwise, provide the nopes
+          msg.author.send(`\`${args[1]}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
+        }
+        break;
+      case 'GMS2':
+        // Determine if the provided function is a valid GMS2 function
+        if (validateGMS2(args[1])) {
+          // If so, give 'em the goods
+          this.helpUrlGMS2(msg, args[1], image, whoTag);
+        } else {
+          // Otherwise, kick 'em to the curb
+          msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
+        }
+        break;
+      default:
+        // Invalid GMS version (this is actually impossible to reach, here just in case functionality changes)
+        msg.author.send(`\`${version}\` was not a valid option. Type \`!help\` for help with commands.`);
+        break;
+    }
 
   }
 
@@ -128,7 +122,7 @@ export class DocsCommand implements CommandClass {
         }
 
         // Put together a URL and serve it on a silver platter
-        msg.channel.send(`Here's the GMS1 documentation for \`${fn}\`, ${who}`);
+        msg.channel.send(`Here's the GMS1 documentation for \`${fn}\`, <@${who}>`);
         msg.channel.send(encodeURI(`http://docs.yoyogames.com/${this.gms1DocumentationUrls.files[i]}`));
 
         // We struck gold, ma!
@@ -185,7 +179,7 @@ export class DocsCommand implements CommandClass {
             }
 
             // Provide it
-            msg.channel.send(`Here's the GMS2 documentation for \`${fn}\`, ${who}`);
+            msg.channel.send(`Here's the GMS2 documentation for \`${fn}\`, <@${who}>`);
             msg.channel.send(encodeURI(`http://docs2.yoyogames.com/${SearchFiles[i]}`));
 
             // Indiciate we found it
