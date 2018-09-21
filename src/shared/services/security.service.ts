@@ -10,10 +10,6 @@ class SecurityService {
     this.currentSecurityState = false;
   }
 
-  init() {
-    console.log('Security Service is active.');
-  }
-
   /**
    * Flips the security state.
    */
@@ -21,6 +17,9 @@ class SecurityService {
     this.currentSecurityState = !this.currentSecurityState;
   }
 
+  /**
+   * Returns the current Sercurity State
+   */
   get securityState(): boolean {
     return this.currentSecurityState;
   }

@@ -1,6 +1,6 @@
 import { RichEmbed, Message, GuildMember, User, GuildChannel, TextChannel } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
-import { Command, CommandClass, securityService, channelService } from '../../shared';
+import { Command, CommandClass, securityService, channelService, detectStaff } from '../../shared';
 
 @Command({
   matches: ['security'],
@@ -52,7 +52,11 @@ export class SecurityCommand implements CommandClass {
     if (dingusSecurity) dingusSecurity.send(messageEmbed);
   }
 
-  // Send us into Secure Mode!
+  /**
+   * Send us into security mode and toggle the Dinguses 
+   * that a new Dingus has arrived.
+   * @param msg msg
+   */
   action(msg: Message) {
 
     // Toggle Security
@@ -62,5 +66,14 @@ export class SecurityCommand implements CommandClass {
     SecurityCommand.notifySecurityMode(msg.author, securityService.securityState);
 
     msg.delete();
+  }
+
+  /**
+   * Admin use only!
+   * @param msg 
+   * @param args
+   */
+  pre(msg: Message, args: string[]) {
+    return detectStaff(msg.member) === 'admin';
   }
 }
