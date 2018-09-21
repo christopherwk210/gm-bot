@@ -64,8 +64,6 @@ export class SecurityCommand implements CommandClass {
 
     // Notify The Duck Dinguses that Security has Changed
     SecurityCommand.notifySecurityMode(msg.author, securityService.securityState);
-
-    msg.delete();
   }
 
   /**
