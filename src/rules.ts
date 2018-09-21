@@ -28,7 +28,8 @@ import {
   PaletteCommand,
   UpvoteCommand,
   HelpcardCommand,
-  DoneCommand
+  DoneCommand,
+  SecurityCommand
 } from './commands';
 
 // Modifiers
@@ -76,7 +77,8 @@ export function loadRules() {
   /** Admin only commands */
   let adminCommands: (Rule | Type<any>)[] = [
     SayCommand,
-    GiveawayManagementCommand
+    GiveawayManagementCommand,
+    SecurityCommand
   ];
 
   /** Bot developer only commands */
