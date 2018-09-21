@@ -59,7 +59,10 @@ bot.on('ready', onBotReady);                        // Bot is loaded
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
-bot.on('guildMemberAdd', WelcomeCommand.sendWelcomeMessage);
+bot.on('guildMemberAdd', user => {
+  WelcomeCommand.sendWelcomeMessage(user);
+  SecurityCommand.newUserSecurity(user);
+});
 
 /**
  * Called when the bot has reported ready status
@@ -70,7 +73,6 @@ function onBotReady() {
   guildService.init(bot);
   channelService.init(bot);
   helpChannelService.cacheHelpChannels();
-  securityService.init();
 
   // Load all rules
   rules = loadRules();
