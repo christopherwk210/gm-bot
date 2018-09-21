@@ -37,8 +37,7 @@ let rules: (Rule | Type<any>)[] = [];
 let modifiers: Type<any>[] = [];
 
 // Commands
-import { WelcomeCommand } from './src/commands';
-import { SecurityCommand } from 'src/commands/security/security.command';
+import { WelcomeCommand, SecurityCommand } from './src/commands';
 
 // Initialize file based services
 markdownService.loadAllMarkdownFiles();
