@@ -53,7 +53,7 @@ export class SecurityCommand implements CommandClass {
   }
 
   /**
-   * Send us into security mode and toggle the Dinguses 
+   * Send us into security mode and tell the Dinguses 
    * that a new Dingus has arrived.
    * @param msg msg
    */
@@ -62,7 +62,7 @@ export class SecurityCommand implements CommandClass {
     // Toggle Security
     securityService.toggleSecurityState();
 
-    // Notify The Duck Dinguses that Security has Changed
+    // Notify The Dinguses that Security has Changed
     SecurityCommand.notifySecurityMode(msg.member, securityService.securityState);
   }
 

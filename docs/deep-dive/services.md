@@ -68,3 +68,6 @@ voiceChannels: VoiceChannel[];
 This service handles renaming the help channels when they're busy. It's completely automatic, and will append `_busy` to any help channel that's had a message sent in the last few minutes. If there hasn't been a messsage in a while, it will remove the `_busy` tag from the name.
 
 The exact amount of time it waits before going back to "not busy" state can be changed in the bot config (`./src/config.ts`).
+
+### SecurityService
+This service handles "secure mode" in the bot. This mode allows the staff to toggle reporting features that help prevent malicious activities.
