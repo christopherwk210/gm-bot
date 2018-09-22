@@ -12,7 +12,7 @@ export class SecurityCommand implements CommandClass {
    * Send the security message to the Dingus Ducks if necessary.
    * @param user 
    */
-  static newUserSecurity(user: User | GuildMember) {
+  static newUserSecurity(user: GuildMember) {
 
     // Get our Security State
     const securityState = securityService.securityState;
@@ -23,7 +23,7 @@ export class SecurityCommand implements CommandClass {
     // Create a RichEmbed with the message
     let messageEmbed = new RichEmbed({
       color: defaultEmbedColor,
-      description: 'We are currently secure. User: <@' + user.id + '> has joined.',
+      description: `User: ${user} has joined.`,
       timestamp: new Date(),
       footer: {
         text: 'This is an automated message'
@@ -35,12 +35,12 @@ export class SecurityCommand implements CommandClass {
     if (dingusSecurity) dingusSecurity.send(messageEmbed);
   }
 
-  static notifySecurityMode(user: User | GuildMember, state: boolean) {
+  static notifySecurityMode(user: GuildMember, state: boolean) {
 
     // Create a RichEmbed with the message
     const messageEmbed = new RichEmbed({
       color: defaultEmbedColor,
-      description: '<@' + user.id + '> has set security state: ' + state,
+      description: `${user} has set security state: ${state}`,
       timestamp: new Date(),
       footer: {
         text: 'This is an automated message'
@@ -63,7 +63,7 @@ export class SecurityCommand implements CommandClass {
     securityService.toggleSecurityState();
 
     // Notify The Duck Dinguses that Security has Changed
-    SecurityCommand.notifySecurityMode(msg.author, securityService.securityState);
+    SecurityCommand.notifySecurityMode(msg.member, securityService.securityState);
   }
 
   /**
