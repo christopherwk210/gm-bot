@@ -20,19 +20,9 @@ export class SecurityCommand implements CommandClass {
     // If we ain't secure, then we outta here:
     if (!securityState) return;
 
-    // Create a RichEmbed with the message
-    let messageEmbed = new RichEmbed({
-      color: defaultEmbedColor,
-      description: `User: ${user} has joined.`,
-      timestamp: new Date(),
-      footer: {
-        text: 'This is an automated message'
-      }
-    });
-
     // Get our channel and send us off
     const dingusSecurity: TextChannel = <any>channelService.getChannelByID('492767948155518976');
-    if (dingusSecurity) dingusSecurity.send(messageEmbed);
+    if (dingusSecurity) dingusSecurity.send(`${user.displayName}, tag: ${user} has joined.`);
   }
 
   static notifySecurityMode(user: GuildMember, state: boolean) {
