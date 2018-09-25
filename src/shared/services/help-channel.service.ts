@@ -21,6 +21,7 @@ class HelpChannelService {
 
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(`${currentName.replace(this.regex, '')}__busy`);
+      helpChannelController.culprit = msg.author.id;
 
       this.createChannelControllerTimeout(helpChannelController);
     } else {
@@ -42,8 +43,13 @@ class HelpChannelService {
       clearTimeout(helpChannelController.timer);
 
       helpChannelController.busy = false;
+      helpChannelController.culprit = '';
     }
   }
+
+  /**
+   * Get 
+   */
 
   cacheHelpChannels() {
     this.addHelpChannel('262836222089625602');
@@ -63,6 +69,7 @@ class HelpChannelService {
       id,
       timer: -1,
       channel: helpChannel,
+      culprit: '',
       busy: false
     });
   }
@@ -92,6 +99,9 @@ interface HelpChannelController {
 
   /** GuildChannel reference */
   channel: GuildChannel;
+
+  /** Who made the channel busy in the first place */
+  culprit: string;
 
   /** Whether this channel is marked as busy or not */
   busy: boolean;
