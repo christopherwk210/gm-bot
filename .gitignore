@@ -15,5 +15,9 @@ data/
 # Keep my auth outta the web!
 src/shared/assets/json/auth.json
 
+# No docs stuff!
+src/shared/assets/json/gmlDocs.json
+
 # I don't want your stinkin IDE settings!
 /.idea
+

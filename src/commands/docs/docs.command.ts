@@ -275,7 +275,7 @@ export class DocsCommand implements CommandClass {
 
             // Are we optional?
             if (i >= docInfo.entry.minParameters) {
-                thisParamEntry += '*' + thisParam.label + '?*: ';
+                thisParamEntry += '**[' + thisParam.label + ']**: ';
             } else {
                 thisParamEntry += '**' + thisParam.label + '**: ';
             }
