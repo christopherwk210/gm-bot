@@ -20,6 +20,7 @@ import runExpressServer from './src/express/express';
 // Services
 import {
   roleService,
+  docService,
   guildService,
   channelService,
   markdownService,
@@ -73,6 +74,7 @@ function onBotReady() {
   guildService.init(bot);
   channelService.init(bot);
   helpChannelService.cacheHelpChannels();
+  docService.init();
 
   // Load all rules
   rules = loadRules();
