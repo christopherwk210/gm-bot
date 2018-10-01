@@ -12,7 +12,7 @@ class DocsService {
   private docs: DocFile | undefined;
 
   constructor() {
-      this.docs = undefined;
+    this.docs = undefined;
   }
 
   init() {
@@ -96,13 +96,13 @@ export let docService = new DocsService();
 // Interfaces
 
 interface FuncResult {
-entry: DocFunction;
-type: 'function';
+  entry: DocFunction;
+  type: 'function';
 }
 
 interface VarResult {
-entry: DocVariable;
-type: 'variable';
+  entry: DocVariable;
+  type: 'variable';
 }
 
 /**
