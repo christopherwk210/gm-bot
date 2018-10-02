@@ -315,7 +315,7 @@ export class DocsCommand implements CommandClass {
         // Create a nice title with type:
         const varTitle = docInfo.entry.name + ': *' + docInfo.entry.type.toLowerCase() + '*';
 
-        // Prepare our Description
+        // Limit our Description to just the first sentence
         const varDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
 
         const ourEmbed = new RichEmbed({
