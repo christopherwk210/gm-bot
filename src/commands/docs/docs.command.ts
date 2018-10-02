@@ -264,8 +264,8 @@ export class DocsCommand implements CommandClass {
         // Wow! Much Function!
         const funcColor = 3447003;
 
-        // Limit our Description to just the first sentence and italicize it
-        const funcDesc = '*' + docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1) + '*';
+        // Limit our Description to just the first sentence
+        const funcDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
 
         // Create our Arguments and sort the strong from the, uh, optional arguments
         const ourArgs: string[] = [];
@@ -315,8 +315,8 @@ export class DocsCommand implements CommandClass {
         // Create a nice title with type:
         const varTitle = docInfo.entry.name + ': *' + docInfo.entry.type.toLowerCase() + '*';
 
-        // Limit our Description to just the first sentence and italicize it
-        const varDesc = '*' + docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1) + '*';
+        // Prepare our Description
+        const varDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
 
         const ourEmbed = new RichEmbed({
             color: varColor,
