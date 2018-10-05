@@ -29,8 +29,7 @@ import {
   UpvoteCommand,
   HelpcardCommand,
   DoneCommand,
-  SecurityCommand,
-  ActivateLoggingCommand
+  SecurityCommand
 } from './commands';
 
 // Modifiers
@@ -91,8 +90,7 @@ export function loadRules() {
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
-    },
-    ActivateLoggingCommand
+    }
   ];
 
   /** Random fun stuffs */
