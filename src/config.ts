@@ -19,7 +19,6 @@ export const helpChannelBusyTimeout = 1000 * 60 * 10;
 export const defaultEmbedColor = 0x039D5B;
 
 /** Server-specific channel IDs */
-
 export const serverIDs = {
   /** Server-specific channel IDs */
   botTestingChannelID: '417796218324910094',

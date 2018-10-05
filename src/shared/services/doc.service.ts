@@ -46,7 +46,7 @@ class DocsService {
     }
 
     // Return undefined if we failed, and ping the Cog Whisperers
-    this.docsPingCogWhisperers(docWord);
+    // this.docsPingCogWhisperers(docWord);
     return undefined;
   }
 
