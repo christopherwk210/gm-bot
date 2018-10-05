@@ -256,100 +256,100 @@ export class DocsCommand implements CommandClass {
     // New Docs style ability -- query the shared service
     const docInfo = docService.docsFindEntry(docWord);
     if (!docInfo) {
-        const errColor = 16032066;
+      const errColor = 16032066;
 
-        // We failed! Oh no! Try to get closest entries
-        const closestDocs = docService.docsFindClosest(docWord, 5);
+      // We failed! Oh no! Try to get closest entries
+      const closestDocs = docService.docsFindClosest(docWord, 5);
 
-        // Create a list of links to closest entries
-        let linkList = '';
-        for (let closestDoc of closestDocs) {
-            linkList += `[${closestDoc.name}](${closestDoc.link})\n`;
+      // Create a list of links to closest entries
+      let linkList = '';
+      for (let closestDoc of closestDocs) {
+        linkList += `[${closestDoc.name}](${closestDoc.link})\n`;
+      }
+
+      const ourEmbed = new RichEmbed({
+        color: errColor,
+        title: 'No function found',
+        description: `No function or variable was found by the name of \`${docWord}\`, did you mean one of the following?\n${linkList}`,
+        timestamp: new Date(),
+        footer: {
+          text: `This message was called for ${user.username}`
         }
-
-        const ourEmbed = new RichEmbed({
-            color: errColor,
-            title: 'No function found',
-            description: `No function or variable was found by the name of \`${docWord}\`, did you mean one of the following?\n${linkList}`,
-            timestamp: new Date(),
-            footer: {
-                text: `This message was called for ${user.username}`
-            }
-        });
-        return ourEmbed;
+      });
+      return ourEmbed;
     }
 
     // For Functions
     if (docInfo.type === 'function') {
-        // Wow! Much Function!
-        const funcColor = 3447003;
+      // Wow! Much Function!
+      const funcColor = 3447003;
 
-        // Limit our Description to just the first sentence
-        const funcDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
+      // Limit our Description to just the first sentence
+      const funcDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
 
-        // Create our Arguments and sort the strong from the, uh, optional arguments
-        const ourArgs: string[] = [];
-        for (let i = 0; i < docInfo.entry.parameters.length; i++) {
-            const thisParam = docInfo.entry.parameters[i];
-            let thisParamEntry = '';
+      // Create our Arguments and sort the strong from the, uh, optional arguments
+      const ourArgs: string[] = [];
+      for (let i = 0; i < docInfo.entry.parameters.length; i++) {
+        const thisParam = docInfo.entry.parameters[i];
+        let thisParamEntry = '';
 
-            // Are we optional?
-            if (i >= docInfo.entry.minParameters) {
-                thisParamEntry += '**[' + thisParam.label + ']**: ';
-            } else {
-                thisParamEntry += '**' + thisParam.label + '**: ';
-            }
-
-            // Add our Parameter Documentation (such as it is)
-            thisParamEntry += thisParam.documentation;
-
-            // Shove it into the Array
-            ourArgs.push(thisParamEntry);
+        // Are we optional?
+        if (i >= docInfo.entry.minParameters) {
+          thisParamEntry += '**[' + thisParam.label + ']**: ';
+        } else {
+          thisParamEntry += '**' + thisParam.label + '**: ';
         }
 
-        const ourEmbed = new RichEmbed({
-            color: funcColor,
-            title: docInfo.entry.signature,
-            url: docInfo.entry.link,
-            description: funcDesc,
-            fields: ourArgs.length === 0 ? undefined :
-            [{
-                name: 'Arguments',
-                value: ourArgs.join('\n'),
-                inline: true
-            }],
-            timestamp: new Date(),
-            footer: {
-                text: `This message was called for ${user.username}`
-            }
-        });
+        // Add our Parameter Documentation (such as it is)
+        thisParamEntry += thisParam.documentation;
 
-        return ourEmbed;
+        // Shove it into the Array
+        ourArgs.push(thisParamEntry);
+      }
+
+      const ourEmbed = new RichEmbed({
+        color: funcColor,
+        title: docInfo.entry.signature,
+        url: docInfo.entry.link,
+        description: funcDesc,
+        fields: ourArgs.length === 0 ? undefined :
+        [{
+          name: 'Arguments',
+          value: ourArgs.join('\n'),
+          inline: true
+        }],
+        timestamp: new Date(),
+        footer: {
+          text: `This message was called for ${user.username}`
+        }
+      });
+
+      return ourEmbed;
     }
 
     // For Variables
     if (docInfo.type === 'variable') {
-        // Okay, we got ourselves a variable
-        const varColor = 1572715;
+      // Okay, we got ourselves a variable
+      const varColor = 1572715;
 
-        // Create a nice title with type:
-        const varTitle = docInfo.entry.name + ': *' + docInfo.entry.type.toLowerCase() + '*';
+      // Create a nice title with type:
+      const varTitle = docInfo.entry.name + ': *' + docInfo.entry.type.toLowerCase() + '*';
 
-        // Limit our Description to just the first sentence
-        const varDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
+      // Limit our Description to just the first sentence
+      const varDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
 
-        const ourEmbed = new RichEmbed({
-            color: varColor,
-            title: varTitle,
-            url: docInfo.entry.link,
-            description: varDesc,
-            timestamp: new Date(),
-            footer: {
-                text: `This message was called for ${user.username}`
-            }
-        });
+      const ourEmbed = new RichEmbed({
+        color: varColor,
+        title: varTitle,
+        url: docInfo.entry.link,
+        description: varDesc,
+        timestamp: new Date(),
+        footer: {
+          text: `This message was called for ${user.username}`
+        }
+      });
 
-        return ourEmbed;
+      return ourEmbed;
     }
 
     // We'll never make it here, but here's an undefined for safety
