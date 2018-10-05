@@ -2,7 +2,7 @@ import * as path from 'path';
 import { Attachment, RichEmbed } from 'discord.js';
 
 // Config
-import { prefixedCommandRuleTemplate, defaultEmbedColor } from './config';
+import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from './config';
 
 // Commands
 import {
@@ -82,11 +82,11 @@ export function loadRules() {
   ];
 
   /** Bot developer only commands */
-  let devCommands: Rule[] = [
+  let devCommands: (Rule | Type<any>)[] = [
     {
       matches: ['id'],
       ...prefixedCommandRuleTemplate,
-      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has('417797331409436682'),
+      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.botcontributerRoleID),
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
@@ -116,11 +116,11 @@ export function loadRules() {
       ':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:'
     ),
     RuleFactory.createReplyRule(
-      ['dinguses'],
+      ['dinguses', 'DINGUSES'],
       ':raised_hand: ***dinguses*** :raised_back_of_hand:'
     ),
     RuleFactory.createReplyRule(
-      ['dingus'],
+      ['dingus', 'DINGUS'],
       ':raised_hand: ***dingus*** :raised_back_of_hand:'
     ),
     RuleFactory.createReplyRule(

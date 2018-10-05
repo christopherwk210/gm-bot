@@ -2,25 +2,18 @@ import { roleService } from '../services/role.service';
 import { GuildMember, User } from 'discord.js';
 import { guildService } from '..';
 
+import { serverIDs } from '../../config';
+
 /**
  * Detects if a member is staff or not
  * @param member
  */
 export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | false {
-  let roles = {
-    admin: '262835321694060547',
-    subredditMods: '262843600730062849',
-    rubberDuckies: '262926334118985728',
-    honouraryDuckies: '390437904859660290',
-    artDuckies: '345222078577901569',
-    audioDuckies: '398875444360904704'
-  };
-
   if (!member || !member.roles) return false;
-  if (member.roles.has(roles.admin) || member.roles.has(roles.subredditMods)) return 'admin';
-  if (member.roles.has(roles.rubberDuckies) || member.roles.has(roles.honouraryDuckies)) return 'code';
-  if (member.roles.has(roles.artDuckies)) return 'art';
-  if (member.roles.has(roles.audioDuckies)) return 'audio';
+  if (member.roles.has(serverIDs.adminRoleID) || member.roles.has(serverIDs.subredditmodsRoleID)) return 'admin';
+  if (member.roles.has(serverIDs.duckycodeRoleID) || member.roles.has(serverIDs.duckyhonouraryRoleID)) return 'code';
+  if (member.roles.has(serverIDs.duckyartRoleID)) return 'art';
+  if (member.roles.has(serverIDs.duckyaudioRoleID)) return 'audio';
 
   return false;
 }

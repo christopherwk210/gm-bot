@@ -9,7 +9,7 @@ git clone https://github.com/christopherwk210/gm-bot
 
 Once finished, enter the project directory and install its dependencies:
 ```bash
-cd gm-bot && npm install --slient
+cd gm-bot && npm install --silent
 ```
 
 ?> `--silent` is used to suppress unnecessary peer dependency warnings.
