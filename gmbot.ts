@@ -20,6 +20,7 @@ import runExpressServer from './src/express/express';
 // Services
 import {
   roleService,
+  docService,
   guildService,
   channelService,
   markdownService,
@@ -27,7 +28,8 @@ import {
   jsonService,
   giveawayService,
   helpChannelService,
-  helpcardService
+  helpcardService,
+  securityService
 } from './src/shared';
 
 // Rules
@@ -36,7 +38,7 @@ let rules: (Rule | Type<any>)[] = [];
 let modifiers: Type<any>[] = [];
 
 // Commands
-import { WelcomeCommand } from './src/commands';
+import { WelcomeCommand, SecurityCommand } from './src/commands';
 
 // Initialize file based services
 markdownService.loadAllMarkdownFiles();
@@ -58,7 +60,10 @@ bot.on('ready', onBotReady);                        // Bot is loaded
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
-bot.on('guildMemberAdd', WelcomeCommand.sendWelcomeMessage); // A new member has joined
+bot.on('guildMemberAdd', user => {
+  WelcomeCommand.sendWelcomeMessage(user);
+  SecurityCommand.newUserSecurity(user);
+});
 
 /**
  * Called when the bot has reported ready status
@@ -69,6 +74,7 @@ function onBotReady() {
   guildService.init(bot);
   channelService.init(bot);
   helpChannelService.cacheHelpChannels();
+  docService.init();
 
   // Load all rules
   rules = loadRules();

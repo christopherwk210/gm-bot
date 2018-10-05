@@ -3,7 +3,7 @@ import * as http from 'http';
 import * as puppeteer from 'puppeteer';
 import concat = require('concat-stream');
 
-import { Message } from 'discord.js';
+import { Message, RichEmbed, User } from 'discord.js';
 
 import { prefixedCommandRuleTemplate } from '../../config';
 import {
@@ -13,7 +13,8 @@ import {
   markdownService,
   jsonService,
   validateGMS1,
-  validateGMS2
+  validateGMS2,
+  docService
 } from '../../shared';
 
 // Prevent errors when running things in puppeteer context
@@ -52,11 +53,11 @@ export class DocsCommand implements CommandClass {
 
       // find a mention tag
       if (msg.mentions.users.first() !== undefined  && detectStaff(msg.member)) {
-        whoTag = msg.mentions.users.first().id;
+        whoTag = msg.mentions.users.first();
 
         // check if tagged user is a member of of the server
         if (msg.mentions.members.first() === undefined || msg.mentions.users.first().id !== msg.mentions.members.first().id) {
-          msg.author.send(`<@${whoTag}> was not a recognized user.`);
+          msg.author.send(`<@${whoTag.id}> was not a recognized user.`);
           return;
         }
       }
@@ -64,7 +65,7 @@ export class DocsCommand implements CommandClass {
 
     // tag self if no tag provided
     if (whoTag === undefined) {
-      whoTag = msg.author.id;
+      whoTag = msg.author;
     }
 
     // Switch on version
@@ -73,17 +74,24 @@ export class DocsCommand implements CommandClass {
         // Determine if the provided function is a valid GMS1 function
         if (validateGMS1(args[1])) {
           // If so, provide the helps
-          this.helpUrlGMS1(msg, args[1], image, whoTag);
+          this.helpUrlGMS1(msg, args[1], image, whoTag.id);
         } else {
           // Otherwise, provide the nopes
           msg.author.send(`\`${args[1]}\` was not a recognized GMS1 function. Type \`!help\` for help with commands.`);
         }
         break;
       case 'GMS2':
+        // Attempt our new Docs method
+        const possibleFancyEmbed = this.attemptNewDocs(args[1], whoTag);
+        if (possibleFancyEmbed) {
+          msg.channel.send(possibleFancyEmbed);
+          return;
+        }
+
         // Determine if the provided function is a valid GMS2 function
         if (validateGMS2(args[1])) {
           // If so, give 'em the goods
-          this.helpUrlGMS2(msg, args[1], image, whoTag);
+          this.helpUrlGMS2(msg, args[1], image, whoTag.id);
         } else {
           // Otherwise, kick 'em to the curb
           msg.author.send(`\`${args[1]}\` was not a recognized GMS2 function. Type \`!help\` for help with commands.`);
@@ -241,5 +249,90 @@ export class DocsCommand implements CommandClass {
         name: 'capture.png'
       }).then(() => message.delete());
     });
+  }
+
+  attemptNewDocs(docWord: string, user: User): undefined | RichEmbed {
+    // New Docs style ability -- query the shared service
+    const docInfo = docService.docsFindEntry(docWord);
+    if (!docInfo) {
+        // We failed! Oh no!
+        return undefined;
+    }
+
+    // For Functions
+    if (docInfo.type === 'function') {
+        // Wow! Much Function!
+        const funcColor = 3447003;
+
+        // Limit our Description to just the first sentence
+        const funcDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
+
+        // Create our Arguments and sort the strong from the, uh, optional arguments
+        const ourArgs: string[] = [];
+        for (let i = 0; i < docInfo.entry.parameters.length; i++) {
+            const thisParam = docInfo.entry.parameters[i];
+            let thisParamEntry = '';
+
+            // Are we optional?
+            if (i >= docInfo.entry.minParameters) {
+                thisParamEntry += '**[' + thisParam.label + ']**: ';
+            } else {
+                thisParamEntry += '**' + thisParam.label + '**: ';
+            }
+
+            // Add our Parameter Documentation (such as it is)
+            thisParamEntry += thisParam.documentation;
+
+            // Shove it into the Array
+            ourArgs.push(thisParamEntry);
+        }
+
+        const ourEmbed = new RichEmbed({
+            color: funcColor,
+            title: docInfo.entry.signature,
+            url: docInfo.entry.link,
+            description: funcDesc,
+            fields: ourArgs.length === 0 ? undefined :
+            [{
+                name: 'Arguments',
+                value: ourArgs.join('\n'),
+                inline: true
+            }],
+            timestamp: new Date(),
+            footer: {
+                text: `This message was called for ${user.username}`
+            }
+        });
+
+        return ourEmbed;
+    }
+
+    // For Variables
+    if (docInfo.type === 'variable') {
+        // Okay, we got ourselves a variable
+        const varColor = 1572715;
+
+        // Create a nice title with type:
+        const varTitle = docInfo.entry.name + ': *' + docInfo.entry.type.toLowerCase() + '*';
+
+        // Limit our Description to just the first sentence
+        const varDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
+
+        const ourEmbed = new RichEmbed({
+            color: varColor,
+            title: varTitle,
+            url: docInfo.entry.link,
+            description: varDesc,
+            timestamp: new Date(),
+            footer: {
+                text: `This message was called for ${user.username}`
+            }
+        });
+
+        return ourEmbed;
+    }
+
+    // We'll never make it here, but here's an undefined for safety
+    return undefined;
   }
 }

@@ -21,3 +21,4 @@ export * from './palette/palette.command';
 export * from './upvote/upvote.command';
 export * from './done/done.command';
 export * from './helpcard/helpcard.command';
+export * from './security/security.command';

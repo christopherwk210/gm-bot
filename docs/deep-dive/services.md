@@ -13,7 +13,6 @@ let auth = jsonService.files['auth'];
 let banner = textService.files['banner'];
 ```
 ### Markdown service `gm-bot/src/shared/services/markdown.service.ts`
-
 This service loads all markdown files found under `gm-bot/src/shared/markdown/*.md`.
 
 ### Text service `gm-bot/src/shared/services/text.service.ts`
@@ -37,6 +36,9 @@ asyncWriter({ token: 'new token' }).then(err => {
 ```
 
 The JSON service provides `AsyncWriter` functions that are set up as non-parallel async queue's, which means you don't need to worry about waiting for one to finish before attempting to write to the file again. If a previous operation isn't complete, the operation is queued until ready. Its also important to note that this completely overwrites the file contents with whatever you pass.
+
+### Doc Service
+This service reads `gmlDocs.json` as loaded by the JSON service for powering the `!docs` command. This service allows easy reader methods for the JSON file as provided by @sanbox#0001. The JSON file is a serialized version of the GMS 2 documentation, and as such it is *not* included in the source code out of respect for the fact that it is property of YYG. If you'd like a copy of this JSON file, please contact @sanbox#0001 on Discord. When the file is missing, the `!docs` command will fall back to the old way of providing documentation through querying the online docs.
 
 ## Guild services
 These services load guild information on bot load and provided references to them for easy access.
@@ -68,3 +70,6 @@ voiceChannels: VoiceChannel[];
 This service handles renaming the help channels when they're busy. It's completely automatic, and will append `_busy` to any help channel that's had a message sent in the last few minutes. If there hasn't been a messsage in a while, it will remove the `_busy` tag from the name.
 
 The exact amount of time it waits before going back to "not busy" state can be changed in the bot config (`./src/config.ts`).
+
+### SecurityService
+This service handles "secure mode" in the bot. This mode allows the staff to toggle reporting features that help prevent malicious activities.

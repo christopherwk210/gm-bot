@@ -18,6 +18,8 @@ export * from './services/text.service';
 export * from './services/giveaway.service';
 export * from './services/helpcard.service';
 export * from './services/help-channel.service';
+export * from './services/security.service';
+export * from './services/doc.service';
 
 // Utils
 export * from './utils/detect-staff';
