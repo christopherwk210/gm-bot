@@ -20,6 +20,7 @@ export * from './services/helpcard.service';
 export * from './services/help-channel.service';
 export * from './services/security.service';
 export * from './services/doc.service';
+export * from './services/birthday.service';
 
 // Utils
 export * from './utils/detect-staff';

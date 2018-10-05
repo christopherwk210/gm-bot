@@ -10,6 +10,7 @@ class BirthdayService {
     let loadedBirthdays = jsonService.files['birthdayTimers'];
     if (loadedBirthdays) {
       // do stuff to load timers
+      console.log('load timers');
     }
   }
 
@@ -17,7 +18,7 @@ class BirthdayService {
    * add birthday and add to file
    */
   addBirthday() {
-
+    console.log('addBirthday');
   }
 }
 
