@@ -1,10 +1,6 @@
 import { Message } from 'discord.js';
 import { Command, CommandClass, roleService, detectStaff } from '../../shared';
-
-import {
-  prefixedCommandRuleTemplate,
-  serverIDs
-} from '../../config';
+import { prefixedCommandRuleTemplate, serverIDs } from '../../config';
 
 @Command({
   matches: ['assemble', 'quackquackquack'],

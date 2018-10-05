@@ -1,6 +1,5 @@
 import { Message, Role } from 'discord.js';
 import { Command, CommandClass, roleService } from '../../shared';
-
 import { prefixedCommandRuleTemplate, serverIDs } from '../../config';
 
 @Command({
