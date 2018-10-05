@@ -264,7 +264,7 @@ export class DocsCommand implements CommandClass {
         // Create a list of links to closest entries
         let linkList = '';
         for (let closestDoc of closestDocs) {
-            linkList += `* [${closestDoc.name}](${closestDoc.link})\n`;
+            linkList += `• [${closestDoc.name}](${closestDoc.link})\n`;
         }
         
         const ourEmbed = new RichEmbed({
