@@ -252,18 +252,33 @@ export class DocsCommand implements CommandClass {
   }
 
   attemptNewDocs(docWord: string, user: User): undefined | RichEmbed {
+    const funcColor = 3447003;
+    const errColor = 16711680;
+
     // New Docs style ability -- query the shared service
     const docInfo = docService.docsFindEntry(docWord);
     if (!docInfo) {
-        // We failed! Oh no!
-        return undefined;
+        // We failed! Oh no! Try to get closest entries
+        const closestDocs = docService.docsFindClosest(docWord, 5);
+        let linkList = '';
+        for (let closestDoc of closestDocs) {
+            linkList += `* [${closestDoc.name}](${closestDoc.link})\n`;
+        }
+        const ourEmbed = new RichEmbed({
+            color: errColor,
+            title: 'No function found',
+            description: `No function or variable was found by the name of \`${docWord}\`, did you mean one of the following?\n${linkList}`,
+            timestamp: new Date(),
+            footer: {
+                text: `This message was called for ${user.username}`
+            }
+        });
+        return ourEmbed;
     }
 
     // For Functions
     if (docInfo.type === 'function') {
         // Wow! Much Function!
-        const funcColor = 3447003;
-
         // Limit our Description to just the first sentence
         const funcDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
 

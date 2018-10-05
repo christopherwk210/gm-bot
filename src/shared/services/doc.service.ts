@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { jsonService } from './json.service';
 import { TextChannel } from 'discord.js';
 import { channelService } from './channel.service';
+import * as stringSimilarity from 'string-similarity';
 
 /**
  * Holds the Docs in memory and retrieves specific entries.
@@ -49,6 +50,37 @@ class DocsService {
   }
 
   /**
+   * Iterates over everything and calculates leven distance score, returning
+   * the n closest matches
+   * @param docWord The word to find a function entry for.
+   */
+  docsFindClosest(docWord: string, nClosest: number): DocList[] {
+    let scores = [];
+    const threshold = 0; // threshold above which string will be added to suggestions
+
+    // collect scores from functions
+    for (const thisFuncEntry of this.docs.functions) {
+      let similarity = stringSimilarity.compareTwoStrings(docWord, thisFuncEntry.name);
+      if (similarity > threshold) {
+          scores.push({name: thisFuncEntry.name, similarity, link: thisFuncEntry.link});
+      }
+    }
+
+    // collect scores from variables
+    for (const thisVarEntry of this.docs.variables) {
+        let similarity = stringSimilarity.compareTwoStrings(docWord, thisVarEntry.name);
+        if (similarity > threshold) {
+            scores.push({name: thisVarEntry.name, similarity, link: thisVarEntry.link});
+        }
+    }
+
+    // sort list
+    scores.sort((a, b) => b.similarity - a.similarity);
+
+    return scores.slice(0, nClosest);
+  }
+
+  /**
    * Iterates over the Functions from a GML Documentation JSON.
    * @param docWord The word to find a function entry for.
    */
@@ -80,7 +112,7 @@ class DocsService {
 
   /**
    * Pings the Cog Whisperers if we failed but were invoked. This is temporary as
-   * the new Service is implemented.  
+   * the new Service is implemented.
    */
   private docsPingCogWhisperers(errorWord: string) {
     const errorMessage = `GMBot's new doc service was invoked succesfully but failed to find:\n\`\`\`${errorWord}\`\`\``;
@@ -106,6 +138,15 @@ interface VarResult {
 }
 
 /**
+ * Similarity list for closeness function
+ */
+interface DocList {
+  name: string;
+  similarity: number;
+  link: string;
+}
+
+/**
  * This describes the saved DocFile we create.
  */
 interface DocFile {
@@ -114,7 +155,7 @@ interface DocFile {
 }
 
 /**
- * Scrapped Documentation Function information.
+ * Scraped Documentation Function information.
  */
 interface DocFunction {
   name: string;
@@ -129,7 +170,7 @@ interface DocFunction {
   doNotAutoComplete?: boolean;
 }
 /**
- * Scrapped Documentation Variable information.
+ * Scraped Documentation Variable information.
  */
 interface DocVariable {
   name: string;
@@ -142,14 +183,14 @@ interface DocVariable {
 }
 
 /**
- * Scrapped Documentation Parameter information.
+ * Scraped Documentation Parameter information.
  */
 interface DocParams {
   label: string;
   documentation: string;
 }
 /**
- * Scrapped Documentation Example information.
+ * Scraped Documentation Example information.
  */
 interface DocExample {
   code: string;
