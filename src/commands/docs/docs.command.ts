@@ -252,18 +252,21 @@ export class DocsCommand implements CommandClass {
   }
 
   attemptNewDocs(docWord: string, user: User): undefined | RichEmbed {
-    const funcColor = 3447003;
-    const errColor = 16711680;
 
     // New Docs style ability -- query the shared service
     const docInfo = docService.docsFindEntry(docWord);
     if (!docInfo) {
+        const errColor = 16032066;
+        
         // We failed! Oh no! Try to get closest entries
         const closestDocs = docService.docsFindClosest(docWord, 5);
+        
+        // Create a list of links to closest entries
         let linkList = '';
         for (let closestDoc of closestDocs) {
             linkList += `* [${closestDoc.name}](${closestDoc.link})\n`;
         }
+        
         const ourEmbed = new RichEmbed({
             color: errColor,
             title: 'No function found',
@@ -279,6 +282,8 @@ export class DocsCommand implements CommandClass {
     // For Functions
     if (docInfo.type === 'function') {
         // Wow! Much Function!
+        const funcColor = 3447003;
+    
         // Limit our Description to just the first sentence
         const funcDesc = docInfo.entry.documentation.slice(0, docInfo.entry.documentation.indexOf('.') + 1);
 
