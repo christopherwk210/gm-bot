@@ -1,6 +1,6 @@
 import { Message, Role } from 'discord.js';
-import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass, roleService } from '../../shared';
+import { prefixedCommandRuleTemplate, serverIDs } from '../../config';
 
 @Command({
   matches: ['role', '3d', 'voip', 'shader', 'shaders'],
@@ -12,15 +12,15 @@ export class RoleControlCommand implements CommandClass {
   shaderRole: Role;
 
   constructor() {
-    this.voipRole = roleService.getRoleByID('275366872189370369');
-    this.threedRole = roleService.getRoleByID('379657591657201674');
-    this.shaderRole = roleService.getRoleByID('466249504794869760');
+    this.voipRole = roleService.getRoleByID(serverIDs.voipRoleID);
+    this.threedRole = roleService.getRoleByID(serverIDs.voiceactivityRoleID);
+    this.shaderRole = roleService.getRoleByID(serverIDs.voicealumniRoleID);
   }
 
   /**
    * Toggles a user role
-   * @param msg 
-   * @param args 
+   * @param msg
+   * @param args
    */
   action(msg: Message, args: string[]) {
     switch (args[0].toLowerCase()) {

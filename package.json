@@ -60,6 +60,7 @@
     "puppeteer": "^1.6.0",
     "q": "^1.5.1",
     "request": "^2.88.0",
+    "string-similarity": "^2.0.0",
     "ts-node": "^6.0.3",
     "typescript": "^2.8.3",
     "uws": "^9.147.0",
