@@ -1,4 +1,4 @@
-import { helpChannelBusyTimeout, helpChannelIDs } from '../../config';
+import { helpChannelBusyTimeout, serverIDs } from '../../config';
 import { channelService } from '../';
 import { GuildChannel, TextChannel, Message } from 'discord.js';
 
@@ -52,7 +52,7 @@ class HelpChannelService {
    */
 
   cacheHelpChannels() {
-    helpChannelIDs.forEach(channelID => {
+    serverIDs.helpChannelIDs.forEach(channelID => {
         this.addHelpChannel(channelID);
     });
   }

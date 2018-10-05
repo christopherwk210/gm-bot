@@ -3,11 +3,8 @@ import { Command, CommandClass, roleService, detectStaff } from '../../shared';
 
 import {
   prefixedCommandRuleTemplate,
-  duckycodeRoleID,
-  duckyaudioRoleID,
-  duckyartRoleID
+  serverIDs
 } from '../../config';
-
 
 @Command({
   matches: ['assemble', 'quackquackquack'],
@@ -21,9 +18,9 @@ export class AssembleCommand implements CommandClass {
    */
   async action(msg: Message, args: string[]) {
     // Grab the duck roles
-    let ducks = roleService.getRoleByID(duckycodeRoleID);
-    let audio = roleService.getRoleByID(duckyaudioRoleID);
-    let art = roleService.getRoleByID(duckyartRoleID);
+    let ducks = roleService.getRoleByID(serverIDs.duckycodeRoleID);
+    let audio = roleService.getRoleByID(serverIDs.duckyaudioRoleID);
+    let art = roleService.getRoleByID(serverIDs.duckyartRoleID);
 
     try {
       await ducks.setMentionable(true);

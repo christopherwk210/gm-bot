@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { jsonService } from './json.service';
 import { TextChannel } from 'discord.js';
 import { channelService } from './channel.service';
-import { botTestingChannelID } from '../../config';
+import { serverIDs } from '../../config';
 
 /**
  * Holds the Docs in memory and retrieves specific entries.
@@ -91,7 +91,7 @@ class DocsService {
     const errorMessage = `GMBot's new doc service was invoked succesfully but failed to find:\n\`\`\`${errorWord}\`\`\``;
     // Send error to the bot testing channel
     if (this.currentlyLogging) {
-      const botTestingChannel: TextChannel = <any>channelService.getChannelByID(botTestingChannelID);
+      const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.botTestingChannelID);
       if (botTestingChannel) botTestingChannel.send(errorMessage);
     }
   }

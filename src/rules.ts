@@ -2,7 +2,7 @@ import * as path from 'path';
 import { Attachment, RichEmbed } from 'discord.js';
 
 // Config
-import { prefixedCommandRuleTemplate, defaultEmbedColor, botcontributerRoleID } from './config';
+import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from './config';
 
 // Commands
 import {
@@ -87,7 +87,7 @@ export function loadRules() {
     {
       matches: ['id'],
       ...prefixedCommandRuleTemplate,
-      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(botcontributerRoleID),
+      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.botcontributerRoleID),
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }

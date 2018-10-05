@@ -2,14 +2,7 @@ import { roleService } from '../services/role.service';
 import { GuildMember, User } from 'discord.js';
 import { guildService } from '..';
 
-import {
-  adminRoleID,
-  subredditmodsRoleID,
-  duckycodeRoleID,
-  duckyhonouraryRoleID,
-  duckyartRoleID,
-  duckyaudioRoleID
-} from '../../config';
+import { serverIDs } from '../../config';
 
 /**
  * Detects if a member is staff or not
@@ -17,10 +10,10 @@ import {
  */
 export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | false {
   if (!member || !member.roles) return false;
-  if (member.roles.has(adminRoleID) || member.roles.has(subredditmodsRoleID)) return 'admin';
-  if (member.roles.has(duckycodeRoleID) || member.roles.has(duckyhonouraryRoleID)) return 'code';
-  if (member.roles.has(duckyartRoleID)) return 'art';
-  if (member.roles.has(duckyaudioRoleID)) return 'audio';
+  if (member.roles.has(serverIDs.adminRoleID) || member.roles.has(serverIDs.subredditmodsRoleID)) return 'admin';
+  if (member.roles.has(serverIDs.duckycodeRoleID) || member.roles.has(serverIDs.duckyhonouraryRoleID)) return 'code';
+  if (member.roles.has(serverIDs.duckyartRoleID)) return 'art';
+  if (member.roles.has(serverIDs.duckyaudioRoleID)) return 'audio';
 
   return false;
 }
