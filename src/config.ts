@@ -21,30 +21,29 @@ export const defaultEmbedColor = 0x039D5B;
 /** Server-specific channel IDs */
 
 class ServerIDs {
-  /* tslint:disable */
-  public botTestingChannelID = '417796218324910094';
-  public dingusSecurityChannelID = '492767948155518976';
-  public helpChannelIDs = ['262836222089625602',
-                          '295210810823802882',
-                          '331106795378442240',
-                          '490232902110674964'];
-  public casualVoiceChannelID = '332567530025779200';
-  public coworkingVoiceChannelID = '262834612932182026';
-  public playinagameVoiceChannelID = '295976186625130512';
+  /*** Server-specific channel IDs */
+  botTestingChannelID = '417796218324910094';
+  dingusSecurityChannelID = '492767948155518976';
+  helpChannelIDs = ['262836222089625602',
+                    '295210810823802882',
+                    '331106795378442240',
+                    '490232902110674964'];
+   casualVoiceChannelID = '332567530025779200';
+   coworkingVoiceChannelID = '262834612932182026';
+   playinagameVoiceChannelID = '295976186625130512';
   /*** Server-specific role IDs **/
-  public adminRoleID = '262835321694060547';
-  public subredditmodsRoleID = '262843600730062849';
-  public duckycodeRoleID = '262926334118985728';
-  public duckyhonouraryRoleID = '390437904859660290';
-  public duckyartRoleID = '345222078577901569';
-  public duckyaudioRoleID = '398875444360904704';
-  
-  public voipRoleID = '275366872189370369';
-  public voiceactivityRoleID = '390434366125506560';
-  public voicealumniRoleID = '390563903085477888';
-  
-  public botcontributerRoleID = '417797331409436682';
-  /* tslint:enable */
+   adminRoleID = '262835321694060547';
+   subredditmodsRoleID = '262843600730062849';
+  duckycodeRoleID = '262926334118985728';
+  duckyhonouraryRoleID = '390437904859660290';
+  duckyartRoleID = '345222078577901569';
+  duckyaudioRoleID = '398875444360904704';
+  /** VOIP IDs */
+  voipRoleID = '275366872189370369';
+  voiceactivityRoleID = '390434366125506560';
+  voicealumniRoleID = '390563903085477888';
+  /** Bot Contributor ID */
+  botcontributerRoleID = '417797331409436682';
 }
 
 export let serverIDs = new ServerIDs();
