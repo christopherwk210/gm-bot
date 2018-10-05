@@ -22,7 +22,7 @@ class HelpChannelService {
     if (!helpChannelController.busy) {
       // Quick exit if the message was '!done' and a non-ducky was attemping
       if (msg.content === '!done' && !detectStaff(msg.member)) {
-        msg.delete();
+        msg.delete().catch();
         return;
       }
 
