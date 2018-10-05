@@ -1,6 +1,7 @@
 import { helpChannelBusyTimeout } from '../../config';
 import { channelService } from '../';
 import { GuildChannel, TextChannel, Message } from 'discord.js';
+import { detectStaff } from '../utils/detect-staff';
 
 /**
  * Handles renaming the help channels when they're busy.
@@ -10,17 +11,27 @@ class HelpChannelService {
   helpChannels: HelpChannelController[] = [];
 
   handleMessage(msg: Message) {
-    const helpChannelController = this.helpChannels.find(controller => controller.id === msg.channel.id);
+    const helpChannelController = this.helpChannels.find(
+      controller => controller.id === msg.channel.id
+    );
 
     // If it's not a help channel, we don't need to be here
     if (!helpChannelController) return;
 
     // Mark a channel as busy if it isn't already, otherwise re-up the timer
     if (!helpChannelController.busy) {
+      // Quick exit if the message was '!done' and a non-ducky was attemping
+      if (msg.content === '!done' && !detectStaff(msg.member)) {
+        msg.delete();
+        return;
+      }
+
       helpChannelController.busy = true;
 
       const currentName = helpChannelController.channel.name;
-      helpChannelController.channel.setName(`${currentName.replace(this.regex, '')}__busy`);
+      helpChannelController.channel.setName(
+        `${currentName.replace(this.regex, '')}__busy`
+      );
       helpChannelController.culprit = msg.author.id;
 
       this.createChannelControllerTimeout(helpChannelController);
@@ -34,11 +45,15 @@ class HelpChannelService {
    * @param id Help channel ID
    */
   markNotBusy(id: string) {
-    const helpChannelController = this.helpChannels.find(controller => controller.id === id);
+    const helpChannelController = this.helpChannels.find(
+      controller => controller.id === id
+    );
 
     if (helpChannelController) {
       const currentName = helpChannelController.channel.name;
-      helpChannelController.channel.setName(currentName.replace(this.regex, ''));
+      helpChannelController.channel.setName(
+        currentName.replace(this.regex, '')
+      );
 
       clearTimeout(helpChannelController.timer);
 
@@ -48,7 +63,7 @@ class HelpChannelService {
   }
 
   /**
-   * Get 
+   * Get
    */
 
   cacheHelpChannels() {
@@ -76,7 +91,7 @@ class HelpChannelService {
 
   /**
    * Creates a timer for the given controller and assigns it
-   * @param controller 
+   * @param controller
    */
   createChannelControllerTimeout(controller: HelpChannelController) {
     clearTimeout(controller.timer);
