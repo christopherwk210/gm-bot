@@ -1,5 +1,5 @@
 import { RichEmbed, Message, GuildMember, User, GuildChannel, TextChannel } from 'discord.js';
-import { prefixedCommandRuleTemplate, defaultEmbedColor, dingusSecurityChannelID } from '../../config';
+import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from '../../config';
 import { Command, CommandClass, securityService, channelService, detectStaff } from '../../shared';
 
 @Command({
@@ -21,7 +21,7 @@ export class SecurityCommand implements CommandClass {
     if (!securityState) return;
 
     // Get our channel and send us off
-    const dingusSecurity: TextChannel = <any>channelService.getChannelByID(dingusSecurityChannelID);
+    const dingusSecurity: TextChannel = <any>channelService.getChannelByID(serverIDs.dingusSecurityChannelID);
     if (dingusSecurity) dingusSecurity.send(`${user.displayName}, tag: ${user} has joined.`);
   }
 
@@ -38,7 +38,7 @@ export class SecurityCommand implements CommandClass {
     });
 
     // Get our channel and send us off
-    const dingusSecurity: TextChannel = <any>channelService.getChannelByID(dingusSecurityChannelID);
+    const dingusSecurity: TextChannel = <any>channelService.getChannelByID(serverIDs.dingusSecurityChannelID);
     if (dingusSecurity) dingusSecurity.send(messageEmbed);
   }
 

@@ -1,12 +1,7 @@
 import { Message, Role } from 'discord.js';
 import { Command, CommandClass, roleService } from '../../shared';
 
-import {
-  prefixedCommandRuleTemplate,
-  voipRoleID,
-  voiceactivityRoleID,
-  voicealumniRoleID
-} from '../../config';
+import { prefixedCommandRuleTemplate, serverIDs } from '../../config';
 
 @Command({
   matches: ['role', '3d', 'voip', 'shader', 'shaders'],
@@ -18,9 +13,9 @@ export class RoleControlCommand implements CommandClass {
   shaderRole: Role;
 
   constructor() {
-    this.voipRole = roleService.getRoleByID(voipRoleID);
-    this.threedRole = roleService.getRoleByID(voiceactivityRoleID);
-    this.shaderRole = roleService.getRoleByID(voicealumniRoleID);
+    this.voipRole = roleService.getRoleByID(serverIDs.voipRoleID);
+    this.threedRole = roleService.getRoleByID(serverIDs.voiceactivityRoleID);
+    this.shaderRole = roleService.getRoleByID(serverIDs.voicealumniRoleID);
   }
 
   /**
