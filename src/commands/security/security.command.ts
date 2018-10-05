@@ -1,5 +1,5 @@
 import { RichEmbed, Message, GuildMember, User, GuildChannel, TextChannel } from 'discord.js';
-import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
+import { prefixedCommandRuleTemplate, defaultEmbedColor, dingusSecurityChannelID } from '../../config';
 import { Command, CommandClass, securityService, channelService, detectStaff } from '../../shared';
 
 @Command({
@@ -10,7 +10,7 @@ export class SecurityCommand implements CommandClass {
 
   /**
    * Send the security message to the Dingus Ducks if necessary.
-   * @param user 
+   * @param user
    */
   static newUserSecurity(user: GuildMember) {
 
@@ -21,7 +21,7 @@ export class SecurityCommand implements CommandClass {
     if (!securityState) return;
 
     // Get our channel and send us off
-    const dingusSecurity: TextChannel = <any>channelService.getChannelByID('492767948155518976');
+    const dingusSecurity: TextChannel = <any>channelService.getChannelByID(dingusSecurityChannelID);
     if (dingusSecurity) dingusSecurity.send(`${user.displayName}, tag: ${user} has joined.`);
   }
 
@@ -38,12 +38,12 @@ export class SecurityCommand implements CommandClass {
     });
 
     // Get our channel and send us off
-    const dingusSecurity: TextChannel = <any>channelService.getChannelByID('492767948155518976');
+    const dingusSecurity: TextChannel = <any>channelService.getChannelByID(dingusSecurityChannelID);
     if (dingusSecurity) dingusSecurity.send(messageEmbed);
   }
 
   /**
-   * Send us into security mode and tell the Dinguses 
+   * Send us into security mode and tell the Dinguses
    * that a new Dingus has arrived.
    * @param msg msg
    */
@@ -58,7 +58,7 @@ export class SecurityCommand implements CommandClass {
 
   /**
    * Admin use only!
-   * @param msg 
+   * @param msg
    * @param args
    */
   pre(msg: Message, args: string[]) {

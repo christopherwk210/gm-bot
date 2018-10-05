@@ -1,4 +1,4 @@
-import { helpChannelBusyTimeout } from '../../config';
+import { helpChannelBusyTimeout, helpChannelIDs } from '../../config';
 import { channelService } from '../';
 import { GuildChannel, TextChannel, Message } from 'discord.js';
 
@@ -48,14 +48,13 @@ class HelpChannelService {
   }
 
   /**
-   * Get 
+   * Get
    */
 
   cacheHelpChannels() {
-    this.addHelpChannel('262836222089625602');
-    this.addHelpChannel('295210810823802882');
-    this.addHelpChannel('331106795378442240');
-    this.addHelpChannel('490232902110674964');
+    helpChannelIDs.forEach(channelID => {
+        this.addHelpChannel(channelID);
+    });
   }
 
   /**
@@ -76,7 +75,7 @@ class HelpChannelService {
 
   /**
    * Creates a timer for the given controller and assigns it
-   * @param controller 
+   * @param controller
    */
   createChannelControllerTimeout(controller: HelpChannelController) {
     clearTimeout(controller.timer);
