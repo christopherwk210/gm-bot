@@ -8,6 +8,10 @@ import { channelService } from './channel.service';
  */
 class DocsService {
 
+  // Allow for activation and deactivation of doc logging.
+  // tslint:disable-next-line
+  public currentlyLogging = false;
+
   /** These are our docs. */
   private docs: DocFile | undefined;
 
@@ -84,10 +88,11 @@ class DocsService {
    */
   private docsPingCogWhisperers(errorWord: string) {
     const errorMessage = `GMBot's new doc service was invoked succesfully but failed to find:\n\`\`\`${errorWord}\`\`\``;
-
     // Send error to the bot testing channel
-    const botTestingChannel: TextChannel = <any>channelService.getChannelByID('417796218324910094');
-    if (botTestingChannel) botTestingChannel.send(errorMessage);
+    if (this.currentlyLogging) {
+      const botTestingChannel: TextChannel = <any>channelService.getChannelByID('417796218324910094');
+      if (botTestingChannel) botTestingChannel.send(errorMessage);
+    }
   }
 }
 

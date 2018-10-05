@@ -184,4 +184,7 @@ console.log(`GameMakerBot v${require('./package.json').version}`);
 runExpressServer();
 
 // Login the bot using the auth token from auth.json
-bot.login(auth.token);
+bot.login(auth.token)
+  .catch(err => {
+    console.error(err);
+  });

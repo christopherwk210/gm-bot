@@ -29,7 +29,8 @@ import {
   UpvoteCommand,
   HelpcardCommand,
   DoneCommand,
-  SecurityCommand
+  SecurityCommand,
+  ActivateLoggingCommand
 } from './commands';
 
 // Modifiers
@@ -82,7 +83,7 @@ export function loadRules() {
   ];
 
   /** Bot developer only commands */
-  let devCommands: Rule[] = [
+  let devCommands: (Rule | Type<any>)[] = [
     {
       matches: ['id'],
       ...prefixedCommandRuleTemplate,
@@ -90,7 +91,8 @@ export function loadRules() {
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
-    }
+    },
+    ActivateLoggingCommand
   ];
 
   /** Random fun stuffs */
@@ -116,11 +118,11 @@ export function loadRules() {
       ':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:'
     ),
     RuleFactory.createReplyRule(
-      ['dinguses'],
+      ['dinguses', 'DINGUSES'],
       ':raised_hand: ***dinguses*** :raised_back_of_hand:'
     ),
     RuleFactory.createReplyRule(
-      ['dingus'],
+      ['dingus', 'DINGUS'],
       ':raised_hand: ***dingus*** :raised_back_of_hand:'
     ),
     RuleFactory.createReplyRule(
