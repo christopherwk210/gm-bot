@@ -9,7 +9,16 @@ import { Message, Client, GuildMember, TextChannel } from 'discord.js';
 const bot = new Client();
 
 // Config
-import { shouldDieOnException } from './src/config';
+import {
+  shouldDieOnException,
+  botTestingChannelID,
+  casualVoiceChannelID,
+  coworkingVoiceChannelID,
+  playinagameVoiceChannelID,
+  voipRoleID,
+  voiceactivityRoleID,
+  voicealumniRoleID
+} from './src/config';
 
 // Utils
 import { parseCommandList, parseModifierList, Rule, Type } from './src/shared';
@@ -96,15 +105,15 @@ function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
     if (
       newMember && newMember.voiceChannel &&
       (
-        newMember.voiceChannel.id === '332567530025779200' || // Casual
-        newMember.voiceChannel.id === '262834612932182026' || // Coworking
-        newMember.voiceChannel.id === '295976186625130512'    // Playin a game
+        newMember.voiceChannel.id === casualVoiceChannelID ||    // Casual
+        newMember.voiceChannel.id === coworkingVoiceChannelID || // Coworking
+        newMember.voiceChannel.id === playinagameVoiceChannelID  // Playin a game
       )
     ) {
       // Fetch the proper roles
-      const voipRole = roleService.getRoleByID('275366872189370369');          // 'voip' role
-      const voiceActivityRole = roleService.getRoleByID('390434366125506560'); // 'voice activity' role
-      const voipAlumniRole = roleService.getRoleByID('390563903085477888');    // 'voip alumni' role
+      const voipRole = roleService.getRoleByID(voipRoleID);          // 'voip' role
+      const voiceActivityRole = roleService.getRoleByID(voiceactivityRoleID); // 'voice activity' role
+      const voipAlumniRole = roleService.getRoleByID(voicealumniRoleID);    // 'voip alumni' role
 
       // If there's no voip role to use... dont do anything else
       if (!voipRole) return;
@@ -169,7 +178,7 @@ process.on('uncaughtException', err => {
   const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
   // Send error to the bot testing channel
-  const botTestingChannel: TextChannel = <any>channelService.getChannelByID('417796218324910094');
+  const botTestingChannel: TextChannel = <any>channelService.getChannelByID(botTestingChannelID);
   if (botTestingChannel) botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);

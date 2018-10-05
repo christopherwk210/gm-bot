@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { jsonService } from './json.service';
 import { TextChannel } from 'discord.js';
 import { channelService } from './channel.service';
+import { botTestingChannelID } from '../../config';
 
 /**
  * Holds the Docs in memory and retrieves specific entries.
@@ -80,13 +81,13 @@ class DocsService {
 
   /**
    * Pings the Cog Whisperers if we failed but were invoked. This is temporary as
-   * the new Service is implemented.  
+   * the new Service is implemented.
    */
   private docsPingCogWhisperers(errorWord: string) {
     const errorMessage = `GMBot's new doc service was invoked succesfully but failed to find:\n\`\`\`${errorWord}\`\`\``;
 
     // Send error to the bot testing channel
-    const botTestingChannel: TextChannel = <any>channelService.getChannelByID('417796218324910094');
+    const botTestingChannel: TextChannel = <any>channelService.getChannelByID(botTestingChannelID);
     if (botTestingChannel) botTestingChannel.send(errorMessage);
   }
 }
