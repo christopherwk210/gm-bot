@@ -29,7 +29,8 @@ import {
   giveawayService,
   helpChannelService,
   helpcardService,
-  securityService
+  securityService,
+  birthdayService
 } from './src/shared';
 
 // Rules
@@ -75,6 +76,7 @@ function onBotReady() {
   channelService.init(bot);
   helpChannelService.cacheHelpChannels();
   docService.init();
+  birthdayService.init();
 
   // Load all rules
   rules = loadRules();
