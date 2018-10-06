@@ -38,7 +38,7 @@ class BirthdayService {
           let user = {id: userid};
           this.removeBirthday(user);
         }, newTimeout);
-        //console.log('Restored birthday timeout for ' + userid + ' timer: ' + newTimeout);
+        // console.log('Restored birthday timeout for ' + userid + ' timer: ' + newTimeout);
       }
     }
 

@@ -1,6 +1,6 @@
 # Birthday
 
-> **Matches:** `!done`
+> **Matches:** `!birthday`
 
 > **Usable by:** Everyone
 
