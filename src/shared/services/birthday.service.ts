@@ -1,6 +1,7 @@
 import { jsonService } from './json.service';
-import { User, Guild } from 'discord.js';
+import { User, Guild, Role } from 'discord.js';
 import { birthdayTimeout, serverIDs } from '../../config';
+import { roleService } from '../../shared';
 
 /**
  * Manages birthday timers
@@ -8,6 +9,11 @@ import { birthdayTimeout, serverIDs } from '../../config';
 class BirthdayService {
   birthdays: object = {};
   guild: Guild;
+  birthdayRole: Role;
+
+  constructor() {
+    this.birthdayRole = roleService.getRoleByID(serverIDs.birthdayRoleID);
+  }
 
   /** Load active birthday timers from file */
   init(client: Client) {
@@ -26,8 +32,8 @@ class BirthdayService {
    */
   addBirthday(user: GuildMember) {
     // add role to user
-    if (!user.roles.has(serverIDs.birthdayRoleID)) {
-      user.addRole(serverIDs.birthdayRoleID);
+    if (!user.roles.has(this.birthdayRole)) {
+      user.addRole(this.birthdayRole);
     }
 
     // clear old timeout
@@ -55,13 +61,13 @@ class BirthdayService {
     // remove role from user
     if (user.roles) {
       // passed a GuildMemeber
-      if (user.roles.has(serverIDs.birthdayRoleID)) {
-        user.removeRole(serverIDs.birthdayRoleID);
+      if (user.roles.has(this.birthdayRole)) {
+        user.removeRole(this.birthdayRole);
       }
     } else {
       // passed only a user
       this.guild.fetchMember(user.id).then(member => {
-        member.removeRole(serverIDs.birthdayRoleID);
+        member.removeRole(this.birthdayRole);
       });
     }
 
