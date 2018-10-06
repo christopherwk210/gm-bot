@@ -1,6 +1,5 @@
 import { Message, Collection } from 'discord.js';
-import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
-import { Command, CommandClass, detectStaff } from '../../shared';
+import { Command, CommandClass } from '../../shared';
 
 @Command({
   matches: ['^', '+1', '-1'],
@@ -30,7 +29,7 @@ export class UpvoteCommand implements CommandClass {
     const found = messages.findIndex(message => message.id === msg.id);
 
     try {
-      await (!!~found ? messages[found + 1] : messages[0]).react(emoji);
+      await (found !== -1 ? messages[found + 1] : messages[0]).react(emoji);
     } catch (e) {}
 
     msg.delete();

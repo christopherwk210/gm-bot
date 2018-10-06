@@ -49,14 +49,14 @@ export class PaletteCommand implements CommandClass {
 
     // Get the palette page
     let palettePageHTML = await this.getPalettePage(paletteName);
-    if (!palettePageHTML || !!~(<string>palettePageHTML).indexOf('The palette you requested could not be found.')) {
+    if (!palettePageHTML || (<string>palettePageHTML).includes('The palette you requested could not be found.')) {
 
       // Attempt to get the page with a separated number before we give up
       paletteName = paletteName.replace(/\d+$/g, '-$&');
       palettePageHTML = await this.getPalettePage(paletteName);
 
       // Okay I give up now
-      if (!palettePageHTML || !!~(<string>palettePageHTML).indexOf('The palette you requested could not be found.')) {
+      if (!palettePageHTML || (<string>palettePageHTML).includes('The palette you requested could not be found.')) {
         return msg.channel.send(`${paletteName} palette not found!`);
       }
     }

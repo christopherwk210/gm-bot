@@ -86,7 +86,7 @@ export function loadRules() {
     {
       matches: ['id'],
       ...prefixedCommandRuleTemplate,
-      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.botcontributerRoleID),
+      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.botContributerRoleID),
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
@@ -215,7 +215,7 @@ export function loadRules() {
     ),
     RuleFactory.createReactionRule(
       ['mmm'],
-      ['🇲', 'Ⓜ', guildService.guild.emojis.find('name', 'meseta')],
+      ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
       true
     )
   ];
