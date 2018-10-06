@@ -15,6 +15,9 @@ export const prefixedCommandRuleTemplate = {
 /** How long to wait before considering a help channel no longer busy, in milliseconds */
 export const helpChannelBusyTimeout = 1000 * 60 * 10;
 
+/** How long does birthday role last for, in milliseconds */
+export const birthdayTimeout = 1000 * 60 * 60 * 24;
+
 /** Default color to use for RichEmbed's */
 export const defaultEmbedColor = 0x039D5B;
 
@@ -54,5 +57,8 @@ export const serverIDs = {
   },
 
   /** Bot Contributor ID */
-  botContributerRoleID: '417797331409436682'
+  botContributerRoleID: '417797331409436682',
+
+  /** Birthday ID */
+  birthdayRoleID: '381386952903098368'
 };

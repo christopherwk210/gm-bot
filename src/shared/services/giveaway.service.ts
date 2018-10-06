@@ -61,7 +61,7 @@ class GiveawayService {
   /**
    * Sign a user up for the giveaway
    * @param name Name of giveaway to sign-up for
-   * @param user 
+   * @param user
    * @returns Error message, if any
    */
   signup(name: string, user: GuildMember) {
