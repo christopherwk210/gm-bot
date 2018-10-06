@@ -215,7 +215,7 @@ export function loadRules() {
     ),
     RuleFactory.createReactionRule(
       ['mmm'],
-      ['🇲', 'Ⓜ', guildService.guild.emojis.find('name', 'meseta')],
+      ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
       true
     )
   ];
