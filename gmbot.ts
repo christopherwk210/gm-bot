@@ -60,10 +60,11 @@ bot.on('ready', onBotReady);                        // Bot is loaded
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
-bot.on('guildMemberAdd', user => {
+bot.on('guildMemberAdd', user => {                  // New user joined
   WelcomeCommand.sendWelcomeMessage(user);
   SecurityCommand.newUserSecurity(user);
 });
+bot.on('error', onBotError);                        // Bot encountered an error
 
 /**
  * Called when the bot has reported ready status
@@ -157,6 +158,14 @@ function onBotMessage(msg: Message) {
 
   // If no command was hit, check for modifiers
   parseModifierList(modifiers, msg);
+}
+
+/**
+ * Called whenever the bot client encounters an internal error
+ * @param error The client error
+ */
+function onBotError(error: Error) {
+  console.log('\nThe bot client encountered an error:\n', error);
 }
 
 // Handle process-wide promise rejection
