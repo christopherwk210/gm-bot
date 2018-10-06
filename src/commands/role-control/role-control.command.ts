@@ -13,8 +13,8 @@ export class RoleControlCommand implements CommandClass {
 
   constructor() {
     this.voipRole = roleService.getRoleByID(serverIDs.voipRoles.voipRoleID);
-    this.threedRole = roleService.getRoleByID(serverIDs.voipRoles.threedRoleID);
-    this.shaderRole = roleService.getRoleByID(serverIDs.voipRoles.shaderRoleID);
+    this.threedRole = roleService.getRoleByID(serverIDs.threedRoleID);
+    this.shaderRole = roleService.getRoleByID(serverIDs.shaderRoleID);
   }
 
   /**
