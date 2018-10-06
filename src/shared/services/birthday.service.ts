@@ -1,5 +1,5 @@
 import { jsonService } from './json.service';
-import { User } from 'discord.js';
+import { User, Guild } from 'discord.js';
 import { birthdayTimeout, serverIDs } from '../../config';
 
 /**
@@ -7,8 +7,13 @@ import { birthdayTimeout, serverIDs } from '../../config';
  */
 class BirthdayService {
   birthdays: object = {};
+  guild: Guild;
+
   /** Load active birthday timers from file */
-  init() {
+  init(client: Client) {
+    // Save guild for later
+    this.guild = client.guilds.first();
+
     let loadedBirthdays = jsonService.files['birthdayTimers'];
     if (loadedBirthdays) {
       // do stuff to load timers
@@ -19,7 +24,7 @@ class BirthdayService {
   /**
    * add birthday and add to file
    */
-  addBirthday(user: User) {
+  addBirthday(user: GuildMember) {
     // add role to user
     if (!user.roles.has(serverIDs.birthdayRoleID)) {
       user.addRole(serverIDs.birthdayRoleID);
@@ -46,10 +51,18 @@ class BirthdayService {
   /**
    * end birthday and remove from json
    */
-  removeBirthday(user: User) {
+  removeBirthday(user: User | GuildMember) {
     // remove role from user
-    if (user.roles.has(serverIDs.birthdayRoleID)) {
-      user.removeRole(serverIDs.birthdayRoleID);
+    if (user.roles) {
+      // passed a GuildMemeber
+      if (user.roles.has(serverIDs.birthdayRoleID)) {
+        user.removeRole(serverIDs.birthdayRoleID);
+      }
+    } else {
+      // passed only a user
+      this.guild.fetchMember(user.id).then(member => {
+        member.removeRole(serverIDs.birthdayRoleID);
+      });
     }
 
     if (user.id in birthdays) {
