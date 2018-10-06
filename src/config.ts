@@ -16,7 +16,7 @@ export const prefixedCommandRuleTemplate = {
 export const helpChannelBusyTimeout = 1000 * 60 * 10;
 
 /** How long does birthday role last for, in milliseconds */
-export const birthdayTimeout = 1000 * 10;
+export const birthdayTimeout = 1000 * 20;
 
 /** Default color to use for RichEmbed's */
 export const defaultEmbedColor = 0x039D5B;
