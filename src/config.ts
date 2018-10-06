@@ -15,6 +15,9 @@ export const prefixedCommandRuleTemplate = {
 /** How long to wait before considering a help channel no longer busy, in milliseconds */
 export const helpChannelBusyTimeout = 1000 * 60 * 10;
 
+/** How long does birthday role last for, in milliseconds */
+export const birthdayTimeout = 1000 * 10;
+
 /** Default color to use for RichEmbed's */
 export const defaultEmbedColor = 0x039D5B;
 
@@ -31,6 +34,7 @@ export const serverIDs = {
   casualVoiceChannelID: '332567530025779200',
   coworkingVoiceChannelID: '262834612932182026',
   playinagameVoiceChannelID: '295976186625130512',
+
   /** Server-specific role IDs */
   adminRoleID: '262835321694060547',
   subredditmodsRoleID: '262843600730062849',
@@ -38,10 +42,14 @@ export const serverIDs = {
   duckyhonouraryRoleID: '390437904859660290',
   duckyartRoleID: '345222078577901569',
   duckyaudioRoleID: '398875444360904704',
+
+  birthdayRoleID: '497922992722935821',
+
   /** VOIP IDs */
   voipRoleID: '275366872189370369',
   voiceactivityRoleID: '390434366125506560',
   voicealumniRoleID: '390563903085477888',
+
   /** Bot Contributor ID */
   botcontributerRoleID: '417797331409436682'
 };

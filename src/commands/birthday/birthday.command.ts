@@ -13,27 +13,29 @@ export class BirthdayCommand implements CommandClass {
    * @param args
    */
   action(msg: Message, args: string[]) {
-    // done in server
-    if (msg.guild) {
-      // done in server, must be admin
-      if (detectStaff(msg.member)) {
-        let member = msg.mentions.members.first();
-        if (member) {
-          // do the birthday thing
-          if (args.indexOf('end') === -1) {
-            console.log('birthday on ' + member.displayName);
-          } else {
-            console.log('birthday ended for ' + member.displayName);
-          }
-        } else {
-          msg.author.send('Could not find specified user for birthday command');
-        }
+    let mention = msg.mentions.members.first();
+    let ending = !!(~args.indexOf('end'))
+
+    if (!ending && detectStaff(msg.member)) {
+
+      // staff added a birthday
+      if (mention !== undefined) {
+        birthdayService.addBirthday(mention);
+      } else {
+        msg.author.send('Could not find specified user for birthday command');
       }
-    } else if (msg.member) {
-      if (args.indexOf('end') !== -1) {
-        // check if valid birthday and then end it
-        console.log('birthday ended for ' + msg.member.displayName);
+
+    } else if (ending) {
+
+      if (detectStaff(msg.member) && mention !== undefined) {
+        // staff targeted a user to remove birthday from
+        birthdayService.removeBirthday(mention);
+      } else {
+        // remove self birthday (doesn't do anything if no birthday)
+        birthdayService.removeBirthday(msg.member);
       }
+
     }
+
   }
 }
