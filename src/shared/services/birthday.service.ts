@@ -1,6 +1,7 @@
 import { jsonService } from './json.service';
-import { User, Guild, Client, GuildMember } from 'discord.js';
+import { User, Guild, Role, Client, GuildMember } from 'discord.js';
 import { birthdayTimeout, serverIDs } from '../../config';
+import { roleService } from '../../shared';
 
 /**
  * Manages birthday timers
@@ -26,10 +27,11 @@ class BirthdayService {
    * add birthday and add to file
    */
   addBirthday(user: GuildMember) {
+    let birthdayRole = roleService.getRoleByID(serverIDs.birthdayRoleID);
+
     // add role to user
-    if (!user.roles.has(serverIDs.birthdayRoleID)) {
-      user.addRole(serverIDs.birthdayRoleID);
-      console.log("granted role");
+    if (!user.roles.has(birthdayRole.id)) {
+      user.addRole(birthdayRole);
     }
 
     // clear old timeout
@@ -43,45 +45,33 @@ class BirthdayService {
       this.removeBirthday(user);
     }, birthdayTimeout);
 
-    user.send(':tada: The */r/GameMaker Discord* wishes you a happy birthday! :tada:\n' +
+    user.send(':tada: The **/r/GameMaker Discord** wishes you a happy birthday! :tada:\n' +
               'You\'ve been granted the shiny birthday role and colors for 24 hours\n' +
               'Should you wish to remove it at any time, just message me `!birthday end` and I\'ll remove it for you.');
-    console.log('addBirthday for ' + user.displayName);
-    console.log(this.birthdayTimestamp);
   }
 
   /**
    * end birthday and remove from json
    */
   removeBirthday(user: any) {
+    let birthdayRole = roleService.getRoleByID(serverIDs.birthdayRoleID);
+
     // remove role from user
-    if (user.roles) {
-      // passed a GuildMemeber
-      console.log('Attempting to remove role')
-      if (user.roles.has(serverIDs.birthdayRoleID)) {
-        user.removeRole(serverIDs.birthdayRoleID);
-        console.log('Removed role');
+    this.guild.fetchMember(user.id).then(member => {
+      if (member.roles.has(birthdayRole.id)) {
+        member.send('Your birthday role has been removed, see you next year!');
+        member.removeRole(birthdayRole);
       }
-    } else {
-      // passed only a user
-      this.guild.fetchMember(user.id).then(member => {
-        if (member.roles.has(serverIDs.birthdayRoleID)) {
-          member.removeRole(serverIDs.birthdayRoleID);
-        }
-      });
-    }
+    });
 
     if (user.id in this.birthdayTimeout) {
       clearTimeout(this.birthdayTimeout[user.id]);
       delete this.birthdayTimeout[user.id];
     }
     if (user.id in this.birthdayTimestamp) {
-      delete this.birthdayTimestamp;
+      delete this.birthdayTimestamp[user.id];
     }
 
-    user.send('Your birthday role has been removed, see you next year!');
-    console.log('removeBirthday for ' + user.displayName);
-    console.log(this.birthdayTimestamp);
   }
 }
 

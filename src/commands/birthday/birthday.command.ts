@@ -13,7 +13,12 @@ export class BirthdayCommand implements CommandClass {
    * @param args
    */
   action(msg: Message, args: string[]) {
-    let mention = msg.mentions.members.first();
+    let mention;
+
+    if (msg.mentions.members) {
+      mention = msg.mentions.members.first();
+    }
+
     let ending = !!(~args.indexOf('end'));
 
     if (!ending && detectStaff(msg.member)) {
@@ -32,7 +37,7 @@ export class BirthdayCommand implements CommandClass {
         birthdayService.removeBirthday(mention);
       } else {
         // remove self birthday (doesn't do anything if no birthday)
-        birthdayService.removeBirthday(msg.member);
+        birthdayService.removeBirthday(msg.author);
       }
 
     }
