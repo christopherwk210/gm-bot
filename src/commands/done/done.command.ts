@@ -15,7 +15,7 @@ export class DoneCommand implements CommandClass {
   action(msg: Message, args: string[]) {
     helpChannelService.markNotBusy(msg.channel.id);
 
-    if (!!~args.indexOf('silent') || !!~args.indexOf('s')) return;
+    if (args.includes('silent') || args.includes('s')) return;
 
     const sirQuackers = guildService.guild.emojis.find('name', 'duckycode').toString();
     msg.channel.send(`This channel is now available for another question ${sirQuackers}`);

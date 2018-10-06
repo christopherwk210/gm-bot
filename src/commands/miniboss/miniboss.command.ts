@@ -79,7 +79,7 @@ export class MinibossCommand implements CommandClass {
     let postData = await this.getMinibossPostData();
     if (!postData) return false;
 
-    return postData.filter(post => !!~post.title.toUpperCase().indexOf(postName.toUpperCase()));
+    return postData.filter(post => post.title.toUpperCase().includes(postName.toUpperCase()));
   }
 
   /** 
@@ -99,7 +99,7 @@ export class MinibossCommand implements CommandClass {
       .replace('Reading text with a timer is a bit stressful, so I added still frames of this tutorial:', '');
 
     // Get all gifs
-    let gifs = $('img').filter((i, img) => !!~img.attribs['src'].indexOf('gif'));
+    let gifs = $('img').filter((i, img) => img.attribs['src'].includes('gif'));
 
     // Get all post titles
     let titles = bodyText.match(/#[0-9]+( | )([^#\n])+/g).reverse();

@@ -23,7 +23,7 @@ class ChannelService {
 
       switch (guildChannel.type) {
         case 'text':
-          this.textChannels.push(<TextChannel> guildChannel);
+          this.textChannels.push(<TextChannel>guildChannel);
           break;
         case 'voice':
           this.voiceChannels.push(<VoiceChannel>guildChannel);

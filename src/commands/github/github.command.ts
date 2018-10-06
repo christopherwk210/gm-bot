@@ -49,7 +49,7 @@ export class GithubCommand implements CommandClass {
 
     // Perform search
     let repos: any[] = githubInfo.repos;
-    let searchResult = repos.find(repo => !!~repo.name.toUpperCase().indexOf(query.toUpperCase()));
+    let searchResult = repos.find(repo => repo.name.toUpperCase().includes(query.toUpperCase()));
 
     if (!searchResult) {
       (<Message>loadingMessage).delete();

@@ -10,10 +10,10 @@ import { serverIDs } from '../../config';
  */
 export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | false {
   if (!member || !member.roles) return false;
-  if (member.roles.has(serverIDs.adminRoleID) || member.roles.has(serverIDs.subredditmodsRoleID)) return 'admin';
-  if (member.roles.has(serverIDs.duckycodeRoleID) || member.roles.has(serverIDs.duckyhonouraryRoleID)) return 'code';
-  if (member.roles.has(serverIDs.duckyartRoleID)) return 'art';
-  if (member.roles.has(serverIDs.duckyaudioRoleID)) return 'audio';
+  if (member.roles.has(serverIDs.roles.adminRoleID) || member.roles.has(serverIDs.roles.subredditModsRoleID)) return 'admin';
+  if (member.roles.has(serverIDs.roles.duckyCodeRoleID) || member.roles.has(serverIDs.roles.duckyHonouraryRoleID)) return 'code';
+  if (member.roles.has(serverIDs.roles.duckyArtRoleID)) return 'art';
+  if (member.roles.has(serverIDs.roles.duckyAudioRoleID)) return 'audio';
 
   return false;
 }

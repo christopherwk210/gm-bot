@@ -113,7 +113,7 @@ class DocsService {
   private docsPingCogWhisperers(errorWord: string) {
     const errorMessage = `GMBot's new doc service was invoked succesfully but failed to find:\n\`\`\`${errorWord}\`\`\``;
     // Send error to the bot testing channel
-    const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.botTestingChannelID);
+    const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.channels.botTestingChannelID);
     if (botTestingChannel) botTestingChannel.send(errorMessage);
   }
 }
