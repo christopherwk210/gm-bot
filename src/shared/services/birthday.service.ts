@@ -10,8 +10,8 @@ import { roleService } from '../../shared';
  */
 class BirthdayService {
   /** Storage for ongoing birthdays */
-  private birthdayTimestamp: BirthdayContainer;
-  private birthdayTimeout: BirthdayContainer;
+  private timestamps: BirthdayContainer = {};
+  private timeouts: BirthdayContainer = {};
 
   /** We need this for member lookups when interacting in DM */
   private guild: Guild;
@@ -21,36 +21,28 @@ class BirthdayService {
   private asyncWriter: AsyncWriter;
 
   constructor() {
-      this.timestamps = this.loadExistingData();
+    this.timestamps = this.loadExistingData();
+    // restore timers from file
+    for (let userid in this.timestamps) {
+      if (this.timestamps.hasOwnProperty(userid)) {
+        
+        let timestamp = this.timestamps[userid];
+        let newTimeout = timestamp + birthdayTimeout - new Date().getTime();
+        if (newTimeout < 10 * 1000) {
+          // make sure timeout is at least 10 seconds into the future to avoid
+          // trying to revoke roles immediately on startup
+          newTimeout = 10 * 1000;
+        }
 
-      for (let userid in this.timestamps) {
-          let timestamp = this.timestamps[userid];
-          let newTimeout = timestamp + birthdayTimeout - new Date().getTime();
-          if (newTimeout < 10*1000) {
-              // make sure timeout is at least 10 seconds into the future to avoid
-              // trying to revoke roles immediately on startup
-              newTimeout = 10*1000
-          }
-
-          this.timeouts[userid] = setTimeout(() => {
-            let user = {id: userid};
-            this.removeBirthday(user);
-          }, newTimeout);
-          console.log('Restored birthday timeout for ' + userid + ' timer: ' + newTimeout);
+        this.timeouts[userid] = setTimeout(() => {
+          let user = {id: userid};
+          this.removeBirthday(user);
+        }, newTimeout);
+        console.log('Restored birthday timeout for ' + userid + ' timer: ' + newTimeout);
       }
-
-      this.asyncWriter = jsonService.getAsyncWriter(this.birthdayDataPath, true);
-  }
-
-  /** Loads existing data, or creates it if not present */
-  private loadExistingData() {
-    let exists = fs.existsSync(this.birthdayDataPath);
-    if (exists) {
-      return fs.readFileSync(this.birthdayDataPath, 'utf8');
-    } else {
-      fs.writeFileSync(this.birthdayDataPath, '{}', 'utf8');
-      return {};
     }
+
+    this.asyncWriter = jsonService.getAsyncWriter(this.birthdayDataPath, true);
   }
 
   /** Load active birthday timers from file */
@@ -71,6 +63,7 @@ class BirthdayService {
     }
 
     // clear old timeout
+    console.log(this.timeouts);
     if (this.timeouts[user.id]) {
       clearTimeout(this.timeouts[user.id]);
     }
@@ -109,6 +102,17 @@ class BirthdayService {
       delete this.timestamps[user.id];
     }
     this.save();
+  }
+
+  /** Loads existing data, or creates it if not present */
+  private loadExistingData() {
+    let exists = fs.existsSync(this.birthdayDataPath);
+    if (exists) {
+      return JSON.parse(fs.readFileSync(this.birthdayDataPath, 'utf8'));
+    } else {
+      fs.writeFileSync(this.birthdayDataPath, '{}', 'utf8');
+      return {};
+    }
   }
 
   /** Saves all current birthday data */
