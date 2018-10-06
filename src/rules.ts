@@ -29,7 +29,8 @@ import {
   UpvoteCommand,
   HelpcardCommand,
   DoneCommand,
-  SecurityCommand
+  SecurityCommand,
+  BirthdayCommand
 } from './commands';
 
 // Modifiers
@@ -98,7 +99,8 @@ export function loadRules() {
     AssembleCommand,
     CommandmentCommand,
     LifetimeCommand,
-    ChristmasCommand
+    ChristmasCommand,
+    BirthdayCommand
   ];
 
   /** Reply RuleFactor rules */

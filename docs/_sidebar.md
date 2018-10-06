@@ -19,6 +19,7 @@
 
     * [Assemble](/features/commands/assemble.md)
     * [Audio](/features/commands/audio.md)
+    * [Birthday](/features/commands/birthday.md)
     * [Changelog](/features/commands/changelog.md)
     * [Christmas](/features/commands/christmas.md)
     * [Commandment](/features/commands/commandment.md)
