@@ -27,7 +27,7 @@ class BirthdayService {
       if (this.timestamps.hasOwnProperty(userid)) {
 
         let timestamp = this.timestamps[userid];
-        let newTimeout = timestamp + birthdayTimeout - new Date().getTime();
+        let newTimeout = timestamp - new Date().getTime();
         if (newTimeout < 10 * 1000) {
           // make sure timeout is at least 10 seconds into the future to avoid
           // trying to revoke roles immediately on startup
@@ -38,7 +38,7 @@ class BirthdayService {
           let user = {id: userid};
           this.removeBirthday(user);
         }, newTimeout);
-        console.log('Restored birthday timeout for ' + userid + ' timer: ' + newTimeout);
+        //console.log('Restored birthday timeout for ' + userid + ' timer: ' + newTimeout);
       }
     }
 
@@ -68,7 +68,7 @@ class BirthdayService {
     }
 
     // add new timeout
-    this.timestamps[user.id] = new Date().getTime(); // timestamp in milliseconds
+    this.timestamps[user.id] = new Date().getTime() + birthdayTimeout; // expiration timestamp in milliseconds
     this.timeouts[user.id] = setTimeout(() => {
       this.removeBirthday(user);
     }, birthdayTimeout);
