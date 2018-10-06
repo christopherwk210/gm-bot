@@ -1,4 +1,6 @@
-import { jsonService } from './json.service';
+import * as path from 'path';
+import * as fs from 'fs';
+import { jsonService, AsyncWriter } from './json.service';
 import { User, Guild, Role, Client, GuildMember } from 'discord.js';
 import { birthdayTimeout, serverIDs } from '../../config';
 import { roleService } from '../../shared';
@@ -7,20 +9,54 @@ import { roleService } from '../../shared';
  * Manages birthday timers
  */
 class BirthdayService {
-  birthdayTimestamp: object = {};
-  birthdayTimeout: object = {};
-  guild: Guild;
+  /** Storage for ongoing birthdays */
+  private birthdayTimestamp: BirthdayContainer;
+  private birthdayTimeout: BirthdayContainer;
+
+  /** We need this for member lookups when interacting in DM */
+  private guild: Guild;
+
+  /** The writer for JSON cache of ongoing birthdays */
+  private birthdayDataPath = path.join(__dirname, '../../../data/birthdayData.json');
+  private asyncWriter: AsyncWriter;
+
+  constructor() {
+      this.timestamps = this.loadExistingData();
+
+      for (let userid in this.timestamps) {
+          let timestamp = this.timestamps[userid];
+          let newTimeout = timestamp + birthdayTimeout - new Date().getTime();
+          if (newTimeout < 10*1000) {
+              // make sure timeout is at least 10 seconds into the future to avoid
+              // trying to revoke roles immediately on startup
+              newTimeout = 10*1000
+          }
+
+          this.timeouts[userid] = setTimeout(() => {
+            let user = {id: userid};
+            this.removeBirthday(user);
+          }, newTimeout);
+          console.log('Restored birthday timeout for ' + userid + ' timer: ' + newTimeout);
+      }
+
+      this.asyncWriter = jsonService.getAsyncWriter(this.birthdayDataPath, true);
+  }
+
+  /** Loads existing data, or creates it if not present */
+  private loadExistingData() {
+    let exists = fs.existsSync(this.birthdayDataPath);
+    if (exists) {
+      return fs.readFileSync(this.birthdayDataPath, 'utf8');
+    } else {
+      fs.writeFileSync(this.birthdayDataPath, '{}', 'utf8');
+      return {};
+    }
+  }
 
   /** Load active birthday timers from file */
   init(client: Client) {
     // Save guild for later
     this.guild = client.guilds.first();
-
-    let loadedBirthdays = jsonService.files['birthdayTimers'];
-    if (loadedBirthdays) {
-      // do stuff to load timers
-      console.log('load timers');
-    }
   }
 
   /**
@@ -35,19 +71,20 @@ class BirthdayService {
     }
 
     // clear old timeout
-    if (user.id in this.birthdayTimeout) {
-      clearTimeout(this.birthdayTimeout[user.id]);
+    if (this.timeouts[user.id]) {
+      clearTimeout(this.timeouts[user.id]);
     }
 
     // add new timeout
-    this.birthdayTimestamp[user.id] = new Date().getTime(); // timestamp in milliseconds
-    this.birthdayTimeout[user.id] = setTimeout(() => {
+    this.timestamps[user.id] = new Date().getTime(); // timestamp in milliseconds
+    this.timeouts[user.id] = setTimeout(() => {
       this.removeBirthday(user);
     }, birthdayTimeout);
 
     user.send(':tada: The **/r/GameMaker Discord** wishes you a happy birthday! :tada:\n' +
               'You\'ve been granted the shiny birthday role and colors for 24 hours\n' +
               'Should you wish to remove it at any time, just message me `!birthday end` and I\'ll remove it for you.');
+    this.save();
   }
 
   /**
@@ -64,15 +101,24 @@ class BirthdayService {
       }
     });
 
-    if (user.id in this.birthdayTimeout) {
-      clearTimeout(this.birthdayTimeout[user.id]);
-      delete this.birthdayTimeout[user.id];
+    if (this.timeouts[user.id]) {
+      clearTimeout(this.timeouts[user.id]);
+      delete this.timeouts[user.id];
     }
-    if (user.id in this.birthdayTimestamp) {
-      delete this.birthdayTimestamp[user.id];
+    if (this.timestamps[user.id]) {
+      delete this.timestamps[user.id];
     }
+    this.save();
+  }
 
+  /** Saves all current birthday data */
+  private save() {
+    this.asyncWriter(this.timestamps);
   }
 }
 
 export let birthdayService = new BirthdayService();
+
+interface BirthdayContainer {
+  [key: string]: any;
+}
