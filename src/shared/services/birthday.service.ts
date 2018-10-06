@@ -17,18 +17,15 @@ class BirthdayService {
   private guild: Guild;
 
   /** The writer for JSON cache of ongoing birthdays */
+  private birthdayDataPath = path.join(__dirname, '../../../data/birthdayData.json');
   private asyncWriter: AsyncWriter;
 
   constructor() {
-    let loadData = jsonService.files['birthdayData'];
-    if (loadData) {
-        this.timestamps = loadData;
-    }
-
+    this.timestamps = this.loadExistingData();
     // restore timers from file
     for (let userid in this.timestamps) {
       if (this.timestamps.hasOwnProperty(userid)) {
-
+        
         let timestamp = this.timestamps[userid];
         let newTimeout = timestamp + birthdayTimeout - new Date().getTime();
         if (newTimeout < 10 * 1000) {
@@ -45,7 +42,7 @@ class BirthdayService {
       }
     }
 
-    this.asyncWriter = jsonService.getAsyncWriter('birthdayData');
+    this.asyncWriter = jsonService.getAsyncWriter(this.birthdayDataPath, true);
   }
 
   /** Load active birthday timers from file */
@@ -105,6 +102,17 @@ class BirthdayService {
       delete this.timestamps[user.id];
     }
     this.save();
+  }
+
+  /** Loads existing data, or creates it if not present */
+  private loadExistingData() {
+    let exists = fs.existsSync(this.birthdayDataPath);
+    if (exists) {
+      return JSON.parse(fs.readFileSync(this.birthdayDataPath, 'utf8'));
+    } else {
+      fs.writeFileSync(this.birthdayDataPath, '{}', 'utf8');
+      return {};
+    }
   }
 
   /** Saves all current birthday data */

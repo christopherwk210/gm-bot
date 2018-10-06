@@ -18,9 +18,6 @@ src/shared/assets/json/auth.json
 # No docs stuff!
 src/shared/assets/json/gmlDocs.json
 
-# No birthdays stuff!
-src/shared/assets/json/birthdayData.json
-
 # I don't want your stinkin IDE settings!
 /.idea
 
