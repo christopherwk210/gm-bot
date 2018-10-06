@@ -312,12 +312,13 @@ export class DocsCommand implements CommandClass {
         title: docInfo.entry.signature,
         url: docInfo.entry.link,
         description: funcDesc,
-        fields: ourArgs.length === 0 ? undefined :
-        [{
-          name: 'Arguments',
-          value: ourArgs.join('\n'),
-          inline: true
-        }],
+        fields: ourArgs.length === 0 ? undefined : [
+          {
+            name: 'Arguments',
+            value: ourArgs.join('\n'),
+            inline: true
+          }
+        ],
         timestamp: new Date(),
         footer: {
           text: `This message was called for ${user.username}`

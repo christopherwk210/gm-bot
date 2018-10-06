@@ -1,5 +1,4 @@
 import * as path from 'path';
-import { Client } from 'discord.js';
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';

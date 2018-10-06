@@ -60,11 +60,11 @@ bot.on('ready', onBotReady);                        // Bot is loaded
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
+bot.on('error', onBotError);                        // Bot encountered an error
 bot.on('guildMemberAdd', user => {                  // New user joined
   WelcomeCommand.sendWelcomeMessage(user);
   SecurityCommand.newUserSecurity(user);
 });
-bot.on('error', onBotError);                        // Bot encountered an error
 
 /**
  * Called when the bot has reported ready status
@@ -103,9 +103,9 @@ function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
       )
     ) {
       // Fetch the proper roles
-      const voipRole = roleService.getRoleByID(serverIDs.voipRoles.voipRoleID);          // 'voip' role
+      const voipRole = roleService.getRoleByID(serverIDs.voipRoles.voipRoleID);                   // 'voip' role
       const voiceActivityRole = roleService.getRoleByID(serverIDs.voipRoles.voiceActivityRoleID); // 'voice activity' role
-      const voipAlumniRole = roleService.getRoleByID(serverIDs.voipRoles.voiceAlumniRoleID);    // 'voip alumni' role
+      const voipAlumniRole = roleService.getRoleByID(serverIDs.voipRoles.voiceAlumniRoleID);      // 'voip alumni' role
 
       // If there's no voip role to use... dont do anything else
       if (!voipRole) return;
