@@ -1,10 +1,16 @@
-# Lifetime
+# Birthday
+
+> **Matches:** `!done`
+
+> **Usable by:** Everyone
+
+Allows a user with a birthday role to `!birthday end` their role
 
 > **Matches:** `!birthday`
 
 > **Usable by:** Staff & Ducks
 
-Grants a user with the birthday role, which will expire in 24 hours.  Users with the role may end their birthday role using `!birthday end`
+Grants a user with the birthday role, which will expire in 24 hours; or removes the role from the user.
 
 ```
 !birthday [@user]

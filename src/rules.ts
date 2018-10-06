@@ -87,7 +87,7 @@ export function loadRules() {
     {
       matches: ['id'],
       ...prefixedCommandRuleTemplate,
-      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.botcontributerRoleID),
+      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.botContributerRoleID),
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
@@ -118,12 +118,16 @@ export function loadRules() {
       ':regional_indicator_b: :regional_indicator_g: :regional_indicator_m: :hammer:'
     ),
     RuleFactory.createReplyRule(
-      ['dinguses', 'DINGUSES'],
-      ':raised_hand: ***dinguses*** :raised_back_of_hand:'
+      ['!dinguses'],
+      ':raised_hand: ***dinguses*** :raised_back_of_hand:',
+      false,
+      true
     ),
     RuleFactory.createReplyRule(
-      ['dingus', 'DINGUS'],
-      ':raised_hand: ***dingus*** :raised_back_of_hand:'
+      ['!dingus'],
+      ':raised_hand: ***dingus*** :raised_back_of_hand:',
+      false,
+      true
     ),
     RuleFactory.createReplyRule(
       ['givesidadonut'],
@@ -213,7 +217,7 @@ export function loadRules() {
     ),
     RuleFactory.createReactionRule(
       ['mmm'],
-      ['🇲', 'Ⓜ', guildService.guild.emojis.find('name', 'meseta')],
+      ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
       true
     )
   ];

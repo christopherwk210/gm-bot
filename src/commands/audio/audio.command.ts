@@ -37,7 +37,7 @@ export class AudioCommand implements CommandClass {
 
     switch (args[0].slice(1)) {
       case 'play':
-        let url = args.find(item => !!~item.indexOf('http'));
+        let url = args.find(item => item.includes('http'));
         let voiceChannel = msg.member.voiceChannel;
         let result = await this.play(url, voiceChannel);
         msg.author.send(result);

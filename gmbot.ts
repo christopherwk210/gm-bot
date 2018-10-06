@@ -61,7 +61,8 @@ bot.on('ready', onBotReady);                        // Bot is loaded
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
-bot.on('guildMemberAdd', user => {
+bot.on('error', onBotError);                        // Bot encountered an error
+bot.on('guildMemberAdd', user => {                  // New user joined
   WelcomeCommand.sendWelcomeMessage(user);
   SecurityCommand.newUserSecurity(user);
 });
@@ -98,15 +99,15 @@ function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
     if (
       newMember && newMember.voiceChannel &&
       (
-        newMember.voiceChannel.id === serverIDs.casualVoiceChannelID ||    // Casual
-        newMember.voiceChannel.id === serverIDs.coworkingVoiceChannelID || // Coworking
-        newMember.voiceChannel.id === serverIDs.playinagameVoiceChannelID  // Playin a game
+        newMember.voiceChannel.id === serverIDs.channels.casualVoiceChannelID ||    // Casual
+        newMember.voiceChannel.id === serverIDs.channels.coworkingVoiceChannelID || // Coworking
+        newMember.voiceChannel.id === serverIDs.channels.playinaGameVoiceChannelID  // Playin a game
       )
     ) {
       // Fetch the proper roles
-      const voipRole = roleService.getRoleByID(serverIDs.voipRoleID);          // 'voip' role
-      const voiceActivityRole = roleService.getRoleByID(serverIDs.voiceactivityRoleID); // 'voice activity' role
-      const voipAlumniRole = roleService.getRoleByID(serverIDs.voicealumniRoleID);    // 'voip alumni' role
+      const voipRole = roleService.getRoleByID(serverIDs.voipRoles.voipRoleID);                   // 'voip' role
+      const voiceActivityRole = roleService.getRoleByID(serverIDs.voipRoles.voiceActivityRoleID); // 'voice activity' role
+      const voipAlumniRole = roleService.getRoleByID(serverIDs.voipRoles.voiceAlumniRoleID);      // 'voip alumni' role
 
       // If there's no voip role to use... dont do anything else
       if (!voipRole) return;
@@ -149,16 +150,19 @@ function onBotMessage(msg: Message) {
   // Send the message along to the HelpChannelService
   helpChannelService.handleMessage(msg);
 
-  // Apply the will of the almighty tophtoken manager
-  if (msg.member && !!~msg.member.displayName.toLowerCase().indexOf('tophtoken')) {
-    msg.react(guildService.guild.emojis.find('name', 'tophtoken'));
-  }
-
   // Parse message for commands or matches
   if (parseCommandList(rules, msg)) return;
 
   // If no command was hit, check for modifiers
   parseModifierList(modifiers, msg);
+}
+
+/**
+ * Called whenever the bot client encounters an internal error
+ * @param error The client error
+ */
+function onBotError(error: Error) {
+  console.log('\nThe bot client encountered an error:\n', error);
 }
 
 // Handle process-wide promise rejection
@@ -171,7 +175,7 @@ process.on('uncaughtException', err => {
   const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
   // Send error to the bot testing channel
-  const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.botTestingChannelID);
+  const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.channels.botTestingChannelID);
   if (botTestingChannel) botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);

@@ -7,7 +7,8 @@ class SecurityService {
   private currentSecurityState: boolean;
 
   constructor() {
-    /** Default security state set to true. */
+
+    /** Default security state set to true */
     this.currentSecurityState = true;
   }
 

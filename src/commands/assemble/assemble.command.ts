@@ -14,9 +14,9 @@ export class AssembleCommand implements CommandClass {
    */
   async action(msg: Message, args: string[]) {
     // Grab the duck roles
-    let ducks = roleService.getRoleByID(serverIDs.duckycodeRoleID);
-    let audio = roleService.getRoleByID(serverIDs.duckyaudioRoleID);
-    let art = roleService.getRoleByID(serverIDs.duckyartRoleID);
+    let ducks = roleService.getRoleByID(serverIDs.roles.duckyCodeRoleID);
+    let audio = roleService.getRoleByID(serverIDs.roles.duckyAudioRoleID);
+    let art = roleService.getRoleByID(serverIDs.roles.duckyArtRoleID);
 
     try {
       await ducks.setMentionable(true);

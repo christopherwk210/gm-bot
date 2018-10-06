@@ -46,7 +46,7 @@ class DocsService {
     }
 
     // Return undefined if we failed, and ping the Cog Whisperers
-    this.docsPingCogWhisperers(docWord);
+    // this.docsPingCogWhisperers(docWord);
     return undefined;
   }
 
@@ -57,22 +57,17 @@ class DocsService {
    */
   docsFindClosest(docWord: string, nClosest: number): DocList[] {
     let scores = [];
-    const threshold = 0; // threshold above which string will be added to suggestions
 
     // collect scores from functions
     for (const thisFuncEntry of this.docs.functions) {
       let similarity = stringSimilarity.compareTwoStrings(docWord, thisFuncEntry.name);
-      if (similarity > threshold) {
-        scores.push({name: thisFuncEntry.name, similarity, link: thisFuncEntry.link});
-      }
+      scores.push({name: thisFuncEntry.name, similarity, link: thisFuncEntry.link});
     }
 
     // collect scores from variables
     for (const thisVarEntry of this.docs.variables) {
       let similarity = stringSimilarity.compareTwoStrings(docWord, thisVarEntry.name);
-      if (similarity > threshold) {
-        scores.push({name: thisVarEntry.name, similarity, link: thisVarEntry.link});
-      }
+      scores.push({name: thisVarEntry.name, similarity, link: thisVarEntry.link});
     }
 
     // sort list
@@ -118,7 +113,7 @@ class DocsService {
   private docsPingCogWhisperers(errorWord: string) {
     const errorMessage = `GMBot's new doc service was invoked succesfully but failed to find:\n\`\`\`${errorWord}\`\`\``;
     // Send error to the bot testing channel
-    const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.botTestingChannelID);
+    const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.channels.botTestingChannelID);
     if (botTestingChannel) botTestingChannel.send(errorMessage);
   }
 }

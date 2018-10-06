@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { Message } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass, markdownService } from '../../shared';

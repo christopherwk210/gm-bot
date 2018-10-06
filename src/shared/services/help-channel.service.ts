@@ -67,7 +67,7 @@ class HelpChannelService {
    */
 
   cacheHelpChannels() {
-    serverIDs.helpChannelIDs.forEach(channelID => {
+    serverIDs.channels.helpChannelIDs.forEach(channelID => {
         this.addHelpChannel(channelID);
     });
   }
