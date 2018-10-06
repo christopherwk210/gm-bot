@@ -76,7 +76,7 @@ function onBotReady() {
   channelService.init(bot);
   helpChannelService.cacheHelpChannels();
   docService.init();
-  birthdayService.init();
+  birthdayService.init(bot);
 
   // Load all rules
   rules = loadRules();
