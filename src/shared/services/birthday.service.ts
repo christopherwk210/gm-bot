@@ -25,7 +25,7 @@ class BirthdayService {
     // restore timers from file
     for (let userid in this.timestamps) {
       if (this.timestamps.hasOwnProperty(userid)) {
-        
+
         let timestamp = this.timestamps[userid];
         let newTimeout = timestamp + birthdayTimeout - new Date().getTime();
         if (newTimeout < 10 * 1000) {
@@ -63,7 +63,6 @@ class BirthdayService {
     }
 
     // clear old timeout
-    console.log(this.timeouts);
     if (this.timeouts[user.id]) {
       clearTimeout(this.timeouts[user.id]);
     }
