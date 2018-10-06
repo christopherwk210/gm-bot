@@ -38,7 +38,7 @@ export const serverIDs = {
   /** Server-specific role IDs */
   adminRoleID: '262835321694060547',
   subredditmodsRoleID: '262843600730062849',
-  duckycodeRoleID: '262926334118985728',
+  duckycodeRoleID: '453235306783571968',
   duckyhonouraryRoleID: '390437904859660290',
   duckyartRoleID: '345222078577901569',
   duckyaudioRoleID: '398875444360904704',

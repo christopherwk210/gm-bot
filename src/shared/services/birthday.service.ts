@@ -26,8 +26,8 @@ class BirthdayService {
     }
 
     // clear old timeout
-    if (user.id in birthdays) {
-      clearTimeout(birthdays[user.id].timeout);
+    if (user.id in this.birthdays) {
+      clearTimeout(this.birthdays[user.id].timeout);
     }
 
     // add new timeout
@@ -40,7 +40,7 @@ class BirthdayService {
               'You\'ve been granted the shiny birthday role and colors for 24 hours\n' +
               'Should you wish to remove it at any time, just message me `!birthday end` and I\'ll remove it for you.');
     console.log('addBirthday for ' + user.displayName);
-
+    console.log(this.birthdays);
   }
 
   /**
@@ -52,12 +52,13 @@ class BirthdayService {
       user.removeRole(serverIDs.birthdayRoleID);
     }
 
-    if (user.id in birthdays) {
-        clearTimeout(birthdays[user.id].timeout);
-        delete birthdays[user.id];
+    if (user.id in this.birthdays) {
+        clearTimeout(this.birthdays[user.id].timeout);
+        delete this.birthdays[user.id];
     }
     user.send('Your birthday role has been removed, see you next year!');
     console.log('removeBirthday for ' + user.displayName);
+    console.log(this.birthdays);
   }
 }
 

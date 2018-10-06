@@ -14,7 +14,7 @@ export class BirthdayCommand implements CommandClass {
    */
   action(msg: Message, args: string[]) {
     let mention = msg.mentions.members.first();
-    let ending = !!(~args.indexOf('end'))
+    let ending = !!(~args.indexOf('end'));
 
     if (!ending && detectStaff(msg.member)) {
 
