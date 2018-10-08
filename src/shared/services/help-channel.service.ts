@@ -31,7 +31,11 @@ class HelpChannelService {
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         `${currentName.replace(this.regex, '')}__busy`
-      );
+      )
+      .then(() => {
+        helpChannelController.channel.setTopic(`@${msg.member.nickname} needs some help!`);
+      });
+
       helpChannelController.culprit = msg.author.id;
 
       this.createChannelControllerTimeout(helpChannelController);
@@ -44,7 +48,7 @@ class HelpChannelService {
    * Marks a help channel as not busy
    * @param id Help channel ID
    */
-  markNotBusy(id: string) {
+  async markNotBusy(id: string) {
     const helpChannelController = this.helpChannels.find(
       controller => controller.id === id
     );
@@ -53,7 +57,10 @@ class HelpChannelService {
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         currentName.replace(this.regex, '')
-      );
+      )
+      .then(() => {
+        helpChannelController.channel.setTopic(`:pray: Need a hand with GameMaker?`);
+      });
 
       clearTimeout(helpChannelController.timer);
 
