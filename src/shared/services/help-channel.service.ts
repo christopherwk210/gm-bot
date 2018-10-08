@@ -33,7 +33,7 @@ class HelpChannelService {
         `${currentName.replace(this.regex, '')}__busy`
       )
       .then(() => {
-        helpChannelController.channel.setTopic(`@${msg.member.nickname} needs some help!`);
+        helpChannelController.channel.setTopic(`@${msg.member.displayName} needs some help!`);
       });
 
       helpChannelController.culprit = msg.author.id;
