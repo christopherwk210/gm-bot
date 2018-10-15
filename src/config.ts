@@ -55,10 +55,10 @@ export const serverIDs = {
     voiceActivityRoleID: '390434366125506560',
     voiceAlumniRoleID: '390563903085477888'
   },
-  
+
   /** Shader Role */
   shaderRoleID: '466249504794869760',
-  
+
   /** 3D Role */
   threedRoleID: '379657591657201674',
 
