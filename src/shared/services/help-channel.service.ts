@@ -48,7 +48,7 @@ class HelpChannelService {
    * Marks a help channel as not busy
    * @param id Help channel ID
    */
-  async markNotBusy(id: string) {
+  markNotBusy(id: string) {
     const helpChannelController = this.helpChannels.find(
       controller => controller.id === id
     );
