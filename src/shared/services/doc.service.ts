@@ -27,22 +27,27 @@ class DocsService {
       return undefined;
     }
 
-    // Check if it's a function first:
-    const funcEntry = this.docsFindFunction(docWord);
-    if (funcEntry) {
-      return {
-        entry: funcEntry,
-        type: 'function'
-      };
-    }
+    try {
+      // Check if it's a function first:
+      const funcEntry = this.docsFindFunction(docWord);
+      if (funcEntry) {
+        return {
+          entry: funcEntry,
+          type: 'function'
+        };
+      }
 
-    // Check if it's a variable first:
-    const varEntry = this.docsFindVariable(docWord);
-    if (varEntry) {
-      return {
-        entry: varEntry,
-        type: 'variable'
-      };
+      // Check if it's a variable first:
+      const varEntry = this.docsFindVariable(docWord);
+      if (varEntry) {
+        return {
+          entry: varEntry,
+          type: 'variable'
+        };
+      }
+
+    } catch (err) {
+      console.log('There was an error parsing our gmlDocs file, even though it exists.');
     }
 
     // Return undefined if we failed, and ping the Cog Whisperers
@@ -51,8 +56,8 @@ class DocsService {
   }
 
   /**
-   * Iterates over everything and calculates leven distance score, returning
-   * the n closest matches
+   * Iterates over everything and calculates level distance score, returning
+   * the n closest matches.
    * @param docWord The word to find a function entry for.
    */
   docsFindClosest(docWord: string, nClosest: number): DocList[] {
