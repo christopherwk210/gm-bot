@@ -31,7 +31,11 @@ class HelpChannelService {
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         `${currentName.replace(this.regex, '')}__busy`
-      );
+      )
+      .then(() => {
+        helpChannelController.channel.setTopic(`@${msg.member.displayName} needs some help!`);
+      });
+
       helpChannelController.culprit = msg.author.id;
 
       this.createChannelControllerTimeout(helpChannelController);
@@ -53,7 +57,10 @@ class HelpChannelService {
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         currentName.replace(this.regex, '')
-      );
+      )
+      .then(() => {
+        helpChannelController.channel.setTopic(`:pray: Need a hand with GameMaker?`);
+      });
 
       clearTimeout(helpChannelController.timer);
 
