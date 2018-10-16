@@ -197,10 +197,6 @@ export function loadRules() {
       ['👋']
     ),
     RuleFactory.createReactionRule(
-      ['<@361088614735544320>', '<@!361088614735544320>'],
-      ['🇸', '🇦', '🇷', '🅰']
-    ),
-    RuleFactory.createReactionRule(
       ['hmm'],
       ['🇭', '🇲', 'Ⓜ'],
       true
