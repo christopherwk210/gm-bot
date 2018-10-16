@@ -4,7 +4,7 @@ import { Command, CommandClass } from '../../shared';
 import * as https from 'https';
 
 @Command({
-  matches: ['github', 'community-github', 'gh'],
+  matches: ['github', 'community-github', 'gh', 'cgh'],
   ...prefixedCommandRuleTemplate
 })
 export class GithubCommand implements CommandClass {
