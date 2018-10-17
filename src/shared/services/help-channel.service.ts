@@ -1,4 +1,4 @@
-import { helpChannelBusyTimeout, serverIDs } from '../../config';
+import { helpChannelBusyTimeout, serverIDs, helpChannelDesc } from '../../config';
 import { channelService } from '../';
 import { GuildChannel, TextChannel, Message } from 'discord.js';
 import { detectStaff } from '../utils/detect-staff';
@@ -59,7 +59,7 @@ class HelpChannelService {
         currentName.replace(this.regex, '')
       )
       .then(() => {
-        helpChannelController.channel.setTopic(`:pray: Need a hand with GameMaker?`);
+        helpChannelController.channel.setTopic(helpChannelDesc);
       });
 
       clearTimeout(helpChannelController.timer);
@@ -108,7 +108,7 @@ class HelpChannelService {
       controller.channel
         .setName(currentName.replace(this.regex, ''))
         .then(() => {
-          controller.channel.setTopic(':pray: Need a hand with GameMaker?');
+          controller.channel.setTopic(helpChannelDesc);
         });
       controller.busy = false;
     }, helpChannelBusyTimeout);
