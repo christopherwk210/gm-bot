@@ -105,7 +105,11 @@ class HelpChannelService {
     const currentName = controller.channel.name;
 
     controller.timer = setTimeout(() => {
-      controller.channel.setName(currentName.replace(this.regex, ''));
+      controller.channel
+        .setName(currentName.replace(this.regex, ''))
+        .then(() => {
+          controller.channel.setTopic(':pray: Need a hand with GameMaker?');
+        });
       controller.busy = false;
     }, helpChannelBusyTimeout);
   }
