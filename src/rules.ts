@@ -30,7 +30,8 @@ import {
   HelpcardCommand,
   DoneCommand,
   SecurityCommand,
-  BirthdayCommand
+  BirthdayCommand,
+  StarterCommand
 } from './commands';
 
 // Modifiers
@@ -72,7 +73,8 @@ export function loadRules() {
     PaletteCommand,
     UpvoteCommand,
     HelpcardCommand,
-    DoneCommand
+    DoneCommand,
+    StarterCommand
   ];
 
   /** Admin only commands */
