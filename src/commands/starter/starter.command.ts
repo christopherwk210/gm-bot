@@ -96,4 +96,3 @@ export class StarterCommand implements CommandClass {
         }
     }
 }
-
