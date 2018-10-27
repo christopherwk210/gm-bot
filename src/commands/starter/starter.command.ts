@@ -12,23 +12,22 @@ import {
 })
 export class StarterCommand implements CommandClass {
     action(msg: Message, args: string[]) {
-        let whoTag = msg.author;
-        let client = msg.channel.client;
+        let whoMessage = msg.author;
 
         // #region Stuff for pinging and sending to pinged users
         // check for mentioned user
         if (msg.mentions.users.first() !== undefined  && detectStaff(msg.member)) {
-            whoTag = msg.mentions.users.first();
+            whoMessage = msg.mentions.users.first();
             // check if tagged user is a member of of the server
             if (msg.mentions.members.first() === undefined || msg.mentions.users.first().id !== msg.mentions.members.first().id) {
-                msg.author.send(`<@${whoTag.id}> was not a recognized user.`);
+                msg.author.send(`<@${whoMessage.id}> was not a recognized user.`);
                 return;
             }
-        } else { whoTag = msg.author; }
+        }
         // #endregion
 
         // if someone is actually needing the message
-        if (whoTag !== undefined ) {
+        if (whoMessage !== undefined ) {
             // load in those saucy recources
             const kitEmbed = new RichEmbed ({
                 title: '__**r/GM Resource Pack**__',
@@ -92,7 +91,7 @@ export class StarterCommand implements CommandClass {
                 ],
                 color: defaultEmbedColor
               });
-            whoTag.send(kitEmbed);
+            whoMessage.send(kitEmbed);
         }
     }
 }
