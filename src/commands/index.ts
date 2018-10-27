@@ -23,3 +23,4 @@ export * from './done/done.command';
 export * from './helpcard/helpcard.command';
 export * from './security/security.command';
 export * from './birthday/birthday.command';
+export * from './starter/starter.command';
