@@ -187,6 +187,12 @@ export function loadRules() {
     RuleFactory.createReplyRule(
       ['inversekinematics'],
       '<@227032791013916672>'
+    ),
+    RuleFactory.createReplyRule(
+      ['🍣🐉', '🍣 🐉'],
+      '<@282606233607995392>',
+      false,
+      true
     )
   ];
 
@@ -214,6 +220,11 @@ export function loadRules() {
     RuleFactory.createReactionRule(
       ['mmm'],
       ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['<@282606233607995392>'],
+      ['🍣'],
       true
     )
   ];
