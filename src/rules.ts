@@ -7,7 +7,6 @@ import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from './con
 // Commands
 import {
   WelcomeCommand,
-  ResourcesCommand,
   RoleControlCommand,
   HelpCommand,
   DocsCommand,
@@ -57,7 +56,6 @@ export function loadRules() {
   /** Functional utility commands */
   let coreCommands: (Rule | Type<any>)[] = [
     WelcomeCommand,
-    ResourcesCommand,
     RoleControlCommand,
     HelpCommand,
     DocsCommand,
