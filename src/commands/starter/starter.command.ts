@@ -38,8 +38,8 @@ export class StarterCommand implements CommandClass {
                     name: '**GML Written Articles:**',
                     value: '[GMS1.x Documentation](http://docs.yoyogames.com/) \
                     \n [GMS2 Documentation](http://docs2.yoyogames.com/) \
-                    \n Detailed Shader Basics: [Xor Shader Tutorials](https://xorshaders.weebly.com/) \
-                    \n Assorted Gamemaker Articles: [Amazon GM Recources](http://m.amazonappservices.com/GameMakerResources)'
+                    \n [Xor Shader Tutorials](https://xorshaders.weebly.com/) \
+                    \n [Amazon GM Recources](http://m.amazonappservices.com/GameMakerResources)'
                   },
 
                   {
@@ -55,7 +55,8 @@ export class StarterCommand implements CommandClass {
                   {
                     name: '**Advanced GML Topics:**',
                     value: '[Git based source control with GMS2](https://www.youtube.com/watch?v=6zj86KN8Vco) \
-                    \n [Debug Mode Basics](https://www.youtube.com/watch?v=iJH_uTq9iOQ)'
+                    \n [Debug Mode Basics](https://www.youtube.com/watch?v=iJH_uTq9iOQ) \
+                    \n [GMS2 3D Crash Course](https://goo.gl/dqFvus)'
                   },
 
                   {
@@ -65,7 +66,7 @@ export class StarterCommand implements CommandClass {
                   },
 
                   {
-                    name: '**Art Video Recources and Channels:**',
+                    name: '**Art Video Resources and Channels:**',
                     value: '[MortMort](https://www.youtube.com/user/atMNRArt) \
                     \n [Guide on Choosing the Right Canvas Size](https://www.youtube.com/watch?v=AXb-VBZTKDA)'
                   },
@@ -83,7 +84,7 @@ export class StarterCommand implements CommandClass {
                   },
 
                   {
-                    name: '**Other Useful Topics and Recources:**',
+                    name: '**Other Useful Topics and Resources:**',
                     value: '["Your First Game Will (and Should) Suck" By: PixelatedPope](https://goo.gl/sgz7d2) \
                     \n [Your Game Idea is Too Big](http://yourgameideaistoobig.com) \
                     \n [Rubber Duck Debugging](https://rubberduckdebugging.com/)'
