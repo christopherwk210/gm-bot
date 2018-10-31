@@ -1,4 +1,4 @@
-# Resources
+# Starter
 
 > **Matches:** `!starter`, `!starterpack`, `!starterkit`
 
