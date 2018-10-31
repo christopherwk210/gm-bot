@@ -30,6 +30,8 @@ export class AudioCommand implements CommandClass {
    * @param args 
    */
   async action(msg: Message, args: string[]) {
+    return msg.author.send('Audio commands are currently under construction. Please yell at topherlicious if this upsets you.');
+
     if (!this.validateVoiceConnection(msg.member)) {
       msg.author.send('You must be in a voice channel in /r/GameMaker to do that!');
       return;

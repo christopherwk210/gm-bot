@@ -1,3 +1,6 @@
+/**
+ * Serialized list of helpful resources related to game development
+ */
 export const resources: ResourceList = {
   'GML Written Articles:': [
     {
