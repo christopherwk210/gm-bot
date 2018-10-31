@@ -32,38 +32,38 @@ export class AudioCommand implements CommandClass {
   async action(msg: Message, args: string[]) {
     return msg.author.send('Audio commands are currently under construction. Please yell at topherlicious if this upsets you.');
 
-    if (!this.validateVoiceConnection(msg.member)) {
-      msg.author.send('You must be in a voice channel in /r/GameMaker to do that!');
-      return;
-    }
+    // if (!this.validateVoiceConnection(msg.member)) {
+    //   msg.author.send('You must be in a voice channel in /r/GameMaker to do that!');
+    //   return;
+    // }
 
-    switch (args[0].slice(1)) {
-      case 'play':
-        let url = args.find(item => item.includes('http'));
-        let voiceChannel = msg.member.voiceChannel;
-        let result = await this.play(url, voiceChannel);
-        msg.author.send(result);
-        break;
-      case 'resume':
-        this.resume();
-        break;
-      case 'pause':
-        this.pause();
-        break;
-      case 'skip':
-        this.skip();
-        break;
-      case 'queue':
-        msg.author.send( this.getQueueAsMessage() );
-        break;
-      case 'volume':
-        if (!args[1]) return msg.author.send(`Current volume: ${this.volume}`);
-        msg.author.send( this.setVolume(args[1]) );
-        break;
-      case 'kick':
-        this.kick();
-        break;
-    }
+    // switch (args[0].slice(1)) {
+    //   case 'play':
+    //     let url = args.find(item => item.includes('http'));
+    //     let voiceChannel = msg.member.voiceChannel;
+    //     let result = await this.play(url, voiceChannel);
+    //     msg.author.send(result);
+    //     break;
+    //   case 'resume':
+    //     this.resume();
+    //     break;
+    //   case 'pause':
+    //     this.pause();
+    //     break;
+    //   case 'skip':
+    //     this.skip();
+    //     break;
+    //   case 'queue':
+    //     msg.author.send( this.getQueueAsMessage() );
+    //     break;
+    //   case 'volume':
+    //     if (!args[1]) return msg.author.send(`Current volume: ${this.volume}`);
+    //     msg.author.send( this.setVolume(args[1]) );
+    //     break;
+    //   case 'kick':
+    //     this.kick();
+    //     break;
+    // }
   }
 
   /**
