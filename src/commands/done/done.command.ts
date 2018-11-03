@@ -17,9 +17,9 @@ export class DoneCommand implements CommandClass {
 
     if (args.includes('silent') || args.includes('s')) return;
 
-    const possibleEmoji = guildService.guild.emojis.find(emoji => emoji.name === 'duckydevil');
+    const possibleEmoji = guildService.guild.emojis.find(emoji => emoji.name === 'duckycode');
     const sirQuackers = possibleEmoji !== null ? possibleEmoji : '';
-    msg.channel.send(`This question has been cast into the abyss; let another inquiry be brought forward ${sirQuackers}`);
+    msg.channel.send(`This channel is now available for another question ${sirQuackers}`);
   }
 
   /**
