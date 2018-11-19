@@ -4,13 +4,7 @@
 
 > **Usable by:** Everyone
 
-Marks a help channel as not busy. Can only be used if you are the one that made it busy in the first place.
-
-> **Matches:** `!done`
-
-> **Usable by:** Staff & Ducks
-
-Marks a help channel as not busy. 
+Marks a help channel as not busy.
 
 ```
 !done
