@@ -29,6 +29,7 @@ export class DoneCommand implements CommandClass {
    */
   pre(msg: Message, args: string[]) {
     const helpChannelController = helpChannelService.helpChannels.find(controller => controller.id === msg.channel.id);
-    return !!detectStaff(msg.member) || (helpChannelController !== undefined && helpChannelController.culprit === msg.author.id);
+    if (detectStaff(msg.member)) return true;
+    if (helpChannelController.busy) return true;
   }
 }
