@@ -3,18 +3,14 @@ import { Command, CommandClass, roleService } from '../../shared';
 import { prefixedCommandRuleTemplate, serverIDs } from '../../config';
 
 @Command({
-  matches: ['role', '3d', 'voip', 'shader', 'shaders'],
+  matches: ['role', 'voip'],
   ...prefixedCommandRuleTemplate
 })
 export class RoleControlCommand implements CommandClass {
   voipRole: Role;
-  threedRole: Role;
-  shaderRole: Role;
 
   constructor() {
     this.voipRole = roleService.getRoleByID(serverIDs.voipRoles.voipRoleID);
-    this.threedRole = roleService.getRoleByID(serverIDs.threedRoleID);
-    this.shaderRole = roleService.getRoleByID(serverIDs.shaderRoleID);
   }
 
   /**
@@ -24,13 +20,8 @@ export class RoleControlCommand implements CommandClass {
    */
   action(msg: Message, args: string[]) {
     switch (args[0].toLowerCase()) {
-      case '!3d':
-        return this.action(msg, ['!role', '3d']);
       case '!voip':
         return this.action(msg, ['!role', 'voip']);
-      case '!shaders':
-      case '!shader':
-        return this.action(msg, ['!role', 'shader']);
     }
 
     // Ensure we aren't in DM
@@ -51,13 +42,6 @@ export class RoleControlCommand implements CommandClass {
       switch (roleName[0].toUpperCase()) {
         case 'VOIP':
           role = this.voipRole;
-          break;
-        case '3D':
-          role = this.threedRole;
-          break;
-        case 'SHADERS':
-        case 'SHADER':
-          role = this.shaderRole;
           break;
         default:
           msg.author.send('That is not a valid role');
