@@ -1,4 +1,4 @@
-import { helpChannelBusyTimeout, serverIDs, helpChannelDesc } from '../../config';
+import { helpChannelBusyTimeout, serverIDs } from '../../config';
 import { channelService } from '../';
 import { GuildChannel, TextChannel, Message } from 'discord.js';
 import { detectStaff } from '../utils/detect-staff';
@@ -54,10 +54,7 @@ class HelpChannelService {
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         currentName.replace(this.regex, '')
-      )
-      .then(() => {
-        helpChannelController.channel.setTopic(helpChannelDesc);
-      });
+      );
 
       clearTimeout(helpChannelController.timer);
 
@@ -103,10 +100,7 @@ class HelpChannelService {
 
     controller.timer = setTimeout(() => {
       controller.channel
-        .setName(currentName.replace(this.regex, ''))
-        .then(() => {
-          controller.channel.setTopic(helpChannelDesc);
-        });
+        .setName(currentName.replace(this.regex, ''));
       controller.busy = false;
     }, helpChannelBusyTimeout);
   }
