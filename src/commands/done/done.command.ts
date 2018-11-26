@@ -15,7 +15,7 @@ export class DoneCommand implements CommandClass {
   action(msg: Message, args: string[]) {
     helpChannelService.markNotBusy(msg.channel.id);
 
-    if (args.includes('silent') || args.includes('s')) return;
+    if (args.includes('silent') || args.includes('s') || args.includes('sneaky')) return;
 
     const possibleEmoji = guildService.guild.emojis.find(emoji => emoji.name === 'duckycode');
     const sirQuackers = possibleEmoji !== null ? possibleEmoji : '';
