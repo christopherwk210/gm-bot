@@ -12,9 +12,6 @@ export const prefixedCommandRuleTemplate = {
   delete: true
 };
 
-/** Default channel description for the help channels */
-export const helpChannelDesc = ':pray: Need a hand with GameMaker?';
-
 /** How long to wait before considering a help channel no longer busy, in milliseconds */
 export const helpChannelBusyTimeout = 1000 * 60 * 10;
 
