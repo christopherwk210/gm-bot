@@ -1,4 +1,4 @@
-import { Message, RichEmbed, MessageCollector } from 'discord.js';
+import { Message, RichEmbed, MessageCollector, MessageReaction } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from '../../config';
 import { Command, CommandClass, detectStaff, roleService } from '../../shared';
 import { AssembleCommand } from '../assemble/assemble.command';
@@ -8,6 +8,7 @@ import { AssembleCommand } from '../assemble/assemble.command';
   ...prefixedCommandRuleTemplate
 })
 export class VoteCommand implements CommandClass {
+  /** Emojis to use as votes */
   voteEmojiList = [
     '🇦',
     '🇧',
@@ -28,6 +29,7 @@ export class VoteCommand implements CommandClass {
    * @param args Message contents, split on space character
    */
   async action(msg: Message, args: string[]) {
+    // Blank vote configuration
     let currentVoteConfiguration: VoteConfig = {
       title: '',
       description: '',
@@ -36,14 +38,17 @@ export class VoteCommand implements CommandClass {
       voteOptions: ['']
     };
 
+    // Begin by asking for the vote title
     let currentStep: VoteWizardStep = VoteWizardStep.TITLE;
 
     await msg.author.send('You\'ve initiated the vote creation wizard. Type "stop" any time to cancel.');
     await msg.author.send('What is the name of this vote?');
 
+    // Await messages
     const collector = new MessageCollector(msg.author.dmChannel, m => m.author.id === msg.author.id, {});
 
     collector.on('collect', async message => {
+      // Cancel wizard on 'stop'
       if (message.content.toLowerCase() === 'stop') {
         collector.stop();
         await msg.author.send('~~Nuclear crises diverted~~ Vote wizard cancelled.');
@@ -75,6 +80,7 @@ export class VoteCommand implements CommandClass {
               currentVoteConfiguration.pingChoice = loweredContent;
               break;
           }
+
           currentStep = VoteWizardStep.VOTE_OPTIONS;
           msg.author.send(
             `Ping choice saved as ${currentVoteConfiguration.pingChoice} ✅\n` +
@@ -131,7 +137,13 @@ export class VoteCommand implements CommandClass {
     });
   }
 
+  /**
+   * Sends a vote embed to the cahnnel of a given message and tracks reactions
+   * @param msg Original message that triggered the vote wizard
+   * @param voteConfig Vote parameters
+   */
   async sendVoteToChannel(msg: Message, voteConfig: VoteConfig) {
+    // Construct the initial embed
     const embed = new RichEmbed({
       color: defaultEmbedColor,
       description: `${voteConfig.description}\n\n${this.descriptionFromVotes(voteConfig.voteOptions)}`,
@@ -141,6 +153,7 @@ export class VoteCommand implements CommandClass {
       }
     });
 
+    // Ping necessary parties
     const assembleCommand = new AssembleCommand();
     const serverStaffRole = roleService.getRoleByID(serverIDs.roles.serverStaff);
 
@@ -159,6 +172,7 @@ export class VoteCommand implements CommandClass {
 
     const voteMessage: Message = <Message> await msg.channel.send(embed);
 
+    // Give initial reactions to the message
     let voteEmojis = [];
     let i = 0;
     for (const opt of voteConfig.voteOptions) {
@@ -167,11 +181,15 @@ export class VoteCommand implements CommandClass {
       ++i;
     }
 
+    // Begin collecting reactions, only track emojis that belong to this vote
     const filter = reaction => voteEmojis.includes(reaction.emoji.name);
     const collector = voteMessage.createReactionCollector(filter, { time: voteConfig.time * 1000 * 60 });
 
     collector.on('end', async collected => {
-      const reactions = collected.array();
+      // Convert reactions into an array
+      const reactions: MessageReaction[] = collected.array();
+
+      // Tally up the votes
       let currentWinners = [];
       let currentWinnerCount = 0;
 
@@ -187,16 +205,19 @@ export class VoteCommand implements CommandClass {
 
       await msg.channel.send(`The ${voteConfig.title} vote has concluded!`);
 
+      // Handle results
       if (currentWinners.length < 1) {
         await msg.channel.send('...no one voted lol');
       } else if (currentWinners.length === 1) {
         await msg.channel.send(`The winner of this vote is: ${voteConfig.voteOptions[this.voteEmojiList.indexOf(currentWinners[0])]}`);
       } else {
+        // Combine tied vote
         let ties = [];
         currentWinners.forEach(winner => {
           const optIndex = this.voteEmojiList.indexOf(winner);
           ties.push(voteConfig.voteOptions[optIndex]);
         });
+
         await msg.channel.send(`The winner of this vote is tied between:\n\n${ties.join(', ')}`);
       }
     });
