@@ -44,7 +44,7 @@ export class VoteCommand implements CommandClass {
     const collector = new MessageCollector(msg.author.dmChannel, m => m.author.id === msg.author.id, {});
 
     collector.on('collect', async message => {
-      if (message.content === 'stop') {
+      if (message.content.toLowerCase() === 'stop') {
         collector.stop();
         await msg.author.send('~~Nuclear crises diverted~~ Vote wizard cancelled.');
         return;
@@ -66,11 +66,13 @@ export class VoteCommand implements CommandClass {
           break;
 
         case VoteWizardStep.PING_CHOICE:
-          switch (message.content) {
+          let loweredContent = message.content.toLowerCase();
+
+          switch (loweredContent) {
             case 'staff':
             case 'ducks':
             case 'both':
-              currentVoteConfiguration.pingChoice = message.content;
+              currentVoteConfiguration.pingChoice = loweredContent;
               break;
           }
           currentStep = VoteWizardStep.VOTE_OPTIONS;
@@ -116,7 +118,7 @@ export class VoteCommand implements CommandClass {
           break;
 
         case VoteWizardStep.CONFIRM:
-          if (message.content === 'send') {
+          if (message.content.toLowerCase() === 'send') {
             collector.stop();
             await this.sendVoteToChannel(msg, currentVoteConfiguration);
             await msg.author.send('Vote sent 👍');
