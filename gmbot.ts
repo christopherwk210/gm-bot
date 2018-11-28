@@ -162,7 +162,7 @@ function onBotMessage(msg: Message) {
  * @param error The client error
  */
 function onBotError(error: Error) {
-  console.log('\nThe bot client encountered an error:\n', error);
+  console.log('\nThe bot client encountered an error:\n', error.message);
 }
 
 // Handle process-wide promise rejection
