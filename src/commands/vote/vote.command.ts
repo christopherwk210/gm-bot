@@ -159,13 +159,15 @@ export class VoteCommand implements CommandClass {
 
     const voteMessage: Message = <Message> await msg.channel.send(embed);
 
+    let voteEmojis = [];
     let i = 0;
     for (const opt of voteConfig.voteOptions) {
       await voteMessage.react(this.voteEmojiList[i]);
+      voteEmojis.push(this.voteEmojiList[i]);
       ++i;
     }
 
-    const filter = reaction => this.voteEmojiList.includes(reaction.emoji.name);
+    const filter = reaction => voteEmojis.includes(reaction.emoji.name);
     const collector = voteMessage.createReactionCollector(filter, { time: voteConfig.time * 1000 * 60 });
 
     collector.on('end', async collected => {
