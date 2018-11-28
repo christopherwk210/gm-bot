@@ -171,12 +171,12 @@ process.on('unhandledRejection', reason => {
 });
 
 // Handle process-wide exceptions
-process.on('uncaughtException', err => {
+process.on('uncaughtException', async err => {
   const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
   // Send error to the bot testing channel
   const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.channels.botTestingChannelID);
-  if (botTestingChannel) botTestingChannel.send(errorMessage);
+  if (botTestingChannel) await botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);
 
