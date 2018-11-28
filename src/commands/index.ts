@@ -25,6 +25,7 @@ export * from './christmas/christmas.command';
 export * from './birthday/birthday.command';
 
 // Admin stuffs
+export * from './vote/vote.command';
 export * from './say/say.command';
 export * from './security/security.command';
 export * from './giveaway-management/giveaway-management.command';
