@@ -122,7 +122,16 @@ class GiveawayService {
   private loadExistingData() {
     let exists = fs.existsSync(this.giveawayDataPath);
     if (exists) {
-      return fs.readFileSync(this.giveawayDataPath, 'utf8');
+      let existingData = {};
+
+      try {
+        existingData = JSON.parse(fs.readFileSync(this.giveawayDataPath, 'utf8'));
+      } catch (e) {
+        console.log(`Error reading giveaway data: ${e}`);
+        fs.writeFileSync(this.giveawayDataPath, '{}', 'utf8');
+      }
+
+      return existingData;
     } else {
       fs.writeFileSync(this.giveawayDataPath, '{}', 'utf8');
       return {};
