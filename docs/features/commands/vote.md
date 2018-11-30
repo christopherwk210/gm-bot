@@ -1,6 +1,6 @@
 # Vote
 
-> **Matches:** `!vote`
+> **Matches:** `!vote-wiz`
 
 > **Usable by:** Staff
 
