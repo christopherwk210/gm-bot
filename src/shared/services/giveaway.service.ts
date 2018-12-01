@@ -72,7 +72,7 @@ class GiveawayService {
     if (!giveaway) return `A giveaway for ${name} doesn't exist!`;
     if (now < giveaway.start.getTime()) return `The ${name} giveaway hasn't started yet!`;
     if (now > giveaway.end.getTime()) return `The ${name} giveaway signup period has concluded!`;
-    if (!giveaway.participants.find(entry => entry.id === user.id)) return 'No duplicate entries!';
+    if (giveaway.participants.find(entry => entry.id === user.id)) return 'No duplicate entries!';
 
     // Add user to giveaway
     giveaway.participants.push({
@@ -126,6 +126,10 @@ class GiveawayService {
 
       try {
         existingData = JSON.parse(fs.readFileSync(this.giveawayDataPath, 'utf8'));
+        Object.keys(existingData).forEach(giveaway => {
+          existingData[giveaway].start = new Date(existingData[giveaway].start);
+          existingData[giveaway].end = new Date(existingData[giveaway].end);
+        });
       } catch (e) {
         console.log(`Error reading giveaway data: ${e}`);
         fs.writeFileSync(this.giveawayDataPath, '{}', 'utf8');
