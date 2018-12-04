@@ -79,14 +79,17 @@ class HelpChannelService {
    */
   addHelpChannel(id: string) {
     const helpChannel = channelService.getChannelByID(id);
-
-    this.helpChannels.push({
+    const busyStatus = helpChannel.name.includes('__busy');
+    const helpChannelController = {
       id,
       timer: -1,
       channel: helpChannel,
       culprit: '',
-      busy: helpChannel.name.includes('__busy')
-    });
+      busy: busyStatus
+    };
+
+    this.helpChannels.push(helpChannelController);
+    if (busyStatus) this.createChannelControllerTimeout(helpChannelController);
   }
 
   /**
