@@ -20,14 +20,15 @@ class HelpChannelService {
 
     // Mark a channel as busy if it isn't already, otherwise re-up the timer
     if (!helpChannelController.busy) {
+
       // Quick exit if the message was '!done' and a non-ducky was attemping
-      if (msg.content.indexOf('!done') === 0 && !detectStaff(msg.member)) {
-        msg.delete().catch();
+      if (msg.content.indexOf('!done') === 0 && detectStaff(msg.member)) {
         return;
       }
 
       helpChannelController.busy = true;
 
+      // Set the channel name to busy
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         `${currentName.replace(this.regex, '')}__busy`
@@ -66,10 +67,9 @@ class HelpChannelService {
   /**
    * Get
    */
-
   cacheHelpChannels() {
     serverIDs.channels.helpChannelIDs.forEach(channelID => {
-        this.addHelpChannel(channelID);
+      this.addHelpChannel(channelID);
     });
   }
 
@@ -99,8 +99,7 @@ class HelpChannelService {
     const currentName = controller.channel.name;
 
     controller.timer = setTimeout(() => {
-      controller.channel
-        .setName(currentName.replace(this.regex, ''));
+      controller.channel.setName(currentName.replace(this.regex, ''));
       controller.busy = false;
     }, helpChannelBusyTimeout);
   }
