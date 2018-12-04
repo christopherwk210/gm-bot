@@ -85,7 +85,7 @@ class HelpChannelService {
       timer: -1,
       channel: helpChannel,
       culprit: '',
-      busy: false
+      busy: helpChannel.name.includes('__busy')
     });
   }
 
