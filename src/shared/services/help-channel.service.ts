@@ -1,7 +1,6 @@
 import { helpChannelBusyTimeout, serverIDs } from '../../config';
 import { channelService } from '../';
-import { GuildChannel, TextChannel, Message } from 'discord.js';
-import { detectStaff } from '../utils/detect-staff';
+import { GuildChannel, Message } from 'discord.js';
 
 /**
  * Handles renaming the help channels when they're busy.
@@ -22,7 +21,7 @@ class HelpChannelService {
     if (!helpChannelController.busy) {
 
       // Quick exit if the message was '!done' and a non-ducky was attemping
-      if (msg.content.indexOf('!done') === 0 && detectStaff(msg.member)) {
+      if (msg.content.indexOf('!done')) {
         return;
       }
 
