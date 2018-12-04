@@ -21,7 +21,7 @@ class HelpChannelService {
     // Mark a channel as busy if it isn't already, otherwise re-up the timer
     if (!helpChannelController.busy) {
       // Quick exit if the message was '!done' and a non-ducky was attemping
-      if (msg.content === '!done' && !detectStaff(msg.member)) {
+      if (msg.content.indexOf('!done') === 0 && !detectStaff(msg.member)) {
         msg.delete().catch();
         return;
       }
