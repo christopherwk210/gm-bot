@@ -21,7 +21,7 @@ export class BrainfuckModifier implements ModifierClass {
       return msg.channel.send('GMBot is currently unable to handle the `,` command.');
     }
 
-    if (/[^><\+-\.,\[\]]/g.test(brainfuckScript)) {
+    if (/[^><\+-\.,\[\]]/g.test(brainfuckScript.trim())) {
       return msg.channel.send('Invalid script detected, execution interrupted.');
     }
 
