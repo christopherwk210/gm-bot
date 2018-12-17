@@ -4,3 +4,4 @@ export * from './gmlive/gmlive.modifier';
 export * from './gml/gml.modifier';
 export * from './devmode/devmode.modifier';
 export * from './wrong-code/wrong-code.modifier';
+export * from './brainfuck/brainfuck.modifier';
