@@ -93,40 +93,7 @@ function onBotReady() {
  * @param newMember The member after the voice state update
  */
 function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
-  // Attempt to add voip_text role
-  try {
-    // Determine they are a member and in the voip channel
-    if (
-      newMember && newMember.voiceChannel &&
-      (
-        newMember.voiceChannel.id === serverIDs.channels.casualVoiceChannelID ||    // Casual
-        newMember.voiceChannel.id === serverIDs.channels.coworkingVoiceChannelID || // Coworking
-        newMember.voiceChannel.id === serverIDs.channels.playinaGameVoiceChannelID  // Playin a game
-      )
-    ) {
-      // Fetch the proper roles
-      const voipRole = roleService.getRoleByID(serverIDs.voipRoles.voipRoleID);                   // 'voip' role
-      const voiceActivityRole = roleService.getRoleByID(serverIDs.voipRoles.voiceActivityRoleID); // 'voice activity' role
-      const voipAlumniRole = roleService.getRoleByID(serverIDs.voipRoles.voiceAlumniRoleID);      // 'voip alumni' role
-
-      // If there's no voip role to use... dont do anything else
-      if (!voipRole) return;
-
-      // Add voip role if they don't have it
-      if (!newMember.roles.has(voipRole.id)) {
-        newMember.addRole(voipRole);
-      }
-
-      // Add voice activity role if they don't have it and aren't alumni
-      if (!newMember.roles.has(voipAlumniRole.id)) {
-        newMember.addRole(voiceActivityRole);
-        newMember.addRole(voipAlumniRole);
-      }
-    }
-  } catch (e) {
-    // Something went wrong
-    console.log(`GMBot encountered an error on voice status update:\n\n${e}`);
-  }
+  // Nothin'
 }
 
 /**

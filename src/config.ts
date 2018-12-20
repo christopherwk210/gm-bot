@@ -50,13 +50,6 @@ export const serverIDs = {
     serverStaff: '324536542737727488'
   },
 
-  /** VOIP Role IDs */
-  voipRoles: {
-    voipRoleID: '275366872189370369',
-    voiceActivityRoleID: '390434366125506560',
-    voiceAlumniRoleID: '390563903085477888'
-  },
-
   /** Shader Role */
   shaderRoleID: '466249504794869760',
 

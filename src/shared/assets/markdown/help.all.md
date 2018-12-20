@@ -2,10 +2,6 @@ Hi, I'm GameMakerBot. Here are some of my available commands:
 ```
 !help        - outputs this message
 
-!role        - toggles a role
-               usage: !role [role]
-               available roles: 'voip', '3d'
-
 !resources   - outputs a list of trusted resources to assist with your GameMaker Studio journey
 
 !docs        - outputs the URL to the documentation of a GML function
