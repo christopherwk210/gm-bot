@@ -13,15 +13,15 @@ const colors = {
 let roles = {
   A: {
     role: roleService.getRoleByName('A'),
-    color: this.colors.RED
+    color: colors.RED
   },
   B: {
     role: roleService.getRoleByName('B'),
-    color: this.colors.GREEN
+    color: colors.GREEN
   },
   C: {
     role: roleService.getRoleByName('C'),
-    color: this.colors.WHITE
+    color: colors.WHITE
   }
 };
 
