@@ -74,7 +74,7 @@ export class ChristmasCommand implements CommandClass {
       let currentIndex = colorArray.indexOf(currentColor);
 
       // Move the index up one or loop back to the start
-      let newIndex = currentIndex === colorArray.length ? 0 : currentIndex + 1;
+      let newIndex = currentIndex === colorArray.length - 1 ? 0 : currentIndex + 1;
 
       // Assign the color with the new index
       this.roles[key].color = colorArray[newIndex];
