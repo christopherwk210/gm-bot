@@ -12,15 +12,15 @@ const colors = {
 /** Stores the cyclable roles and their current colors */
 let roles = {
   A: {
-    role: roleService.getRoleByName('A'),
+    role: () => roleService.getRoleByName('A'),
     color: colors.RED
   },
   B: {
-    role: roleService.getRoleByName('B'),
+    role: () => roleService.getRoleByName('B'),
     color: colors.GREEN
   },
   C: {
-    role: roleService.getRoleByName('C'),
+    role: () => roleService.getRoleByName('C'),
     color: colors.WHITE
   }
 };
@@ -80,7 +80,7 @@ export class ChristmasCommand implements CommandClass {
       roles[key].color = colorArray[newIndex];
 
       // Set the color of the role
-      roles[key].role.setColor(roles[key].color);
+      roles[key].role().setColor(roles[key].color);
     });
   }
 
