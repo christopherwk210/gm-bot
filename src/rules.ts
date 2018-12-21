@@ -128,7 +128,7 @@ export function loadRules() {
   /** React RuleFactory rules */
   let reactRules: Rule[] = [
     RuleFactory.createReactionRule(
-      ['<@295327000372051968>', '<@!295327000372051968>'],
+      ['<@295327000372051968>', '<@!295327000372051968>', '<@392409305086820352>', '<@!392409305086820352>'],
       ['👋']
     ),
     RuleFactory.createReactionRule(
