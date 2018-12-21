@@ -27,6 +27,13 @@ export class GiveawayManagementCommand implements CommandClass {
         break;
       default:
         let giveaways = giveawayService.giveawayArray();
+
+        if (giveaways.length < 1) {
+          return msg.author.send(
+            'There are no active giveaways right now! For help on how to create one, type `!help giveaway-management`'
+          );
+        }
+
         for (let giveaway of giveaways) {
           await msg.author.send(this.createGiveawayString(giveaway));
         }

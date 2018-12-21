@@ -1,7 +1,6 @@
-import { helpChannelBusyTimeout, serverIDs, helpChannelDesc } from '../../config';
+import { helpChannelBusyTimeout, serverIDs } from '../../config';
 import { channelService } from '../';
-import { GuildChannel, TextChannel, Message } from 'discord.js';
-import { detectStaff } from '../utils/detect-staff';
+import { GuildChannel, Message } from 'discord.js';
 
 /**
  * Handles renaming the help channels when they're busy.
@@ -20,21 +19,19 @@ class HelpChannelService {
 
     // Mark a channel as busy if it isn't already, otherwise re-up the timer
     if (!helpChannelController.busy) {
+
       // Quick exit if the message was '!done' and a non-ducky was attemping
-      if (msg.content === '!done' && !detectStaff(msg.member)) {
-        msg.delete().catch();
+      if (msg.content.indexOf('!done') === 0) {
         return;
       }
 
       helpChannelController.busy = true;
 
+      // Set the channel name to busy
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         `${currentName.replace(this.regex, '')}__busy`
-      )
-      .then(() => {
-        helpChannelController.channel.setTopic(`@${msg.member.displayName} needs some help!`);
-      });
+      );
 
       helpChannelController.culprit = msg.author.id;
 
@@ -57,10 +54,7 @@ class HelpChannelService {
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         currentName.replace(this.regex, '')
-      )
-      .then(() => {
-        helpChannelController.channel.setTopic(helpChannelDesc);
-      });
+      );
 
       clearTimeout(helpChannelController.timer);
 
@@ -72,10 +66,9 @@ class HelpChannelService {
   /**
    * Get
    */
-
   cacheHelpChannels() {
     serverIDs.channels.helpChannelIDs.forEach(channelID => {
-        this.addHelpChannel(channelID);
+      this.addHelpChannel(channelID);
     });
   }
 
@@ -85,14 +78,17 @@ class HelpChannelService {
    */
   addHelpChannel(id: string) {
     const helpChannel = channelService.getChannelByID(id);
-
-    this.helpChannels.push({
+    const busyStatus = helpChannel.name.includes('__busy');
+    const helpChannelController = {
       id,
       timer: -1,
       channel: helpChannel,
       culprit: '',
-      busy: false
-    });
+      busy: busyStatus
+    };
+
+    this.helpChannels.push(helpChannelController);
+    if (busyStatus) this.createChannelControllerTimeout(helpChannelController);
   }
 
   /**
@@ -105,11 +101,7 @@ class HelpChannelService {
     const currentName = controller.channel.name;
 
     controller.timer = setTimeout(() => {
-      controller.channel
-        .setName(currentName.replace(this.regex, ''))
-        .then(() => {
-          controller.channel.setTopic(helpChannelDesc);
-        });
+      controller.channel.setName(currentName.replace(this.regex, ''));
       controller.busy = false;
     }, helpChannelBusyTimeout);
   }

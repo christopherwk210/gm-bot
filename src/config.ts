@@ -12,9 +12,6 @@ export const prefixedCommandRuleTemplate = {
   delete: true
 };
 
-/** Default channel description for the help channels */
-export const helpChannelDesc = ':pray: Need a hand with GameMaker?';
-
 /** How long to wait before considering a help channel no longer busy, in milliseconds */
 export const helpChannelBusyTimeout = 1000 * 60 * 10;
 
@@ -49,14 +46,8 @@ export const serverIDs = {
     duckyCodeRoleID: '262926334118985728',
     duckyHonouraryRoleID: '390437904859660290',
     duckyArtRoleID: '345222078577901569',
-    duckyAudioRoleID: '398875444360904704'
-  },
-
-  /** VOIP Role IDs */
-  voipRoles: {
-    voipRoleID: '275366872189370369',
-    voiceActivityRoleID: '390434366125506560',
-    voiceAlumniRoleID: '390563903085477888'
+    duckyAudioRoleID: '398875444360904704',
+    serverStaff: '324536542737727488'
   },
 
   /** Shader Role */

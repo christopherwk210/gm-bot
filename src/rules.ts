@@ -5,43 +5,10 @@ import { Attachment, RichEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from './config';
 
 // Commands
-import {
-  WelcomeCommand,
-  ResourcesCommand,
-  RoleControlCommand,
-  HelpCommand,
-  DocsCommand,
-  ChangelogCommand,
-  ResizeCommand,
-  PixelChallengeCommand,
-  MarketplaceCommand,
-  GithubCommand,
-  SayCommand,
-  GiveawayManagementCommand,
-  AssembleCommand,
-  CommandmentCommand,
-  LifetimeCommand,
-  ChristmasCommand,
-  AudioCommand,
-  GiveawayCommand,
-  MinibossCommand,
-  PaletteCommand,
-  UpvoteCommand,
-  HelpcardCommand,
-  DoneCommand,
-  SecurityCommand,
-  BirthdayCommand
-} from './commands';
+import * as commands from './commands';
 
 // Modifiers
-import {
-  CleanCodeModifier,
-  HasteModifier,
-  GmliveModifier,
-  GmlModifier,
-  DevmodeModifier,
-  WrongCodeModifier
-} from './modifiers';
+import * as modifiers from './modifiers';
 
 // Project utils
 import { detectStaff, RuleFactory, guildService } from './shared';
@@ -53,35 +20,6 @@ import { Rule, TextChannelMessage, Type } from './shared';
 /** Loads all rules into memory */
 export function loadRules() {
 
-  /** Functional utility commands */
-  let coreCommands: (Rule | Type<any>)[] = [
-    WelcomeCommand,
-    ResourcesCommand,
-    RoleControlCommand,
-    HelpCommand,
-    DocsCommand,
-    ChangelogCommand,
-    ResizeCommand,
-    PixelChallengeCommand,
-    MarketplaceCommand,
-    GithubCommand,
-    AssembleCommand,
-    AudioCommand,
-    GiveawayCommand,
-    MinibossCommand,
-    PaletteCommand,
-    UpvoteCommand,
-    HelpcardCommand,
-    DoneCommand
-  ];
-
-  /** Admin only commands */
-  let adminCommands: (Rule | Type<any>)[] = [
-    SayCommand,
-    GiveawayManagementCommand,
-    SecurityCommand
-  ];
-
   /** Bot developer only commands */
   let devCommands: (Rule | Type<any>)[] = [
     {
@@ -92,15 +30,6 @@ export function loadRules() {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
     }
-  ];
-
-  /** Random fun stuffs */
-  let easterEggs: (Rule | Type<any>)[] = [
-    AssembleCommand,
-    CommandmentCommand,
-    LifetimeCommand,
-    ChristmasCommand,
-    BirthdayCommand
   ];
 
   /** Reply RuleFactor rules */
@@ -187,10 +116,16 @@ export function loadRules() {
     RuleFactory.createReplyRule(
       ['inversekinematics'],
       '<@227032791013916672>'
+    ),
+    RuleFactory.createReplyRule(
+      ['🍣🐉', '🍣 🐉'],
+      '<@282606233607995392>',
+      false,
+      true
     )
   ];
 
-  /** React RuleFactor rules */
+  /** React RuleFactory rules */
   let reactRules: Rule[] = [
     RuleFactory.createReactionRule(
       ['<@295327000372051968>', '<@!295327000372051968>'],
@@ -215,14 +150,17 @@ export function loadRules() {
       ['mmm'],
       ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
       true
+    ),
+    RuleFactory.createReactionRule(
+      ['<@282606233607995392>'],
+      ['🍣'],
+      true
     )
   ];
 
   return [
-    ...coreCommands,
-    ...adminCommands,
+    ...Object.values(commands),
     ...devCommands,
-    ...easterEggs,
     ...replyRules,
     ...reactRules
   ];
@@ -230,18 +168,7 @@ export function loadRules() {
 
 /** Loads all modifiers into memory */
 export function loadModifiers() {
-
-  /** All bot code block modifiers */
-  let modifiers: Type<any>[] = [
-    CleanCodeModifier,
-    HasteModifier,
-    GmliveModifier,
-    GmlModifier,
-    DevmodeModifier,
-    WrongCodeModifier
-  ];
-
   return [
-    ...modifiers
+    ...Object.values(modifiers)
   ];
 }

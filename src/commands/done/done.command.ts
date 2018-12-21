@@ -15,10 +15,10 @@ export class DoneCommand implements CommandClass {
   action(msg: Message, args: string[]) {
     helpChannelService.markNotBusy(msg.channel.id);
 
-    if (args.includes('silent') || args.includes('s')) return;
+    if (args.includes('silent') || args.includes('s') || args.includes('sneaky')) return;
 
-    const sirQuackers = guildService.guild.emojis.find(emoji => emoji.name === 'duckycode').toString();
-    msg.channel.send(`This channel is now available for another question ${sirQuackers}`);
+    const sirQuackers = guildService.guild.emojis.find(emoji => emoji.name === 'duckycode');
+    msg.channel.send(`This channel is now available for another question ${sirQuackers || ''}`);
   }
 
   /**
@@ -28,6 +28,6 @@ export class DoneCommand implements CommandClass {
    */
   pre(msg: Message, args: string[]) {
     const helpChannelController = helpChannelService.helpChannels.find(controller => controller.id === msg.channel.id);
-    return !!detectStaff(msg.member) || (helpChannelController !== undefined && helpChannelController.culprit === msg.author.id);
+    if (helpChannelController && helpChannelController.busy) return true;
   }
 }

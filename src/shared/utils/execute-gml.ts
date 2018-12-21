@@ -39,7 +39,7 @@ export async function executeGML(gml: string, cb: (err: string, data: { trace: a
     }
 
     // Only deal with gmlex output
-    if (args[0].indexOf('gmlex:') === 0) {
+    if (args[0] && args[0].indexOf('gmlex:') === 0) {
 
       // Clean output
       let output = args[1];
