@@ -41,6 +41,8 @@ let modifiers: Type<any>[] = [];
 // Commands
 import { WelcomeCommand, SecurityCommand } from './src/commands';
 
+import { handleAutoHasteMessage } from 'src/auto-haste';
+
 // Initialize file based services
 markdownService.loadAllMarkdownFiles();
 textService.loadAllTextFiles();
@@ -116,6 +118,9 @@ function onBotMessage(msg: Message) {
 
   // Send the message along to the HelpChannelService
   helpChannelService.handleMessage(msg);
+
+  // Handle attachments for auto-uploading GML files to haste
+  handleAutoHasteMessage(msg);
 
   // Parse message for commands or matches
   if (parseCommandList(rules, msg)) return;
