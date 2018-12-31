@@ -41,7 +41,7 @@ let modifiers: Type<any>[] = [];
 // Commands
 import { WelcomeCommand, SecurityCommand } from './src/commands';
 
-import { handleAutoHasteMessage } from 'src/auto-haste';
+import { handleAutoHasteMessage } from './src/auto-haste';
 
 // Initialize file based services
 markdownService.loadAllMarkdownFiles();
