@@ -41,7 +41,6 @@ export const serverIDs = {
 
   /** Role IDs */
   roles: {
-    adminRoleID: '262835321694060547',
     subredditModsRoleID: '262843600730062849',
     duckyCodeRoleID: '262926334118985728',
     duckyHonouraryRoleID: '390437904859660290',
