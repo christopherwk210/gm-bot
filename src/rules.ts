@@ -160,7 +160,7 @@ export function loadRules() {
       ['jobsheet', 'jobboard'],
       'If you are looking for work or want to put together a team, check out the server job sheet!\n' +
       'Link: <http://bit.ly/2wOh95f>\n' +
-      'If you would like to be added to this list, please message an online staff member.'
+      'If you would like to be added to this list, please message an admin.'
     ),
     RuleFactory.createReplyRule(
       ['<:cokecan:410684792263409664> <:cokecan:410684792263409664> <:cokecan:410684792263409664>'],
