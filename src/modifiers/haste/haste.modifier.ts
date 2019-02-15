@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { Modifier, ModifierClass } from '../../shared';
-import * as http from 'http';
+import * as https from 'https';
 
 @Modifier({
   match: 'haste',
@@ -14,16 +14,20 @@ export class HasteModifier implements ModifierClass {
     // Get hastebin links for each code block
     for (let codeBlock of contents) {
       let link: string;
+      let edit: string;
 
       try {
-        link = await this.getHasteBinLink(codeBlock);
+        let res = await this.getHasteBinLink(codeBlock);
+        link = res.link;
+        edit = res.edit;
       } catch (e) {
         console.error(e);
         msg.channel.send('An error occurred while connecting to hastebin!');
         return;
       }
 
-      replies.push(`Here's your GML hastebin link, ${msg.author}\n${link}`);
+      replies.push(`Here's your firebin link, ${msg.author}\n${link}`);
+      msg.author.send(`Here's your firebin link: <${link}>\nTo edit the document go here: <${edit}>`);
     }
 
     // Send each link
@@ -38,24 +42,25 @@ export class HasteModifier implements ModifierClass {
   getHasteBinLink(contents: string): Promise<string> {
     // Prepare to contact
     let postOptions = {
-      host: 'haste.gmcloud.org',
-      path: '/documents',
+      host: 'us-central1-gmtools-meseta.cloudfunctions.net',
+      path: '/saveFirebinExt',
       port: '80',
       method: 'POST'
     };
 
     return new Promise((resolve, reject) => {
       // Configure request
-      let postRequest = http.request(postOptions, res => {
+      let postRequest = https.request(postOptions, res => {
         // Encode to UTF8
         res.setEncoding('utf8');
 
         // Create a callback to retrieve url
         res.on('data', (response: string) => {
           // Parse the response for the key
-          let key = JSON.parse(response).key;
-          let link = `http://haste.gmcloud.org/${key}.gml`;
-          resolve(link);
+          let response = JSON.parse(response);
+          let link = `https://firebin.gmcloud.org/${response.binId}.gml`;
+          let edit = `https://firebin.gmcloud.org/edit/${response.edit}.gml`;
+          resolve({link, edit});
         });
 
         res.on('error', err => reject(err));
