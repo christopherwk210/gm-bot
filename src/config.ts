@@ -41,24 +41,17 @@ export const serverIDs = {
 
   /** Role IDs */
   roles: {
-    adminRoleID: '262835321694060547',
     subredditModsRoleID: '262843600730062849',
     duckyCodeRoleID: '262926334118985728',
     duckyHonouraryRoleID: '390437904859660290',
     duckyArtRoleID: '345222078577901569',
-    duckyAudioRoleID: '398875444360904704'
+    duckyAudioRoleID: '398875444360904704',
+    serverStaff: '324536542737727488'
   },
 
-  /** VOIP Role IDs */
-  voipRoles: {
-    voipRoleID: '275366872189370369',
-    voiceActivityRoleID: '390434366125506560',
-    voiceAlumniRoleID: '390563903085477888'
-  },
-  
   /** Shader Role */
   shaderRoleID: '466249504794869760',
-  
+
   /** 3D Role */
   threedRoleID: '379657591657201674',
 

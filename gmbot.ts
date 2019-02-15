@@ -41,6 +41,8 @@ let modifiers: Type<any>[] = [];
 // Commands
 import { WelcomeCommand, SecurityCommand } from './src/commands';
 
+import { handleAutoHasteMessage } from './src/auto-haste';
+
 // Initialize file based services
 markdownService.loadAllMarkdownFiles();
 textService.loadAllTextFiles();
@@ -93,40 +95,7 @@ function onBotReady() {
  * @param newMember The member after the voice state update
  */
 function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
-  // Attempt to add voip_text role
-  try {
-    // Determine they are a member and in the voip channel
-    if (
-      newMember && newMember.voiceChannel &&
-      (
-        newMember.voiceChannel.id === serverIDs.channels.casualVoiceChannelID ||    // Casual
-        newMember.voiceChannel.id === serverIDs.channels.coworkingVoiceChannelID || // Coworking
-        newMember.voiceChannel.id === serverIDs.channels.playinaGameVoiceChannelID  // Playin a game
-      )
-    ) {
-      // Fetch the proper roles
-      const voipRole = roleService.getRoleByID(serverIDs.voipRoles.voipRoleID);                   // 'voip' role
-      const voiceActivityRole = roleService.getRoleByID(serverIDs.voipRoles.voiceActivityRoleID); // 'voice activity' role
-      const voipAlumniRole = roleService.getRoleByID(serverIDs.voipRoles.voiceAlumniRoleID);      // 'voip alumni' role
-
-      // If there's no voip role to use... dont do anything else
-      if (!voipRole) return;
-
-      // Add voip role if they don't have it
-      if (!newMember.roles.has(voipRole.id)) {
-        newMember.addRole(voipRole);
-      }
-
-      // Add voice activity role if they don't have it and aren't alumni
-      if (!newMember.roles.has(voipAlumniRole.id)) {
-        newMember.addRole(voiceActivityRole);
-        newMember.addRole(voipAlumniRole);
-      }
-    }
-  } catch (e) {
-    // Something went wrong
-    console.log(`GMBot encountered an error on voice status update:\n\n${e}`);
-  }
+  // Nothin'
 }
 
 /**
@@ -150,6 +119,9 @@ function onBotMessage(msg: Message) {
   // Send the message along to the HelpChannelService
   helpChannelService.handleMessage(msg);
 
+  // Handle attachments for auto-uploading GML files to haste
+  handleAutoHasteMessage(msg);
+
   // Parse message for commands or matches
   if (parseCommandList(rules, msg)) return;
 
@@ -162,7 +134,7 @@ function onBotMessage(msg: Message) {
  * @param error The client error
  */
 function onBotError(error: Error) {
-  console.log('\nThe bot client encountered an error:\n', error);
+  console.log('\nThe bot client encountered an error:\n', error.message);
 }
 
 // Handle process-wide promise rejection
@@ -171,12 +143,12 @@ process.on('unhandledRejection', reason => {
 });
 
 // Handle process-wide exceptions
-process.on('uncaughtException', err => {
+process.on('uncaughtException', async err => {
   const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
 
   // Send error to the bot testing channel
   const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.channels.botTestingChannelID);
-  if (botTestingChannel) botTestingChannel.send(errorMessage);
+  if (botTestingChannel) await botTestingChannel.send(errorMessage);
 
   console.log(`\n${errorMessage}\n`);
 
