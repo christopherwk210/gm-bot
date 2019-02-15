@@ -146,11 +146,11 @@ export function loadRules() {
       ['🇲', 'Ⓜ'],
       true
     ),
-    RuleFactory.createReactionRule(
+  /*  RuleFactory.createReactionRule(
       ['mmm'],
       ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
       true
-    ),
+    ),*/
     RuleFactory.createReactionRule(
       ['<@282606233607995392>'],
       ['🍣'],

@@ -27,7 +27,9 @@ export class HasteModifier implements ModifierClass {
       }
 
       replies.push(`Here's your firebin link, ${msg.author}\n${link}`);
-      msg.author.send(`Here's your firebin link: <${link}>\nTo edit the document go here: <${edit}>`);
+      if (edit) {
+        msg.author.send(`Here's your firebin editable link: <${edit}>`);
+      }
     }
 
     // Send each link
@@ -39,13 +41,16 @@ export class HasteModifier implements ModifierClass {
    * @param contents Contents of the post
    * @returns A promise containing the link
    */
-  getHasteBinLink(contents: string): Promise<string> {
+  getHasteBinLink(contents: string): Promise<{link, edit}> {
     // Prepare to contact
     let postOptions = {
       host: 'us-central1-gmtools-meseta.cloudfunctions.net',
       path: '/saveFirebinExt',
-      port: '80',
-      method: 'POST'
+      port: '443',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain'
+      }
     };
 
     return new Promise((resolve, reject) => {
@@ -57,9 +62,14 @@ export class HasteModifier implements ModifierClass {
         // Create a callback to retrieve url
         res.on('data', (response: string) => {
           // Parse the response for the key
-          let response = JSON.parse(response);
-          let link = `https://firebin.gmcloud.org/${response.binId}.gml`;
-          let edit = `https://firebin.gmcloud.org/edit/${response.edit}.gml`;
+          let out;
+          try {
+            out = JSON.parse(response);
+          } catch (e) {
+            return reject(e);
+          }
+          let link = `https://firebin.gmcloud.org/${out.binId}.gml`;
+          let edit = `https://firebin.gmcloud.org/${out.binId}/${out.editId}`;
           resolve({link, edit});
         });
 
