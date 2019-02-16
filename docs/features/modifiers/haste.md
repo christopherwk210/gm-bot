@@ -4,7 +4,7 @@
 
 > **Usable by:** Everyone
 
-Sends a link to a custom instance of [Hastebin](http://haste.gmcloud.org/) for GML containing the code block contents.
+Sends a link to [Firebin](http://firebin.gmcloud.org/), a Pastebin/Hastebin-like service for for GML containing the code block contents.
 
 \`\`\`haste  
 var haste = "is cool";  
