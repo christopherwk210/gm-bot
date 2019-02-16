@@ -14,22 +14,16 @@ export class HasteModifier implements ModifierClass {
     // Get hastebin links for each code block
     for (let codeBlock of contents) {
       let link: string;
-      let edit: string;
 
       try {
-        let res = await this.getHasteBinLink(codeBlock);
-        link = res.link;
-        edit = res.edit;
+        link = await this.getHasteBinLink(codeBlock);
       } catch (e) {
         console.error(e);
-        msg.channel.send('An error occurred while connecting to hastebin!');
+        msg.channel.send('An error occurred while connecting to firebin!');
         return;
       }
 
       replies.push(`Here's your firebin link, ${msg.author}\n${link}`);
-      if (edit) {
-        msg.author.send(`Here's your firebin editable link: <${edit}>`);
-      }
     }
 
     // Send each link
@@ -41,7 +35,7 @@ export class HasteModifier implements ModifierClass {
    * @param contents Contents of the post
    * @returns A promise containing the link
    */
-  getHasteBinLink(contents: string): Promise<{link, edit}> {
+  getHasteBinLink(contents: string): Promise<string> {
     // Prepare to contact
     let postOptions = {
       host: 'us-central1-gmtools-meseta.cloudfunctions.net',
@@ -69,8 +63,7 @@ export class HasteModifier implements ModifierClass {
             return reject(e);
           }
           let link = `https://firebin.gmcloud.org/${out.binId}.gml`;
-          let edit = `https://firebin.gmcloud.org/${out.binId}/${out.editId}`;
-          resolve({link, edit});
+          resolve(link);
         });
 
         res.on('error', err => reject(err));
