@@ -1,6 +1,6 @@
-import { Message } from 'discord.js';
-import { prefixedCommandRuleTemplate } from '../../config';
-import { Command, CommandClass, detectStaff, helpChannelService, guildService } from '../../shared';
+import { Message, RichEmbed } from 'discord.js';
+import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
+import { Command, CommandClass, helpChannelService, guildService } from '../../shared';
 
 @Command({
   matches: ['done'],
@@ -18,7 +18,14 @@ export class DoneCommand implements CommandClass {
     if (args.includes('silent') || args.includes('s') || args.includes('sneaky')) return;
 
     const sirQuackers = guildService.guild.emojis.find(emoji => emoji.name === 'duckycode');
-    msg.channel.send(`This channel is now available for another question ${sirQuackers || ''}`);
+    msg.channel.send(new RichEmbed({
+      description: `This channel is now available for another question ${sirQuackers || ''}`,
+      color: defaultEmbedColor,
+      footer: {
+        text: `Executed by ${msg.member ? msg.member.displayName : msg.author.username}`
+      },
+      timestamp: new Date()
+    }));
   }
 
   /**
@@ -28,6 +35,7 @@ export class DoneCommand implements CommandClass {
    */
   pre(msg: Message, args: string[]) {
     const helpChannelController = helpChannelService.helpChannels.find(controller => controller.id === msg.channel.id);
+
     if (helpChannelController && helpChannelController.busy) return true;
   }
 }
