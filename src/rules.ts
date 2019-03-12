@@ -25,7 +25,7 @@ export function loadRules() {
     {
       matches: ['id'],
       ...prefixedCommandRuleTemplate,
-      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.botContributerRoleID),
+      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.roles.botContributerRoleID),
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }

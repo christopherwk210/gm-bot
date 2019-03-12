@@ -49,18 +49,9 @@ export const serverIDs = {
     duckyHonouraryRoleID: '390437904859660290',
     duckyArtRoleID: '345222078577901569',
     duckyAudioRoleID: '398875444360904704',
-    serverStaff: '324536542737727488'
-  },
-
-  /** Shader Role */
-  shaderRoleID: '466249504794869760',
-
-  /** 3D Role */
-  threedRoleID: '379657591657201674',
-
-  /** Bot Contributor ID */
-  botContributerRoleID: '417797331409436682',
-
-  /** Birthday ID */
-  birthdayRoleID: '381386952903098368'
+    serverStaff: '324536542737727488',
+    botContributerRoleID: '417797331409436682',
+    birthdayRoleID: '381386952903098368',
+    podcast: '517061681894129664'
+  }
 };
