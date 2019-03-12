@@ -1,6 +1,9 @@
 /** Determines if the bot should exit the process on an uncaught exception */
 export const shouldDieOnException: boolean = true;
 
+/** Determines if we should print stack traces on an uncaught expection */
+export const shouldPrintStackTrace: boolean = false;
+
 /** Server wide command prefix (Go ! or go home) */
 export const prefix: string = '!';
 

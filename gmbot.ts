@@ -9,7 +9,7 @@ import { Message, Client, GuildMember, TextChannel } from 'discord.js';
 const bot = new Client();
 
 // Config
-import { serverIDs, shouldDieOnException } from './src/config';
+import { serverIDs, shouldDieOnException, shouldPrintStackTrace } from './src/config';
 
 // Utils
 import { parseCommandList, parseModifierList, Rule, Type } from './src/shared';
@@ -144,7 +144,9 @@ process.on('unhandledRejection', reason => {
 
 // Handle process-wide exceptions
 process.on('uncaughtException', async err => {
-  const errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
+  let errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
+
+  if (shouldPrintStackTrace) errorMessage += `\n\`\`\`${err.stack}\`\`\``;
 
   // Send error to the bot testing channel
   const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.channels.botTestingChannelID);
