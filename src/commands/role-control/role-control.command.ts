@@ -62,7 +62,7 @@ export class RoleControlCommand implements CommandClass {
       // tell em
       if (role === this.podcastRole) {
         msg.author.send(
-          `Thanks for signing up for obj_podcast notifications! You'll get a ping in the server 15 minutes before episodes go live.`
+          `Thanks for signing up for obj_podcast notifications! You'll get a ping in the server 15 minutes before recordings begin.`
         );
       } else {
         msg.author.send(
