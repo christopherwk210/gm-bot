@@ -18,13 +18,14 @@ export * from './helpcard/helpcard.command';
 export * from './starter/starter.command';
 
 // Random fun stuffs
-export * from './assemble/assemble.command';
 export * from './commandment/commandment.command';
 export * from './lifetime/lifetime.command';
 export * from './christmas/christmas.command';
 export * from './birthday/birthday.command';
+export * from './podcast-ping/podcast-ping.command';
 
 // Admin stuffs
+export * from './assemble/assemble.command';
 export * from './vote/vote.command';
 export * from './say/say.command';
 export * from './security/security.command';
