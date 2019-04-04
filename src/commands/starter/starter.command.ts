@@ -19,7 +19,7 @@ export class StarterCommand implements CommandClass {
     let whoMessage = detectStaff(msg.member) ? msg.mentions.members.first() : msg.author;
 
     // Abort on missing person!
-    if (!whoMessage) return msg.author.send(`That was not a recognized user.`);
+    if (!whoMessage) whoMessage = msg.author;
 
     // If someone is actually needing the message
     if (whoMessage) {
