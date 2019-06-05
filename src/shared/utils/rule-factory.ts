@@ -40,6 +40,7 @@ export class RuleFactory {
     let rule: Rule = {
       matches,
       action: async msg => {
+        if (msg.author.id === '227032791013916672') return;
         for (let reaction of reactions) {
           try {
             await msg.react(reaction);
