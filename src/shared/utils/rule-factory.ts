@@ -1,6 +1,11 @@
 import { Rule } from '..';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Emoji } from 'discord.js';
+import { jsonService } from '../services/json.service';
+
+jsonService.loadAlljsonFiles();
+
+const reactExceptions = jsonService.files['react-rule-exceptions'];
 
 /**
  * Helper class to construct simple rules
@@ -40,7 +45,7 @@ export class RuleFactory {
     let rule: Rule = {
       matches,
       action: async msg => {
-        if (msg.author.id === '227032791013916672') return;
+        if (reactExceptions.find(ex => ex.id === msg.author.id)) return;
         for (let reaction of reactions) {
           try {
             await msg.react(reaction);
