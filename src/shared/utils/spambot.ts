@@ -43,26 +43,31 @@ async function addOrUpdateSpamTracker(msg: Message) {
 
     // Trigger if the user has sent configured amount of messages
     if (spamTracker.count >= spamMessageCount) {
+      spamTracker.messages.forEach(message => {
+        if (message.deletable) message.delete();
+      });
 
-      // Attempt to alert the user and kick them
+      // Attempt to alert the user
       try {
-        spamTracker.messages.forEach(message => {
-          if (message.deletable) message.delete();
-        });
-
         const author = msg.member || msg.author;
         if (author) {
-          await author.send(
+          author.send(
             'Hello, this is an automated message. ' +
             'You have been kicked automatically from the GameMaker server due to triggering our automatic spam filter.\n\n' +
             'If you believe this was an error, you may rejoin the server.'
           );
         }
+      } catch (e) {
+        console.log(e);
+        channel.send('Could not send user kick message, most likely due to being blocked.');
+      }
 
+      // Attempt to kick the user
+      try {
         await msg.member.kick('User kicked automatically due to spam trigger.');
       } catch (e) {
         console.log(e);
-        channel.send('Something went wrong while trying to message and kick a user automatically... See the following message:');
+        channel.send('Could not kick user!');
       }
 
       channel.send(`---\n**User has been kicked automatically. Details:**\n${getMarkdownDetails(msg)}`);
