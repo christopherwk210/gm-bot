@@ -40,30 +40,12 @@ class ChannelService {
 
   /** Returns the server channel with the exact given name */
   getChannelByName(name: string) {
-    let match;
-
-    this.channels.some(channel => {
-      if (channel.name === name) {
-        match = channel;
-        return true;
-      }
-    });
-
-    return match;
+    return this.channels.find(channel => channel.name === name);
   }
 
   /** Returns the server channel with the exact given id number */
   getChannelByID(id: string) {
-    let match: GuildChannel;
-
-    this.channels.some(channel => {
-      if (channel.id === id) {
-        match = channel;
-        return true;
-      }
-    });
-
-    return match;
+    return this.channels.find(channel => channel.id === id);
   }
 }
 
