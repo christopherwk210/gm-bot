@@ -8,6 +8,7 @@ interface SpamTracker {
   timestamp: Date;
   expires: Date;
   count: number;
+  messages: Message[];
 }
 
 let spamTrackers: SpamTracker[] = [];
@@ -38,21 +39,25 @@ async function addOrUpdateSpamTracker(msg: Message) {
 
   if (spamTracker) {
     spamTracker.count++;
+    spamTracker.messages.push(msg);
 
     // Trigger if the user has sent configured amount of messages
     if (spamTracker.count >= spamMessageCount) {
 
       // Attempt to alert the user and kick them
       try {
+        spamTracker.messages.forEach(message => {
+          if (message.deletable) message.delete();
+        });
 
-        // Delete the message immediately if possible
-        if (msg.deletable) msg.delete();
-
-        await msg.member.send(
-          'Hello, this is an automated message. ' +
-          'You have been kicked automatically from the GameMaker server due to triggering our automatic spam filter.\n\n' +
-          'If you believe this was an error, you may rejoin the server.'
-        );
+        const author = msg.member || msg.author;
+        if (author) {
+          await author.send(
+            'Hello, this is an automated message. ' +
+            'You have been kicked automatically from the GameMaker server due to triggering our automatic spam filter.\n\n' +
+            'If you believe this was an error, you may rejoin the server.'
+          );
+        }
 
         await msg.member.kick('User kicked automatically due to spam trigger.');
       } catch (e) {
@@ -92,6 +97,7 @@ function createSpamTracker(msg: Message): SpamTracker {
     user: msg.author.id,
     timestamp,
     expires,
-    count: 1
+    count: 1,
+    messages: [msg]
   };
 }
