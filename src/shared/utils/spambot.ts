@@ -65,7 +65,7 @@ async function addOrUpdateSpamTracker(msg: Message) {
         channel.send('Something went wrong while trying to message and kick a user automatically... See the following message:');
       }
 
-      channel.send(`**User has been kicked automatically. Details:**\n${getMarkdownDetails(msg)}`);
+      channel.send(`---\n**User has been kicked automatically. Details:**\n${getMarkdownDetails(msg)}`);
       return;
     }
   } else {
