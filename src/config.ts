@@ -24,6 +24,12 @@ export const birthdayTimeout = 1000 * 60 * 60 * 24;
 /** Default color to use for RichEmbed's */
 export const defaultEmbedColor = 0x039D5B;
 
+/** How many spam messages in a row constitute an immediate kick, in a given time period (see spamTimer) */
+export const spamMessageCount = 3;
+
+/** How many seconds to track spam messages for */
+export const spamTimer = 30;
+
 /** Server-specific IDs */
 export const serverIDs = {
 
