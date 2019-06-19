@@ -12,7 +12,7 @@ const bot = new Client();
 import { serverIDs, shouldDieOnException, shouldPrintStackTrace } from './src/config';
 
 // Utils
-import { parseCommandList, parseModifierList, Rule, Type } from './src/shared';
+import { parseCommandList, parseModifierList, Rule, Type , detectSpamMessage } from './src/shared';
 
 // Express
 import runExpressServer from './src/express/express';
@@ -118,6 +118,9 @@ function onBotMessage(msg: Message) {
 
   // Send the message along to the HelpChannelService
   helpChannelService.handleMessage(msg);
+
+  // Is this spam?
+  detectSpamMessage(msg);
 
   // Handle attachments for auto-uploading GML files to haste
   handleAutoHasteMessage(msg);
