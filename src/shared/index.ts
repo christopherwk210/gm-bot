@@ -29,3 +29,4 @@ export * from './utils/parse-command-list';
 export * from './utils/parse-modifier-list';
 export * from './utils/validate-gml';
 export * from './utils/rule-factory';
+export * from './utils/spambot';
