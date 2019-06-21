@@ -19,7 +19,7 @@ let spamTrackers: SpamTracker[] = [];
  * @returns Nothing, honestly
  */
 export function detectSpamMessage(msg: Message) {
-  if (msg.content.match(/naked|nude|photos/) && msg.content.match(/https?:\/\/\S+/i)) {
+  if (msg.content.match(/naked|nude|photos|18\+/i) && msg.content.match(/https?:\/\/\S+/i)) {
     addOrUpdateSpamTracker(msg);
   }
 }
