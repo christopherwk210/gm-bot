@@ -13,7 +13,6 @@ export class PodcastPing implements CommandClass {
    * @param args
    */
   async action(msg: Message, args: string[]) {
-    // Grab the duck roles
     let podcastRole = roleService.getRoleByID(serverIDs.roles.podcast);
 
     let time: string = '15';
@@ -31,7 +30,7 @@ export class PodcastPing implements CommandClass {
 
       await podcastRole.setMentionable(false);
     } catch (e) {
-      console.log(`Error with assemble command: ${'\n'}${e}`);
+      console.log(`Error with command: ${'\n'}${e}`);
     }
   }
 

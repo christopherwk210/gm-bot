@@ -1,4 +1,3 @@
-import { roleService } from '../services/role.service';
 import { GuildMember, User } from 'discord.js';
 import { guildService } from '..';
 

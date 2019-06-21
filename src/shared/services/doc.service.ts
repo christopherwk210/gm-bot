@@ -1,8 +1,4 @@
-import * as fs from 'fs';
 import { jsonService } from './json.service';
-import { TextChannel } from 'discord.js';
-import { channelService } from './channel.service';
-import { serverIDs } from '../../config';
 import * as stringSimilarity from 'string-similarity';
 
 /**
@@ -109,17 +105,6 @@ class DocsService {
     }
 
     return undefined;
-  }
-
-  /**
-   * Pings the Cog Whisperers if we failed but were invoked. This is temporary as
-   * the new Service is implemented.
-   */
-  private docsPingCogWhisperers(errorWord: string) {
-    const errorMessage = `GMBot's new doc service was invoked succesfully but failed to find:\n\`\`\`${errorWord}\`\`\``;
-    // Send error to the bot testing channel
-    const botTestingChannel: TextChannel = <any>channelService.getChannelByID(serverIDs.channels.botTestingChannelID);
-    if (botTestingChannel) botTestingChannel.send(errorMessage);
   }
 }
 

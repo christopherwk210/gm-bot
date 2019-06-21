@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { jsonService, AsyncWriter } from './json.service';
-import { User, Guild, Role, Client, GuildMember } from 'discord.js';
+import { Guild, Client, GuildMember } from 'discord.js';
 import { birthdayTimeout, serverIDs } from '../../config';
 import { roleService } from '../../shared';
 
