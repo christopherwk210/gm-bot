@@ -1,6 +1,6 @@
 import { Message, TextChannel } from 'discord.js';
 import { serverIDs } from '../../config';
-import { channelService, guildService } from '../../shared';
+import { channelService, textService } from '../../shared';
 import { spamMessageCount, spamTimer } from '../../config';
 
 interface SpamTracker {
@@ -19,10 +19,11 @@ let spamTrackers: SpamTracker[] = [];
  * @returns Nothing, honestly
  */
 export function detectSpamMessage(msg: Message) {
-  // Close your eyes, children
-  const regKeywods: RegExp = /(?:nude|d(?:ick|ate)|p(?:ussie|hoto))s?|sex|dating|pussy|cum|naked|💋|👄|😘|👅|18\+/i;
+  const filterKeywords = textService.files['spam-filter'];
+  const regKeywords: RegExp = convertFilterRegexp(filterKeywords, 'i');
   const regUrl: RegExp = /https?:\/\/\S+/i;
-  if (regKeywods.test(msg.content) && regUrl.test(msg.content)) {
+
+  if (regKeywords.test(msg.content) && regUrl.test(msg.content)) {
     addOrUpdateSpamTracker(msg);
   }
 }
@@ -108,4 +109,23 @@ function createSpamTracker(msg: Message): SpamTracker {
     count: 1,
     messages: [msg]
   };
+}
+
+/**
+ * Converts a newline separated list of keywords into a proper regular expression
+ * @param filter Newline separated list of keywords
+ */
+function convertFilterRegexp(filter: string, flags: string) {
+  let convertedFilter = '';
+
+  // Escape RegExp symbols
+  convertedFilter = filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  // Switch newlines to pipes
+  convertedFilter = convertedFilter.replace(/\n/g, '|');
+
+  // Remove final pipe
+  if (convertedFilter.slice(-1) === '|') convertedFilter = convertedFilter.slice(0, -1);
+
+  return new RegExp(convertedFilter, flags);
 }
