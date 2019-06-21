@@ -16,7 +16,11 @@ export class DevmodeModifier implements ModifierClass {
   shared = shared;
 
   // Represents whitelisted users
-  whitelist: Snowflake[] = this.getAccessIDs();
+  whitelist: Snowflake[];
+
+  constructor() {
+    this.whitelist = this.getAccessIDs();
+  }
 
   /**
    * Executes code with eval, for development purposes only
