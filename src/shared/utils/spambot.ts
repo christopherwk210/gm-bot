@@ -20,7 +20,7 @@ let spamTrackers: SpamTracker[] = [];
  */
 export function detectSpamMessage(msg: Message) {
   // Close your eyes, children
-  const regKeywods: RegExp = /(?:nude|dick|date|pussie)s?|sex|dating|pussy|cum|naked|💋|👄|😘|👅/i;
+  const regKeywods: RegExp = /(?:nude|d(?:ick|ate)|p(?:ussie|hoto))s?|sex|dating|pussy|cum|naked|💋|👄|😘|👅|18\+/i;
   const regUrl: RegExp = /https?:\/\/\S+/i;
   if (regKeywods.test(msg.content) && regUrl.test(msg.content)) {
     addOrUpdateSpamTracker(msg);
