@@ -1,4 +1,3 @@
-
 import { Message, Attachment } from 'discord.js';
 import { Command, CommandClass, helpcardService } from '../../shared';
 import { prefixedCommandRuleTemplate } from '../../config';

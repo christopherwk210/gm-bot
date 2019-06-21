@@ -3,7 +3,6 @@ import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 
 import * as puppeteer from 'puppeteer';
-import { MessageOptions } from 'child_process';
 
 @Command({
   matches: ['changelog'],

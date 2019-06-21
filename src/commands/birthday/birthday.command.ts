@@ -19,7 +19,7 @@ export class BirthdayCommand implements CommandClass {
       mention = msg.mentions.members.first();
     }
 
-    let ending = !!(~args.indexOf('end'));
+    const ending = args.includes('end');
 
     if (!ending && detectStaff(msg.member)) {
 

@@ -35,8 +35,8 @@ export class ResizeCommand implements CommandClass {
     }
 
     // Check for bilinear scaling
-    let useBilinear = !!(~args.indexOf('-b'));
-    let uploadOriginal = !!(~args.indexOf('-o'));
+    let useBilinear = args.includes('-b');
+    let uploadOriginal = args.includes('-o');
 
     // Get all message attachments
     let attachments = Array.from(msg.attachments.values());

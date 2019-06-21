@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { queue, AsyncQueue } from 'async';
+import { queue } from 'async';
 
 class JSONService {
   /** Contains all json file contents by file name */
