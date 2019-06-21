@@ -15,11 +15,14 @@ let spamTrackers: SpamTracker[] = [];
 
 /**
  * Parses a modifier list against a discord message
- * @param msg Disord message to check for soem basic spambots
+ * @param msg Disord message to check for some basic spambots
  * @returns Nothing, honestly
  */
 export function detectSpamMessage(msg: Message) {
-  if (msg.content.match(/naked|nude|photos|18\+/i) && msg.content.match(/https?:\/\/\S+/i)) {
+  // Close your eyes, children
+  const regKeywods: RegExp = /(?:nude|dick|date|pussie)s?|sex|dating|pussy|cum|naked|💋|👄|😘|👅/i;
+  const regUrl: RegExp = /https?:\/\/\S+/i;
+  if (regKeywods.test(msg.content) && regUrl.test(msg.content)) {
     addOrUpdateSpamTracker(msg);
   }
 }
