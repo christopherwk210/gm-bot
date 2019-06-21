@@ -47,13 +47,16 @@ async function addOrUpdateSpamTracker(msg: Message) {
 
     // Trigger if the user has sent configured amount of messages
     if (spamTracker.count >= spamMessageCount) {
+
+      // Delete all the messages that triggered the spam filter during the time period
       spamTracker.messages.forEach(message => {
         if (message.deletable) message.delete();
       });
 
+      const author = msg.member || msg.author;
+
       // Attempt to alert the user
       try {
-        const author = msg.member || msg.author;
         if (author) {
           author.send(
             'Hello, this is an automated message. ' +
@@ -74,10 +77,13 @@ async function addOrUpdateSpamTracker(msg: Message) {
         channel.send('Could not kick user!');
       }
 
+      // Kick the user and send details, then return so that we don't send a second message below
       channel.send(`---\n**User has been kicked automatically. Details:**\n${getMarkdownDetails(msg)}`);
       return;
     }
   } else {
+
+    // Create a new spam tracker since one doesn't exist for this user yet
     spamTrackers.push(createSpamTracker(msg));
   }
 
