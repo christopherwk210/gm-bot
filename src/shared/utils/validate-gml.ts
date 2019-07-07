@@ -39,9 +39,6 @@ export function validateGMS1(func: string) {
   // GMS1 function list
   const gms1FunctionList = textService.files['gml-functions'];
 
-  // GMS2 exclusive function list
-  const gms2FunctionList = textService.files['gml2-functions'];
-
   return validate(func, gms1FunctionList);
 }
 

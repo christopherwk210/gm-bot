@@ -1,6 +1,9 @@
 /** Determines if the bot should exit the process on an uncaught exception */
 export const shouldDieOnException: boolean = true;
 
+/** Determines if we should print stack traces on an uncaught expection */
+export const shouldPrintStackTrace: boolean = false;
+
 /** Server wide command prefix (Go ! or go home) */
 export const prefix: string = '!';
 
@@ -20,6 +23,12 @@ export const birthdayTimeout = 1000 * 60 * 60 * 24;
 
 /** Default color to use for RichEmbed's */
 export const defaultEmbedColor = 0x039D5B;
+
+/** How many spam messages in a row constitute an immediate kick, in a given time period (see spamTimer) */
+export const spamMessageCount = 3;
+
+/** How many seconds to track spam messages for */
+export const spamTimer = 30;
 
 /** Server-specific IDs */
 export const serverIDs = {
@@ -46,18 +55,9 @@ export const serverIDs = {
     duckyHonouraryRoleID: '390437904859660290',
     duckyArtRoleID: '345222078577901569',
     duckyAudioRoleID: '398875444360904704',
-    serverStaff: '324536542737727488'
-  },
-
-  /** Shader Role */
-  shaderRoleID: '466249504794869760',
-
-  /** 3D Role */
-  threedRoleID: '379657591657201674',
-
-  /** Bot Contributor ID */
-  botContributerRoleID: '417797331409436682',
-
-  /** Birthday ID */
-  birthdayRoleID: '381386952903098368'
+    serverStaff: '324536542737727488',
+    botContributerRoleID: '417797331409436682',
+    birthdayRoleID: '381386952903098368',
+    podcast: '517061681894129664'
+  }
 };

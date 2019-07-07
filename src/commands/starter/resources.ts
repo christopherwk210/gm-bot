@@ -20,6 +20,10 @@ export const resources: ResourceList = {
       title: 'Amazon GM Recources',
       url: 'http://m.amazonappservices.com/GameMakerResources',
       label: 'Assorted Gamemaker Articles:'
+    },
+    {
+      title: 'Make a Platformer in Gamemaker. By: Shaun Spalding',
+      url: 'http://shaunspalding.co.uk/makeaplatformer.html'
     }
   ],
   'GML Video Tutorials and Channels:': [

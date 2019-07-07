@@ -48,7 +48,7 @@ export class DocsCommand implements CommandClass {
       msg.author.send('You did not include a function name. Type `!help` for help with commands.');
       return;
     } else if (args.length > 2) {
-      version = ~args.indexOf('gms1') || ~args.indexOf('GMS1') ? 'GMS1' : 'GMS2';
+      version = args.includes('gms1') || args.includes('GMS1') ? 'GMS1' : 'GMS2';
       if (args.indexOf('-i') !== -1) image = true;
 
       // find a mention tag

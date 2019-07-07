@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { jsonService, AsyncWriter } from './json.service';
-import { User, Guild, Role, Client, GuildMember } from 'discord.js';
+import { Guild, Client, GuildMember } from 'discord.js';
 import { birthdayTimeout, serverIDs } from '../../config';
 import { roleService } from '../../shared';
 
@@ -55,7 +55,7 @@ class BirthdayService {
    * add birthday and add to file
    */
   addBirthday(user: GuildMember) {
-    let birthdayRole = roleService.getRoleByID(serverIDs.birthdayRoleID);
+    let birthdayRole = roleService.getRoleByID(serverIDs.roles.birthdayRoleID);
 
     // add role to user
     if (!user.roles.has(birthdayRole.id)) {
@@ -83,7 +83,7 @@ class BirthdayService {
    * end birthday and remove from json
    */
   removeBirthday(user: any) {
-    let birthdayRole = roleService.getRoleByID(serverIDs.birthdayRoleID);
+    let birthdayRole = roleService.getRoleByID(serverIDs.roles.birthdayRoleID);
 
     // remove role from user
     this.guild.fetchMember(user.id).then(member => {

@@ -1,3 +1,5 @@
+// This file contains unused imports purposefully, so that they are available for eval usage
+
 import * as Discord from 'discord.js';
 import { Message, Client, Snowflake } from 'discord.js';
 import { Modifier, ModifierClass } from '../../shared';
@@ -10,14 +12,15 @@ const Attachment = Discord.Attachment;
   match: '!devmode'
 })
 export class DevmodeModifier implements ModifierClass {
-  /** Keep a reference to the shared libraries for dev access */
+  // Keep a local reference to the shared libraries for dev access
   shared = shared;
 
-  /** Represents whitelisted users */
-  whitelist: Snowflake[] = [
-    '144913457429348352', // topherlicious
-    '227032791013916672' // TonyStr
-  ];
+  // Represents whitelisted users
+  whitelist: Snowflake[];
+
+  constructor() {
+    this.whitelist = this.getAccessIDs();
+  }
 
   /**
    * Executes code with eval, for development purposes only
@@ -42,6 +45,15 @@ export class DevmodeModifier implements ModifierClass {
 
   /** Only allow whitelisted folks through */
   pre(msg: Message) {
-    return !!(~this.whitelist.indexOf(msg.author.id));
+    return this.whitelist.includes(msg.author.id);
+  }
+
+  getAccessIDs() {
+    let access = this.shared.textService.files['devmode-access'];
+
+    // Remove everything that isn't a digit or newline from the access file
+    access = access.replace(/[^0-9\n]/g, '');
+
+    return access.split('\n');
   }
 }
