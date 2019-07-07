@@ -36,26 +36,28 @@ export const serverIDs = {
   /** Channel IDs */
   channels: {
     helpChannelIDs: [
-      '476018443905138706',
-      '492765138760368149'
+      '262836222089625602',
+      '295210810823802882',
+      '331106795378442240',
+      '490232902110674964'
     ],
-    dingusSecurityChannelID: '492765261506805760',
-    botTestingChannelID: '492765219500720138',
-    casualVoiceChannelID: '448314059540922390',
-    coworkingVoiceChannelID: '448315541862744075',
-    playinaGameVoiceChannelID: '597490944052559905'
+    dingusSecurityChannelID: '492767948155518976',
+    botTestingChannelID: '417796218324910094',
+    casualVoiceChannelID: '332567530025779200',
+    coworkingVoiceChannelID: '262834612932182026',
+    playinaGameVoiceChannelID: '295976186625130512'
   },
 
   /** Role IDs */
   roles: {
-    subredditModsRoleID: '597491401315581954',
-    duckyCodeRoleID: '597491465664593920',
-    duckyHonouraryRoleID: '597491498958716958',
-    duckyArtRoleID: '597491542340403212',
-    duckyAudioRoleID: '597491577971277826',
-    serverStaff: '597491600544759839',
-    botContributerRoleID: '597491637144256553',
-    birthdayRoleID: '597491668693942301',
-    podcast: '597491793105256459'
+    subredditModsRoleID: '262843600730062849',
+    duckyCodeRoleID: '262926334118985728',
+    duckyHonouraryRoleID: '390437904859660290',
+    duckyArtRoleID: '345222078577901569',
+    duckyAudioRoleID: '398875444360904704',
+    serverStaff: '324536542737727488',
+    botContributerRoleID: '417797331409436682',
+    birthdayRoleID: '381386952903098368',
+    podcast: '517061681894129664'
   }
 };
