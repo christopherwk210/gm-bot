@@ -21,7 +21,7 @@ export class IdeaCommand implements CommandClass {
 
     // Load in those saucy recources
     const embed = new RichEmbed ({
-      title: `${insane? 'Insane ' : ''}Game Idea: ${idea}`,
+      title: `${insane ? 'Insane ' : ''}Game Idea: ${idea}`,
       description: `Video game generator by [Orteil](https://orteil.dashnet.org/gamegen) 2012`,
       footer: {
         text: `Executed by ${msg.member ? msg.member.displayName : msg.author.username}`
