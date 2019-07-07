@@ -31,6 +31,7 @@
     * [Help](/features/commands/help.md)
     * [HelpCard](/features/commands/helpcard.md)
     * [ID](/features/commands/id.md)
+    * [Idea](/features/commands/idea.md)
     * [Lifetime](/features/commands/lifetime.md)
     * [Marketplace](/features/commands/marketplace.md)
     * [Miniboss](/features/commands/miniboss.md)

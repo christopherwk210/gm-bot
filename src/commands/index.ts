@@ -23,6 +23,7 @@ export * from './lifetime/lifetime.command';
 export * from './christmas/christmas.command';
 export * from './birthday/birthday.command';
 export * from './podcast-ping/podcast-ping.command';
+export * from './idea/idea.command';
 
 // Admin stuffs
 export * from './assemble/assemble.command';
