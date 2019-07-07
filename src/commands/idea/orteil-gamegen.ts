@@ -7,13 +7,19 @@ function Cap(str) {return str.charAt(0).toUpperCase()+str.slice(1);}//just put t
 
 //okay so this whole thing is pretty straightforward and not as fancy and complex as it could have been
 var Genres=[];
-function Genre(name,actions,things,goals)
-{
-	this.name=name;
-	this.actions=actions;
-	this.things=things;
-	this.goals=goals;//not really goals anymore
-	Genres.push(this);
+
+class Genre {
+  name: Array<string>;
+  actions: Array<string>;
+  things: Array<string>;
+  goals: Array<string>;
+  constructor(name: Array<string>, actions: Array<string>, things: Array<string>, goals: Array<string>) {
+    this.name = name;
+    this.actions = actions;
+    this.things = things;
+    this.goals = goals;
+    Genres.push(this);
+  }
 }
 
 new Genre(
@@ -64,27 +70,26 @@ new Genre(
 );
 
 //everything
-var allNames=[];
-var allActions=[];
-var allThings=[];
-var allGoals=[];
+let allNames = [];
+let allActions = [];
+let allThings = [];
+let allGoals = [];
 
 
-for (var i in Genres) {
+for (let i in Genres) {
   if (typeof Genres[i] === "function") continue;
-	allNames=allNames.concat(Genres[i].name);
-	allActions=allActions.concat(Genres[i].actions);
-	allThings=allThings.concat(Genres[i].things);
-	allGoals=allGoals.concat(Genres[i].goals);
-  console.log("a");
+	allNames = allNames.concat(Genres[i].name);
+	allActions = allActions.concat(Genres[i].actions);
+	allThings = allThings.concat(Genres[i].things);
+	allGoals = allGoals.concat(Genres[i].goals);
 }
 
 export function generate(insane: boolean = false) : string {
-	var genre=C(Genres);
-	var str='';
-	if (!insane) str=C(genre.name)+' where you '+C(genre.actions)+' '+C(genre.things)+' '+C(genre.goals)+'.';
+	let genre = C(Genres);
+	let str = '';
+	if (!insane) str = C(genre.name)+' where you '+C(genre.actions)+' '+C(genre.things)+' '+C(genre.goals)+'.';
 	//else str=C(C(Genres).name)+' where you '+C(C(Genres).actions)+' '+C(C(Genres).things)+' '+C(C(Genres).goals)+'.';
-	else str=C(allNames)+' where you '+C(allActions)+' '+C(allThings)+' '+C(allGoals)+'.';//better
+	else str = C(allNames)+' where you '+C(allActions)+' '+C(allThings)+' '+C(allGoals)+'.';//better
 
-  return Cap(str)
+  return Cap(str);
 }
