@@ -38,7 +38,7 @@ export class HasteModifier implements ModifierClass {
   getHasteBinLink(contents: string): Promise<string> {
     // Prepare to contact
     let postOptions = {
-      host: 'us-central1-gmtools-meseta.cloudfunctions.net',
+      host: 'us-central1-gmcloud-meseta.cloudfunctions.net',
       path: '/saveFirebinExt',
       port: '443',
       method: 'POST',
