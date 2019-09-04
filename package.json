@@ -19,10 +19,6 @@
       "lint"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/christopherwk210/gm-bot"
-  },
   "keywords": [
     "discord",
     "bot",
@@ -31,7 +27,6 @@
     "discordapp"
   ],
   "author": "Chris Anselmo <christopherwk210@gmail.com>",
-  "homepage": "https://bitbucket.org/christopherwk210/gm-bot",
   "dependencies": {
     "async": "^2.6.1",
     "body-parser": "^1.18.3",

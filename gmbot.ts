@@ -5,14 +5,15 @@
  */
 
 // Init discord api
-import { Message, Client, GuildMember, TextChannel } from 'discord.js';
+import { Message, Client, GuildMember, TextChannel, MessageReaction, User } from 'discord.js';
 const bot = new Client();
 
 // Config
 import { serverIDs, shouldDieOnException, shouldPrintStackTrace } from './src/config';
 
 // Utils
-import { parseCommandList, parseModifierList, Rule, Type , detectSpamMessage } from './src/shared';
+import { parseCommandList, parseModifierList, Rule, Type , detectSpamMessage, detectOutsideStaff } from './src/shared';
+import './shared/utils/choose';
 
 // Express
 import runExpressServer from './src/express/express';
@@ -64,6 +65,7 @@ bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
 bot.on('error', onBotError);                        // Bot encountered an error
+bot.on('messageReactionAdd', onBotReactionAdd);     // New reaction added to message
 bot.on('guildMemberAdd', user => {                  // New user joined
   WelcomeCommand.sendWelcomeMessage(user);
   SecurityCommand.newUserSecurity(user);
@@ -131,6 +133,16 @@ function onBotMessage(msg: Message) {
 
   // If no command was hit, check for modifiers
   parseModifierList(modifiers, msg);
+}
+
+function onBotReactionAdd(reaction: MessageReaction, user: User) {
+  if (detectOutsideStaff(user) === 'admin' && reaction.emoji.name === '🤑') {
+    const msg = reaction.message;
+    const checkReactions = msg.reactions.filter(msgReaction => msgReaction.emoji.name === '✅').first();
+    const winner = checkReactions.users.array().choose();
+
+    user.send(`Winner chosen: ${winner}`);
+  }
 }
 
 /**
