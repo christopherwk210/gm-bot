@@ -13,7 +13,7 @@ import { serverIDs, shouldDieOnException, shouldPrintStackTrace } from './src/co
 
 // Utils
 import { parseCommandList, parseModifierList, Rule, Type , detectSpamMessage, detectOutsideStaff } from './src/shared';
-import './shared/utils/choose';
+import './src/shared/utils/choose';
 
 // Express
 import runExpressServer from './src/express/express';
