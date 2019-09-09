@@ -135,13 +135,15 @@ function onBotMessage(msg: Message) {
   parseModifierList(modifiers, msg);
 }
 
-function onBotReactionAdd(reaction: MessageReaction, user: User) {
-  if (detectOutsideStaff(user) === 'admin' && (reaction.emoji.name === '🤑' || reaction.emoji.name === '✅')) {
-    const msg = reaction.message;
-    const checkReactions = msg.reactions.filter(msgReaction => msgReaction.emoji.name === '✅').first();
-    const winner = checkReactions.users.array().choose();
+async function onBotReactionAdd(reaction: MessageReaction, user: User) {
+  if (detectOutsideStaff(user) === 'admin' && reaction.emoji.name === '✅') {
+    const fetchedUsers = await reaction.fetchUsers();
 
-    user.send(`Winner chosen: ${winner.username}`);
+    // const msg = reaction.message;
+    // const checkReactions = msg.reactions.filter(msgReaction => msgReaction.emoji.name === '✅').first();
+    // const winner = checkReactions.users.array().choose();
+
+    user.send(`Winner chosen: ${fetchedUsers.array().choose().username}`);
   }
 }
 
