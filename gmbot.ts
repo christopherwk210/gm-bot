@@ -136,7 +136,7 @@ function onBotMessage(msg: Message) {
 }
 
 function onBotReactionAdd(reaction: MessageReaction, user: User) {
-  if (detectOutsideStaff(user) === 'admin' && reaction.emoji.name === '🤑') {
+  if (detectOutsideStaff(user) === 'admin' && (reaction.emoji.name === '🤑' || reaction.emoji.name === '✅')) {
     const msg = reaction.message;
     const checkReactions = msg.reactions.filter(msgReaction => msgReaction.emoji.name === '✅').first();
     const winner = checkReactions.users.array().choose();
