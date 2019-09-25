@@ -82,7 +82,7 @@ export const resources: ResourceList = {
       url: 'https://www.youtube.com/watch?v=AXb-VBZTKDA'
     }
   ],
-  'Pixelart Refrence Sites:': [
+  'Pixelart Refrence Sites and Tutorials:': [
     {
       title: 'Miniboss',
       url: 'http://blog.studiominiboss.com/pixelart'
@@ -94,6 +94,10 @@ export const resources: ResourceList = {
     {
       title: 'Find Palletes Here',
       url: 'https://lospec.com/palette-list'
+    },
+    {
+      title: 'Guide to Subpixel Animation',
+      url: 'https://2dwillneverdie.com/tutorial/give-your-sprites-depth-with-sub-pixel-animation/'
     }
   ],
   'Music Theory and Learning Sites/Channels:': [
