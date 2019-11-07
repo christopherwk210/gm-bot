@@ -142,8 +142,8 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
     // const msg = reaction.message;
     // const checkReactions = msg.reactions.filter(msgReaction => msgReaction.emoji.name === '✅').first();
     // const winner = checkReactions.users.array().choose();
-
-    user.send(`Winner chosen: ${fetchedUsers.array().choose().username}`);
+    const winner = fetchedUsers.array().choose();
+    user.send(`Winner chosen: ${winner.username}${winner.discriminator}`);
   }
 }
 
