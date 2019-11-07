@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import { Modifier, ModifierClass, executeGML, detectOutsideStaff } from '../../shared';
 
 @Modifier({
-  match: 'gml'
+  match: 'gml-eval'
 })
 export class GmlModifier implements ModifierClass {
 
