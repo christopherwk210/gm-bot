@@ -17,7 +17,7 @@ export const resources: ResourceList = {
       label: 'Detailed Shader Basics:'
     },
     {
-      title: 'Amazon GM Recources',
+      title: 'Amazon GM Resources',
       url: 'http://m.amazonappservices.com/GameMakerResources',
       label: 'Assorted Gamemaker Articles:'
     },
@@ -72,7 +72,7 @@ export const resources: ResourceList = {
       url: 'http://pixeljoint.com/forum/forum_posts.asp?TID=11299'
     }
   ],
-  'Art Video Recources and Channels:': [
+  'Art Video Resources and Channels:': [
     {
       title: 'MortMort',
       url: 'https://www.youtube.com/user/atMNRArt'
@@ -82,7 +82,7 @@ export const resources: ResourceList = {
       url: 'https://www.youtube.com/watch?v=AXb-VBZTKDA'
     }
   ],
-  'Pixelart Refrence Sites:': [
+  'Pixelart Refrence Sites and Tutorials:': [
     {
       title: 'Miniboss',
       url: 'http://blog.studiominiboss.com/pixelart'
@@ -94,6 +94,10 @@ export const resources: ResourceList = {
     {
       title: 'Find Palletes Here',
       url: 'https://lospec.com/palette-list'
+    },
+    {
+      title: 'Guide to Subpixel Animation',
+      url: 'https://2dwillneverdie.com/tutorial/give-your-sprites-depth-with-sub-pixel-animation/'
     }
   ],
   'Music Theory and Learning Sites/Channels:': [
@@ -106,7 +110,7 @@ export const resources: ResourceList = {
       url: 'https://www.youtube.com/playlist?list=PLMvVESrbjBWplAcg3pG0TesncGT7qvO06'
     }
   ],
-  'Other Useful Topics and Recources:': [
+  'Other Useful Topics and Resources:': [
     {
       title: '"Your First Game Will (and Should) Suck" By: PixelatedPope',
       url: 'https://goo.gl/sgz7d2'

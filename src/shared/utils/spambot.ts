@@ -19,6 +19,10 @@ let spamTrackers: SpamTracker[] = [];
  * @returns Nothing, honestly
  */
 export function detectSpamMessage(msg: Message) {
+  if (msg.member && msg.member.roles.size > 1) {
+    return;
+  }
+
   const filterKeywords = textService.files['spam-filter'];
   const regKeywords: RegExp = convertFilterRegexp(filterKeywords, 'i');
   const regUrl: RegExp = /https?:\/\/\S+/i;
