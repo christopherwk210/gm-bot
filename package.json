@@ -45,6 +45,7 @@
     "puppeteer": "^1.9.0",
     "q": "^1.5.1",
     "request": "^2.88.0",
+    "request-promise": "^4.2.5",
     "request-promise-native": "^1.0.5",
     "string-similarity": "^2.0.0",
     "ts-node": "^7.0.1",

@@ -3,6 +3,7 @@ import { Message, RichEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import { load } from 'cheerio';
+import * as rp from 'request-promise';
 
 @Command({
   matches: ['miniboss', 'mb'],
@@ -126,16 +127,13 @@ export class MinibossCommand implements CommandClass {
   /**
    * Returns the miniboss tutorial page as HTML
    */
-  getTutorialsPage() {
-    let chunks = [];
-    return new Promise(resolve => {
-      http.get(this.url, res => {
-        res.setEncoding('utf8');
-        res.on('data', data => chunks.push(data));
-        res.on('end', () => resolve(chunks.join('')));
-        res.on('error', err => resolve(false));
-      }).end();
-    });
+  async getTutorialsPage() {
+    try {
+      return await rp(this.url, {method: 'GET'} );
+
+    } catch (e) {
+      return ( e instanceof Error ? e : new Error(e));
+    }
   }
 }
 
