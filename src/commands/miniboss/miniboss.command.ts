@@ -89,7 +89,7 @@ export class MinibossCommand implements CommandClass {
    */
   async getMinibossPostData() {
     const html = await this.getTutorialsPage();
-    if (!html) return false;
+    if (html instanceof Error) return false;
 
     // Load the site into cheerio
     const $ = load(<string>html);
