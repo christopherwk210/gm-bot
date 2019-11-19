@@ -16,6 +16,7 @@ export * from './upvote/upvote.command';
 export * from './done/done.command';
 export * from './helpcard/helpcard.command';
 export * from './starter/starter.command';
+export * from './search/search.command';
 
 // Random fun stuffs
 export * from './commandment/commandment.command';
