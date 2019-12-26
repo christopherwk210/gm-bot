@@ -119,6 +119,9 @@ function onBotMessage(msg: Message) {
   // Don't respond to bots
   if (msg.author.bot) return;
 
+  // nice
+  if (msg.author.id === '144913457429348352' && msg.content === 'nice') msg.channel.send('nice');
+
   // Send the message along to the HelpChannelService
   helpChannelService.handleMessage(msg);
 
