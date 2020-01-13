@@ -194,7 +194,7 @@ bot.on('raw', packet => {
 process.on('unhandledRejection', reason => {
   console.log(`Unhandled promise: ${reason}`);
 });
-
+/*
 // Handle process-wide exceptions
 process.on('uncaughtException', async err => {
   let errorMessage = `GMBot has encoutered an uncaught exception:\n\`\`\`${err}\`\`\``;
@@ -209,7 +209,7 @@ process.on('uncaughtException', async err => {
 
   if (shouldDieOnException) process.exit(-1);
 });
-
+*/
 // Copyright information
 console.log(`GameMakerBot v${require('./package.json').version}`);
 
