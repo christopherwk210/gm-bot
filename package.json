@@ -46,10 +46,9 @@
     "q": "^1.5.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
-    "silent": "^0.1.2",
     "string-similarity": "^2.0.0",
     "ts-node": "^7.0.1",
-    "typescript": "^3.7.4",
+    "typescript": "^3.1.1",
     "youtube-dl": "^1.12.2"
   },
   "devDependencies": {
@@ -62,7 +61,7 @@
     "@types/js-beautify": "^1.8.0",
     "@types/mkdirp": "^0.5.2",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.17.13",
+    "@types/node": "^10.12.15",
     "@types/puppeteer": "^1.11.1",
     "@types/request-promise-native": "^1.0.15",
     "chai": "^4.2.0",

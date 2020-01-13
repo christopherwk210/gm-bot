@@ -11,10 +11,6 @@ export class WrongCodeModifier implements ModifierClass {
     // Format all misunderstood codeblocks
     let formatted = msg.content.replace(new RegExp(match, 'g'), '```js\n$2```');
 
-    // take care of pings
-    formatted = formatted.replace(/(@everyone)/g, '@ everyone');
-    formatted = formatted.replace(/(@here)/g, '@ here');
-
     // Tell them what they did wrong, and fix it for them
     msg.channel.send(`<@${msg.author.id}>, you tried formatting your code with \`\`'''\`\` or \`\`´´´\`\`, ` +
       `however the correct symbol is the backtick: \`\` \`\`\` \`\`. Here is your message formatted properly:\n\n${formatted}`);
