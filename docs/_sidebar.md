@@ -40,6 +40,7 @@
     * [Resize](/features/commands/resize.md)
     * [Role](/features/commands/role-control.md)
     * [Say](/features/commands/say.md)
+    * [Search](/features/commands/search.md)
     * [Starter](/features/commands/starter.md)
     * [Security](/features/commands/security.md)
     * [Upvote](/features/commands/upvote.md)
