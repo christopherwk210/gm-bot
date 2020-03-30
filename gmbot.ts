@@ -21,6 +21,7 @@ import runExpressServer from './src/express/express';
 // Services
 import {
   roleService,
+  devModeService,
   docService,
   guildService,
   channelService,
@@ -59,6 +60,10 @@ if (!auth) {
   process.exit();
 }
 
+// Checking for production mode flag
+let cmdArgs = process.argv.slice(2);
+devModeService.setDevMode(cmdArgs[0] !== '--prod');
+
 // Bot callbacks
 bot.on('ready', onBotReady);                        // Bot is loaded
 bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
@@ -87,6 +92,12 @@ function onBotReady() {
   // Load all rules
   rules = loadRules();
   modifiers = loadModifiers();
+
+  // Check if bot is in GM server in Dev Mode
+  if (devModeService.isDevMode() === true && guildService.guild.id === '262834612932182025') {
+    console.error('Bot instantiated in Development mode in GM Server. Exiting process...');
+    process.exit();
+  }
 
   // Tell the world our feelings
   console.log('Squaring to go, captain.');
