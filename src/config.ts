@@ -30,6 +30,9 @@ export const spamMessageCount = 3;
 /** How many seconds to track spam messages for */
 export const spamTimer = 30;
 
+/** How long a message should be allowed in a voice text channel before it is purged, in milliseconds */
+export const voiceTextMessageTimeout = 1000 * 60 * 60 * 3;
+
 /** Server-specific IDs */
 export const serverIDs = {
 
@@ -43,9 +46,11 @@ export const serverIDs = {
     ],
     dingusSecurityChannelID: '492767948155518976',
     botTestingChannelID: '417796218324910094',
-    casualVoiceChannelID: '332567530025779200',
-    coworkingVoiceChannelID: '262834612932182026',
-    playinaGameVoiceChannelID: '295976186625130512'
+    casualVoiceChannelID: '435121932757762067',
+    coworkingVoiceChannelID: '699985382841778288',
+    playinaGameVoiceChannelID: '699985407437439076',
+    coworkingTextChannelID: '699985447249510697',
+    casualTextChannelID: '699985427876020235'
   },
 
   /** Role IDs */
