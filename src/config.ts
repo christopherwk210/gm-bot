@@ -46,11 +46,11 @@ export const serverIDs = {
     ],
     dingusSecurityChannelID: '492767948155518976',
     botTestingChannelID: '417796218324910094',
-    casualVoiceChannelID: '435121932757762067',
-    coworkingVoiceChannelID: '699985382841778288',
-    playinaGameVoiceChannelID: '699985407437439076',
-    coworkingTextChannelID: '699985447249510697',
-    casualTextChannelID: '699985427876020235'
+    casualVoiceChannelID: '332567530025779200',
+    coworkingVoiceChannelID: '262834612932182026',
+    playinaGameVoiceChannelID: '295976186625130512',
+    coworkingTextChannelID: '390555974953336832',
+    casualTextChannelID: '275366765574225920'
   },
 
   /** Role IDs */
