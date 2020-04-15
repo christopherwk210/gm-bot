@@ -33,9 +33,9 @@ class VoiceChannelService {
   scanVoiceTextChannels() {
     this.monitoredBundles.forEach(bundle => {
       bundle.textChannels.forEach(async channel => {
-        let msgs = await channel.fetchMessages({ limit: 10 });
+        let msgs = await channel.fetchMessages({ limit: 100 });
         msgs = msgs.filter(msg => {
-          return Date.now() - voiceTextMessageTimeout > msg.createdTimestamp;
+          return Date.now() - voiceTextMessageTimeout > msg.createdTimestamp && !msg.pinned;
         });
         channel.bulkDelete(msgs);
       });
