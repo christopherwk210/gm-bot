@@ -57,7 +57,7 @@ export class PaletteCommand implements CommandClass {
 
       // Okay I give up now
       if (!palettePageHTML || (<string>palettePageHTML).includes('The palette you requested could not be found.')) {
-        return msg.channel.send(`${paletteName} palette not found!`);
+        return msg.channel.send(`${paletteName.replace(/@/g, '@ ')} palette not found!`);
       }
     }
 
