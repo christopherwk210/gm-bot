@@ -31,7 +31,8 @@ import {
   helpChannelService,
   helpcardService,
   securityService,
-  birthdayService
+  birthdayService,
+  voiceChannelService
 } from './src/shared';
 
 // Rules
@@ -82,6 +83,8 @@ function onBotReady() {
   docService.init();
 
   helpChannelService.cacheHelpChannels();
+  voiceChannelService.cacheChannels();
+  setInterval(voiceChannelService.scanVoiceTextChannels.bind(voiceChannelService), 1000 * 60);
   birthdayService.init(bot);
 
   // Load all rules
@@ -124,6 +127,9 @@ function onBotMessage(msg: Message) {
 
   // Send the message along to the HelpChannelService
   helpChannelService.handleMessage(msg);
+
+  // Also send it along to the VoiceChannelService!
+  voiceChannelService.handleMessage(msg);
 
   // Is this spam?
   detectSpamMessage(msg);
