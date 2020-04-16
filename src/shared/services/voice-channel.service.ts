@@ -10,7 +10,7 @@ class VoiceChannelService {
   monitoredBundles: VoiceChannelBundle[];
 
   handleMessage(msg: Message) {
-    if (msg.member.roles.has(serverIDs.roles.serverStaff)) {
+    if (msg.member && msg.member.roles.has(serverIDs.roles.serverStaff)) {
       return;
     }
 
