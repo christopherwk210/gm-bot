@@ -26,7 +26,15 @@ export class LifetimeCommand implements CommandClass {
         msg.channel.send('You can only use this in the /r/GameMaker server.');
       }
     } else if (msg.member) {
-      msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
+      if (!msg.member.joinedAt || !msg.member.displayName) {
+        msg.guild.fetchMember(msg.member.id).then(memb => {
+          msg.channel.send(`${memb.displayName}, you have been a member of this server since ${memb.joinedAt}.`);
+        } else {
+          msg.channel.send('Lifetime command failed. Blame the discord API, probably.');
+        }
+      } else {
+        msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
+      }
     } else {
       msg.channel.send('You can only use this in the /r/GameMaker server.');
     }
