@@ -47,6 +47,14 @@ class ChannelService {
   getChannelByID(id: string) {
     return this.channels.find(channel => channel.id === id);
   }
+
+  getTextChannelByID(id: string) {
+    return this.textChannels.find(channel => channel.id === id);
+  }
+
+  getVoiceChannelByID(id: string) {
+    return this.voiceChannels.find(channel => channel.id === id);
+  }
 }
 
 export let channelService = new ChannelService();

@@ -33,6 +33,9 @@ export const spamTimer = 30;
 /** How long a message should be allowed in a voice text channel before it is purged, in milliseconds */
 export const voiceTextMessageTimeout = 1000 * 60 * 60 * 3;
 
+/** How often to scan voice channels for messages to delete */
+export const voiceTextMessageScanRate = 1000 * 60;
+
 /** Server-specific IDs */
 export const serverIDs = {
 

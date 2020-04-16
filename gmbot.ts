@@ -83,8 +83,7 @@ function onBotReady() {
   docService.init();
 
   helpChannelService.cacheHelpChannels();
-  voiceChannelService.cacheChannels();
-  setInterval(voiceChannelService.scanVoiceTextChannels.bind(voiceChannelService), 1000 * 60);
+  voiceChannelService.init();
   birthdayService.init(bot);
 
   // Load all rules
