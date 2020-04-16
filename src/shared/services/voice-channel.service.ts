@@ -10,6 +10,10 @@ class VoiceChannelService {
   monitoredBundles: VoiceChannelBundle[];
 
   handleMessage(msg: Message) {
+    if (msg.member.roles.has(serverIDs.roles.serverStaff)) {
+      return;
+    }
+
     const thisBundle = this.monitoredBundles.find(bundle =>
       bundle.textChannelIDs.includes(msg.channel.id)
     );
