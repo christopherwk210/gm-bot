@@ -41,7 +41,7 @@ class VoiceChannelService {
         msgs = msgs.filter(msg => {
           return Date.now() - voiceTextMessageTimeout > msg.createdTimestamp && !msg.pinned;
         });
-        channel.bulkDelete(msgs);
+        channel.bulkDelete(msgs).catch(() => console.log('Error bulk deleting'));
       });
     });
   }
