@@ -23,7 +23,7 @@ export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'au
  * @param user
  */
 export function detectOutsideStaff(user: User): 'admin' | 'code' | 'art' | 'audio' | false {
-  if (user.bot) return false;
+  if (!user || user.bot) return false;
   if (!user.client.guilds.has(guildService.guild.id)) return false;
 
   // Get the /r/GM guild
