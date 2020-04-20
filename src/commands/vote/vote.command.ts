@@ -1,6 +1,6 @@
 import { Message, RichEmbed, MessageCollector, MessageReaction } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from '../../config';
-import { Command, CommandClass, detectStaff, roleService } from '../../shared';
+import { Command, CommandClass, detectStaff, detectOutsideStaff, roleService, channelService } from '../../shared';
 import { AssembleCommand } from '../assemble/assemble.command';
 
 @Command({
@@ -82,7 +82,7 @@ export class VoteCommand implements CommandClass {
           currentVoteConfiguration.description = message.content;
           currentStep = VoteWizardStep.PING_CHOICE;
           msg.author.send(
-            'Description saved ✅\nShould this vote ping any users?\n\nPlease type either "staff", "ducks", "both", or "none"'
+            'Description saved ✅\nShould this vote ping any users?\n\nPlease type either "staff", "ducks", "both", "cats", or "none"'
           );
           break;
 
@@ -93,6 +93,13 @@ export class VoteCommand implements CommandClass {
             case 'staff':
             case 'ducks':
             case 'both':
+              if (detectOutsideStaff(message.author) === 'admin') {
+                currentVoteConfiguration.pingChoice = loweredContent;
+              } else {
+                currentVoteConfiguration.pingChoice = 'cats';
+              }
+              break;
+            case 'cats':
               currentVoteConfiguration.pingChoice = loweredContent;
               break;
           }
@@ -180,6 +187,7 @@ export class VoteCommand implements CommandClass {
     // Ping necessary parties
     const assembleCommand = new AssembleCommand();
     const serverStaffRole = roleService.getRoleByID(serverIDs.roles.serverStaff);
+    const communityCatsRoleID = roleService.getRoleByID(serverIDs.roles.communityCatsRoleID);
 
     switch (voteConfig.pingChoice) {
       case 'staff':
@@ -191,6 +199,9 @@ export class VoteCommand implements CommandClass {
       case 'both':
         await msg.channel.send(`${serverStaffRole}`);
         await assembleCommand.action(msg, []);
+        break;
+      case 'cats':
+        await msg.channel.send(`${communityCatsRoleID}`);
         break;
     }
 
@@ -362,14 +373,16 @@ export class VoteCommand implements CommandClass {
    * @param args
    */
   pre(msg: Message, args: string[]) {
-    return detectStaff(msg.member) === 'admin';
+    const isStaff = detectStaff(msg.member);
+    if (isStaff === 'admin' || (isStaff === 'cats' && msg.channel === channelService.getChannelByName('lions_den'))) return true;
+    return false;
   }
 }
 
 interface VoteConfig {
   title: string;
   description: string;
-  pingChoice: 'staff' | 'ducks' | 'both' | 'none';
+  pingChoice: 'staff' | 'ducks' | 'both' | 'cats' | 'none';
   voteOptions: string[];
   time: number;
   privacyChoice: 'private' | 'public';
