@@ -1,6 +1,5 @@
 // Core stuffs
 export * from './welcome/welcome.command';
-export * from './role-control/role-control.command';
 export * from './help/help.command';
 export * from './docs/docs.command';
 export * from './changelog/changelog.command';
@@ -23,7 +22,6 @@ export * from './commandment/commandment.command';
 export * from './lifetime/lifetime.command';
 export * from './christmas/christmas.command';
 export * from './birthday/birthday.command';
-export * from './podcast-ping/podcast-ping.command';
 export * from './idea/idea.command';
 
 // Admin stuffs
