@@ -92,13 +92,6 @@ export class VoteCommand implements CommandClass {
           switch (loweredContent) {
             case 'staff':
             case 'ducks':
-            case 'both':
-              if (detectOutsideStaff(message.author) === 'admin') {
-                currentVoteConfiguration.pingChoice = loweredContent;
-              } else {
-                currentVoteConfiguration.pingChoice = 'cats';
-              }
-              break;
             case 'cats':
               currentVoteConfiguration.pingChoice = loweredContent;
               break;
