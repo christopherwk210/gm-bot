@@ -7,12 +7,13 @@ import { serverIDs } from '../../config';
  * Detects if a member is staff or not
  * @param member
  */
-export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | false {
+export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | 'cats' | false {
   if (!member || !member.roles) return false;
   if (member.roles.has(serverIDs.roles.serverStaff)) return 'admin';
   if (member.roles.has(serverIDs.roles.duckyCodeRoleID) || member.roles.has(serverIDs.roles.duckyHonouraryRoleID)) return 'code';
   if (member.roles.has(serverIDs.roles.duckyArtRoleID)) return 'art';
   if (member.roles.has(serverIDs.roles.duckyAudioRoleID)) return 'audio';
+  if (member.roles.has(serverIDs.roles.communityCatsRoleID)) return 'cats';
 
   return false;
 }
@@ -22,7 +23,7 @@ export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'au
  * and runs detectStaff against it
  * @param user
  */
-export function detectOutsideStaff(user: User): 'admin' | 'code' | 'art' | 'audio' | false {
+export function detectOutsideStaff(user: User): 'admin' | 'code' | 'art' | 'audio' | 'cats' | false {
   if (!user || user.bot) return false;
   if (!user.client.guilds.has(guildService.guild.id)) return false;
 

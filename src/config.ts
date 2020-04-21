@@ -65,6 +65,7 @@ export const serverIDs = {
     duckyAudioRoleID: '398875444360904704',
     serverStaff: '324536542737727488',
     botContributerRoleID: '417797331409436682',
+    communityCatsRoleID: '700373416502624326',
     birthdayRoleID: '381386952903098368'
   }
 };
