@@ -367,7 +367,10 @@ export class VoteCommand implements CommandClass {
    */
   pre(msg: Message, args: string[]) {
     const isStaff = detectStaff(msg.member);
-    if (isStaff === 'admin' || (isStaff === 'cats' && msg.channel === channelService.getChannelByID(serverIDs.channels.councilOfYarnChannel))) return true;
+    const councilOfYarnChannel = channelService.getChannelByID(serverIDs.channels.councilOfYarnChannel);
+    if (isStaff === 'admin' || (isStaff === 'cats' && msg.channel === councilOfYarnChannel)) {
+      return true;
+    }
     return false;
   }
 }
