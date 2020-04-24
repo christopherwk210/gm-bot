@@ -53,7 +53,8 @@ export const serverIDs = {
     coworkingVoiceChannelID: '262834612932182026',
     playinaGameVoiceChannelID: '295976186625130512',
     coworkingTextChannelID: '700059879557300224',
-    casualTextChannelID: '700059512027217992'
+    casualTextChannelID: '700059512027217992',
+    councilOfYarnChannel: '700734608400187550'
   },
 
   /** Role IDs */
