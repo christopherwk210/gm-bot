@@ -99,7 +99,7 @@ export class PixelChallengeCommand implements CommandClass {
    */
   async action(msg: Message, args: string[]) {
     if (!msg.member) {
-      msg.channel.send('You can only do that in the /r/GameMaker Discord Server, you silly!');
+      msg.channel.send('You can only do that in the /r/unity Discord Server, you silly!');
       return;
     }
 

@@ -21,7 +21,7 @@ export class HelpCommand implements CommandClass {
   modifierDocsLocation = path.join(__dirname, '../../../docs/features/modifiers');
 
   helpMessage =
-    'Hi, I\'m GameMakerBot. To get help with a specific command, use `!help topic`. Here are all of the topics you can get help with:\n\n';
+    'Hi, I\'m unityBot. To get help with a specific command, use `!help topic`. Here are all of the topics you can get help with:\n\n';
 
   constructor() {
     this.helpFiles.admins = markdownService.files['help.admins'];

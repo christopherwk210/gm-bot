@@ -19,7 +19,7 @@ export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'au
 }
 
 /**
- * Fetches a user's /r/GameMaker guild membership if it exists,
+ * Fetches a user's /r/unity guild membership if it exists,
  * and runs detectStaff against it
  * @param user
  */

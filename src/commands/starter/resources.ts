@@ -18,11 +18,11 @@ export const resources: ResourceList = {
     },
     {
       title: 'Amazon GM Resources',
-      url: 'http://m.amazonappservices.com/GameMakerResources',
-      label: 'Assorted Gamemaker Articles:'
+      url: 'http://m.amazonappservices.com/unityResources',
+      label: 'Assorted unity Articles:'
     },
     {
-      title: 'Make a Platformer in Gamemaker. By: Shaun Spalding',
+      title: 'Make a Platformer in unity. By: Shaun Spalding',
       url: 'http://shaunspalding.co.uk/makeaplatformer.html'
     }
   ],

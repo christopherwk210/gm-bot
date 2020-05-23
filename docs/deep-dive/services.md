@@ -44,15 +44,15 @@ This service reads `gmlDocs.json` as loaded by the JSON service for powering the
 These services load guild information on bot load and provided references to them for easy access.
 
 ### Guild service `gm-bot/src/shared/services/guild.service.ts`
-This service exposes the /r/GameMaker server guild (or whatever server it is running in for testing) under the `guild` property.
+This service exposes the /r/unity server guild (or whatever server it is running in for testing) under the `guild` property.
 
 ### Role service `gm-bot/src/shared/services/role.service.ts`
-This service exposes all of the roles on the /r/GameMaker guild under the `roles` property as an array of `Role`'s. It also stores just the role names as an array under `roleNames`.
+This service exposes all of the roles on the /r/unity guild under the `roles` property as an array of `Role`'s. It also stores just the role names as an array under `roleNames`.
 
 Specific roles can be retrieved with the `getRoleByName()` and `getRoleById()` methods.
 
 ### Channel service
-This service exposes the /r/GameMaker server channels under the `channels` property. It also exposes `getChannelByName()` and `getChannelByID()` accessor methods.
+This service exposes the /r/unity server channels under the `channels` property. It also exposes `getChannelByName()` and `getChannelByID()` accessor methods.
 
 The channels are also made available through separate array properties that separates them by type:
 ```typescript

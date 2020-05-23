@@ -39,7 +39,7 @@ export class SayCommand implements CommandClass {
     if (fancy) {
       fancy = new RichEmbed({
         author: {
-          name: 'GameMakerBot',
+          name: 'unityBot',
           icon_url: 'https://cdn.discordapp.com/app-icons/295327000372051968/a073c2f3f8904916d98d873b90517665.png',
           url: 'https://bitbucket.org/christopherwk210/gm-bot'
         },

@@ -73,7 +73,7 @@ class BirthdayService {
       this.removeBirthday(user);
     }, birthdayTimeout);
 
-    user.send(':tada: The **/r/GameMaker Discord** wishes you a happy birthday! :tada:\n' +
+    user.send(':tada: The **/r/unity Discord** wishes you a happy birthday! :tada:\n' +
               'You\'ve been granted the shiny birthday role and colors for 24 hours\n' +
               'Should you wish to remove it at any time, just message me `!birthday end` and I\'ll remove it for you.');
     this.save();

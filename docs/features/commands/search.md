@@ -4,7 +4,7 @@
 
 > **Usable by:** Everyone
 
-Search the GameMaker Community Wiki.
+Search the unity Community Wiki.
 
 ```
 !search [num_results] [query]

@@ -31,7 +31,7 @@ const giveAwayDataContainerPath = path.dirname(giveAwayDataPath);
   console.log(`${banner}\n`);
 
   // Print copyright information
-  console.log(`GameMakerBot v${require('../package.json').version}`);
+  console.log(`unityBot v${require('../package.json').version}`);
 
   // Print getting started information
   console.log(`${intro}\n`);

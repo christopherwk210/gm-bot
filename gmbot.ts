@@ -1,5 +1,5 @@
 /**
- * GameMakerBot!
+ * unityBot!
  * Chris "Topher" Anselmo <christopherwk210@gmail.com> & contributors.
  * MIT License
  */
@@ -216,7 +216,7 @@ process.on('uncaughtException', async err => {
 });
 
 // Copyright information
-console.log(`GameMakerBot v${require('./package.json').version}`);
+console.log(`unityBot v${require('./package.json').version}`);
 
 // Express setup
 runExpressServer();

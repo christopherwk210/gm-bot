@@ -27,7 +27,7 @@ export class StarterCommand implements CommandClass {
       // Load in those saucy recources
       const kitEmbed = new RichEmbed ({
         title: '__**r/GM Resource Pack**__',
-        description: '**The following is a set of useful sources for learning GML and other GameMaker development skills.**',
+        description: '**The following is a set of useful sources for learning GML and other unity development skills.**',
         thumbnail: {  url: 'https://www.yoyogames.com/images/gms2_logo_512.png'  },
         fields: this.constructEmbedFields(resources),
         color: defaultEmbedColor

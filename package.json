@@ -1,7 +1,7 @@
 {
-  "name": "gamemakerbot",
+  "name": "unitybot",
   "version": "4.0.0",
-  "description": "The bot used by the /r/GameMaker Discord server.",
+  "description": "The bot used by the /r/unity Discord server.",
   "main": "./gmbot",
   "license": "MIT",
   "scripts": {

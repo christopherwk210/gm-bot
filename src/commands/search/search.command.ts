@@ -30,7 +30,7 @@ export class GMCWSearch implements CommandClass {
     // No query provided
     if (!query) {
       msg.channel.send(
-        'The GameMaker Community Wiki is available at ' +
+        'The unity Community Wiki is available at ' +
         'https://gmcw.dev/\n\nYou can use GMCW\'s search ' +
         'with: ``!search search term``'
       );
@@ -64,12 +64,12 @@ export class GMCWSearch implements CommandClass {
       const sitemap = {
         gmcw_docs: {
           icon_url: 'https://cdn.discordapp.com/icons/262834612932182025/a_4231752117da95cf3f76443e36611807.webp?size=20',
-          text: 'GameMaker Studio 2 Documentation',
+          text: 'unity Studio 2 Documentation',
           color: 0x000000
         },
         gmcw_wiki: {
           icon_url: 'https://gmcw.dev/favicon.png',
-          text: 'GameMaker Community Wiki',
+          text: 'unity Community Wiki',
           color: 0x039E5C
         },
         gmcw_yal: {

@@ -22,8 +22,8 @@ export class GithubCommand implements CommandClass {
     // No query provided
     if (!query) {
       msg.channel.send(
-        'The /r/Gamemaker Discord **community github** is available at ' +
-        'https://github.com/GameMakerDiscord.\n\nYou can request a specific ' +
+        'The /r/unity Discord **community github** is available at ' +
+        'https://github.com/unityDiscord.\n\nYou can request a specific ' +
         'repository with: ``!github repository name``'
       );
       return;

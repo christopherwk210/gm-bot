@@ -1,8 +1,8 @@
-Hi, I'm GameMakerBot. Here are some of my available commands:
+Hi, I'm unityBot. Here are some of my available commands:
 ```
 !help        - outputs this message
 
-!resources   - outputs a list of trusted resources to assist with your GameMaker Studio journey
+!resources   - outputs a list of trusted resources to assist with your unity Studio journey
 
 !docs        - outputs the URL to the documentation of a GML function
                usage: !docs [function_name] [version] [-i]

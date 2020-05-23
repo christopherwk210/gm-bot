@@ -4,7 +4,7 @@
 
 > **Usable by:** Everyone
 
-Replies with a message containing how long a user has been part of the /r/GameMaker server.
+Replies with a message containing how long a user has been part of the /r/unity server.
 
 ```
 !lifetime

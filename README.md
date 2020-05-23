@@ -1,7 +1,7 @@
-# GameMakerBot
-> The bot used by the GameMaker Discord server.
+# unityBot
+> The bot used by the unity Discord server.
 
-GameMakerBot is a robust Discord bot written in TypeScript that packs a *ton* of features. It includes a built in command parsing system, as well as a custom code block language parsing system. It can automatically generate command and code block modifier templates from the CLI to make it easy to contribute as well.
+unityBot is a robust Discord bot written in TypeScript that packs a *ton* of features. It includes a built in command parsing system, as well as a custom code block language parsing system. It can automatically generate command and code block modifier templates from the CLI to make it easy to contribute as well.
 
 See the [documentation](https://christopherwk210.github.io/gm-bot/) to learn more.
 
@@ -13,7 +13,7 @@ See the [documentation](https://christopherwk210.github.io/gm-bot/) to learn mor
 - Minty Python#5626
 - Ariak#2124
 
-A special thanks to the GameMaker Discord community and staff for their feedback and support.
+A special thanks to the unity Discord community and staff for their feedback and support.
 
 ## License
 MIT, see `./LICENSE.txt`.

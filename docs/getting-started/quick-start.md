@@ -1,5 +1,5 @@
 # Quick start
-In order to start development on GameMakerBot (GMBot for short), you'll need to have [Node](https://nodejs.org/) v9.2.0 or greater installed. You can check what version you have with `node -v`.
+In order to start development on unityBot (GMBot for short), you'll need to have [Node](https://nodejs.org/) v9.2.0 or greater installed. You can check what version you have with `node -v`.
 
 ## Installation
 Clone the repo with git using:

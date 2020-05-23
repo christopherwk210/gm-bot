@@ -64,7 +64,7 @@ async function addOrUpdateSpamTracker(msg: Message) {
         if (author) {
           author.send(
             'Hello, this is an automated message. ' +
-            'You have been kicked automatically from the GameMaker server due to triggering our automatic spam filter.\n\n' +
+            'You have been kicked automatically from the unity server due to triggering our automatic spam filter.\n\n' +
             'If you believe this was an error, you may rejoin the server.'
           );
         }

@@ -23,7 +23,7 @@ export class LifetimeCommand implements CommandClass {
           }
         });
       } else {
-        msg.channel.send('You can only use this in the /r/GameMaker server.');
+        msg.channel.send('You can only use this in the /r/unity server.');
       }
     } else if (msg.member) {
       if (!msg.member.joinedAt || !msg.member.displayName) {
@@ -38,7 +38,7 @@ export class LifetimeCommand implements CommandClass {
         msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
       }
     } else {
-      msg.channel.send('You can only use this in the /r/GameMaker server.');
+      msg.channel.send('You can only use this in the /r/unity server.');
     }
   }
 }
