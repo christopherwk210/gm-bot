@@ -64,12 +64,12 @@ export class ColorCommand implements CommandClass {
           inline: true
         },
         {
-          name: '',
+          name: 'GML HSV',
           value: gmlHSV,
           inline: true
         },
         {
-          name: '',
+          name: 'GML RGB',
           value: gmlRGB,
           inline: true
         }
