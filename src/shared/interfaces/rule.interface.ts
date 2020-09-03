@@ -18,6 +18,9 @@ export interface RuleOptions {
 
   /** Whether or not to delete the matched message (after calling the action) */
   delete?: boolean;
+
+  /** When true, doesn't check for a space after a command (i.e. will match !helpp if the match is "help") */
+  dontAppendSpace?: boolean;
 }
 
 export interface Rule extends RuleOptions {

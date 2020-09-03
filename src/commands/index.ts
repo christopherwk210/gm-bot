@@ -23,6 +23,7 @@ export * from './lifetime/lifetime.command';
 export * from './christmas/christmas.command';
 export * from './birthday/birthday.command';
 export * from './idea/idea.command';
+export * from './color/color.command';
 
 // Admin stuffs
 export * from './assemble/assemble.command';

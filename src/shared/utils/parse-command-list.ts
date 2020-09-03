@@ -51,7 +51,7 @@ function handleRuleOrCommand(command: Rule | Type<any>, msg: Message, messageCon
     if (rules.wholeMessage) {
       condition = messageContent === match;
     } else {
-      if (messageContent.length > match.length && rules.position === 0) match += ' ';
+      if (messageContent.length > match.length && rules.position === 0 && !rules.dontAppendSpace) match += ' ';
 
       condition = (rules.position === undefined) ?
         messageContent.indexOf(match) !== -1 :
