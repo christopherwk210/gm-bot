@@ -1,6 +1,8 @@
 # No node modules!
 node_modules/
 
+remote/
+
 # No Logs!
 npm-debug.log
 logs/
