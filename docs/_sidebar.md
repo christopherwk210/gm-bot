@@ -22,6 +22,7 @@
     * [Birthday](/features/commands/birthday.md)
     * [Changelog](/features/commands/changelog.md)
     * [Christmas](/features/commands/christmas.md)
+    * [Color](/features/commands/color.md)
     * [Commandment](/features/commands/commandment.md)
     * [Docs](/features/commands/docs.md)
     * [Done](/features/commands/done.md)
