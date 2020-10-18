@@ -89,8 +89,8 @@ export class DocsCommand implements CommandClass {
 
       const ourEmbed = new RichEmbed({
         color: errColor,
-        title: 'No function found',
-        description: `No function or variable was found by the name of \`${docWord}\`, did you mean one of the following?\n${linkList}`,
+        title: 'No documentation entry found',
+        description: `No documentation entry was found by the name of \`${docWord}\`; did you mean one of the following?\n${linkList}`,
         timestamp: new Date(),
         footer: {
           text: `This message was called for ${user.username}`
@@ -120,7 +120,13 @@ export class DocsCommand implements CommandClass {
           let thisParamEntry = '';
 
           // Are we optional?
-          if (i >= func.requiredParameters) {
+          if (
+            i >= func.requiredParameters &&
+            !(
+              thisParam.parameter.startsWith('[') &&
+              thisParam.parameter.endsWith(']')
+            )
+          ) {
             thisParamEntry += '**[' + thisParam.parameter + ']**: ';
           } else {
             thisParamEntry += '**' + thisParam.parameter + '**: ';
@@ -131,7 +137,7 @@ export class DocsCommand implements CommandClass {
 
           // Shove it into the Array
           ourArgs.push(thisParamEntry);
-          signature += `${thisParamEntry}, `;
+          signature += `${thisParam.parameter}, `;
         }
 
         // slice off the last ', '
