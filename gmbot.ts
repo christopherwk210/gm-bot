@@ -165,6 +165,8 @@ function onBotError(error: Error) {
 
 // This is to handle emoji reactions on uncached messages
 bot.on('raw', packet => {
+  return;
+
   // We don't want this to run on unrelated packets
   if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
 
