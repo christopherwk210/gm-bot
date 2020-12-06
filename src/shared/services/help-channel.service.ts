@@ -10,24 +10,34 @@ class HelpChannelService {
   helpChannels: HelpChannelController[] = [];
 
   handleMessage(msg: Message) {
+    // console.log('DONE TRIGGER');
+
     const helpChannelController = this.helpChannels.find(
       controller => controller.id === msg.channel.id
     );
 
     // If it's not a help channel, we don't need to be here
-    if (!helpChannelController) return;
+    if (!helpChannelController) {
+      // console.log('no help channel controller found');
+      // console.log('channel info', msg.channel.id);
+      return;
+    }
+
+    // console.log('busy status', helpChannelController.busy);
 
     // Mark a channel as busy if it isn't already, otherwise re-up the timer
     if (!helpChannelController.busy) {
 
       // Quick exit if the message was '!done' and a non-ducky was attemping
       if (msg.content.indexOf('!done') === 0) {
+        // console.log('no done!');
         return;
       }
 
       helpChannelController.busy = true;
 
       // Set the channel name to busy
+      // console.log('set busy');
       const currentName = helpChannelController.channel.name;
       helpChannelController.channel.setName(
         `${currentName.replace(this.regex, '')}__busy`
@@ -60,6 +70,14 @@ class HelpChannelService {
 
       helpChannelController.busy = false;
       helpChannelController.culprit = '';
+    } else {
+      console.log('no controller found for done', id, this.helpChannels.map(c => {
+        return {
+          ...c,
+          channel: undefined,
+          timer: undefined
+        };
+      }));
     }
   }
 
