@@ -62,9 +62,11 @@ class HelpChannelService {
 
     if (helpChannelController) {
       const currentName = helpChannelController.channel.name;
+      console.log('set help channel name', currentName);
       helpChannelController.channel.setName(
         currentName.replace(this.regex, '')
       );
+      console.log('set help channel success', helpChannelController.channel);
 
       clearTimeout(helpChannelController.timer);
 
