@@ -6,7 +6,7 @@ import { channelService, Command, CommandClass, detectStaff, roleService } from 
 const colors = {
   RED: '#ff0000',
   GREEN: '#009600',
-  WHITE: '#fefefe'
+  YELLOW: '#f1c40f'
 };
 
 /** Stores the cyclable roles and their current colors */
@@ -21,7 +21,7 @@ let roles = {
   },
   C: {
     role: () => roleService.getRoleByName('C'),
-    color: colors.WHITE
+    color: colors.YELLOW
   }
 };
 
