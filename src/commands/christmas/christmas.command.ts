@@ -1,6 +1,6 @@
-import { Message } from 'discord.js';
-import { prefixedCommandRuleTemplate } from '../../config';
-import { Command, CommandClass, detectStaff, roleService } from '../../shared';
+import { Message, TextChannel } from 'discord.js';
+import { prefixedCommandRuleTemplate, serverIDs } from '../../config';
+import { channelService, Command, CommandClass, detectStaff, roleService } from '../../shared';
 
 /** Colors to cycle through */
 const colors = {
@@ -26,7 +26,7 @@ let roles = {
 };
 
 @Command({
-  matches: ['christmascycle', 'christmasautocycle', 'christmasstop'],
+  matches: ['christmascycle', 'christmasautocycle', 'christmasstop', 'commencejingle'],
   ...prefixedCommandRuleTemplate
 })
 export class ChristmasCommand implements CommandClass {
@@ -45,6 +45,11 @@ export class ChristmasCommand implements CommandClass {
       case 'christmascycle':
         this.cycle();
         break;
+      case 'commencejingle':
+        if (msg.member.user.username.includes('topher')) {
+          this.setupRoles(msg);
+        }
+        break;
     }
   }
 
@@ -55,6 +60,34 @@ export class ChristmasCommand implements CommandClass {
    */
   pre(msg: Message, args: string[]) {
     return !!detectStaff(msg.member);
+  }
+
+  setupRoles(msg: Message) {
+    msg.guild.fetchMembers().then(async guild => {
+      let keys = Object.keys(roles);
+      let lastKey = keys[0];
+      let success = 0;
+      let failure = 0;
+      for (const member of guild.members.array()) {
+        const key = lastKey;
+
+        try {
+          await member.addRole(roles[key].role());
+          success++;
+        } catch (e) {
+          failure++;
+        }
+
+        if (keys.indexOf(lastKey) === keys.length - 1) {
+          lastKey = keys[0];
+        } else {
+          lastKey = keys[keys.indexOf(lastKey) + 1];
+        }
+      }
+
+      const botTesting: TextChannel = channelService.getChannelByID(serverIDs.channels.botTestingChannelID) as TextChannel;
+      botTesting.send(`Success: ${success}\nFailure: ${failure}`);
+    });
   }
 
   /**
