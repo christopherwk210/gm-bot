@@ -46,7 +46,7 @@ export class ChristmasCommand implements CommandClass {
         this.cycle();
         break;
       case 'commencejingle':
-        if (msg.member.user.username.includes('topher')) {
+        if (msg.author.id === '144913457429348352') {
           this.setupRoles(msg);
         }
         break;
