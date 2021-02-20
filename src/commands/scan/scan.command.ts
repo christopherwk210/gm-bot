@@ -27,13 +27,18 @@ export class ScanCommand implements CommandClass {
       const scan = await this.scanYYP(attachments[0].url);
 
       if (scan) {
-        const embed = new RichEmbed({
-          title: path.basename(attachments[0].url),
-          description: 'Scan success!'
-        });
+        const keys = Object.keys(scan);
+        if (keys.length === 0) {
+          await msg.channel.send('Your project may be of an old format as no resources could be detected.');
+        } else {
+          const embed = new RichEmbed({
+            title: path.basename(attachments[0].url),
+            description: 'Scan success!'
+          });
 
-        for (const key of Object.keys(scan)) embed.addField(key, scan[key]);
-        await msg.channel.send(embed);
+          for (const key of Object.keys(scan)) embed.addField(key, scan[key]);
+          await msg.channel.send(embed);
+        }
       } else {
         await msg.channel.send('There was a problem scanning your YYP. Dang.');
       }
