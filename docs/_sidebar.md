@@ -54,3 +54,4 @@
     * [GML](/features/modifiers/gml.md)
     * [GMLive](/features/modifiers/gmlive.md)
     * [Haste](/features/modifiers/haste.md)
+    * [React Role Distribution Service](/features/modifiers/react-role-distribution-service.md)

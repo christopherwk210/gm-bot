@@ -70,7 +70,6 @@ class ReactRoleDistributionService {
               const parsed: RoleMessageTracker = JSON.parse(fileContents);
               if (parsed.messageID && parsed.config.message && parsed.config.roles) {
                 this.currentMessages.push(parsed);
-                console.log(parsed);
               }
             } catch (e) {
               console.log('Could not load config!', e);

@@ -1,5 +1,5 @@
 import { Message, TextChannel } from 'discord.js';
-import { Modifier, ModifierClass, jsonService, reactRoleDistributionService, RoleMessageConfig } from '../../shared';
+import { Modifier, ModifierClass, jsonService, reactRoleDistributionService, RoleMessageConfig, detectStaff } from '../../shared';
 
 @Modifier({
   match: 'role-msg-config',
@@ -30,6 +30,6 @@ export class ReactRoleDistributorModifier implements ModifierClass {
   }
 
   pre(msg: Message) {
-    return ['144913457429348352'].includes(msg.author.id);
+    return detectStaff(msg.member) === 'admin';
   }
 }
