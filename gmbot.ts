@@ -69,6 +69,7 @@ bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
 bot.on('error', onBotError);                        // Bot encountered an error
 bot.on('messageReactionAdd', onBotReactionAdd);     // New reaction added to message
+bot.on('messageReactionRemove', onBotReactionRemove);
 bot.on('guildMemberAdd', user => {                  // New user joined
   WelcomeCommand.sendWelcomeMessage(user);
   SecurityCommand.newUserSecurity(user);
@@ -145,6 +146,39 @@ function onBotMessage(msg: Message) {
   parseModifierList(modifiers, msg);
 }
 
+function onBotReactionRemove(reaction: MessageReaction, user: User) {
+  // Loop through reaction add tracked messages
+  for (const msg of reactRoleDistributionService.currentMessages) {
+
+    // If the message being reacted to is one of those messages..
+    if (reaction.message.id === msg.messageID) {
+
+      // Loop through the roles for this configured message
+      for (const r of msg.config.roles) {
+
+        // Once we find the role associated with this emoji
+        if ((r.emoji && reaction.emoji.name.includes(r.emoji)) || reaction.emoji.name.includes(r.emojiName)) {
+
+          // Get the role by id in the config
+          const role = roleService.getRoleByID(r.roleID);
+
+          // Fetch the guild memeber object
+          reaction.message.guild.fetchMember(user).then(member => {
+
+            // Apply the role
+            member.removeRole(role).then(m => {
+              m.send(`The ${role.name} role has been removed!`);
+            });
+          }).catch(err => {
+            // Could not get member that reacted.
+            console.log('Could not get member for user:', user.username);
+          });
+        }
+      }
+    }
+  }
+}
+
 async function onBotReactionAdd(reaction: MessageReaction, user: User) {
   if (detectOutsideStaff(user) === 'admin' && reaction.emoji.name === '✅') {
     const fetchedUsers = await reaction.fetchUsers();
@@ -157,7 +191,6 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
 
       // If the message being reacted to is one of those messages..
       if (reaction.message.id === msg.messageID) {
-        console.log('hit');
 
         // Loop through the roles for this configured message
         for (const r of msg.config.roles) {
@@ -172,7 +205,9 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
             reaction.message.guild.fetchMember(user).then(member => {
 
               // Apply the role
-              member.addRole(role);
+              member.addRole(role).then(m => {
+                m.send(`You've been given the ${role.name} role!`);
+              });
             }).catch(err => {
               // Could not get member that reacted.
               console.log('Could not get member for user:', user.username);

@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { Message, TextChannel, User } from 'discord.js';
+import { channelService } from '../';
 
 export interface RoleMessageConfig {
   message: string;
@@ -67,8 +68,12 @@ class ReactRoleDistributionService {
             try {
               const fileContents = fs.readFileSync(path.join(this.configPath, file), { encoding: 'utf8' });
               const parsed: RoleMessageTracker = JSON.parse(fileContents);
+              console.log(parsed);
               if (parsed.messageID && parsed.config.message && parsed.config.roles) {
                 this.currentMessages.push(parsed);
+                channelService.textChannels.forEach(channel => {
+                  channel.fetchMessage(parsed.messageID);
+                });
               }
             } catch (e) {
               console.log('Could not load config!', e);
