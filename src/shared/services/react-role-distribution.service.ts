@@ -5,7 +5,8 @@ import { Message, TextChannel, User } from 'discord.js';
 export interface RoleMessageConfig {
   message: string;
   roles: {
-    emoji: string;
+    emoji?: string;
+    emojiName: string;
     description: string;
     roleID: string;
   }[];
@@ -32,11 +33,11 @@ class ReactRoleDistributionService {
     let message = config.message + '\n\n';
 
     for (const role of config.roles) {
-      const e = channel.guild.emojis.find(val => val.name === role.emoji);
+      const e = channel.guild.emojis.find(val => val.name === role.emojiName);
       if (e) {
         message += `${e} - ${role.description}\n`;
       } else {
-        message += `:${role.emoji}: - ${role.description}\n`;
+        message += `:${role.emojiName}: - ${role.description}\n`;
       }
     }
 
@@ -45,7 +46,7 @@ class ReactRoleDistributionService {
 
       const newPath = path.join(this.configPath, msg.id + '.json');
       const tracker: RoleMessageTracker = { messageID: msg.id, config };
-      fs.writeFile(newPath, JSON.stringify(tracker), err => {
+      fs.writeFile(newPath, JSON.stringify(tracker), { encoding: 'utf8' }, err => {
         if (err) {
           author.send(
             'The message was created, but the config was not saved... I suggest deleting the message the bot made and trying again.'
@@ -69,9 +70,13 @@ class ReactRoleDistributionService {
               if (parsed.messageID && parsed.config.message && parsed.config.roles) {
                 this.currentMessages.push(parsed);
               }
-            } catch (e) {}
+            } catch (e) {
+              console.log('Could not load config!', e);
+            }
           }
         }
+      } else {
+        console.log('Could not read react configs!', err);
       }
     });
   }

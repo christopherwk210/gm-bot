@@ -161,10 +161,9 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
 
         // Loop through the roles for this configured message
         for (const r of msg.config.roles) {
-          console.log(reaction.emoji.name, r.emoji, reaction.emoji.identifier, reaction.emoji.id);
 
           // Once we find the role associated with this emoji
-          if (reaction.emoji.name.includes(r.emoji)) {
+          if ((r.emoji && reaction.emoji.name.includes(r.emoji)) || reaction.emoji.name.includes(r.emojiName)) {
 
             // Get the role by id in the config
             const role = roleService.getRoleByID(r.roleID);
