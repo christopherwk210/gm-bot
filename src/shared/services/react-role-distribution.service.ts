@@ -17,7 +17,7 @@ interface RoleMessageTracker {
 }
 
 class ReactRoleDistributionService {
-  configPath = path.join(__dirname, '../../../data/');
+  configPath = path.join(__dirname, '../../../data/reacts/');
   currentMessages: RoleMessageTracker[] = [];
 
   init() {
@@ -41,9 +41,11 @@ class ReactRoleDistributionService {
       const newPath = path.join(this.configPath, msg.id + '.json');
       const tracker: RoleMessageTracker = { messageID: msg.id, config };
       fs.writeFile(newPath, JSON.stringify(tracker), err => {
-        author.send(
-          'The message was created, but the config was not saved... I suggest deleting the message the bot made and trying again.'
-        );
+        if (err) {
+          author.send(
+            'The message was created, but the config was not saved... I suggest deleting the message the bot made and trying again.'
+          );
+        }
       });
     }).catch(fail => {
       // Message couldn't be sent. If this doesn't happen, nothing else will

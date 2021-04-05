@@ -157,9 +157,11 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
 
       // If the message being reacted to is one of those messages..
       if (reaction.message.id === msg.messageID) {
+        console.log('hit');
 
         // Loop through the roles for this configured message
         for (const r of msg.config.roles) {
+          console.log(reaction.emoji.name, r.emoji);
 
           // Once we find the role associated with this emoji
           if (reaction.emoji.name.includes(r.emoji)) {
