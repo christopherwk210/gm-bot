@@ -32,7 +32,8 @@ import {
   helpcardService,
   securityService,
   birthdayService,
-  voiceChannelService
+  voiceChannelService,
+  reactRoleDistributionService
 } from './src/shared';
 
 // Rules
@@ -50,6 +51,7 @@ markdownService.loadAllMarkdownFiles();
 textService.loadAllTextFiles();
 jsonService.loadAlljsonFiles();
 helpcardService.loadHelpcards();
+reactRoleDistributionService.init();
 
 // Load JSON
 const auth = jsonService.files['auth'];
@@ -147,11 +149,37 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
   if (detectOutsideStaff(user) === 'admin' && reaction.emoji.name === '✅') {
     const fetchedUsers = await reaction.fetchUsers();
 
-    // const msg = reaction.message;
-    // const checkReactions = msg.reactions.filter(msgReaction => msgReaction.emoji.name === '✅').first();
-    // const winner = checkReactions.users.array().choose();
     const winner = fetchedUsers.array().choose();
     user.send(`Winner chosen: ${winner.username}#${winner.discriminator}`);
+  } else {
+    // Loop through reaction add tracked messages
+    for (const msg of reactRoleDistributionService.currentMessages) {
+
+      // If the message being reacted to is one of those messages..
+      if (reaction.message.id === msg.messageID) {
+
+        // Loop through the roles for this configured message
+        for (const r of msg.config.roles) {
+
+          // Once we find the role associated with this emoji
+          if (reaction.emoji.name.includes(r.emoji)) {
+
+            // Get the role by id in the config
+            const role = roleService.getRoleByID(r.roleID);
+
+            // Fetch the guild memeber object
+            reaction.message.guild.fetchMember(user).then(member => {
+
+              // Apply the role
+              member.addRole(role);
+            }).catch(err => {
+              // Could not get member that reacted.
+              console.log('Could not get member for user:', user.username);
+            });
+          }
+        }
+      }
+    }
   }
 }
 

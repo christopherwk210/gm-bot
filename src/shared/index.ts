@@ -22,6 +22,7 @@ export * from './services/security.service';
 export * from './services/doc.service';
 export * from './services/birthday.service';
 export * from './services/voice-channel.service';
+export * from './services/react-role-distribution.service';
 
 // Utils
 export * from './utils/detect-staff';
