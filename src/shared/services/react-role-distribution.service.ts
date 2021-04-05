@@ -68,12 +68,9 @@ class ReactRoleDistributionService {
             try {
               const fileContents = fs.readFileSync(path.join(this.configPath, file), { encoding: 'utf8' });
               const parsed: RoleMessageTracker = JSON.parse(fileContents);
-              console.log(parsed);
               if (parsed.messageID && parsed.config.message && parsed.config.roles) {
                 this.currentMessages.push(parsed);
-                channelService.textChannels.forEach(channel => {
-                  channel.fetchMessage(parsed.messageID);
-                });
+                console.log(parsed);
               }
             } catch (e) {
               console.log('Could not load config!', e);
