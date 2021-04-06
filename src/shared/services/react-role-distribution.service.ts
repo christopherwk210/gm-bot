@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import { Message, TextChannel, User } from 'discord.js';
+import { Message, Role, TextChannel, User } from 'discord.js';
 import { channelService } from '../';
 
 export interface RoleMessageConfig {
@@ -43,6 +43,10 @@ class ReactRoleDistributionService {
     }
 
     channel.send(message).then((msg: Message) => {
+      for (const role of config.roles) {
+        msg.react(role.emojiName);
+      }
+
       this.currentMessages.push({ messageID: msg.id, config });
 
       const newPath = path.join(this.configPath, msg.id + '.json');
