@@ -96,7 +96,13 @@ export function loadRules() {
       true
     ),
     RuleFactory.createReplyRule(
-      ['💤👁️', '💤 👁'],
+      ['<:pepsican:827022920160247818> <:pepsican:827022920160247818> <:pepsican:827022920160247818>'],
+      '<@456527777064288256>',
+      false,
+      true
+    ),
+    RuleFactory.createReplyRule(
+      ['💤👁️', '💤 👁'],   
       '<@240306552949440512>',
       false,
       true
