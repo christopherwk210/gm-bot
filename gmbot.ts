@@ -237,7 +237,7 @@ bot.on('raw', packet => {
   const channel = bot.channels.get(packet.d.channel_id);
 
   // There's no need to emit if the message is cached, because the event will fire anyway for that
-  if ((channel as any).messages.has(packet.d.message_id)) return;
+  if (!channel || (channel as any).messages.has(packet.d.message_id)) return;
 
   // Since we have confirmed the message is not cached, let's fetch it
   (channel as any).fetchMessage(packet.d.message_id).then(message => {
