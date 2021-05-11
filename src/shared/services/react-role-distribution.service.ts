@@ -38,7 +38,7 @@ class ReactRoleDistributionService {
       if (e) {
         message += `${e} - ${role.description}\n`;
       } else {
-        message += `${role.emojiName} - ${role.description}\n`;
+        message += `:${role.emojiName}: - ${role.description}\n`;
       }
     }
 
