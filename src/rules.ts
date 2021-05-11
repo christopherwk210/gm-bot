@@ -102,7 +102,7 @@ export function loadRules() {
       true
     ),
     RuleFactory.createReplyRule(
-      ['💤👁️', '💤 👁'],   
+      ['💤👁️', '💤 👁'],
       '<@240306552949440512>',
       false,
       true
