@@ -17,7 +17,7 @@ export class LifetimeCommand implements CommandClass {
       if (msg.guild) {
         msg.guild.fetchMember(args[1].replace(/[<!@>]+/g, '')).then(member => {
           if (member) {
-            const name = member.displayName.includes('everyone') ? 'You' : member.displayName;
+            const name = member.displayName.includes('everyone') || member.displayName.includes('here') ? 'You' : member.displayName;
             msg.channel.send(`${member.displayName} has been a member of this server since ${member.joinedAt}.`);
           } else {
             msg.channel.send('Could not find specified user');
@@ -30,14 +30,15 @@ export class LifetimeCommand implements CommandClass {
       if (!msg.member.joinedAt || !msg.member.displayName) {
         msg.guild.fetchMember(msg.member.id).then(memb => {
           if (memb) {
-            const name = memb.displayName.includes('everyone') ? 'You' : memb.displayName;
+            const name = memb.displayName.includes('everyone') || memb.displayName.includes('here') ? 'You' : memb.displayName;
             msg.channel.send(`${memb.displayName}, you have been a member of this server since ${memb.joinedAt}.`);
           } else {
             msg.channel.send('Lifetime command failed. Blame the discord API, probably.');
           }
         });
       } else {
-        const name = msg.member.displayName.includes('everyone') ? 'You' : msg.member.displayName;
+        const name = msg.member.displayName.includes('everyone') ||
+          msg.member.displayName.includes('here') ? 'You' : msg.member.displayName;
         msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
       }
     } else {
