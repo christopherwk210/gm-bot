@@ -139,12 +139,27 @@ export function loadRules() {
     ),
     RuleFactory.createReactionRule(
       ['hmm'],
-      ['🇭', '🇲', 'Ⓜ'],
+      ['🇭', '🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'fryhmm')],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['hmmm'],
+      ['🇭', '🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta'), guildService.guild.emojis.find(emoji => emoji.name === 'fryhmm')],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['hmmmm'],
+      ['🇭', '🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta'), guildService.guild.emojis.find(emoji => emoji.name === 'mesmes'), guildService.guild.emojis.find(emoji => emoji.name === 'fryhmm')],
       true
     ),
     RuleFactory.createReactionRule(
       ['good bot'],
       ['❤'],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['good news'],
+      [guildService.guild.emojis.find(emoji => emoji.name === 'farnsworth')],
       true
     ),
     RuleFactory.createReactionRule(
@@ -155,6 +170,11 @@ export function loadRules() {
     RuleFactory.createReactionRule(
       ['mmm'],
       ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
+      true
+    ),
+    RuleFactory.createReactionRule(
+      ['mmmm'],
+      ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta'), guildService.guild.emojis.find(emoji => emoji.name === 'mesmes')],
       true
     ),
     RuleFactory.createReactionRule(
