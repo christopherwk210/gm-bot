@@ -5,7 +5,7 @@
  */
 
 // Init discord api
-import { Message, Client, GuildMember, TextChannel, MessageReaction, User } from 'discord.js';
+import { Message, Client, GuildMember, TextChannel, MessageReaction, User, PartialUser, MessageAttachment } from 'discord.js';
 const bot = new Client();
 
 // Config
@@ -138,7 +138,13 @@ function onBotMessage(msg: Message) {
   parseModifierList(modifiers, msg);
 }
 
-function onBotReactionRemove(reaction: MessageReaction, user: User) {
+async function onBotReactionRemove(reaction: MessageReaction, user: User | PartialUser) {
+  let fullUser: User;
+
+  if (reaction.message.partial) await reaction.message.fetch();
+  if (reaction.partial) await reaction.fetch();
+  fullUser = user.partial ? await user.fetch() : user as any;
+
   // Loop through reaction add tracked messages
   for (const msg of reactRoleDistributionService.currentMessages) {
 
@@ -155,7 +161,7 @@ function onBotReactionRemove(reaction: MessageReaction, user: User) {
           const role = roleService.getRoleByID(r.roleID);
 
           // Fetch the guild memeber object
-          reaction.message.guild.members.fetch(user).then(member => {
+          reaction.message.guild.members.fetch(fullUser).then(member => {
 
             // Apply the role
             member.roles.remove(role).then(m => {
@@ -173,8 +179,14 @@ function onBotReactionRemove(reaction: MessageReaction, user: User) {
   return bot;
 }
 
-async function onBotReactionAdd(reaction: MessageReaction, user: User) {
-  if (detectOutsideStaff(user) === 'admin' && reaction.emoji.name === '✅') {
+async function onBotReactionAdd(reaction: MessageReaction, user: User | PartialUser) {
+  let fullUser: User;
+
+  if (reaction.message.partial) await reaction.message.fetch();
+  if (reaction.partial) await reaction.fetch();
+  fullUser = user.partial ? await user.fetch() : user as any;
+
+  if (detectOutsideStaff(fullUser) === 'admin' && reaction.emoji.name === '✅') {
     const fetchedUsers = await reaction.users.fetch();
 
     const winner = fetchedUsers.array().choose();
@@ -196,7 +208,7 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
             const role = roleService.getRoleByID(r.roleID);
 
             // Fetch the guild memeber object
-            reaction.message.guild.members.fetch(user).then(member => {
+            reaction.message.guild.members.fetch(fullUser).then(member => {
 
               // Apply the role
               member.roles.add(role).then(m => {
