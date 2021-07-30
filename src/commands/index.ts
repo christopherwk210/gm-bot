@@ -8,7 +8,6 @@ export * from './pixel-challenge/pixel-challenge.command';
 export * from './marketplace/marketplace.command';
 export * from './github/github.command';
 export * from './miniboss/miniboss.command';
-export * from './audio/audio.command';
 export * from './giveaway/giveaway.command';
 export * from './palette/palette.command';
 export * from './upvote/upvote.command';
