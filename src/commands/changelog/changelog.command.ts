@@ -24,26 +24,6 @@ export class ChangelogCommand implements CommandClass {
       // Navigate to the change log
       await page.goto('http://gms.yoyogames.com/ReleaseNotes.html');
 
-      // Modify the page to reduce screenshot size
-      await page.evaluate(() => new Promise((res: (value?: unknown) => void) => {
-        document.querySelector('h2').remove();
-        document.querySelector('h5').remove();
-        document.querySelector('label').remove();
-        document.querySelector('label').remove();
-        document.querySelector('.older-ver-div').remove();
-        document.querySelector('#two').remove();
-        document.querySelector('.description').remove();
-        Array.from(document.querySelectorAll('p')).forEach(p => {
-          if (p.innerText.length === 0) {
-            p.remove();
-          }
-        });
-        Array.from(document.querySelectorAll('br')).forEach(br => {
-          br.remove();
-        });
-        res();
-      }));
-
       // Set our viewport to be 1280 wide
       await page.setViewport({
         width: 1280,
