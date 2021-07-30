@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, MessageOptions } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 
@@ -31,16 +31,20 @@ export class ChangelogCommand implements CommandClass {
       });
 
       // Take a screenshot of the full page
-      let image = await page.screenshot({
+      let image: Buffer = await page.screenshot({
         fullPage: true
-      });
+      }) as any;
 
       // Close the browser
       await browser.close();
 
-      let messageOptions: any = {
-        file: image,
-        name: 'capture.png'
+      let messageOptions: MessageOptions = {
+        files: [
+          {
+            name: 'capture.png',
+            attachment: image
+          }
+        ]
       };
 
       // Send the message
