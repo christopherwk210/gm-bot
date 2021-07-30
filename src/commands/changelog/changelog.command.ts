@@ -25,7 +25,7 @@ export class ChangelogCommand implements CommandClass {
       await page.goto('http://gms.yoyogames.com/ReleaseNotes.html');
 
       // Modify the page to reduce screenshot size
-      await page.evaluate(() => new Promise(res => {
+      await page.evaluate(() => new Promise((res: (value?: unknown) => void) => {
         document.querySelector('h2').remove();
         document.querySelector('h5').remove();
         document.querySelector('label').remove();
