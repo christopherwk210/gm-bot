@@ -24,10 +24,13 @@ export class ChangelogCommand implements CommandClass {
       // Navigate to the change log
       await page.goto('http://gms.yoyogames.com/ReleaseNotes.html', { waitUntil: ['domcontentloaded', 'networkidle0'] });
 
+      // Allow a small arbitrary time buffer...
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       // Set our viewport to be 1280 wide
       await page.setViewport({
         width: 1280,
-        height: 1
+        height: 768
       });
 
       // Take a screenshot of the full page
