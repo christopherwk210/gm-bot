@@ -4,7 +4,6 @@ export * from './help/help.command';
 export * from './docs/docs.command';
 export * from './changelog/changelog.command';
 export * from './resize/resize.command';
-export * from './pixel-challenge/pixel-challenge.command';
 export * from './marketplace/marketplace.command';
 export * from './github/github.command';
 export * from './miniboss/miniboss.command';
