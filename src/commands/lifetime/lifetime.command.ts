@@ -15,7 +15,7 @@ export class LifetimeCommand implements CommandClass {
   action(msg: Message, args: string[]) {
     if (args.length > 1) {
       if (msg.guild) {
-        msg.guild.fetchMember(args[1].replace(/[<!@>]+/g, '')).then(member => {
+        msg.guild.members.fetch(args[1].replace(/[<!@>]+/g, '')).then(member => {
           if (member) {
             const name = member.displayName.includes('everyone') || member.displayName.includes('here') ? 'You' : member.displayName;
             msg.channel.send(`${member.displayName} has been a member of this server since ${member.joinedAt}.`);
@@ -28,7 +28,7 @@ export class LifetimeCommand implements CommandClass {
       }
     } else if (msg.member) {
       if (!msg.member.joinedAt || !msg.member.displayName) {
-        msg.guild.fetchMember(msg.member.id).then(memb => {
+        msg.guild.members.fetch(msg.member.id).then(memb => {
           if (memb) {
             const name = memb.displayName.includes('everyone') || memb.displayName.includes('here') ? 'You' : memb.displayName;
             msg.channel.send(`${memb.displayName}, you have been a member of this server since ${memb.joinedAt}.`);

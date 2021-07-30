@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Attachment, RichEmbed } from 'discord.js';
+import { MessageAttachment, MessageEmbed } from 'discord.js';
 
 // Config
 import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from './config';
@@ -25,7 +25,7 @@ export function loadRules() {
     {
       matches: ['id'],
       ...prefixedCommandRuleTemplate,
-      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.has(serverIDs.roles.botContributerRoleID),
+      pre: msg => detectStaff(msg.member) === 'admin' || msg.member.roles.cache.has(serverIDs.roles.botContributerRoleID),
       action: (msg: TextChannelMessage) => {
         msg.author.send(`\`${msg.channel.name}\` id: \`${msg.channel.id}\``);
       }
@@ -65,7 +65,7 @@ export function loadRules() {
     RuleFactory.createReplyRule(
       ['~kissfromarose~'],
       {
-        file: new Attachment(path.join(__dirname, './shared/assets/images/kissfromarose.gif')),
+        file: new MessageAttachment(path.join(__dirname, './shared/assets/images/kissfromarose.gif')),
         name: 'kiss-from-a-rose.gif'
       },
       false,
@@ -73,7 +73,7 @@ export function loadRules() {
     ),
     RuleFactory.createReplyRule(
       ['codeformatting', 'backtick'],
-      new RichEmbed({
+      new MessageEmbed({
         title: 'You can format your code by encapsulating it within three backticks before and after',
         description: '\n\\`\\`\\`\nshow_debug_message("I\'m formatted!");\n\\`\\`\\`\n\n' +
             'The above example displays:\n' +
@@ -154,7 +154,7 @@ export function loadRules() {
     ),
     RuleFactory.createReactionRule(
       ['mmm'],
-      ['🇲', 'Ⓜ', guildService.guild.emojis.find(emoji => emoji.name === 'meseta')],
+      ['🇲', 'Ⓜ', guildService.guild.emojis.cache.find(emoji => emoji.name === 'meseta')],
       true
     ),
     RuleFactory.createReactionRule(

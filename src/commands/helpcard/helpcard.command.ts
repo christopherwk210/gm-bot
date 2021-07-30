@@ -1,4 +1,4 @@
-import { Message, Attachment } from 'discord.js';
+import { Message, MessageAttachment } from 'discord.js';
 import { Command, CommandClass, helpcardService } from '../../shared';
 import { prefixedCommandRuleTemplate } from '../../config';
 
@@ -66,7 +66,7 @@ export class HelpcardCommand implements CommandClass {
       // Send the single matched card if only one was found
       if (attempts.length === 1) {
         msg.channel.send(`Only matching helpcard: \`\`${attempts[0]}\`\``,
-          new Attachment(`${helpcardService.imagePath}/${attempts[0]}.png`));
+          new MessageAttachment(`${helpcardService.imagePath}/${attempts[0]}.png`));
         return;
       }
 
@@ -84,7 +84,7 @@ export class HelpcardCommand implements CommandClass {
 
     // Upload and send helpcard image if a valid match is found
     if (helpcardService.imageNames.includes(cardName)) {
-      msg.channel.send(new Attachment(`${helpcardService.imagePath}/${cardName}.png`));
+      msg.channel.send(new MessageAttachment(`${helpcardService.imagePath}/${cardName}.png`));
 
     } else {
       msg.channel.send('Could not find specified helpcard.');

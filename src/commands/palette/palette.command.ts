@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import { load } from 'cheerio';
@@ -69,7 +69,7 @@ export class PaletteCommand implements CommandClass {
     };
 
     // Send as an embed
-    msg.channel.send(new RichEmbed({
+    msg.channel.send(new MessageEmbed({
       title: paletteInfo.name,
       color: defaultEmbedColor,
       image: {

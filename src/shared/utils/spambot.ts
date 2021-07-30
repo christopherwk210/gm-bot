@@ -19,7 +19,7 @@ let spamTrackers: SpamTracker[] = [];
  * @returns Nothing, honestly
  */
 export function detectSpamMessage(msg: Message) {
-  if (msg.member && msg.member.roles.size > 1) {
+  if (msg.member && msg.member.roles.cache.size > 1) {
     return;
   }
 

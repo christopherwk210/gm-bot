@@ -21,7 +21,7 @@
       "object-literal-sort-keys": false,
       "member-access": [true, "no-public"],
       "no-trailing-whitespace": [true, "ignore-comments", "ignore-jsdoc", "ignore-template-strings"],
-      "max-line-length": [true, 140],
+      "max-line-length": false,
       "interface-name": [true, "never-prefix"],
       "no-angle-bracket-type-assertion": false,
       "whitespace": [

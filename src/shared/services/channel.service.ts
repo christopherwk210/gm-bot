@@ -18,7 +18,7 @@ class ChannelService {
 
   /** Initialize the channel service with the bot client */
   init(client: Client) {
-    client.guilds.first().channels.array().forEach(guildChannel => {
+    client.guilds.cache.first().channels.cache.array().forEach(guildChannel => {
       this.channels.push(guildChannel);
 
       switch (guildChannel.type) {

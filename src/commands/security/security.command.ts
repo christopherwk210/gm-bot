@@ -1,4 +1,4 @@
-import { RichEmbed, Message, GuildMember, TextChannel } from 'discord.js';
+import { MessageEmbed, Message, GuildMember, TextChannel } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from '../../config';
 import { Command, CommandClass, securityService, channelService, detectStaff } from '../../shared';
 
@@ -27,8 +27,8 @@ export class SecurityCommand implements CommandClass {
 
   static notifySecurityMode(user: GuildMember, state: boolean) {
 
-    // Create a RichEmbed with the message
-    const messageEmbed = new RichEmbed({
+    // Create a MessageEmbed with the message
+    const messageEmbed = new MessageEmbed({
       color: defaultEmbedColor,
       description: `${user} has set security state: ${state}`,
       timestamp: new Date(),

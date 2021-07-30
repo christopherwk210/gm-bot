@@ -20,7 +20,7 @@ export class UpvoteCommand implements CommandClass {
     let fetchedMessages: Collection<string, Message>;
 
     try {
-      fetchedMessages = await msg.channel.fetchMessages({ limit: 6 });
+      fetchedMessages = await msg.channel.messages.fetch({ limit: 6 });
     } catch (e) {
       return console.log(e);
     }

@@ -64,18 +64,18 @@ export class ChristmasCommand implements CommandClass {
 
   setupRoles(msg: Message) {
     console.log('setting up roles');
-    msg.guild.fetchMembers().then(async guild => {
+    msg.guild.members.fetch().then(async members => {
       console.log('members fetched');
       let keys = Object.keys(roles);
       let lastKey = keys[0];
       let success = 0;
       let failure = 0;
-      for (const member of guild.members.array()) {
+      for (const member of members.array()) {
         const key = lastKey;
         console.log(member.user.username);
 
         try {
-          await member.addRole(roles[key].role());
+          await member.roles.add(roles[key].role());
           success++;
         } catch (e) {
           failure++;

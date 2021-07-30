@@ -64,7 +64,6 @@ if (!auth) {
 
 // Bot callbacks
 bot.on('ready', onBotReady);                        // Bot is loaded
-bot.on('voiceStateUpdate', onBotVoiceStateUpdate);  // Voice activity change
 bot.on('messageUpdate', onBotMessageUpdate);        // Message updated
 bot.on('message', onBotMessage);                    // Message sent (in DM or in server channel)
 bot.on('error', onBotError);                        // Bot encountered an error
@@ -95,15 +94,6 @@ function onBotReady() {
 
   // Tell the world our feelings
   console.log('Squaring to go, captain.');
-}
-
-/**
- * Called whenever a user changes voice state
- * @param oldMember The member before the voice state update
- * @param newMember The member after the voice state update
- */
-function onBotVoiceStateUpdate(oldMember: GuildMember, newMember: GuildMember) {
-  // Nothin'
 }
 
 /**
@@ -163,10 +153,10 @@ function onBotReactionRemove(reaction: MessageReaction, user: User) {
           const role = roleService.getRoleByID(r.roleID);
 
           // Fetch the guild memeber object
-          reaction.message.guild.fetchMember(user).then(member => {
+          reaction.message.guild.members.fetch(user).then(member => {
 
             // Apply the role
-            member.removeRole(role).then(m => {
+            member.roles.remove(role).then(m => {
               m.send(`The ${role.name} role has been removed!`);
             });
           }).catch(err => {
@@ -181,7 +171,7 @@ function onBotReactionRemove(reaction: MessageReaction, user: User) {
 
 async function onBotReactionAdd(reaction: MessageReaction, user: User) {
   if (detectOutsideStaff(user) === 'admin' && reaction.emoji.name === '✅') {
-    const fetchedUsers = await reaction.fetchUsers();
+    const fetchedUsers = await reaction.users.fetch();
 
     const winner = fetchedUsers.array().choose();
     user.send(`Winner chosen: ${winner.username}#${winner.discriminator}`);
@@ -202,10 +192,10 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
             const role = roleService.getRoleByID(r.roleID);
 
             // Fetch the guild memeber object
-            reaction.message.guild.fetchMember(user).then(member => {
+            reaction.message.guild.members.fetch(user).then(member => {
 
               // Apply the role
-              member.addRole(role).then(m => {
+              member.roles.add(role).then(m => {
                 m.send(`You've been given the ${role.name} role!`);
               });
             }).catch(err => {
@@ -234,7 +224,7 @@ bot.on('raw', packet => {
   if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
 
   // Grab the channel to check the message from
-  const channel = bot.channels.get(packet.d.channel_id);
+  const channel = bot.channels.cache.get(packet.d.channel_id);
 
   // There's no need to emit if the message is cached, because the event will fire anyway for that
   if (!channel || (channel as any).messages.has(packet.d.message_id)) return;
@@ -248,14 +238,14 @@ bot.on('raw', packet => {
       const reaction = message.reactions.get(emoji);
 
       // Adds the currently reacting user to the reaction's users collection.
-      if (reaction) reaction.users.set(packet.d.user_id, bot.users.get(packet.d.user_id));
+      if (reaction) reaction.users.set(packet.d.user_id, bot.users.cache.get(packet.d.user_id));
 
       // Check which type of event it is before emitting
       if (packet.t === 'MESSAGE_REACTION_ADD') {
-          bot.emit('messageReactionAdd', reaction, bot.users.get(packet.d.user_id));
+          bot.emit('messageReactionAdd', reaction, bot.users.cache.get(packet.d.user_id));
       }
       if (packet.t === 'MESSAGE_REACTION_REMOVE') {
-          bot.emit('messageReactionRemove', reaction, bot.users.get(packet.d.user_id));
+          bot.emit('messageReactionRemove', reaction, bot.users.cache.get(packet.d.user_id));
       }
   });
 });

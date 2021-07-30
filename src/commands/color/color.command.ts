@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 
@@ -48,7 +48,7 @@ export class ColorCommand implements CommandClass {
     const gmlHSV = `${this.gmlHSVbase}(${h}, ${s}, ${v})`;
     const gmlRGB = `${this.gmlRGBbase}(${r}, ${g}, ${b})`;
 
-    const embed = new RichEmbed({
+    const embed = new MessageEmbed({
       url: 'https://chrisanselmo.com/tools/#/gm/color-picker',
       color: parseInt(content.replace('#', ''), 16),
       title: content,

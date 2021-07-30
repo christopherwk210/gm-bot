@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import {
   Command,
@@ -25,7 +25,7 @@ export class StarterCommand implements CommandClass {
     if (whoMessage) {
 
       // Load in those saucy recources
-      const kitEmbed = new RichEmbed ({
+      const kitEmbed = new MessageEmbed ({
         title: '__**r/GM Resource Pack**__',
         description: '**The following is a set of useful sources for learning GML and other GameMaker development skills.**',
         thumbnail: {  url: 'https://www.yoyogames.com/images/gms2_logo_512.png'  },

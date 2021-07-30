@@ -8,7 +8,7 @@ export async function handleAutoHasteMessage(msg: Message) {
     let fileContents = [];
 
     for (const file of attachments) {
-      if (file.filename.split('.').splice(-1)[0] === 'gml' && file.filesize < 5000) {
+      if (file.name.split('.').splice(-1)[0] === 'gml' && file.size < 5000) {
         try {
           const body = await request(file.url);
           fileContents.push(body);
