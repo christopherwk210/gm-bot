@@ -22,7 +22,7 @@ export class ChangelogCommand implements CommandClass {
       const page = await browser.newPage();
 
       // Navigate to the change log
-      await page.goto('http://gms.yoyogames.com/ReleaseNotes.html');
+      await page.goto('http://gms.yoyogames.com/ReleaseNotes.html', { waitUntil: ['domcontentloaded', 'networkidle0'] });
 
       // Set our viewport to be 1280 wide
       await page.setViewport({
