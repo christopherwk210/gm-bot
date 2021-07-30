@@ -104,6 +104,8 @@ function onBotReady() {
 function onBotMessageUpdate(oldMsg: Message, newMsg: Message) {
   // Don't respond to bots
   if (newMsg.author.bot) return;
+
+  return bot;
 }
 
 /**
@@ -167,6 +169,8 @@ function onBotReactionRemove(reaction: MessageReaction, user: User) {
       }
     }
   }
+
+  return bot;
 }
 
 async function onBotReactionAdd(reaction: MessageReaction, user: User) {
@@ -207,6 +211,8 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User) {
       }
     }
   }
+
+  return bot;
 }
 
 /**
