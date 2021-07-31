@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import * as request from 'request';
@@ -19,7 +19,7 @@ export class ScanCommand implements CommandClass {
   async action(msg: Message, args: string[]) {
     const attachments = msg.attachments.array();
 
-    if (!attachments.length || path.extname(attachments[0].filename) !== '.yyp') {
+    if (!attachments.length || path.extname(attachments[0].name) !== '.yyp') {
       return msg.channel.send('Invalid command usage! You must upload a YYP project with your message when using the scan command.');
     }
 
@@ -31,7 +31,7 @@ export class ScanCommand implements CommandClass {
         if (keys.length === 0) {
           await msg.channel.send('Your project may be of an old format as no resources could be detected.');
         } else {
-          const embed = new RichEmbed({
+          const embed = new MessageEmbed({
             title: path.basename(attachments[0].url),
             description: 'Scan success!'
           });

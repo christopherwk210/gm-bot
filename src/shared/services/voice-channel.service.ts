@@ -15,7 +15,7 @@ class VoiceChannelService {
   }
 
   handleMessage(msg: Message) {
-    if (msg.member && msg.member.roles.has(serverIDs.roles.serverStaff)) return;
+    if (msg.member && msg.member.roles.cache.has(serverIDs.roles.serverStaff)) return;
 
     // Check if in a valid bundle
     const thisBundle = this.monitoredBundles.find(bundle => bundle.textChannelIDs.includes(msg.channel.id));
@@ -36,7 +36,7 @@ class VoiceChannelService {
   scanVoiceTextChannels() {
     this.monitoredBundles.forEach(bundle => {
       bundle.textChannels.forEach(async channel => {
-        let msgs = await channel.fetchMessages({ limit: 100 });
+        let msgs = await channel.messages.fetch({ limit: 100 });
         msgs = msgs.filter(msg => Date.now() - voiceTextMessageTimeout > msg.createdTimestamp && !msg.pinned);
         channel.bulkDelete(msgs).catch(() => console.log('Error bulk deleting'));
       });

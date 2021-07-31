@@ -1,5 +1,5 @@
 import * as http from 'http';
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import { load } from 'cheerio';
@@ -46,7 +46,7 @@ export class MinibossCommand implements CommandClass {
     postInfo = postInfo[0];
 
     // Create embed
-    msg.channel.send(new RichEmbed({
+    msg.channel.send(new MessageEmbed({
       title: postInfo.title,
       color: defaultEmbedColor,
       url: postInfo.image,
@@ -99,13 +99,13 @@ export class MinibossCommand implements CommandClass {
       .replace('Reading text with a timer is a bit stressful, so I added still frames of this tutorial:', '');
 
     // Get all gifs
-    let gifs = $('img').filter((i, img) => img.attribs['src'].includes('gif'));
+    let gifs = $('img').filter((i, img) => (img as any).attribs['src'].includes('gif'));
 
     // Get all post titles
     let titles = bodyText.match(/#[0-9]+( | )([^#\n])+/g).reverse();
 
     // Retrieve the source links for each image
-    let imageSourceList = gifs.toArray().map(img => img.attribs['src']).reverse();
+    let imageSourceList = gifs.toArray().map(img => (img as any).attribs['src']).reverse();
 
     // Combine all the data
     let minibossData: MinibossPost[] = [];

@@ -5,8 +5,8 @@ import { Message, Client, Snowflake } from 'discord.js';
 import { Modifier, ModifierClass } from '../../shared';
 import * as shared from '../../shared';
 
-const RichEmbed = Discord.RichEmbed;
-const Attachment = Discord.Attachment;
+const MessageEmbed = Discord.MessageEmbed;
+const MessageAttachment = Discord.MessageAttachment;
 
 @Modifier({
   match: '!devmode'

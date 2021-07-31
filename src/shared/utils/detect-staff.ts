@@ -9,11 +9,11 @@ import { serverIDs } from '../../config';
  */
 export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | 'cats' | false {
   if (!member || !member.roles) return false;
-  if (member.roles.has(serverIDs.roles.serverStaff)) return 'admin';
-  if (member.roles.has(serverIDs.roles.duckyCodeRoleID) || member.roles.has(serverIDs.roles.duckyHonouraryRoleID)) return 'code';
-  if (member.roles.has(serverIDs.roles.duckyArtRoleID)) return 'art';
-  if (member.roles.has(serverIDs.roles.duckyAudioRoleID)) return 'audio';
-  if (member.roles.has(serverIDs.roles.communityCatsRoleID)) return 'cats';
+  if (member.roles.cache.has(serverIDs.roles.serverStaff)) return 'admin';
+  if (member.roles.cache.has(serverIDs.roles.duckyCodeRoleID) || member.roles.cache.has(serverIDs.roles.duckyHonouraryRoleID)) return 'code';
+  if (member.roles.cache.has(serverIDs.roles.duckyArtRoleID)) return 'art';
+  if (member.roles.cache.has(serverIDs.roles.duckyAudioRoleID)) return 'audio';
+  if (member.roles.cache.has(serverIDs.roles.communityCatsRoleID)) return 'cats';
 
   return false;
 }
@@ -25,14 +25,14 @@ export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'au
  */
 export function detectOutsideStaff(user: User): 'admin' | 'code' | 'art' | 'audio' | 'cats' | false {
   if (!user || user.bot) return false;
-  if (!user.client.guilds.has(guildService.guild.id)) return false;
+  if (!user.client.guilds.cache.has(guildService.guild.id)) return false;
 
   // Get the /r/GM guild
-  let userGuild = user.client.guilds.get(guildService.guild.id);
+  let userGuild = user.client.guilds.cache.get(guildService.guild.id);
   if (!userGuild) return false;
 
   // Get this users guild membership
-  let guildMember = userGuild.members.get(user.id);
+  let guildMember = userGuild.members.cache.get(user.id);
   if (!guildMember) return false;
 
   return detectStaff(guildMember);

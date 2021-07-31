@@ -1,6 +1,6 @@
 import { Rule } from '..';
 import { prefixedCommandRuleTemplate } from '../../config';
-import { Emoji } from 'discord.js';
+import { EmojiResolvable } from 'discord.js';
 
 /**
  * Helper class to construct simple rules
@@ -36,7 +36,7 @@ export class RuleFactory {
    * @param reactions
    * @param wholeMessage When true, sets exact to false and checks the whole message, default false
    */
-  static createReactionRule(matches: string[], reactions: (string | Emoji)[], wholeMessage = false): Rule {
+  static createReactionRule(matches: string[], reactions: (string | EmojiResolvable)[], wholeMessage = false): Rule {
     let rule: Rule = {
       matches,
       action: async msg => {

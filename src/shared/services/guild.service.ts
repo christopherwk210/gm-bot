@@ -9,7 +9,7 @@ class GuildService {
 
   /** Initialize the guild service with the bot client */
   init(client: Client) {
-    this.guild = client.guilds.first();
+    this.guild = client.guilds.cache.first();
   }
 }
 

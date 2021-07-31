@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import * as https from 'https';
@@ -80,7 +80,7 @@ export class GMCWSearch implements CommandClass {
       };
 
       for (let i = 0; i < count; i++) {
-        let embed = new RichEmbed({
+        let embed = new MessageEmbed({
           title: resultTitles[i],
           url: resultLink[i],
           description: resultText[i],

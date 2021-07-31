@@ -1,4 +1,4 @@
-import { Message, Attachment } from 'discord.js';
+import { Message, MessageAttachment } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 
@@ -58,7 +58,7 @@ export class ResizeCommand implements CommandClass {
         }
 
         // Create a discord attachment
-        let newImage = new Attachment(buffer, image.filename);
+        let newImage = new MessageAttachment(buffer, image.filename);
 
         // Send the image to the channel
         msg.channel.send(`Image scaled by ${scaleFactor}x, ${msg.author}`, newImage).then(() => {

@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass, helpChannelService, guildService } from '../../shared';
 
@@ -17,8 +17,8 @@ export class DoneCommand implements CommandClass {
 
     if (args.includes('silent') || args.includes('s') || args.includes('sneaky')) return;
 
-    const sirQuackers = guildService.guild.emojis.find(emoji => emoji.name === 'duckycode');
-    msg.channel.send(new RichEmbed({
+    const sirQuackers = guildService.guild.emojis.cache.find(emoji => emoji.name === 'duckycode');
+    msg.channel.send(new MessageEmbed({
       description: `This channel is now available for another question ${sirQuackers || ''}`,
       color: defaultEmbedColor,
       footer: {

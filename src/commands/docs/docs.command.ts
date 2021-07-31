@@ -1,4 +1,4 @@
-import { Message, RichEmbed, User } from 'discord.js';
+import { Message, MessageEmbed, User } from 'discord.js';
 
 import { prefixedCommandRuleTemplate } from '../../config';
 import {
@@ -72,7 +72,7 @@ export class DocsCommand implements CommandClass {
     }
   }
 
-  attemptNewDocs(docWord: string, user: User): undefined | RichEmbed {
+  attemptNewDocs(docWord: string, user: User): undefined | MessageEmbed {
     // New Docs style ability -- query the shared service
     const docInfo = docService.docsFindEntry(docWord);
     if (!docInfo) {
@@ -87,7 +87,7 @@ export class DocsCommand implements CommandClass {
         linkList += `[${closestDoc.name}](${closestDoc.link})\n`;
       }
 
-      const ourEmbed = new RichEmbed({
+      const ourEmbed = new MessageEmbed({
         color: errColor,
         title: 'No documentation entry found',
         description: `No documentation entry was found by the name of \`${docWord}\`; did you mean one of the following?\n${linkList}`,
@@ -144,7 +144,7 @@ export class DocsCommand implements CommandClass {
         signature = signature.slice(0, signature.length - 2);
         signature += ');';
 
-        const ourEmbed = new RichEmbed({
+        const ourEmbed = new MessageEmbed({
           color: funcColor,
           title: signature,
           url: func.link,
@@ -183,7 +183,7 @@ export class DocsCommand implements CommandClass {
           variable.description.indexOf('.') + 1
         );
 
-        const ourEmbed = new RichEmbed({
+        const ourEmbed = new MessageEmbed({
           color: varColor,
           title: varTitle,
           url: variable.link,
@@ -223,7 +223,7 @@ export class DocsCommand implements CommandClass {
           varDesc = varDesc.slice(0, -1);
         }
 
-        const ourEmbed = new RichEmbed({
+        const ourEmbed = new MessageEmbed({
           color: varColor,
           title: varTitle,
           url: constant.link,

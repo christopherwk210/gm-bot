@@ -8,7 +8,7 @@ import { js_beautify } from 'js-beautify';
 })
 export class CleanCodeModifier implements ModifierClass {
   /** Beautify rules as loaded from local JSON */
-  beautifyOptions: JsBeautifyOptions = jsonService.files['jsbeautify'];
+  beautifyOptions = jsonService.files['jsbeautify'];
 
   action(msg: Message, contents: string[], match: string) {
     let messageContent = msg.content;

@@ -21,7 +21,7 @@ export const helpChannelBusyTimeout = 1000 * 60 * 10;
 /** How long does birthday role last for, in milliseconds */
 export const birthdayTimeout = 1000 * 60 * 60 * 24;
 
-/** Default color to use for RichEmbed's */
+/** Default color to use for MessageEmbed's */
 export const defaultEmbedColor = 0x039D5B;
 
 /** How many spam messages in a row constitute an immediate kick, in a given time period (see spamTimer) */

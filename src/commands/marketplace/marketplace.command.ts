@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import * as puppeteer from 'puppeteer';
@@ -127,7 +127,7 @@ export class MarketplaceCommand implements CommandClass {
    * @param result
    */
   createResultEmbed(result: MarketplaceResult) {
-    return new RichEmbed({
+    return new MessageEmbed({
       title: result.title,
       url: result.url,
       description: `${result.type.replace(/s$/i, '')}\n${result.price}`,

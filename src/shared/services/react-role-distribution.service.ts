@@ -34,7 +34,7 @@ class ReactRoleDistributionService {
     let message = config.message + '\n\n';
     for (const role of config.roles) {
       console.log(role.emojiName);
-      const e = channel.guild.emojis.find(val => val.name === role.emojiName);
+      const e = channel.guild.emojis.cache.find(val => val.name === role.emojiName);
       if (e) {
         message += `${e} - ${role.description}\n`;
       } else {
@@ -48,7 +48,7 @@ class ReactRoleDistributionService {
           if (role.emoji) {
             await msg.react(role.emoji);
           } else {
-            const em = msg.guild.emojis.find(e => e.name === role.emojiName);
+            const em = msg.guild.emojis.cache.find(e => e.name === role.emojiName);
             await msg.react(em);
           }
         } catch (e) {

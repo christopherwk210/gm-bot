@@ -1,6 +1,6 @@
-import { Message, RichEmbed, MessageCollector, MessageReaction } from 'discord.js';
+import { Message, MessageEmbed, MessageCollector, MessageReaction } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor, serverIDs } from '../../config';
-import { Command, CommandClass, detectStaff, detectOutsideStaff, roleService, channelService } from '../../shared';
+import { Command, CommandClass, detectStaff, roleService, channelService } from '../../shared';
 import { AssembleCommand } from '../assemble/assemble.command';
 
 @Command({
@@ -344,7 +344,7 @@ export class VoteCommand implements CommandClass {
       desc += `${this.voteEmojiList[index]} ${vote}\n\n`;
     });
 
-    const embed = new RichEmbed({
+    const embed = new MessageEmbed({
       color: defaultEmbedColor,
       description: `${voteConfig.description}\n\n${desc}`,
       title,

@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate } from '../../config';
 import { Command, CommandClass } from '../../shared';
 import * as https from 'https';
@@ -58,7 +58,7 @@ export class GithubCommand implements CommandClass {
     }
 
     // Paint a pretty picture
-    let embed = new RichEmbed({
+    let embed = new MessageEmbed({
       title: searchResult.name,
       url: searchResult.html_url,
       description: searchResult.description,

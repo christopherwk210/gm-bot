@@ -7,7 +7,7 @@ import { Modifier, ModifierClass, jsonService, reactRoleDistributionService, Rol
 })
 export class ReactRoleDistributorModifier implements ModifierClass {
   /** Beautify rules as loaded from local JSON */
-  beautifyOptions: JsBeautifyOptions = jsonService.files['jsbeautify'];
+  beautifyOptions = jsonService.files['jsbeautify'];
 
   action(msg: Message, contents: string[], match: string) {
     if (contents.length === 1) {

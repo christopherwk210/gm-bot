@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass, detectStaff } from '../../shared';
 
@@ -37,7 +37,7 @@ export class SayCommand implements CommandClass {
 
     // Create a rich embed
     if (fancy) {
-      fancy = new RichEmbed({
+      fancy = new MessageEmbed({
         author: {
           name: 'GameMakerBot',
           icon_url: 'https://cdn.discordapp.com/app-icons/295327000372051968/a073c2f3f8904916d98d873b90517665.png',

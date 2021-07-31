@@ -5,7 +5,7 @@ import * as util from 'util';
 const readdir = util.promisify(fs.readdir);
 const readFile = util.promisify(fs.readFile);
 
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { prefixedCommandRuleTemplate, defaultEmbedColor } from '../../config';
 import { Command, CommandClass, detectStaff, markdownService } from '../../shared';
 
@@ -39,7 +39,7 @@ export class HelpCommand implements CommandClass {
     if (args[1]) {
       let docsPage = await this.getDocsPage(args[1]);
       let titleRegExp = /#\s[\S ]+(\n|\r)/g;
-      let embed = new RichEmbed({
+      let embed = new MessageEmbed({
         color: defaultEmbedColor,
         timestamp: new Date()
       });

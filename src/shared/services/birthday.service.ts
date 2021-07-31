@@ -48,7 +48,7 @@ class BirthdayService {
   /** Load active birthday timers from file */
   init(client: Client) {
     // Save guild for later
-    this.guild = client.guilds.first();
+    this.guild = client.guilds.cache.first();
   }
 
   /**
@@ -58,8 +58,8 @@ class BirthdayService {
     let birthdayRole = roleService.getRoleByID(serverIDs.roles.birthdayRoleID);
 
     // add role to user
-    if (!user.roles.has(birthdayRole.id)) {
-      user.addRole(birthdayRole);
+    if (!user.roles.cache.has(birthdayRole.id)) {
+      user.roles.add(birthdayRole);
     }
 
     // clear old timeout
@@ -86,10 +86,10 @@ class BirthdayService {
     let birthdayRole = roleService.getRoleByID(serverIDs.roles.birthdayRoleID);
 
     // remove role from user
-    this.guild.fetchMember(user.id).then(member => {
-      if (member.roles.has(birthdayRole.id)) {
+    this.guild.members.fetch(user.id).then(member => {
+      if (member.roles.cache.has(birthdayRole.id)) {
         member.send('Your birthday role has been removed, see you next year!');
-        member.removeRole(birthdayRole);
+        member.roles.remove(birthdayRole);
       }
     });
 
