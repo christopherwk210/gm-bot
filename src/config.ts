@@ -2,7 +2,7 @@
 export const shouldDieOnException: boolean = true;
 
 /** Determines if we should print stack traces on an uncaught expection */
-export const shouldPrintStackTrace: boolean = false;
+export const shouldPrintStackTrace: boolean = true;
 
 /** Server wide command prefix (Go ! or go home) */
 export const prefix: string = '!';
