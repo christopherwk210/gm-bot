@@ -48,52 +48,55 @@ export class ResizeCommand implements CommandClass {
     }
 
     // Loop through each image
-    attachments.forEach((image: any) => {
+    attachments.forEach(attachment => {
+
+      const filename = attachment.name;
+      const url = attachment.url;
 
       // output closure
       function outputHandler(err, buffer) {
         if (err) {
-          msg.channel.send(`There was an error scaling ${image.filename}!`);
+          msg.channel.send(`There was an error scaling ${filename}!`);
           return;
         }
 
         // Create a discord attachment
-        let newImage = new MessageAttachment(buffer, image.filename);
+        let newImage = new MessageAttachment(buffer, filename);
 
         // Send the image to the channel
         msg.channel.send(`Image scaled by ${scaleFactor}x, ${msg.author}`, newImage).then(() => {
           if (uploadOriginal) {
-           msg.channel.send(`Here's the original image: ${image.url}`);
+           msg.channel.send(`Here's the original image: ${url}`);
           }
         });
       }
 
       // error closure
       function errorHandler() {
-        msg.channel.send(`There was an error reading ${image.filename}!`);
+        msg.channel.send(`There was an error reading ${filename}!`);
       }
 
       // process image depending on filetype
-      if (image.filename.toLowerCase().endsWith('.gif')) {
-        this.processGif(image, scaleFactor, useBilinear, errorHandler, outputHandler);
+      if (filename.toLowerCase().endsWith('.gif')) {
+        this.processGif(url, scaleFactor, useBilinear, errorHandler, outputHandler);
       } else {
-        this.processImage(image, scaleFactor, useBilinear, errorHandler, outputHandler);
+        this.processImage(url, scaleFactor, useBilinear, errorHandler, outputHandler);
       }
     });
   }
 
   /**
    * Resizes a gif
-   * @param image
+   * @param url
    * @param scaleFactor
    * @param useBilinear
    * @param errorHandler
    * @param outputHandler
    */
-  processGif(image, scaleFactor, useBilinear, errorHandler, outputHandler) {
+  processGif(url, scaleFactor, useBilinear, errorHandler, outputHandler) {
 
     // Download and process animated gif
-    request({url: image.url, encoding: null}, (err, response, buffer) => {
+    request({url, encoding: null}, (err, response, buffer) => {
 
       if (err !== null || response.statusCode !== 200 || buffer === undefined) {
         errorHandler();
@@ -122,16 +125,16 @@ export class ResizeCommand implements CommandClass {
 
   /**
    * Resize image with jimp
-   * @param image
+   * @param url
    * @param scaleFactor
    * @param useBilinear
    * @param errorHandler
    * @param outputHandler
    */
-  processImage(image, scaleFactor, useBilinear, errorHandler, outputHandler) {
+  processImage(url, scaleFactor, useBilinear, errorHandler, outputHandler) {
 
     // Download and process static images
-    jimp.read(image.url).then(jimpImage => {
+    jimp.read(url).then(jimpImage => {
         // Determine scaling mode
         let mode = useBilinear ? jimp.RESIZE_BILINEAR : jimp.RESIZE_NEAREST_NEIGHBOR;
 
