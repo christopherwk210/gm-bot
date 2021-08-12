@@ -192,7 +192,6 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User | PartialU
     const winner = fetchedUsers.array().choose();
     user.send(`Winner chosen: ${winner.username}#${winner.discriminator}`);
   } else {
-    console.log('---');
 
     // Loop through reaction add tracked messages
     for (const msg of reactRoleDistributionService.currentMessages) {
@@ -201,8 +200,6 @@ async function onBotReactionAdd(reaction: MessageReaction, user: User | PartialU
 
       // If the message being reacted to is one of those messages..
       if (reaction.message.id === msg.messageID) {
-
-        console.log('hit');
 
         // Loop through the roles for this configured message
         for (const r of msg.config.roles) {
