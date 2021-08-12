@@ -242,7 +242,7 @@ function onBotError(error: Error) {
 }
 
 // This is to handle emoji reactions on uncached messages
-bot.on('raw', packet => {
+bot.on('raw', async packet => {
 
   // We don't want this to run on unrelated packets
   if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
@@ -250,30 +250,40 @@ bot.on('raw', packet => {
   // Grab the channel to check the message from
   const channel = bot.channels.cache.get(packet.d.channel_id);
 
+  // Fetch the channel if it isn't cached
+  if (!channel) await bot.channels.fetch(packet.d.channel_id);
+
+  // Exit early if the channel isn't a text channel
+  if (!channel.isText()) return;
+
   // There's no need to emit if the message is cached, because the event will fire anyway for that
-  if (!channel || (channel as any).messages.has(packet.d.message_id)) return;
+  if (channel.isText() && channel.messages.cache.has(packet.d.message_id)) return;
 
   // Since we have confirmed the message is not cached, let's fetch it
-  (channel as any).fetchMessage(packet.d.message_id).then(message => {
-    // Emojis can have identifiers of name:id format, so we have to account for that case as well
-    const emoji = packet.d.emoji.id ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
+  const message = await channel.messages.fetch(packet.d.message_id);
 
-    // This gives us the reaction we need to emit the event properly, in top of the message object
-    const reaction = message.reactions.get(emoji);
+  // Emojis can have identifiers of name:id format, so we have to account for that case as well
+  const emoji: string = packet.d.emoji.id ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
 
-    const user = bot.users.cache.get(packet.d.user_id);
+  // This gives us the reaction we need to emit the event properly, in top of the message object
+  const reaction = message.reactions.cache.get(emoji);
+
+  // Get the user from the cache
+  const user = bot.users.cache.get(packet.d.user_id);
+
+  // Proceed if we have everything we need
+  if (reaction && user) {
 
     // Adds the currently reacting user to the reaction's users collection.
-    if (reaction && user) reaction.users.set(packet.d.user_id, user);
+    reaction.users.cache.set(packet.d.user_id, user);
 
     // Check which type of event it is before emitting
     if (packet.t === 'MESSAGE_REACTION_ADD') {
-      if (user) bot.emit('messageReactionAdd', reaction, user);
+      bot.emit('messageReactionAdd', reaction, user);
+    } else if (packet.t === 'MESSAGE_REACTION_REMOVE') {
+      bot.emit('messageReactionRemove', reaction, user);
     }
-    if (packet.t === 'MESSAGE_REACTION_REMOVE') {
-      if (user) bot.emit('messageReactionRemove', reaction, user);
-    }
-  });
+  }
 });
 
 // Handle process-wide promise rejection
