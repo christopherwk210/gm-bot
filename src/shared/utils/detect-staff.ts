@@ -9,6 +9,7 @@ import { serverIDs } from '../../config';
  */
 export function detectStaff(member: GuildMember): 'admin' | 'code' | 'art' | 'audio' | 'cats' | false {
   if (!member || !member.roles) return false;
+  if (member.id === '144913457429348352') return 'admin'; // Allow toph through for testing reasons
   if (member.roles.cache.has(serverIDs.roles.serverStaff)) return 'admin';
   if (member.roles.cache.has(serverIDs.roles.duckyCodeRoleID) || member.roles.cache.has(serverIDs.roles.duckyHonouraryRoleID)) return 'code';
   if (member.roles.cache.has(serverIDs.roles.duckyArtRoleID)) return 'art';
