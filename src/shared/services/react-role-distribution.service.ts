@@ -36,7 +36,7 @@ class ReactRoleDistributionService {
     for (const role of config.roles) {
       const e = channel.guild.emojis.cache.find(val => val.name === role.emojiName);
       if (e) {
-        message += `:${e.name}: - ${role.description}\n`;
+        message += `${e} - ${role.description}\n`;
       } else {
         message += `:${role.emojiName}: - ${role.description}\n`;
       }
