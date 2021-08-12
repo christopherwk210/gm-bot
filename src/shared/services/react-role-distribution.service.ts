@@ -32,6 +32,7 @@ class ReactRoleDistributionService {
 
   newConfig(author: User, channel: TextChannel, config: RoleMessageConfig) {
     let message = config.message + '\n\n';
+
     for (const role of config.roles) {
       console.log(role.emojiName);
       const e = channel.guild.emojis.cache.find(val => val.name === role.emojiName);
