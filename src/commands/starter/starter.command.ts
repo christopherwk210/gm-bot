@@ -26,7 +26,7 @@ export class StarterCommand implements CommandClass {
 
       // Load in those saucy recources
       const kitEmbed = new MessageEmbed ({
-        title: '__**r/GM Resource Pack**__',
+        title: '__**GameMaker Resource Pack**__',
         description: '**The following is a set of useful sources for learning GML and other GameMaker development skills.**',
         thumbnail: {  url: 'https://www.yoyogames.com/images/gms2_logo_512.png'  },
         fields: this.constructEmbedFields(resources),

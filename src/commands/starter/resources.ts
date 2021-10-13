@@ -9,7 +9,7 @@ export const resources: ResourceList = {
     },
     {
       title: 'GMS2 Documentation',
-      url: 'http://docs2.yoyogames.com/'
+      url: 'http://manual.yoyogames.com/'
     },
     {
       title: 'Xor Shader Tutorials',
@@ -28,6 +28,10 @@ export const resources: ResourceList = {
   ],
   'GML Video Tutorials and Channels:': [
     {
+      title: 'Official YYG tutorials page',
+      url: 'https://www.yoyogames.com/tutorials'
+    },
+    {
       title: 'Pixelated Pope',
       url: 'https://www.youtube.com/user/PixelatedPope'
     },
@@ -40,7 +44,7 @@ export const resources: ResourceList = {
       url: 'https://www.youtube.com/user/uheartbeast'
     },
     {
-      title: 'Freindly Cosmonaut',
+      title: 'Friendly Cosmonaut',
       url: 'https://www.youtube.com/channel/UCKCKHxkH8zqV9ltWZw0JFig'
     },
     {
@@ -48,7 +52,7 @@ export const resources: ResourceList = {
       url: 'https://www.youtube.com/channel/UCcYKLm0EwyWkfTA6sMn5W7g'
     },
     {
-      title: 'Official YYG Youtube',
+      title: 'Official YYG YouTube channel',
       url: 'https://www.youtube.com/user/yoyogamesltd'
     }
   ],
@@ -62,38 +66,37 @@ export const resources: ResourceList = {
       url: 'https://www.youtube.com/watch?v=iJH_uTq9iOQ'
     }
   ],
-  'Basic Art Skill Articles:': [
-    {
-      title: 'Guide to Being A Respectful Critic',
-      url: 'http://tiny.cc/critique'
-    },
-    {
-      title: 'Basic Guide to Pixelart',
-      url: 'http://pixeljoint.com/forum/forum_posts.asp?TID=11299'
-    }
-  ],
-  'Art Video Resources and Channels:': [
+  'Pixel Art Articles and Video Resources:': [
     {
       title: 'MortMort',
       url: 'https://www.youtube.com/user/atMNRArt'
     },
     {
+      title: 'Basic Guide to Pixel Art',
+      url: 'http://pixeljoint.com/forum/forum_posts.asp?TID=11299'
+    },
+    {
       title: 'Guide on Choosing the Right Canvas Size',
       url: 'https://www.youtube.com/watch?v=AXb-VBZTKDA'
+    },
+    {
+      title: 'Pixel Logic Book',
+      url: 'https://pixellogicbook.com/'
     }
   ],
-  'Pixelart Refrence Sites and Tutorials:': [
+  'Pixel Art Reference Sites and Tutorials:': [
     {
       title: 'Miniboss',
       url: 'http://blog.studiominiboss.com/pixelart'
     },
     {
-      title: 'The Spriters Recource',
+      title: 'The Spriters Resource',
       url: 'https://www.spriters-resource.com/'
     },
     {
-      title: 'Find Palletes Here',
-      url: 'https://lospec.com/palette-list'
+      title: 'Lospec Palette List',
+      url: 'https://lospec.com/palette-list',
+      label: 'Find colour palettes here:'
     },
     {
       title: 'Guide to Subpixel Animation',
