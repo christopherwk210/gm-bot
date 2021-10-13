@@ -17,8 +17,8 @@ export class LifetimeCommand implements CommandClass {
       if (msg.guild) {
         msg.guild.members.fetch(args[1].replace(/[<!@>]+/g, '')).then(member => {
           if (member) {
-            const name = member.displayName.includes('everyone') || member.displayName.includes('here') ? 'You' : member.displayName;
-            msg.channel.send(`${member.displayName} has been a member of this server since ${member.joinedAt}.`);
+            const time = Math.floor(member.joinedTimestamp / 1000);
+            msg.channel.send(`${member.displayName} has been a member of this server since <t:${time}:F>.`);
           } else {
             msg.channel.send('Could not find specified user');
           }
@@ -30,16 +30,15 @@ export class LifetimeCommand implements CommandClass {
       if (!msg.member.joinedAt || !msg.member.displayName) {
         msg.guild.members.fetch(msg.member.id).then(memb => {
           if (memb) {
-            const name = memb.displayName.includes('everyone') || memb.displayName.includes('here') ? 'You' : memb.displayName;
-            msg.channel.send(`${memb.displayName}, you have been a member of this server since ${memb.joinedAt}.`);
+            const time = Math.floor(memb.joinedTimestamp / 1000);
+            msg.channel.send(`${memb.displayName}, you have been a member of this server since <t:${time}:F>.`);
           } else {
             msg.channel.send('Lifetime command failed. Blame the discord API, probably.');
           }
         });
       } else {
-        const name = msg.member.displayName.includes('everyone') ||
-          msg.member.displayName.includes('here') ? 'You' : msg.member.displayName;
-        msg.channel.send(`${msg.member.displayName}, you have been a member of this server since ${msg.member.joinedAt}.`);
+        const time = Math.floor(msg.member.joinedTimestamp / 1000);
+        msg.channel.send(`${msg.member.displayName}, you have been a member of this server since <t:${time}:F>.`);
       }
     } else {
       msg.channel.send('You can only use this in the /r/GameMaker server.');
