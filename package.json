@@ -28,7 +28,7 @@
   ],
   "author": "Chris Anselmo <christopherwk210@gmail.com>",
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^3.2.2",
     "body-parser": "^1.18.3",
     "brainfuck-node": "^1.0.2",
     "bufferutil": "^4.0.0",
