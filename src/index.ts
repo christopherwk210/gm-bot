@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits } from 'discord.js';
-import { token } from './environment.mjs';
+import { token } from './environment.js';
 
 // Create a new client instance
 const client = new Client({

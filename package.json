@@ -24,6 +24,8 @@
     "discord.js": "^14.3.0",
     "dotenv": "^16.0.2",
     "erlpack": "github:discord/erlpack",
+    "sequelize": "^6.23.0",
+    "sqlite3": "^5.1.1",
     "utf-8-validate": "^5.0.9",
     "zlib-sync": "^0.1.7"
   },
