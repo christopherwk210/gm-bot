@@ -5,6 +5,8 @@ import copyStaticFiles from 'esbuild-copy-static-files';
 import glob from 'glob';
 import * as url from 'url';
 
+const devMode = process.argv.includes('--development');
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 console.time('Process complete. Finished in');
 
@@ -25,7 +27,8 @@ function esbuild() {
       platform: 'node',
       outdir: './dist',
       format: 'esm',
-      sourcemap: 'linked',
+      sourcemap: devMode ? 'linked' : false,
+      minify: !devMode,
       plugins: [
         copyStaticFiles({
           src: './static',

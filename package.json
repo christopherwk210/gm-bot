@@ -3,8 +3,10 @@
   "version": "2.0.0",
   "description": "The bot used by the /r/GameMaker Discord server.",
   "scripts": {
-    "start": "npm run build && node --enable-source-maps dist/index.js --development",
-    "build": "node ./tools/esbuild.js"
+    "start": "npm run build:dev && node --enable-source-maps dist/index.js --development",
+    "build:dev": "npm run build -- --development",
+    "build": "node ./tools/esbuild.js",
+    "prod": "npm run build && node dist/index.js"
   },
   "type": "module",
   "keywords": [
