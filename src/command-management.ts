@@ -1,11 +1,12 @@
 import { Routes, ApplicationCommand, Collection } from 'discord.js';
 import { REST } from '@discordjs/rest';
-import { applicationId, token, projectRootPath } from './environment.js';
-import { config } from './config.js';
+import { applicationId, token, projectRootPath } from './singletons/environment.js';
+import { config } from './singletons/config.js';
 import glob from 'glob';
 
 type CommandScope = 'global' | 'guild';
 type CommandCollection = Collection<string, BotCommand>;
+export interface AppCommands { guild: CommandCollection; global: CommandCollection; };
 
 // The same setup must be used for all requests, so might as well re-use
 const restClient = () => new REST({ version: '10' }).setToken(token);
@@ -63,7 +64,7 @@ async function syncCommands(scope: CommandScope): AsyncWrap<CommandCollection> {
 /**
  * Puts all local commands of both scopes to the remote
  */
-export async function syncAllCommands(): AsyncWrap<{ guild: CommandCollection, global: CommandCollection }> {
+export async function syncAllCommands(): AsyncWrap<AppCommands> {
 	const guildCommands = await syncCommands('guild');
 	const globalCommands = await syncCommands('global');
 
