@@ -1,30 +1,49 @@
-import { createRequire } from 'node:module';
+import fs from 'node:fs';
+import path from 'node:path';
 import { build } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
+import glob from 'glob';
+import * as url from 'url';
 
-const require = createRequire(import.meta.url);
-const pkg = require('../package.json');
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+console.time('Process complete. Finished in');
 
-build({
-  entryPoints: ['./src/index.ts'],
-  bundle: true,
-  platform: 'node',
-  outfile: './dist/gm-bot.mjs',
-  external: [
-    ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.peerDependencies || {})
-  ],
-  format: 'esm',
-  sourcemap: 'linked',
-  plugins: [
-    copyStaticFiles({
-      src: './static',
-      dest: './dist',
-      recursive: true
-    }),
-    copyStaticFiles({
-      src: './package.json',
-      dest: './dist/package.json'
+function clean() {
+  console.log('Cleaning...');
+
+  const outputPath = path.join(__dirname, '../dist');
+  fs.rmSync(outputPath, { force: true, recursive: true });
+}
+
+function esbuild() {
+  console.log('Building...');
+  
+  glob('./src/**/*.ts', { nosort: true }, (err, files) => {
+    if (err !== null) throw new Error(err);
+    build({
+      entryPoints: files,
+      platform: 'node',
+      outdir: './dist',
+      format: 'esm',
+      sourcemap: 'linked',
+      plugins: [
+        copyStaticFiles({
+          src: './static',
+          dest: './dist',
+          recursive: true
+        }),
+        copyStaticFiles({
+          src: './package.json',
+          dest: './dist/package.json'
+        })
+      ]
     })
-  ]
-}).catch(() => process.exit(1));
+    .then(() => {
+      console.timeEnd('Process complete. Finished in');
+    })
+    .catch(() => process.exit(1));
+  });
+}
+
+clean();
+esbuild();

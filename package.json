@@ -3,11 +3,10 @@
   "version": "2.0.0",
   "description": "The bot used by the /r/GameMaker Discord server.",
   "scripts": {
-    "start": "npm run build && node --enable-source-maps dist/gm-bot.mjs",
+    "start": "npm run build && node --enable-source-maps dist/index.js --development",
     "build": "node ./tools/esbuild.js"
   },
   "type": "module",
-  "exports": "./dist/index.js",
   "keywords": [
     "discord",
     "bot",
@@ -24,6 +23,7 @@
     "discord.js": "^14.3.0",
     "dotenv": "^16.0.2",
     "erlpack": "github:discord/erlpack",
+    "glob": "^8.0.3",
     "sequelize": "^6.23.0",
     "sqlite3": "^5.1.1",
     "utf-8-validate": "^5.0.9",
@@ -33,6 +33,7 @@
     "node": ">=16.14.0"
   },
   "devDependencies": {
+    "@types/glob": "^8.0.0",
     "@types/node": "^18.7.18",
     "esbuild": "^0.15.8",
     "esbuild-copy-static-files": "^0.1.0",
