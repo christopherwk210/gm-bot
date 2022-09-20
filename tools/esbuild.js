@@ -3,12 +3,17 @@ import path from 'node:path';
 import { build } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
 import glob from 'glob';
-import * as url from 'url';
+import url from 'node:url';
+import { cacheDocs } from './cache-docs.js';
 
 const devMode = process.argv.includes('--development');
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 console.time('Process complete. Finished in');
+
+console.log('Caching GameMaker Docs...');
+cacheDocs();
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 function clean() {
   console.log('Cleaning...');

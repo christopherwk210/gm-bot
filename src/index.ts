@@ -17,5 +17,5 @@ console.log('GameMakerBot is ready.');
 
 if (devMode && client.user) {
   client.user.setStatus('idle');
-  client.user.setActivity('coming soon...', { type: ActivityType.Playing })
+  client.user.setActivity('coming soon...', { type: ActivityType.Playing });
 }

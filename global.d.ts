@@ -23,5 +23,6 @@ type AsyncWrapF<T, E = any> = Promise<{
 
 type BotCommand = {
   command: import('discord.js').SlashCommandBuilder;
-  execute: (interaction: import('discord.js').Interaction<import('discord.js').CacheType>) => Promise<void>;
+  execute: (interaction: import('discord.js').ChatInputCommandInteraction<import('discord.js').CacheType>) => Promise<void>;
+  autocomplete?: (interaction: import('discord.js').AutocompleteInteraction<import('discord.js').CacheType>) => Promise<void>;
 };
