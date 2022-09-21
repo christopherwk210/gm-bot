@@ -22,6 +22,7 @@ interface DocsTopic {
   name: string;
   type: 'topic';
   url: string;
+  blurb: string;
 }
 
 console.log('Caching docs keys...');
@@ -57,7 +58,13 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
   })!;
 
   if (foundKey.topics.length === 1) {
-    await interaction.reply({ embeds: [constructEmbed(foundKey)] });
+    const embed = constructEmbed(foundKey);
+    if (interaction.member && interaction.member.user) {
+      embed.setFooter({
+        text: `This message was called for ${interaction.member.user.username}`
+      });
+    }
+    await interaction.reply({ embeds: [embed] });
   } else {
     const row = new ActionRowBuilder<SelectMenuBuilder>()
     .addComponents(
@@ -104,8 +111,15 @@ async function selectMenu(interaction: SelectMenuInteraction<CacheType>): Promis
     content: `Topic selected: ${topic.name}`,
     components: [],
   });
+
+  const embed = constructEmbed(key, topicIndex);
+  if (interaction.member && interaction.member.user) {
+    embed.setFooter({
+      text: `This message was called for ${interaction.member.user.username}`
+    });
+  }
   
-  await interaction.message.channel.send({ embeds: [constructEmbed(key, topicIndex)] });
+  await interaction.message.channel.send({ embeds: [embed] });
 }
 
 function constructEmbed(key: DocsKey, topicIndex = 0): EmbedBuilder {
@@ -116,7 +130,8 @@ function constructEmbed(key: DocsKey, topicIndex = 0): EmbedBuilder {
     .setTitle(title)
     .setColor(0x039e5c)
     .setURL('https://manual.yoyogames.com/' + topic.url)
-    .setImage('https://manual.yoyogames.com/template/Charcoal_Grey/favicon.png')
+    .setDescription(topic.blurb)
+    .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
     .setTimestamp();
 }
 

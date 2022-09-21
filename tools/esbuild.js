@@ -4,14 +4,14 @@ import { build } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
 import glob from 'glob';
 import url from 'node:url';
-import { cacheDocs } from './cache-docs.js';
+// import { cacheDocs } from './cache-docs.js';
 
 const devMode = process.argv.includes('--development');
 
 console.time('Process complete. Finished in');
 
-console.log('Caching GameMaker Docs...');
-cacheDocs();
+// console.log('Caching GameMaker Docs...');
+// await cacheDocs();
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
