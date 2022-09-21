@@ -38,7 +38,12 @@ const command = new SlashCommandBuilder()
 async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
   const keyword = interaction.options.getString('keyword')!;
   const foundKey = keys.find(key => key.name === keyword)!;
-  await interaction.reply('https://manual.yoyogames.com/' + foundKey.topics[0].url);
+
+  if (foundKey.topics.length === 1) {
+    await interaction.reply('https://manual.yoyogames.com/' + foundKey.topics[0].url);
+  } else {
+    // TODO: HANDLE MULTIPLE TOPICS
+  }
 }
 
 async function autocomplete(interaction: AutocompleteInteraction<CacheType>): Promise<void> {
