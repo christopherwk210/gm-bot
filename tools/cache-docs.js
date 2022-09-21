@@ -7,17 +7,27 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const docsIndexURL = 'https://manual.yoyogames.com/whxdata/idata1.new.js';
 const outputPath = path.join(__dirname, '../static/docs-index.json');
 
-export function cacheDocs() {
+export async function cacheDocs() {
+  const indexContents = await asyncGet(docsIndexURL);
+  const index = indexContents.match(/(?<=var\s*index\s*=\s*)({[\s\S]*})(?=;)/g);
+  
+  // const parsedIndex = JSON.parse(index[0]);
+  // for (const key of parsedIndex.keys) {
+  //   for (const topic of key.topics) {
+  //     const html = await asyncGet('https://manual.yoyogames.com/' + topic.url);
+  //   }
+  // }
+
+  fs.writeFileSync(outputPath, index[0], 'utf-8');
+}
+
+function asyncGet(url) {
   return new Promise(resolve => {
-    https.get(docsIndexURL, res => {
+    https.get(url, res => {
       let data = '';
       res.on('data', d => data += d.toString());
-      res.on('close', () => {
-        const result = data.match(/(?<=var\s*index\s*=\s*)({[\s\S]*})(?=;)/g);
-        // const cleanOutput = JSON.stringify(JSON.parse(result[0]), null, 2);
-        fs.writeFileSync(outputPath, result[0], 'utf-8');
-        resolve();
-      });
+      res.on('error', () => resolve(null))
+      res.on('close', () => resolve(data));
     });
-  });  
+  })
 }

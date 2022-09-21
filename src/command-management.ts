@@ -37,8 +37,8 @@ async function createProjectCommandCollection(scope: CommandScope) {
 	const commands = new Collection<string, BotCommand>();
 
 	for (const filePath of data) {
-		const module: BotCommand = await import(filePath);
-		commands.set(module.command.name, module);
+		const module: { cmd: BotCommand } = await import(filePath);
+		commands.set(module.cmd.command.name, module.cmd);
 	}
 
 	return commands;

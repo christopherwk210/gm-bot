@@ -1,4 +1,4 @@
-import { ActivityType, codeBlock } from 'discord.js';
+import { ActivityType, codeBlock, inlineCode } from 'discord.js';
 import { fetchChannel } from './discord-utils.js';
 import { login } from './singletons/client.js';
 import { getCommands } from './singletons/commands.js';
@@ -26,11 +26,11 @@ process.on('uncaughtException', async err => {
   const botTestingChannel = await fetchChannel('botChannel');
   if (!botTestingChannel || !botTestingChannel.isTextBased()) return;
 
-  const errorCodeBlock = codeBlock(err.message);
+  const errorMessageCode = inlineCode(err.message);
   const stackTraceCodeBlock = err.stack ? codeBlock(err.stack) : '';
   const errorMessage =
-    `GameMakerBot has encoutered an uncaught exception:\n` +
-    `${errorCodeBlock}\n${stackTraceCodeBlock}`;
+    `GameMakerBot has encoutered an uncaught exception:\n\n` +
+    `${errorMessageCode}\n${stackTraceCodeBlock}`;
 
   await botTestingChannel.send(errorMessage);
   console.log(`\n${errorMessage}\n`);

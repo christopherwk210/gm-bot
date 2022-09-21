@@ -1,8 +1,13 @@
 import {
+  ApplicationCommandOptionChoiceData,
   AutocompleteInteraction,
   CacheType,
   ChatInputCommandInteraction,
-  SlashCommandBuilder
+  SlashCommandBuilder,
+  ActionRowBuilder,
+  SelectMenuBuilder,
+  SelectMenuInteraction,
+  EmbedBuilder
 } from 'discord.js';
 import { createRequire } from 'module';
 
@@ -19,10 +24,14 @@ interface DocsTopic {
   url: string;
 }
 
+console.log('Caching docs keys...');
+
 const require = createRequire(import.meta.url);
 const data = require('../../docs-index.json');
 const keys: DocsKey[] = data.keys;
 const keyNames = keys.map(key => key.name);
+
+const selectCustomId = 'docs-topic-select';
 
 const command = new SlashCommandBuilder()
 .setName('docs')
@@ -37,19 +46,44 @@ const command = new SlashCommandBuilder()
 
 async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
   const keyword = interaction.options.getString('keyword')!;
-  const foundKey = keys.find(key => key.name === keyword)!;
+  let foundIndex!: number;
+  const foundKey = keys.find((key, index) => {
+    if (key.name === keyword) {
+      foundIndex = index;
+      return true;
+    }
+
+    return false;
+  })!;
 
   if (foundKey.topics.length === 1) {
-    await interaction.reply('https://manual.yoyogames.com/' + foundKey.topics[0].url);
+    await interaction.reply({ embeds: [constructEmbed(foundKey)] });
   } else {
-    // TODO: HANDLE MULTIPLE TOPICS
+    const row = new ActionRowBuilder<SelectMenuBuilder>()
+    .addComponents(
+      new SelectMenuBuilder()
+      .setCustomId(selectCustomId)
+      .setPlaceholder('Select a topic...')
+      .addOptions(
+        ...foundKey.topics.map((topic, topicIndex) => ({
+          label: topic.name,
+          value: JSON.stringify([foundIndex, topicIndex])
+        }))
+      )
+    )
+
+    await interaction.reply({
+      content: 'This keyword has multiple topics! Please select one from the list:',
+      ephemeral: true,
+      components: [row]
+    });
   }
 }
 
 async function autocomplete(interaction: AutocompleteInteraction<CacheType>): Promise<void> {
   const focusedValue = interaction.options.getFocused();
   
-  const output = [];
+  const output: ApplicationCommandOptionChoiceData<string | number>[] = [];
   let count = 0;
   for (const key of keyNames) {
     if (key.startsWith(focusedValue)) {
@@ -61,5 +95,37 @@ async function autocomplete(interaction: AutocompleteInteraction<CacheType>): Pr
   await interaction.respond(output);
 }
 
-export { command, execute, autocomplete };
+async function selectMenu(interaction: SelectMenuInteraction<CacheType>): Promise<void> {
+  const [keyIndex, topicIndex] = JSON.parse(interaction.values[0]);
+  const key = keys[keyIndex];
+  const topic = key.topics[topicIndex];
 
+  await interaction.update({
+    content: `Topic selected: ${topic.name}`,
+    components: [],
+  });
+  
+  await interaction.message.channel.send({ embeds: [constructEmbed(key, topicIndex)] });
+}
+
+function constructEmbed(key: DocsKey, topicIndex = 0): EmbedBuilder {
+  const topic = key.topics[topicIndex];
+  const title = key.name === topic.name ? key.name : `${key.name} - ${topic.name}`;
+
+  return new EmbedBuilder()
+    .setTitle(title)
+    .setColor(0x039e5c)
+    .setURL('https://manual.yoyogames.com/' + topic.url)
+    .setImage('https://manual.yoyogames.com/template/Charcoal_Grey/favicon.png')
+    .setTimestamp();
+}
+
+export const cmd: BotCommand = {
+  command,
+  execute,
+  autocomplete,
+  selectMenu: {
+    handle: selectMenu,
+    customId: selectCustomId
+  }
+};

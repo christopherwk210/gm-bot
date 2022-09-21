@@ -1,4 +1,10 @@
-import { CacheType, Interaction, ChatInputCommandInteraction, AutocompleteInteraction } from 'discord.js';
+import {
+  CacheType,
+  Interaction,
+  ChatInputCommandInteraction,
+  AutocompleteInteraction,
+  SelectMenuInteraction
+} from 'discord.js';
 import { getCommands } from '../singletons/commands.js';
 
 export async function onInteractionCreate(interaction: Interaction<CacheType>) {
@@ -6,6 +12,20 @@ export async function onInteractionCreate(interaction: Interaction<CacheType>) {
     handleAutocomplete(interaction)
   } else if (interaction.isChatInputCommand()) {
     handleChatInputCommand(interaction);
+  } else if (interaction.isSelectMenu()) {
+    handleSelectMenu(interaction);
+  }
+}
+
+async function handleSelectMenu(interaction: SelectMenuInteraction<CacheType>) {
+  const command = await getCommand(interaction);
+  if (!command) return;
+  if (!command.selectMenu) return;
+
+  try {
+    await command.selectMenu.handle(interaction);
+  } catch (error) {
+    console.error(`Error responding to select menu "${command.command.name}":`, error);
   }
 }
 
@@ -37,13 +57,25 @@ async function handleChatInputCommand(interaction: ChatInputCommandInteraction<C
 	}
 }
 
-async function getCommand(interaction: ChatInputCommandInteraction<CacheType> | AutocompleteInteraction<CacheType>) {
+async function getCommand(
+  interaction:
+    ChatInputCommandInteraction<CacheType> |
+    AutocompleteInteraction<CacheType> |
+    SelectMenuInteraction<CacheType>
+) {
   const commands = await getCommands();
 
   // Determine what commands to check (guild + global, or just global)
   const commandsCollection = interaction.inGuild() ? commands.guild.concat(commands.global) : commands.global;
-	const command = commandsCollection.get(interaction.commandName);
-	return command;
+
+  if (interaction.isSelectMenu()) {
+    return commandsCollection.find(value =>
+      !!(value.selectMenu && value.selectMenu.customId === interaction.customId)
+    );
+  }
+
+  const command = commandsCollection.get(interaction.commandName);
+  return command;
 }
 
 async function handleInteractionErrors(interaction: ChatInputCommandInteraction<CacheType>) {

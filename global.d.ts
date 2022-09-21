@@ -22,7 +22,11 @@ type AsyncWrapF<T, E = any> = Promise<{
 }>;
 
 type BotCommand = {
-  command: import('discord.js').SlashCommandBuilder;
+  command: Partial<import('discord.js').SlashCommandBuilder> & { name: string };
   execute: (interaction: import('discord.js').ChatInputCommandInteraction<import('discord.js').CacheType>) => Promise<void>;
   autocomplete?: (interaction: import('discord.js').AutocompleteInteraction<import('discord.js').CacheType>) => Promise<void>;
+  selectMenu?: {
+    customId: string;
+    handle: (interaction: import('discord.js').SelectMenuInteraction<import('discord.js').CacheType>) => Promise<void>;
+  }
 };

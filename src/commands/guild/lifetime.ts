@@ -34,4 +34,7 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
   }
 }
 
-export { command, execute };
+export const cmd: BotCommand = {
+  command,
+  execute
+};

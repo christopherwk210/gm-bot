@@ -28,7 +28,7 @@ const command = new SlashCommandBuilder()
 );
 
 async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
-  const romanNumeral = interaction.options.getString('roman_numeral')!;
+  const romanNumeral = interaction.options.getString('roman_numeral', true);
 
   const commandmentURLs = [
     'https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark',
@@ -69,5 +69,7 @@ function fromRoman(str: string) {
   return result;
 }
 
-export { command, execute };
-
+export const cmd: BotCommand = {
+  command,
+  execute
+};
