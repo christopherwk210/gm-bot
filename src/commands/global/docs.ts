@@ -13,6 +13,9 @@ import {
 } from 'discord.js';
 import { createRequire } from 'module';
 
+// These interfaces correspond with the auto-generated JSON
+// created by running `npm run docs:cache`
+
 interface DocsKey {
   name: string;
   type: 'key';
@@ -29,12 +32,12 @@ interface DocsTopic {
 
 console.log('Caching docs keys...');
 
+// Load the JSON and cache the key names
+
 const require = createRequire(import.meta.url);
 const data = require('../../docs-index.json');
 const keys: DocsKey[] = data.keys;
 const keyNames = keys.map(key => key.name);
-
-const selectCustomId = 'docs-topic-select';
 
 const command = new SlashCommandBuilder()
 .setName('docs')
@@ -50,19 +53,27 @@ const command = new SlashCommandBuilder()
 async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
   const keyword = interaction.options.getString('keyword')!;
   let foundIndex!: number;
+
+  // Search for the matching entry based on the key the user provided
   const foundKey = keys.find((key, index) => {
-    if (key.name === keyword) {
+    if (key.name === keyword.toLowerCase()) {
       foundIndex = index;
       return true;
     }
 
     return false;
-  })!;
+  });
+
+  if (!foundKey) {
+    await interaction.reply({ content: `Could not find a documentation entry for ${keyword}.` });
+    return;
+  }
 
   if (foundKey.topics.length === 1) {
     const embed = constructEmbed(foundKey);
     await interaction.reply({ embeds: [embed] });
   } else {
+    // Create a select that has every topic in it
     const row = new ActionRowBuilder<SelectMenuBuilder>()
     .addComponents(
       new SelectMenuBuilder()
@@ -87,6 +98,7 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
 async function autocomplete(interaction: AutocompleteInteraction<CacheType>): Promise<void> {
   const focusedValue = interaction.options.getFocused();
   
+  // Filter to the first 6 commands
   const output: ApplicationCommandOptionChoiceData<string | number>[] = [];
   let count = 0;
   for (const key of keyNames) {
@@ -98,6 +110,8 @@ async function autocomplete(interaction: AutocompleteInteraction<CacheType>): Pr
 
   await interaction.respond(output);
 }
+
+const selectCustomId = 'docs-topic-select';
 
 async function selectMenu(interaction: SelectMenuInteraction<CacheType>): Promise<void> {
   const [keyIndex, topicIndex] = JSON.parse(interaction.values[0]);
