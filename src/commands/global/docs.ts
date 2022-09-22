@@ -7,7 +7,9 @@ import {
   ActionRowBuilder,
   SelectMenuBuilder,
   SelectMenuInteraction,
-  EmbedBuilder
+  EmbedBuilder,
+  GuildMember,
+  APIInteractionGuildMember
 } from 'discord.js';
 import { createRequire } from 'module';
 
@@ -59,11 +61,6 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
 
   if (foundKey.topics.length === 1) {
     const embed = constructEmbed(foundKey);
-    if (interaction.member && interaction.member.user) {
-      embed.setFooter({
-        text: `This message was called for ${interaction.member.user.username}`
-      });
-    }
     await interaction.reply({ embeds: [embed] });
   } else {
     const row = new ActionRowBuilder<SelectMenuBuilder>()
@@ -112,27 +109,29 @@ async function selectMenu(interaction: SelectMenuInteraction<CacheType>): Promis
     components: [],
   });
 
-  const embed = constructEmbed(key, topicIndex);
-  if (interaction.member && interaction.member.user) {
-    embed.setFooter({
-      text: `This message was called for ${interaction.member.user.username}`
-    });
-  }
-  
+  const embed = constructEmbed(key, topicIndex, interaction.member);
   await interaction.message.channel.send({ embeds: [embed] });
 }
 
-function constructEmbed(key: DocsKey, topicIndex = 0): EmbedBuilder {
+function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APIInteractionGuildMember | null = null): EmbedBuilder {
   const topic = key.topics[topicIndex];
   const title = key.name === topic.name ? key.name : `${key.name} - ${topic.name}`;
 
-  return new EmbedBuilder()
+  const embed = new EmbedBuilder()
     .setTitle(title)
     .setColor(0x039e5c)
     .setURL('https://manual.yoyogames.com/' + topic.url)
     .setDescription(topic.blurb)
     .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
     .setTimestamp();
+  
+  if (member && member.user) {
+    embed.setFooter({
+      text: `This message was called for ${member.user.username}`
+    });
+  }
+
+  return embed;
 }
 
 export const cmd: BotCommand = {
