@@ -12,6 +12,7 @@ import {
   APIInteractionGuildMember
 } from 'discord.js';
 import { createRequire } from 'module';
+import { config } from '../../singletons/config.js';
 
 // These interfaces correspond with the auto-generated JSON
 // created by running `npm run docs:cache`
@@ -133,7 +134,7 @@ function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APII
 
   const embed = new EmbedBuilder()
     .setTitle(title)
-    .setColor(0x039e5c)
+    .setColor(config.defaultEmbedColor)
     .setURL('https://manual.yoyogames.com/' + topic.url)
     .setDescription(topic.blurb)
     .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
