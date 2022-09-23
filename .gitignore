@@ -2,3 +2,4 @@ node_modules
 dist
 .env
 TODO
+static/dev-ids.json

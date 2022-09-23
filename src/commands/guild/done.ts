@@ -4,7 +4,6 @@ import {
   EmbedBuilder,
   SlashCommandBuilder
 } from 'discord.js';
-import { helpChannelSetUnbusy } from '../../message-handlers/help-channel-handler.js';
 import { config } from '../../singletons/config.js';
 
 const command = new SlashCommandBuilder()
@@ -12,9 +11,8 @@ const command = new SlashCommandBuilder()
 .setDescription(`Marks this channel as not busy (help channels only!)`)
 
 async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<any> {
-  if (!interaction.guild) return;
-  const success = await helpChannelSetUnbusy(interaction.channelId);
-  if (success) {
+  if (!interaction.guild || !interaction.channel) return;
+  if (config.discordIds.channels.helpChannels.includes(interaction.channelId)) {
     const embed = new EmbedBuilder()
     .setColor(config.defaultEmbedColor)
     .setDescription(`This channel is now available for another question ${config.discordIds.emojis.duckycode}`)

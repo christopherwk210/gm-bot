@@ -8,9 +8,6 @@ const projectRootPath = url.fileURLToPath(new URL('../', import.meta.url));
 /** Detectd via --development command line argument */
 const devMode = process.argv.includes('--development');
 
-/** The `testing_guild` environment variable, if available */
-const testingGuild = process.env.testing_guild || '';
-
 /** Discord bot application ID, taken from `application_id` environment variable */
 const applicationId: string = process.env.application_id!;
 if (!applicationId) throw new Error('App ID not found in environment! Please add it to your .env file.');
@@ -22,7 +19,6 @@ if (!token) throw new Error('Token not found in environment! Please add it to yo
 export {
   projectRootPath,
   devMode,
-  testingGuild,
   applicationId,
   token
 };

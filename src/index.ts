@@ -1,5 +1,4 @@
 import { ActivityType, codeBlock, inlineCode } from 'discord.js';
-import { initHelpChannelHandler } from './message-handlers/help-channel-handler.js';
 import { login } from './singletons/client.js';
 import { getCommands } from './singletons/commands.js';
 import { config } from './singletons/config.js';
@@ -15,8 +14,6 @@ await getCommands();
 console.log('Logging in...');
 const client = await login();
 console.log('GameMakerBot is ready.');
-
-initHelpChannelHandler(client);
 
 if (devMode && client.user) {
   client.user.setStatus('idle');
