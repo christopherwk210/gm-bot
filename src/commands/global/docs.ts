@@ -138,7 +138,7 @@ function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APII
     .setURL('https://manual.yoyogames.com/' + topic.url)
     .setDescription(topic.blurb)
     .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
-    .setTimestamp();
+    .setTimestamp(new Date());
   
   if (member && member.user) {
     embed.setFooter({
