@@ -1,4 +1,5 @@
 import { ActivityType, codeBlock, inlineCode } from 'discord.js';
+import { getTextChannel } from './discord-utils.js';
 import { login } from './singletons/client.js';
 import { getCommands } from './singletons/commands.js';
 import { config } from './singletons/config.js';
@@ -22,8 +23,8 @@ if (devMode && client.user) {
 
 // Log exceptions via discord
 process.on('uncaughtException', async err => {
-  const botTestingChannel = await client.channels.fetch(config.discordIds.channels.botChannel).catch(() => null);
-  if (!botTestingChannel || !botTestingChannel.isTextBased()) return;
+  const botTestingChannel = await getTextChannel(config.discordIds.channels.botChannel);
+  if (!botTestingChannel) return;
 
   const errorMessageCode = inlineCode(err.message);
   const stackTraceCodeBlock = err.stack ? codeBlock(err.stack) : '';
@@ -35,4 +36,8 @@ process.on('uncaughtException', async err => {
   console.log(`\n${errorMessage}\n`);
 
   process.exit(-1);
+});
+
+process.on('unhandledRejection', error => {
+	console.error('Unhandled promise rejection:', error);
 });

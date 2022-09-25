@@ -18,6 +18,9 @@ const discordIds = {
     /** This channel is used for debug bot output and bot testing */
     botChannel: '417796218324910094',
 
+    /** Channel used for security alerts, like user joins */
+    securityChannel: '492767948155518976',
+
     helpChannels: [
       '262836222089625602',
       '295210810823802882',

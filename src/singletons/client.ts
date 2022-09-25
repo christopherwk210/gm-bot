@@ -1,7 +1,9 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { token } from './environment.js';
+
 import { onInteractionCreate } from '../client-events/interaction-create.js';
 import { onMessageCreate } from '../client-events/message-create.js';
+import { onGuildMemberAdd } from '../client-events/guild-member-add.js';
 
 export const client = new Client({
   intents: [
@@ -15,6 +17,7 @@ export const client = new Client({
 
 client.on('interactionCreate', onInteractionCreate);
 client.on('messageCreate', onMessageCreate);
+client.on('guildMemberAdd', onGuildMemberAdd);
 
 /**
  * Logs in the client using the bot token, resolves
