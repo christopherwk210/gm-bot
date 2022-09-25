@@ -1,5 +1,5 @@
-import { client } from './singletons/client.js';
-import { config } from './singletons/config.js';
+import { client } from '../singletons/client.js';
+import { config } from '../singletons/config.js';
 
 export function getGuild() {
   return client.guilds.fetch(config.discordIds.guildId);

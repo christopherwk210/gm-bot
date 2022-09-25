@@ -1,5 +1,5 @@
 import { ActivityType, codeBlock, inlineCode } from 'discord.js';
-import { getTextChannel } from './discord-utils.js';
+import { getTextChannel } from './misc/discord-utils.js';
 import { login } from './singletons/client.js';
 import { getCommands } from './singletons/commands.js';
 import { config } from './singletons/config.js';

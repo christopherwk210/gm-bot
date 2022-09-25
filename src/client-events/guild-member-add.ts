@@ -1,5 +1,5 @@
 import { EmbedBuilder, GuildMember } from 'discord.js';
-import { getTextChannel } from '../discord-utils.js';
+import { getTextChannel } from '../misc/discord-utils.js';
 import { config } from '../singletons/config.js';
 
 const welcomeMessage =
