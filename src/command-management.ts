@@ -5,7 +5,7 @@ import { config } from './singletons/config.js';
 import glob from 'glob';
 
 type CommandScope = 'global' | 'guild';
-type CommandCollection = Collection<string, BotCommand>;
+type CommandCollection = Collection<string, BotCommand | BotContextCommand>;
 export interface AppCommands { guild: CommandCollection; global: CommandCollection; };
 
 // The same setup must be used for all requests, so might as well re-use
@@ -34,7 +34,7 @@ function getProjectCommandPaths(scope: CommandScope): AsyncWrapF<string[], Error
  */
 async function createProjectCommandCollection(scope: CommandScope) {
 	const { data } = await getProjectCommandPaths(scope);
-	const commands = new Collection<string, BotCommand>();
+	const commands = new Collection<string, BotCommand | BotContextCommand>();
 
 	for (const filePath of data) {
 		const module: { cmd: BotCommand } = await import(filePath);

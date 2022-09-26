@@ -34,7 +34,6 @@ interface DocsTopic {
 console.log('Caching docs keys...');
 
 // Load the JSON and cache the key names
-
 const require = createRequire(import.meta.url);
 const data = require('../../docs-index.json');
 const keys: DocsKey[] = data.keys;
@@ -66,7 +65,10 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
   });
 
   if (!foundKey) {
-    await interaction.reply({ content: `Could not find a documentation entry for ${keyword}.` });
+    await interaction.reply({
+      content: `Could not find a documentation entry for ${keyword}.`,
+      ephemeral: true
+    });
     return;
   }
 
@@ -133,12 +135,12 @@ function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APII
   const title = key.name === topic.name ? key.name : `${key.name} - ${topic.name}`;
 
   const embed = new EmbedBuilder()
-    .setTitle(title)
-    .setColor(config.defaultEmbedColor)
-    .setURL('https://manual.yoyogames.com/' + topic.url)
-    .setDescription(topic.blurb)
-    .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
-    .setTimestamp(new Date());
+  .setTitle(title)
+  .setColor(config.defaultEmbedColor)
+  .setURL('https://manual.yoyogames.com/' + topic.url)
+  .setDescription(topic.blurb)
+  .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
+  .setTimestamp(new Date());
   
   if (member && member.user) {
     embed.setFooter({
@@ -154,7 +156,7 @@ export const cmd: BotCommand = {
   execute,
   autocomplete,
   selectMenu: {
-    handle: selectMenu,
-    customId: selectCustomId
+    ids: [selectCustomId],
+    execute: selectMenu
   }
 };

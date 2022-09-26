@@ -4,46 +4,49 @@ import https from 'https';
 import url from 'node:url';
 import * as cheerio from 'cheerio';
 import cliProgress from 'cli-progress';
+import axios from 'axios';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const docsIndexURL = 'https://manual.yoyogames.com/whxdata/idata1.new.js';
 const outputPath = path.join(__dirname, '../static/docs-index.json');
 
 export async function cacheDocs() {
-  asyncGet(docsIndexURL, indexContents => {
-    const index = indexContents.match(/(?<=var\s*index\s*=\s*)({[\s\S]*})(?=;)/g);
-    
-    const parsedIndex = JSON.parse(index[0]);
-    const progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
+  const response = await axios.get(docsIndexURL);
+  if (response.status !== 200) return console.error('Error fetching!');
   
-    let totalTopics = 0;
-    let topicsDone = 0;
-    let failedCount = 0;
-    for (const key of parsedIndex.keys) {
-      for (const topic of key.topics) {
-        totalTopics++;
-        asyncGet('https://manual.yoyogames.com/' + topic.url, html => {
-          progressBar.increment();
-          topicsDone++;
+  const indexContents = response.data;
+  const index = indexContents.match(/(?<=var\s*index\s*=\s*)({[\s\S]*})(?=;)/g);
   
-          if (html) {
-            const $ = cheerio.load(html);
-            const p = $('p').first();
-            topic.blurb = p.text().replace('\n', ' ');
-          } else {
-            failedCount++;
-          }
-  
-          if (topicsDone >= totalTopics) {
-            fs.writeFileSync(outputPath, JSON.stringify(parsedIndex, null, 2), 'utf-8');
-            progressBar.stop();
-            process.exit();
-          }
-        });
-      }
+  const parsedIndex = JSON.parse(index[0]);
+  const progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
+
+  let totalTopics = 0;
+  let topicsDone = 0;
+  let failedCount = 0;
+  for (const key of parsedIndex.keys) {
+    for (const topic of key.topics) {
+      totalTopics++;
+      asyncGet('https://manual.yoyogames.com/' + topic.url, html => {
+        progressBar.increment();
+        topicsDone++;
+
+        if (html) {
+          const $ = cheerio.load(html);
+          const p = $('p').first();
+          topic.blurb = p.text().replace('\n', ' ');
+        } else {
+          failedCount++;
+        }
+
+        if (topicsDone >= totalTopics) {
+          fs.writeFileSync(outputPath, JSON.stringify(parsedIndex, null, 2), 'utf-8');
+          progressBar.stop();
+          process.exit();
+        }
+      });
     }
-    progressBar.start(totalTopics);
-  });
+  }
+  progressBar.start(totalTopics);
 }
 
 function asyncGet(url, callback) {
@@ -68,7 +71,5 @@ function asyncGet(url, callback) {
     }
   })
 }
-
-
 
 cacheDocs();

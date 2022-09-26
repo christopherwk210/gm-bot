@@ -1,9 +1,4 @@
-import {
-  CacheType,
-  ChatInputCommandInteraction,
-  EmbedBuilder,
-  SlashCommandBuilder
-} from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { generate } from '../../misc/orteil-gamegen.js';
 
 const command = new SlashCommandBuilder()
@@ -16,26 +11,25 @@ const command = new SlashCommandBuilder()
   .setRequired(false)
 );
 
-async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
-  const insane = interaction.options.getBoolean('insane', false);
-
-  const idea = generate(!!insane);
-
-  const embed = new EmbedBuilder()
-  .setColor(0x76428a)
-  .setTitle(`${insane ? 'Insane ' : ''}Game Idea: ${idea}`)
-  .setDescription(`Video game generator by [Orteil](https://orteil.dashnet.org/gamegen) 2012`)
-  .setTimestamp(new Date());
-
-  const reply = await interaction.reply({
-    embeds: [embed],
-    fetchReply: true
-  });
-  reply.react('👍');
-  reply.react('👎');
-}
+const embed = new EmbedBuilder()
+.setColor(0x76428a)
+.setDescription(`Video game generator by [Orteil](https://orteil.dashnet.org/gamegen) 2012`);
 
 export const cmd: BotCommand = {
   command,
-  execute
+  execute: async interaction => {
+    const insane = interaction.options.getBoolean('insane', false);
+
+    const idea = generate(!!insane);
+    embed
+    .setTitle(`${insane ? 'Insane ' : ''}Game Idea: ${idea}`)
+    .setTimestamp(new Date());
+  
+    const reply = await interaction.reply({
+      embeds: [embed],
+      fetchReply: true
+    });
+    reply.react('👍');
+    reply.react('👎');
+  }
 };

@@ -1,4 +1,4 @@
-// import type { SlashCommandBuilder } from 'discord.js';
+declare module 'exec-buffer';
 
 /**
  * Wrapper for async functions that have the potential to throw.
@@ -26,7 +26,16 @@ type BotCommand = {
   execute: (interaction: import('discord.js').ChatInputCommandInteraction<import('discord.js').CacheType>) => Promise<void>;
   autocomplete?: (interaction: import('discord.js').AutocompleteInteraction<import('discord.js').CacheType>) => Promise<void>;
   selectMenu?: {
-    customId: string;
-    handle: (interaction: import('discord.js').SelectMenuInteraction<import('discord.js').CacheType>) => Promise<void>;
-  }
+    ids: string[];
+    execute: (interaction: import('discord.js').SelectMenuInteraction<import('discord.js').CacheType>) => Promise<void>;
+  };
+  modal?: {
+    ids: string[];
+    execute: (interaction: import('discord.js').ModalSubmitInteraction<import('discord.js').CacheType>) => Promise<void>;
+  };
 };
+
+type BotContextCommand = Omit<BotCommand, 'command' | 'execute'> & {
+  command: Partial<import('discord.js').ContextMenuCommandBuilder> & { name: string };
+  execute: (interaction: import('discord.js').MessageContextMenuCommandInteraction<import('discord.js').CacheType> | import('discord.js').UserContextMenuCommandInteraction<import('discord.js').CacheType>) => Promise<void>;
+}

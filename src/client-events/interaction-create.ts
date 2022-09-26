@@ -3,7 +3,10 @@ import {
   Interaction,
   ChatInputCommandInteraction,
   AutocompleteInteraction,
-  SelectMenuInteraction
+  SelectMenuInteraction,
+  MessageContextMenuCommandInteraction,
+  UserContextMenuCommandInteraction,
+  ModalSubmitInteraction
 } from 'discord.js';
 import { getCommands } from '../singletons/commands.js';
 
@@ -14,6 +17,33 @@ export async function onInteractionCreate(interaction: Interaction<CacheType>) {
     handleChatInputCommand(interaction);
   } else if (interaction.isSelectMenu()) {
     handleSelectMenu(interaction);
+  } else if (interaction.isContextMenuCommand()) {
+    handleContextMenu(interaction);
+  } else if (interaction.isModalSubmit()) {
+    handleModalSubmit(interaction);
+  }
+}
+
+async function handleModalSubmit(interaction: ModalSubmitInteraction<CacheType>) {
+  const command = await getCommand(interaction);
+  if (!command) return;
+  if (!command.modal) return;
+
+  try {
+    await command.modal.execute(interaction);
+  } catch (error) {
+    console.error(`Error responding to modal "${command.command.name}":`, error);
+  }
+}
+
+async function handleContextMenu(interaction: MessageContextMenuCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>) {
+  const command: BotContextCommand | undefined = await getCommand(interaction) as any;
+  if (!command) return;
+
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(`Error responding to context menu "${command.command.name}":`, error);
   }
 }
 
@@ -23,7 +53,7 @@ async function handleSelectMenu(interaction: SelectMenuInteraction<CacheType>) {
   if (!command.selectMenu) return;
 
   try {
-    await command.selectMenu.handle(interaction);
+    await command.selectMenu.execute(interaction);
   } catch (error) {
     console.error(`Error responding to select menu "${command.command.name}":`, error);
   }
@@ -45,7 +75,7 @@ async function handleAutocomplete(interaction: AutocompleteInteraction<CacheType
 }
 
 async function handleChatInputCommand(interaction: ChatInputCommandInteraction<CacheType>) {
-  const command = await getCommand(interaction);
+  const command: BotCommand = await getCommand(interaction) as any;
   if (!command) return;
 
 	try {
@@ -61,7 +91,10 @@ async function getCommand(
   interaction:
     ChatInputCommandInteraction<CacheType> |
     AutocompleteInteraction<CacheType> |
-    SelectMenuInteraction<CacheType>
+    SelectMenuInteraction<CacheType> |
+    MessageContextMenuCommandInteraction<CacheType> |
+    UserContextMenuCommandInteraction<CacheType> |
+    ModalSubmitInteraction<CacheType>
 ) {
   const commands = await getCommands();
 
@@ -70,7 +103,13 @@ async function getCommand(
 
   if (interaction.isSelectMenu()) {
     return commandsCollection.find(value =>
-      !!(value.selectMenu && value.selectMenu.customId === interaction.customId)
+      !!(value.selectMenu && value.selectMenu.ids.includes(interaction.customId))
+    );
+  }
+
+  if (interaction.isModalSubmit()) {
+    return commandsCollection.find(value =>
+      !!(value.modal && value.modal.ids.includes(interaction.customId))
     );
   }
 
@@ -80,9 +119,9 @@ async function getCommand(
 
 async function handleInteractionErrors(interaction: ChatInputCommandInteraction<CacheType>) {
   const errorMessage = 'There was an error while executing this command!';
-  if (interaction.isRepliable()) {
-    await interaction.reply({ content: errorMessage, ephemeral: true });
-  } else if (interaction.deferred) {
+  if (interaction.deferred) {
     await interaction.editReply({ content: errorMessage });
+  } else if (interaction.isRepliable()) {
+    await interaction.reply({ content: errorMessage, ephemeral: true }); 
   }
 }

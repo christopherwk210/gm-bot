@@ -1,4 +1,4 @@
-import { CacheType, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder } from 'discord.js';
 
 const command = new SlashCommandBuilder()
 .setName('commandment')
@@ -27,30 +27,23 @@ const command = new SlashCommandBuilder()
   )
 );
 
-async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
-  const romanNumeral = interaction.options.getString('roman_numeral', true);
-
-  const commandmentURLs = [
-    'https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark',
-    'https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly',
-    'https://gfycat.com/gifs/detail/ElderlyShadowyFishingcat',
-    'https://gfycat.com/gifs/detail/ThreadbareBareDonkey',
-    'https://gfycat.com/gifs/detail/MediocreYellowishHapuka',
-    'https://gfycat.com/gifs/detail/ExhaustedDistantCutworm',
-    'https://gfycat.com/gifs/detail/FriendlyVengefulJackal',
-    'https://gfycat.com/gifs/detail/DishonestHorribleGopher',
-    'https://gfycat.com/gifs/detail/UniformLiquidAlbacoretuna',
-    'https://gfycat.com/gifs/detail/SparseRevolvingGavial',
-    'https://gfycat.com/gifs/detail/LongAnchoredFlee',
-    'https://gfycat.com/gifs/detail/MiserablePhysicalKob',
-    'https://gfycat.com/gifs/detail/IllustriousFinishedBernesemountaindog',
-    'https://gfycat.com/gifs/detail/RapidDisfiguredDegus',
-    'https://gfycat.com/gifs/detail/PiercingSatisfiedAoudad'
-  ];
-
-  const numeral = fromRoman(romanNumeral);
-  await interaction.reply(commandmentURLs[numeral - 1]);
-}
+const commandmentURLs = [
+  'https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark',
+  'https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly',
+  'https://gfycat.com/gifs/detail/ElderlyShadowyFishingcat',
+  'https://gfycat.com/gifs/detail/ThreadbareBareDonkey',
+  'https://gfycat.com/gifs/detail/MediocreYellowishHapuka',
+  'https://gfycat.com/gifs/detail/ExhaustedDistantCutworm',
+  'https://gfycat.com/gifs/detail/FriendlyVengefulJackal',
+  'https://gfycat.com/gifs/detail/DishonestHorribleGopher',
+  'https://gfycat.com/gifs/detail/UniformLiquidAlbacoretuna',
+  'https://gfycat.com/gifs/detail/SparseRevolvingGavial',
+  'https://gfycat.com/gifs/detail/LongAnchoredFlee',
+  'https://gfycat.com/gifs/detail/MiserablePhysicalKob',
+  'https://gfycat.com/gifs/detail/IllustriousFinishedBernesemountaindog',
+  'https://gfycat.com/gifs/detail/RapidDisfiguredDegus',
+  'https://gfycat.com/gifs/detail/PiercingSatisfiedAoudad'
+];
 
 /**
  * Convert roman numeral string to number
@@ -71,5 +64,9 @@ function fromRoman(str: string) {
 
 export const cmd: BotCommand = {
   command,
-  execute
+  execute: async interaction => {
+    const romanNumeral = interaction.options.getString('roman_numeral', true);
+    const numeral = fromRoman(romanNumeral);
+    await interaction.reply(commandmentURLs[numeral - 1]);
+  }
 };

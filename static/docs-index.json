@@ -24315,7 +24315,7 @@
           "name": "json_parse",
           "type": "topic",
           "url": "GameMaker_Language/GML_Reference/File_Handling/Encoding_And_Hashing/json_parse.htm",
-          "blurb": "This function can be used to parse a JSON string (either previously created using json_stringify or from any valid source), and convert it into a collection of arrays or structs, where an array is the equivalent of a JSON array and a struct is the equivalent of a JSON object. You supply the string to parse, and the function will return the top level array or struct which can then be used in your code. If you are not sure of the contents of the JSON, you can use the different Variable Functions (like typeof() and��variable_struct_get_names() in case of a struct) to check the returned contents. Note that trying to parse an invalid value (i.e.: not a string) will throw an exception error."
+          "blurb": "This function can be used to parse a JSON string (either previously created using json_stringify or from any valid source), and convert it into a collection of arrays or structs, where an array is the equivalent of a JSON array and a struct is the equivalent of a JSON object. You supply the string to parse, and the function will return the top level array or struct which can then be used in your code. If you are not sure of the contents of the JSON, you can use the different Variable Functions (like typeof() and variable_struct_get_names() in case of a struct) to check the returned contents. Note that trying to parse an invalid value (i.e.: not a string) will throw an exception error."
         }
       ],
       "keys": []
