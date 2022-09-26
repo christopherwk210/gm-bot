@@ -1,10 +1,8 @@
 import { devMode } from './environment.js';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { createRequire } from 'module';
-import * as url from 'url';
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const require = createRequire(import.meta.url);
+import { cjs } from '../misc/node-utils.js';
+const { require, __dirname } = cjs(import.meta.url);
 
 const GameMakerDiscordGuildID = '262834612932182025';
 const devIdsExists = existsSync(join(__dirname, '../dev-ids.json'));

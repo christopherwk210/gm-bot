@@ -3,7 +3,7 @@ import { generate } from '../../misc/orteil-gamegen.js';
 
 const command = new SlashCommandBuilder()
 .setName('idea')
-.setDescription(`Generates a random game idea using Orteil's Game Gen.`)
+.setDescription(`Generates a random game idea using Orteil's Game Gen`)
 .addBooleanOption(option =>
   option
   .setName('insane')
