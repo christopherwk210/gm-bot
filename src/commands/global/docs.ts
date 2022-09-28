@@ -11,8 +11,10 @@ import {
   GuildMember,
   APIInteractionGuildMember
 } from 'discord.js';
-import { createRequire } from 'module';
+import { cjs } from '../../misc/node-utils.js';
 import { config } from '../../singletons/config.js';
+
+const { require } = cjs(import.meta.url);
 
 // These interfaces correspond with the auto-generated JSON
 // created by running `npm run docs:cache`
@@ -34,7 +36,6 @@ interface DocsTopic {
 console.log('Caching docs keys...');
 
 // Load the JSON and cache the key names
-const require = createRequire(import.meta.url);
 const data = require('../../docs-index.json');
 const keys: DocsKey[] = data.keys;
 const keyNames = keys.map(key => key.name);
