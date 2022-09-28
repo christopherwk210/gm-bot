@@ -28,5 +28,12 @@ export const reactions: ReactionHandler[] = [
     match: 'hmm',
     emoji: ['🇭', '🇲', 'Ⓜ'],
     wholeMessage: true
+  },
+
+  // spreading the love
+  {
+    match: 'good bot',
+    emoji: '❤',
+    wholeMessage: true
   }
 ];
