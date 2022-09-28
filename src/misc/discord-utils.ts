@@ -1,3 +1,4 @@
+import { APIInteractionGuildMember, GuildMember } from 'discord.js';
 import { client } from '../singletons/client.js';
 import { config } from '../singletons/config.js';
 
@@ -33,4 +34,23 @@ export function parseCodeBlocks(str: string, langFilter?: string) {
 
   if (langFilter) return results.filter(result => result.lang === langFilter);
   return results;
+}
+
+export function detectStaff(member: GuildMember | APIInteractionGuildMember) {
+  if (member.user.id === '144913457429348352') return 'admin'; // Allow toph through for testing reasons
+
+  if (Array.isArray(member.roles)) {
+    if (member.roles.includes(config.discordIds.roles.duckyCodeRoleID) || member.roles.includes(config.discordIds.roles.duckyHonouraryRoleID)) return 'code';
+    if (member.roles.includes(config.discordIds.roles.duckyArtRoleID)) return 'art';
+    if (member.roles.includes(config.discordIds.roles.duckyAudioRoleID)) return 'audio';
+    if (member.roles.includes(config.discordIds.roles.communityCatsRoleID)) return 'cats';
+  } else {
+    if (member.roles.cache.has(config.discordIds.roles.serverStaff)) return 'admin';
+    if (member.roles.cache.has(config.discordIds.roles.duckyCodeRoleID) || member.roles.cache.has(config.discordIds.roles.duckyHonouraryRoleID)) return 'code';
+    if (member.roles.cache.has(config.discordIds.roles.duckyArtRoleID)) return 'art';
+    if (member.roles.cache.has(config.discordIds.roles.duckyAudioRoleID)) return 'audio';
+    if (member.roles.cache.has(config.discordIds.roles.communityCatsRoleID)) return 'cats';
+  }
+  
+  return false;
 }

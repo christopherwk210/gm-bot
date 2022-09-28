@@ -25,7 +25,15 @@ const discordIds = {
       '331106795378442240',
       '490232902110674964',
       '880010995270033458'
-    ]
+    ],
+  },
+  roles: {
+    duckyCodeRoleID: '262926334118985728',
+    duckyHonouraryRoleID: '390437904859660290',
+    duckyArtRoleID: '345222078577901569',
+    duckyAudioRoleID: '398875444360904704',
+    serverStaff: '324536542737727488',
+    communityCatsRoleID: '700373416502624326',
   }
 };
 

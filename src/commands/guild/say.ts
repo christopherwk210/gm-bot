@@ -1,4 +1,5 @@
 import { SlashCommandBuilder, TextBasedChannel } from 'discord.js';
+import { detectStaff } from '../../misc/discord-utils.js';
 
 const command = new SlashCommandBuilder()
 .setName('say')
@@ -19,7 +20,15 @@ const command = new SlashCommandBuilder()
 export const cmd: BotCommand = {
   command,
   execute: async interaction => {
-    if (!interaction.guild || !interaction.channel) return;
+    if (!interaction.guild || !interaction.channel || !interaction.member) return;
+    if (detectStaff(interaction.member) !== 'admin') {
+      await interaction.reply({
+        content: `You don't have permission to do that!`,
+        ephemeral: true
+      })
+      return;
+    }
+
     const message = interaction.options.getString('message', true);
     const channel = interaction.options.getChannel('destination', false) || interaction.channel;
 
