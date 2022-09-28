@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { reactions, ReactionHandler } from '../data/reactions.js';
+import { reactions, ReactionHandler } from '@/data/reactions.js';
 
 export async function reactToMessage(message: Message<boolean>) {
   for (const handler of reactions) {

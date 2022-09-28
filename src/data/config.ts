@@ -1,7 +1,7 @@
 import { devMode } from './environment.js';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { cjs } from '../misc/node-utils.js';
+import { cjs } from '@/misc/node-utils.js';
 const { require, __dirname } = cjs(import.meta.url);
 
 const GameMakerDiscordGuildID = '262834612932182025';

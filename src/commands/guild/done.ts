@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import { config } from '../../data/config.js';
+import { config } from '@/data/config.js';
 
 const command = new SlashCommandBuilder()
 .setName('done')

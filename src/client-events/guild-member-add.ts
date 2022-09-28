@@ -1,6 +1,6 @@
 import { EmbedBuilder, GuildMember } from 'discord.js';
-import { getTextChannel } from '../misc/discord-utils.js';
-import { config } from '../data/config.js';
+import { getTextChannel } from '@/misc/discord-utils.js';
+import { config } from '@/data/config.js';
 
 const welcomeMessage =
 `__**Welcome to the GameMaker Discord server!**__

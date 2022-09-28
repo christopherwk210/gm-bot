@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, TextBasedChannel } from 'discord.js';
-import { detectStaff } from '../../misc/discord-utils.js';
+import { detectStaff } from '@/misc/discord-utils.js';
 
 const command = new SlashCommandBuilder()
 .setName('say')

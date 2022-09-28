@@ -4,16 +4,12 @@ import { build } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
 import glob from 'glob';
 import url from 'node:url';
-// import { cacheDocs } from './cache-docs.js';
+import { replaceTscAliasPaths } from 'tsc-alias';
 
 const devMode = process.argv.includes('--development');
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 console.time('Process complete. Finished in');
-
-// console.log('Caching GameMaker Docs...');
-// await cacheDocs();
-
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 function clean() {
   console.log('Cleaning...');
@@ -47,10 +43,22 @@ function esbuild() {
       ]
     })
     .then(() => {
-      console.timeEnd('Process complete. Finished in');
+      tscPaths();
+      // console.timeEnd('Process complete. Finished in');
     })
     .catch(() => process.exit(1));
   });
+}
+
+function tscPaths() {
+  replaceTscAliasPaths({
+    configFile: path.join(__dirname, '../tsconfig.json'),
+    verbose: true
+  })
+  .then(() => {
+    console.timeEnd('Process complete. Finished in');
+  })
+  .catch(() => process.exit(1));
 }
 
 clean();

@@ -1,5 +1,5 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import { generate } from '../../misc/orteil-gamegen.js';
+import { generate } from '@/misc/orteil-gamegen.js';
 
 const command = new SlashCommandBuilder()
 .setName('idea')

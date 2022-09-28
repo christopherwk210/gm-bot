@@ -1,4 +1,4 @@
-import { syncAllCommands, AppCommands } from '../command-management.js';
+import { syncAllCommands, AppCommands } from '@/command-management.js';
 
 let commands: AppCommands | undefined;
 

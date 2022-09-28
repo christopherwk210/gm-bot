@@ -16,7 +16,10 @@
     "skipLibCheck": true,
     "lib": ["ESNext"],
     "outDir": "./dist",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*", "global.d.ts"],
   "exclude": ["**/*.test.ts", "node_modules", "test/**", ".history/**"]

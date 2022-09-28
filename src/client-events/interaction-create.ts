@@ -8,7 +8,7 @@ import {
   UserContextMenuCommandInteraction,
   ModalSubmitInteraction
 } from 'discord.js';
-import { getCommands } from '../singletons/commands.js';
+import { getCommands } from '@/singletons/commands.js';
 
 export async function onInteractionCreate(interaction: Interaction<CacheType>) {
   if (interaction.isAutocomplete()) {
