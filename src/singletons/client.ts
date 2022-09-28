@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits } from 'discord.js';
-import { token } from './environment.js';
+import { token } from '../data/environment.js';
 
 import { onInteractionCreate } from '../client-events/interaction-create.js';
 import { onMessageCreate } from '../client-events/message-create.js';

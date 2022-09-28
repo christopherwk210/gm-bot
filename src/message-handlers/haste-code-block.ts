@@ -1,7 +1,7 @@
 import * as https from 'node:https';
 import { EmbedBuilder, Message } from 'discord.js';
 import { parseCodeBlocks } from '../misc/discord-utils.js';
-import { config } from '../singletons/config.js';
+import { config } from '../data/config.js';
 
 export async function handleHasteCodeBlockMessages(message: Message<boolean>) {
   const links: string[] = [];

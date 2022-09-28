@@ -2,8 +2,8 @@ import { ActivityType, codeBlock, inlineCode } from 'discord.js';
 import { getTextChannel } from './misc/discord-utils.js';
 import { login } from './singletons/client.js';
 import { getCommands } from './singletons/commands.js';
-import { config } from './singletons/config.js';
-import { devMode } from './singletons/environment.js';
+import { config } from './data/config.js';
+import { devMode } from './data/environment.js';
 
 console.clear();
 

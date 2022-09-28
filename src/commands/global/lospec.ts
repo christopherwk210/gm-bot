@@ -1,7 +1,7 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { default as axios } from 'axios';
 import { load } from 'cheerio';
-import { config } from '../../singletons/config.js';
+import { config } from '../../data/config.js';
 
 const command = new SlashCommandBuilder()
 .setName('lospec')

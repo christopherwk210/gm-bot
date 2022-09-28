@@ -12,7 +12,7 @@ import {
   APIInteractionGuildMember
 } from 'discord.js';
 import { cjs } from '../../misc/node-utils.js';
-import { config } from '../../singletons/config.js';
+import { config } from '../../data/config.js';
 
 const { require } = cjs(import.meta.url);
 

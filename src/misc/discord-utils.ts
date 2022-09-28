@@ -1,6 +1,6 @@
 import { APIInteractionGuildMember, GuildMember } from 'discord.js';
 import { client } from '../singletons/client.js';
-import { config } from '../singletons/config.js';
+import { config } from '../data/config.js';
 
 export function getGuild() {
   return client.guilds.fetch(config.discordIds.guildId);

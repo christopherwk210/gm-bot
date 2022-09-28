@@ -1,7 +1,7 @@
 import { Routes, ApplicationCommand, Collection } from 'discord.js';
 import { REST } from '@discordjs/rest';
-import { applicationId, token, projectRootPath } from './singletons/environment.js';
-import { config } from './singletons/config.js';
+import { applicationId, token, projectRootPath } from './data/environment.js';
+import { config } from './data/config.js';
 import glob from 'glob';
 
 type CommandScope = 'global' | 'guild';

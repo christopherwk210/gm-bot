@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { config } from '../singletons/config.js';
+import { config } from '../data/config.js';
 
 export async function handleExplodeCommandMessages(message: Message<boolean>) {
   if (
