@@ -28,12 +28,19 @@ const discordIds = {
     ],
   },
   roles: {
-    duckyCodeRoleID: '262926334118985728',
-    duckyHonouraryRoleID: '390437904859660290',
-    duckyArtRoleID: '345222078577901569',
-    duckyAudioRoleID: '398875444360904704',
+    duckyCodeRole: '262926334118985728',
+    duckyHonouraryRole: '390437904859660290',
+    duckyArtRole: '345222078577901569',
+    duckyAudioRole: '398875444360904704',
     serverStaff: '324536542737727488',
-    communityCatsRoleID: '700373416502624326',
+    communityCatsRole: '700373416502624326',
+
+    pronouns: {
+      heHim: '828824988848881694',
+      sheHer: '828825023279792148',
+      theyThem: '828825054942724206',
+      ask: '828825088106561606'
+    }
   }
 };
 

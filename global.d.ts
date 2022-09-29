@@ -33,6 +33,10 @@ type BotCommand = {
     ids: string[];
     execute: (interaction: import('discord.js').ModalSubmitInteraction<import('discord.js').CacheType>) => Promise<void>;
   };
+  button?: {
+    ids: string[];
+    execute: (interaction: import('discord.js').ButtonInteraction<import('discord.js').CacheType>) => Promise<void>;
+  };
 };
 
 type BotContextCommand = Omit<BotCommand, 'command' | 'execute'> & {

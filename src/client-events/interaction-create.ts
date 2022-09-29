@@ -6,7 +6,8 @@ import {
   SelectMenuInteraction,
   MessageContextMenuCommandInteraction,
   UserContextMenuCommandInteraction,
-  ModalSubmitInteraction
+  ModalSubmitInteraction,
+  ButtonInteraction
 } from 'discord.js';
 import { getCommands } from '@/singletons/commands.js';
 
@@ -21,6 +22,20 @@ export async function onInteractionCreate(interaction: Interaction<CacheType>) {
     handleContextMenu(interaction);
   } else if (interaction.isModalSubmit()) {
     handleModalSubmit(interaction);
+  } else if (interaction.isButton()) {
+    handleModalButton(interaction);
+  }
+}
+
+async function handleModalButton(interaction: ButtonInteraction<CacheType>) {
+  const command = await getCommand(interaction);
+  if (!command) return;
+  if (!command.button) return;
+
+  try {
+    await command.button.execute(interaction);
+  } catch (error) {
+    console.error(`Error responding to button "${command.command.name}":`, error);
   }
 }
 
@@ -94,7 +109,8 @@ async function getCommand(
     SelectMenuInteraction<CacheType> |
     MessageContextMenuCommandInteraction<CacheType> |
     UserContextMenuCommandInteraction<CacheType> |
-    ModalSubmitInteraction<CacheType>
+    ModalSubmitInteraction<CacheType> |
+    ButtonInteraction<CacheType>
 ) {
   const commands = await getCommands();
 
@@ -110,6 +126,12 @@ async function getCommand(
   if (interaction.isModalSubmit()) {
     return commandsCollection.find(value =>
       !!(value.modal && value.modal.ids.includes(interaction.customId))
+    );
+  }
+
+  if (interaction.isButton()) {
+    return commandsCollection.find(value =>
+      !!(value.button && value.button.ids.includes(interaction.customId))
     );
   }
 
