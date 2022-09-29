@@ -28,12 +28,14 @@ const discordIds = {
     ],
   },
   roles: {
-    duckyCodeRole: '262926334118985728',
-    duckyHonouraryRole: '390437904859660290',
-    duckyArtRole: '345222078577901569',
-    duckyAudioRole: '398875444360904704',
+    duckyCode: '262926334118985728',
+    duckyHonourary: '390437904859660290',
+    duckyArt: '345222078577901569',
+    duckyAudio: '398875444360904704',
     serverStaff: '324536542737727488',
-    communityCatsRole: '700373416502624326',
+    communityCats: '700373416502624326',
+
+    birthday: '381386952903098368',
 
     pronouns: {
       heHim: '828824988848881694',

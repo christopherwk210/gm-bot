@@ -8,7 +8,7 @@ const command = new SlashCommandBuilder()
 export const cmd: BotCommand = {
   command,
   execute: async interaction => {
-    if (!interaction.guild || !interaction.channel) return;
+    if (!interaction.inGuild() || !interaction.guild || !interaction.channel) return;
     if (config.discordIds.channels.helpChannels.includes(interaction.channelId)) {
       const embed = new EmbedBuilder()
       .setColor(config.defaultEmbedColor)

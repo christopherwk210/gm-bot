@@ -40,16 +40,16 @@ export function detectStaff(member: GuildMember | APIInteractionGuildMember) {
   if (member.user.id === '144913457429348352') return 'admin'; // Allow toph through for testing reasons
 
   if (Array.isArray(member.roles)) {
-    if (member.roles.includes(config.discordIds.roles.duckyCodeRole) || member.roles.includes(config.discordIds.roles.duckyHonouraryRole)) return 'code';
-    if (member.roles.includes(config.discordIds.roles.duckyArtRole)) return 'art';
-    if (member.roles.includes(config.discordIds.roles.duckyAudioRole)) return 'audio';
-    if (member.roles.includes(config.discordIds.roles.communityCatsRole)) return 'cats';
+    if (member.roles.includes(config.discordIds.roles.duckyCode) || member.roles.includes(config.discordIds.roles.duckyHonourary)) return 'code';
+    if (member.roles.includes(config.discordIds.roles.duckyArt)) return 'art';
+    if (member.roles.includes(config.discordIds.roles.duckyAudio)) return 'audio';
+    if (member.roles.includes(config.discordIds.roles.communityCats)) return 'cats';
   } else {
     if (member.roles.cache.has(config.discordIds.roles.serverStaff)) return 'admin';
-    if (member.roles.cache.has(config.discordIds.roles.duckyCodeRole) || member.roles.cache.has(config.discordIds.roles.duckyHonouraryRole)) return 'code';
-    if (member.roles.cache.has(config.discordIds.roles.duckyArtRole)) return 'art';
-    if (member.roles.cache.has(config.discordIds.roles.duckyAudioRole)) return 'audio';
-    if (member.roles.cache.has(config.discordIds.roles.communityCatsRole)) return 'cats';
+    if (member.roles.cache.has(config.discordIds.roles.duckyCode) || member.roles.cache.has(config.discordIds.roles.duckyHonourary)) return 'code';
+    if (member.roles.cache.has(config.discordIds.roles.duckyArt)) return 'art';
+    if (member.roles.cache.has(config.discordIds.roles.duckyAudio)) return 'audio';
+    if (member.roles.cache.has(config.discordIds.roles.communityCats)) return 'cats';
   }
   
   return false;

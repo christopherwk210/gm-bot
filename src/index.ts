@@ -6,6 +6,7 @@ import { getCommands } from './singletons/commands.js';
 import { config } from './data/config.js';
 import { devMode } from './data/environment.js';
 import { getTextChannel } from './misc/discord-utils.js';
+import { setupBirthdayTicker } from './misc/birthday-ticker.js';
 
 console.clear();
 
@@ -16,9 +17,12 @@ await getCommands();
 console.log('Setting up database...');
 await auth();
 
-// Create a new client instance
 console.log('Logging in...');
 const client = await login();
+
+console.log('Setting up timers...');
+setupBirthdayTicker(client);
+
 console.log('GameMakerBot is ready.');
 
 if (devMode && client.user) {

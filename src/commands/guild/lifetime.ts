@@ -17,7 +17,7 @@ const command = new SlashCommandBuilder()
 export const cmd: BotCommand = {
   command,
   execute: async interaction => {
-    if (!interaction.guild) return;
+    if (!interaction.inGuild() || !interaction.guild) return;
     await interaction.deferReply();
   
     const member = interaction.options.getMentionable('member') || interaction.member;

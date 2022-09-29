@@ -115,7 +115,10 @@ async function getCommand(
   const commands = await getCommands();
 
   // Determine what commands to check (guild + global, or just global)
-  const commandsCollection = interaction.inGuild() ? commands.guild.concat(commands.global) : commands.global;
+  // const commandsCollection = interaction.inGuild() ? commands.guild.concat(commands.global) : commands.global;
+
+  // Actually, forget the above. I think we can just check them all.
+  const commandsCollection = commands.guild.concat(commands.global);
 
   if (interaction.isSelectMenu()) {
     return commandsCollection.find(value =>

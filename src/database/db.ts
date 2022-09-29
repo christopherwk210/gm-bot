@@ -18,7 +18,7 @@ export async function auth() {
 export const db = {
   birthday: {
     create: async (userId: Snowflake) => {
-      const [ birthday ] = await Birthday.findOrCreate({
+      const [ birthday, created ] = await Birthday.findOrCreate({
         where: { userId },
         defaults: { userId }
       });
@@ -28,7 +28,28 @@ export const db = {
         birthday: Date.now()
       });
 
-      return await birthday.save();
+      const savedBirthday = await birthday.save();
+
+      return {
+        birthday: savedBirthday,
+        created
+      };
+    },
+
+    getAllPendingRemoval: async () => {
+      return await Birthday.findAll({ where: { needsRemoval: true } });
+    },
+
+    getAllNotPendingRemoval: async () => {
+      return await Birthday.findAll({ where: { needsRemoval: false } });
+    },
+
+    markAsRemoved: async (userId: Snowflake) => {
+      const birthday = await Birthday.findOne({ where: { userId } });
+      if (birthday) {
+        birthday.needsRemoval = false;
+        await birthday.save();
+      }
     }
   }
 };

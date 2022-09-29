@@ -2,6 +2,7 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  GuildMember,
   SlashCommandBuilder
 } from 'discord.js';
 import { detectStaff } from '@/misc/discord-utils.js';
@@ -49,7 +50,8 @@ const roleButtons: RoleButton[] = [
 export const cmd: BotCommand = {
   command,
   execute: async interaction => {
-    if (!interaction.guild || !interaction.channel || !interaction.member) return;
+    if (!!interaction.inGuild() || !interaction.guild) return;
+    if (!interaction.channel || !interaction.member) return;
     if (detectStaff(interaction.member) !== 'admin') {
       await interaction.reply({
         content: `You don't have permission to do that!`,
@@ -86,7 +88,9 @@ export const cmd: BotCommand = {
       if (!role) return;
 
       await interaction.deferReply({ ephemeral: true });
-      const member = await interaction.guild.members.fetch({ user: interaction.member.user.id });
+      
+      if (!(interaction.member instanceof GuildMember)) return;
+      const member = await interaction.member.fetch();
       
       const memberAlreadyHasRole = member.roles.cache.has(role.id);
       if (memberAlreadyHasRole) {
