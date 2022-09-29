@@ -1,15 +1,20 @@
 import { ActivityType, codeBlock, inlineCode } from 'discord.js';
-import { getTextChannel } from './misc/discord-utils.js';
+
+import { auth } from './database/db.js';
 import { login } from './singletons/client.js';
 import { getCommands } from './singletons/commands.js';
 import { config } from './data/config.js';
 import { devMode } from './data/environment.js';
+import { getTextChannel } from './misc/discord-utils.js';
 
 console.clear();
 
 // Sync all slash commands with remote
 console.log('Syncing commands...');
 await getCommands();
+
+console.log('Setting up database...');
+await auth();
 
 // Create a new client instance
 console.log('Logging in...');

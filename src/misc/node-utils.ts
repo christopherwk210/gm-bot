@@ -10,3 +10,7 @@ export function cjs(metaUrl: string) {
   const require = createRequire(metaUrl);
   return { __dirname, require };
 }
+
+export function tomorrow() {
+  return new Date(Date.now() + 60 * 60 * 24 * 1000);
+}

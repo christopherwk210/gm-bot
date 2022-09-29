@@ -3,3 +3,4 @@ dist
 .env
 TODO
 static/dev-ids.json
+gmbot-db.sqlite
