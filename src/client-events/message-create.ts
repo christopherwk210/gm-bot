@@ -3,6 +3,7 @@ import { handleExplodeCommandMessages } from '@/message-handlers/explode-handler
 import { handleHasteCodeBlockMessages } from '@/message-handlers/haste-code-block.js';
 import { reactToMessage } from '@/message-handlers/reaction-handler.js';
 import { handleWrongCodeBlockMessages } from '@/message-handlers/wrong-code-block.js';
+import { handleMisc } from '@/message-handlers/misc-handlers.js';
 
 export async function onMessageCreate(message: Message<boolean>) {
   if (message.author.bot) return;
@@ -11,4 +12,5 @@ export async function onMessageCreate(message: Message<boolean>) {
   await handleHasteCodeBlockMessages(message);
   await handleWrongCodeBlockMessages(message);
   await reactToMessage(message);
+  await handleMisc(message);
 }

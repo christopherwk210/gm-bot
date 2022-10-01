@@ -19,6 +19,10 @@ client.on('interactionCreate', onInteractionCreate);
 client.on('messageCreate', onMessageCreate);
 client.on('guildMemberAdd', onGuildMemberAdd);
 
+client.on('error', error => { throw error });
+client.on('shardError', error => { throw error });
+client.on('debug', message => console.log(`[DEBUG] ${message}`));
+
 /**
  * Logs in the client using the bot token, resolves
  * once bot reports that it is ready
