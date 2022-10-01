@@ -21,6 +21,9 @@ client.on('guildMemberAdd', onGuildMemberAdd);
 
 client.on('error', error => { throw error });
 client.on('shardError', error => { throw error });
+client.on('shardDisconnect', ({ code }) => {
+  if (code === 4000) process.exit(1);
+});
 client.on('debug', message => console.log(`[DEBUG] ${message}`));
 
 /**
