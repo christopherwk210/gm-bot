@@ -50,7 +50,7 @@ const roleButtons: RoleButton[] = [
 export const cmd: BotCommand = {
   command,
   execute: async interaction => {
-    if (!!interaction.inGuild() || !interaction.guild) return;
+    if (!interaction.inGuild() || !interaction.guild) return;
     if (!interaction.channel || !interaction.member) return;
     if (detectStaff(interaction.member) !== 'admin') {
       await interaction.reply({
@@ -84,10 +84,11 @@ export const cmd: BotCommand = {
       const roleButton = roleButtons.find(roleButton => roleButton.id === interaction.customId);
       if (!roleButton || !interaction.member || !interaction.guild) return;
 
+      // await interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply();
+
       const role = await interaction.guild.roles.fetch(roleButton.role);
       if (!role) return;
-
-      await interaction.deferReply({ ephemeral: true });
       
       if (!(interaction.member instanceof GuildMember)) return;
       const member = await interaction.member.fetch();
@@ -99,11 +100,13 @@ export const cmd: BotCommand = {
         await member.roles.add(role);
       }
 
-      await interaction.editReply({
+      await member.send({
         content: memberAlreadyHasRole ?
-          `The '${role.name}' role has been removed!` :
+          `Your '${role.name}' role has been removed!` :
           `You have been given the '${role.name}' role!`
       });
+
+      await interaction.deleteReply();
     }
   }
 };

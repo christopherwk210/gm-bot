@@ -12,94 +12,54 @@ import {
 import { getCommands } from '@/singletons/commands.js';
 
 export async function onInteractionCreate(interaction: Interaction<CacheType>) {
-  if (interaction.isAutocomplete()) {
-    handleAutocomplete(interaction)
-  } else if (interaction.isChatInputCommand()) {
-    handleChatInputCommand(interaction);
-  } else if (interaction.isSelectMenu()) {
-    handleSelectMenu(interaction);
-  } else if (interaction.isContextMenuCommand()) {
-    handleContextMenu(interaction);
-  } else if (interaction.isModalSubmit()) {
-    handleModalSubmit(interaction);
-  } else if (interaction.isButton()) {
-    handleModalButton(interaction);
-  }
-}
+  const command: BotCommand = await getCommand(interaction) as any;
+  if (!command) return handleInteractionErrors(interaction as any);
 
-async function handleModalButton(interaction: ButtonInteraction<CacheType>) {
-  const command = await getCommand(interaction);
-  if (!command) return;
-  if (!command.button) return;
-
-  try {
-    await command.button.execute(interaction);
-  } catch (error) {
-    console.error(`Error responding to button "${command.command.name}":`, error);
-  }
-}
-
-async function handleModalSubmit(interaction: ModalSubmitInteraction<CacheType>) {
-  const command = await getCommand(interaction);
-  if (!command) return;
-  if (!command.modal) return;
-
-  try {
-    await command.modal.execute(interaction);
-  } catch (error) {
-    console.error(`Error responding to modal "${command.command.name}":`, error);
-  }
-}
-
-async function handleContextMenu(interaction: MessageContextMenuCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>) {
-  const command: BotContextCommand | undefined = await getCommand(interaction) as any;
-  if (!command) return;
-
-  try {
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(`Error responding to context menu "${command.command.name}":`, error);
-  }
-}
-
-async function handleSelectMenu(interaction: SelectMenuInteraction<CacheType>) {
-  const command = await getCommand(interaction);
-  if (!command) return;
-  if (!command.selectMenu) return;
-
-  try {
-    await command.selectMenu.execute(interaction);
-  } catch (error) {
-    console.error(`Error responding to select menu "${command.command.name}":`, error);
-  }
-}
-
-async function handleAutocomplete(interaction: AutocompleteInteraction<CacheType>) {
-  const command = await getCommand(interaction);
-  if (!command) return;
-  if (!command.autocomplete) {
-    await interaction.respond([]);
+  if (interaction.isChatInputCommand()) {
+    try {
+      await command.execute(interaction);
+      if (!interaction.replied) handleInteractionErrors(interaction);
+    } catch (error) {
+      console.error(`Error executing command "${command.command.name}":`, error);
+      handleInteractionErrors(interaction);
+    }
     return;
   }
 
-  try {
-    await command.autocomplete(interaction);
-  } catch (error) {
-    console.error(`Error executing autocomplete "${command.command.name}":`, error);
+  if (interaction.isAutocomplete()) {
+    if (!command.autocomplete) {
+      await interaction.respond([]);
+    } else {
+      try {
+        await command.autocomplete(interaction);
+      } catch (error) {
+        console.error(`Error executing autocomplete "${command.command.name}":`, error);
+      }
+    }
+    return;
   }
+  
+  if (interaction.isContextMenuCommand()) {
+    try {
+      await ((command as any) as BotContextCommand).execute(interaction);
+    } catch (error) {
+      console.error(`Error responding to context menu "${command.command.name}":`, error);
+    }
+    return;
+  }
+  
+  if (interaction.isSelectMenu()) handleSubInteraction(interaction, command, 'selectMenu');
+  if (interaction.isModalSubmit() && command.modal) handleSubInteraction(interaction, command, 'modal');
+  if (interaction.isButton() && command.button) handleSubInteraction(interaction, command, 'button');
 }
 
-async function handleChatInputCommand(interaction: ChatInputCommandInteraction<CacheType>) {
-  const command: BotCommand = await getCommand(interaction) as any;
-  if (!command) return;
-
-	try {
-		await command.execute(interaction);
-    if (!interaction.replied) handleInteractionErrors(interaction);
-	} catch (error) {
-		console.error(`Error executing command "${command.command.name}":`, error);
-    handleInteractionErrors(interaction);
-	}
+async function handleSubInteraction(interaction: Interaction<CacheType>, command: BotCommand, subType: keyof BotCommand) {
+  try {
+    await (command[subType] as any).execute(interaction);
+  } catch (error) {
+    console.error(`Error responding to ${subType} "${command.command.name}":`, error);
+    handleInteractionErrors(interaction as any);
+  }
 }
 
 async function getCommand(
@@ -113,11 +73,6 @@ async function getCommand(
     ButtonInteraction<CacheType>
 ) {
   const commands = await getCommands();
-
-  // Determine what commands to check (guild + global, or just global)
-  // const commandsCollection = interaction.inGuild() ? commands.guild.concat(commands.global) : commands.global;
-
-  // Actually, forget the above. I think we can just check them all.
   const commandsCollection = commands.guild.concat(commands.global);
 
   if (interaction.isSelectMenu()) {

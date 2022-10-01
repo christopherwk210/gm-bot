@@ -39,7 +39,7 @@ const factorRow = new ActionRowBuilder<ModalActionRowComponentBuilder>()
 export const cmd: BotContextCommand = {
   command,
 	execute: async interaction => {
-		if (!!interaction.inGuild() || !interaction.guild) return;
+		if (!interaction.inGuild() || !interaction.guild) return;
 
 		if (!interaction.isMessageContextMenuCommand()) return;
 		let url = '';

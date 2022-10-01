@@ -20,7 +20,7 @@ const command = new SlashCommandBuilder()
 export const cmd: BotCommand = {
   command,
   execute: async interaction => {
-    if (!!interaction.inGuild() || !interaction.guild) return;
+    if (!interaction.inGuild() || !interaction.guild) return;
     if (!interaction.channel || !interaction.member) return;
     if (detectStaff(interaction.member) !== 'admin') {
       await interaction.reply({
