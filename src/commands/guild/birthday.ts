@@ -5,7 +5,7 @@ import { config } from '@/data/config.js';
 
 const command = new SlashCommandBuilder()
 .setName('birthday')
-.setDescription(`Give a user the birthday role for 24 hours`)
+.setDescription(`Gives a user the birthday role for 24 hours`)
 .addMentionableOption(option =>
   option
   .setName('member')

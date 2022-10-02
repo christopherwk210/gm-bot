@@ -1,5 +1,7 @@
-# GameMakerBot
+# GameMakerBot 2
 > The bot used by the GameMaker Discord server.
+
+[Features](./FEATURES.md)
 
 ## Setup
 Clone the project and install dependencies with npm. Create a `.env` file in the root of the project with the following format:

@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from 'discord.js';
 
 const command = new SlashCommandBuilder()
 .setName('commandment')
-.setDescription(`Posts a link to a given Pixelated Pope commandment`)
+.setDescription(`Posts one of the Pixelated Pope commandments`)
 .addStringOption(option =>
   option
   .setName('roman_numeral')
