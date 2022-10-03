@@ -1,3 +1,5 @@
+![](./media/v2-bot-image.png)
+
 # GameMakerBot 2
 > The bot used by the GameMaker Discord server.
 
