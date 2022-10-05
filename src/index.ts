@@ -25,6 +25,13 @@ setupBirthdayTicker(client);
 
 console.log('GameMakerBot is ready.');
 
+client.on('raw', gatewayEvent => {
+  if (gatewayEvent.op === 4000) {
+    console.log('Got unknown gateway error');
+    process.exit(1);
+  }
+});
+
 if (devMode && client.user) {
   client.user.setStatus('idle');
   client.user.setActivity('coming soon...', { type: ActivityType.Playing });

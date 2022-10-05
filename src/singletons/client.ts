@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Client, GatewayIntentBits, } from 'discord.js';
 import { token } from '@/data/environment.js';
 
 import { onInteractionCreate } from '@/client-events/interaction-create.js';
@@ -20,10 +20,6 @@ client.on('messageCreate', onMessageCreate);
 client.on('guildMemberAdd', onGuildMemberAdd);
 
 client.on('error', error => { throw error });
-client.on('shardError', error => { throw error });
-client.on('shardDisconnect', ({ code }) => {
-  if (code === 4000) process.exit(1);
-});
 client.on('debug', message => console.log(`[DEBUG] ${message}`));
 
 /**
