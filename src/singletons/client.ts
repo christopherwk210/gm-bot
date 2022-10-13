@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, } from 'discord.js';
+import { Client, GatewayIntentBits } from 'discord.js';
 import { token } from '@/data/environment.js';
 
 import { onInteractionCreate } from '@/client-events/interaction-create.js';
@@ -21,6 +21,7 @@ client.on('guildMemberAdd', onGuildMemberAdd);
 
 client.on('error', error => { throw error });
 client.on('debug', message => console.log(`[DEBUG] ${message}`));
+client.on('rateLimit', data => console.log(`[RATE_LIMIT]`, data));
 
 /**
  * Logs in the client using the bot token, resolves
