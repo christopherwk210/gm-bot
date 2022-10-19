@@ -5,6 +5,8 @@
 
 [Features](./FEATURES.md)
 
+This is a complete rewrite from the first version of the bot. Because of this, the git history has been cleaned to start fresh since it is essentially a new project. If you wish to see the code for the old version, it is preserved in the [v1 branch](https://github.com/christopherwk210/gm-bot/tree/v1).
+
 ## Setup
 Clone the project and install dependencies with npm. Create a `.env` file in the root of the project with the following format:
 
