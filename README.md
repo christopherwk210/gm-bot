@@ -62,6 +62,8 @@ export const cmd: BotCommand = {
 };
 ```
 
+The `./pm2.sh` script has a sensible default for creating a pm2 instance if you wish to run the bot with persistence and good logging.
+
 ## License
 MIT, see `./LICENSE.txt`.
 

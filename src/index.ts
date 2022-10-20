@@ -1,10 +1,9 @@
-import { ActivityType, codeBlock, inlineCode } from 'discord.js';
+import { codeBlock, inlineCode } from 'discord.js';
 
 import { auth } from './database/db.js';
 import { login } from './singletons/client.js';
 import { getCommands } from './singletons/commands.js';
 import { config } from './data/config.js';
-import { devMode } from './data/environment.js';
 import { getTextChannel } from './misc/discord-utils.js';
 import { setupBirthdayTicker } from './misc/birthday-ticker.js';
 
@@ -31,11 +30,6 @@ client.on('raw', gatewayEvent => {
     process.exit(1);
   }
 });
-
-if (devMode && client.user) {
-  client.user.setStatus('idle');
-  client.user.setActivity('coming soon...', { type: ActivityType.Playing });
-}
 
 // Log exceptions via discord
 process.on('uncaughtException', async err => {
