@@ -7,7 +7,7 @@ import { handleMisc } from '@/message-handlers/misc-handlers.js';
 
 import { REST } from '@discordjs/rest';
 import { token } from '@/data/environment.js';
-const restClient = () => new REST({ version: '8' }).setToken(token);
+const restClient = () => new REST({ version: '7' }).setToken(token);
 const route = Routes.channel('417796218324910094');
 
 export async function onMessageCreate(message: Message<boolean>) {
