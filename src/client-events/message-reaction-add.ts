@@ -40,5 +40,5 @@ async function handleRoleDistributorReacts(reaction: MessageReaction | PartialMe
 
   await member.send({
     content: `You have been given the '${guildRole.name}' role!`
-  });
+  }).catch(() => {});
 }

@@ -40,5 +40,5 @@ async function handleRoleDistributorReacts(reaction: MessageReaction | PartialMe
 
   await member.send({
     content: `Your '${guildRole.name}' role has been removed!`
-  });
+  }).catch(() => {});
 }
