@@ -10,7 +10,11 @@ const devIdsExists = existsSync(join(__dirname, '../dev-ids.json'));
 const discordIds = {
   guildId: GameMakerDiscordGuildID,
   emojis: {
-    duckycode: '<:duckycode:402920261340626954>'
+    duckycode: '<:duckycode:402920261340626954>',
+    ask: '<:ask:841517748534247475>',
+    hehim: '<:hehim:841517748558888991>',
+    theythem: '<:theythem:841517748899151902>',
+    sheher: '<:sheher:841535247140388895>'
   },
   channels: {
     /** This channel is used for debug bot output and bot testing */
