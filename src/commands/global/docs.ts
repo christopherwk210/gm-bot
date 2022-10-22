@@ -32,6 +32,10 @@ interface DocsTopic {
   url: string;
   blurb: string;
   syntax?: string;
+  args?: {
+    argument: string;
+    description: string;
+  }[];
 }
 
 console.log('Caching docs keys...');
@@ -136,11 +140,19 @@ function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APII
   const topic = key.topics[topicIndex];
   const title = key.name === topic.name ? (topic.syntax || key.name) : `${key.name} - ${topic.name}`;
 
+  let description = topic.blurb;
+  if (topic.args && topic.args.length) {
+    description += '\n\n**Arguments**\n';
+    for (const arg of topic.args) {
+      description += `**${arg.argument}**: ${arg.description}\n`;
+    }
+  }
+
   const embed = new EmbedBuilder()
   .setTitle(title)
   .setColor(config.defaultEmbedColor)
   .setURL('https://manual.yoyogames.com/' + topic.url)
-  .setDescription(topic.blurb)
+  .setDescription(description)
   .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
   .setTimestamp(new Date());
   

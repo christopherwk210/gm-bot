@@ -42,6 +42,34 @@ export async function cacheDocs() {
               topic.syntax = syntax;
             }
           }
+
+          const argumentTable = $('table').toArray().find(element => {
+            return $(element).html().includes('<th>Argument</th>');
+          });
+
+          if (argumentTable) {
+            const args = [];
+
+            const tbody = $(argumentTable).children('tbody').first();
+            tbody.children().each((index, trow) => {
+              let argument = '';
+              let description = '';
+              let validRow = false;
+              $(trow).children().each((cellIndex, cell) => {
+                const cellText = $(cell).text();
+                if (cellIndex === 0 && cellText !== 'Argument') {
+                  validRow = true;
+                  argument = cellText;
+                } else if (cellIndex === 2 && validRow) {
+                  description = cellText.replace('OPTIONAL', '`OPTIONAL`');
+                }
+              });
+
+              if (argument) args.push({ argument, description });
+            });
+
+            topic.args = args;
+          }
         } else {
           failedCount++;
         }
