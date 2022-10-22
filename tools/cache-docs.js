@@ -7,8 +7,8 @@ import cliProgress from 'cli-progress';
 import axios from 'axios';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const docsIndexURL = 'https://manual.yoyogames.com/whxdata/idata1.new.js';
 const outputPath = path.join(__dirname, '../static/docs-index.json');
+const docsIndexURL = 'https://manual.yoyogames.com/whxdata/idata1.new.js';
 
 export async function cacheDocs() {
   const response = await axios.get(docsIndexURL);
@@ -16,8 +16,8 @@ export async function cacheDocs() {
   
   const indexContents = response.data;
   const index = indexContents.match(/(?<=var\s*index\s*=\s*)({[\s\S]*})(?=;)/g);
-  
   const parsedIndex = JSON.parse(index[0]);
+  
   const progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
 
   let totalTopics = 0;

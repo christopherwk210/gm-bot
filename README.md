@@ -21,8 +21,17 @@ Replace the 0'd out placeholders with your own bot application and token. After 
 {
   "guildId": "000000000000000000",
   "channels": {
-    "helpChannels": ["000000000000000000"],
+    "helpChannels": [
+      "000000000000000000"
+    ],
     "securityChannel": "000000000000000000"
+  },
+  "emojis": {
+    "duckycode": ":wave:",
+    "ask": ":wave:",
+    "hehim": ":wave:",
+    "theythem": ":wave:",
+    "sheher": ":wave:"
   },
   "roles": {
     "pronouns": {
@@ -35,9 +44,10 @@ Replace the 0'd out placeholders with your own bot application and token. After 
     "birthday": "000000000000000000"
   }
 }
+
 ```
 
-These values will override the `discordIds` values in the `./src/data/config.ts` file during development, so that you can point the bot at ids for your test server without removing the correct ones. Just replace all of the values with the ids that go with your test server.
+These values will override the `discordIds` values in the `./src/data/config.ts` file during development, so that you can point the bot at ids for your test server without removing the correct ones. Just replace all of the values with the ids that go with your test server. You should probably replace the emojis with unique emoji IDs fro your test server as well (i.e. `<:custom:000000000000000000>`).
 
 Optional last step is to run `npm run docs:cache` to make a cached version of the game maker docs. If it hangs or fails just run it again until it works. This step is optional since this generates a cached docs file that is committed to the repo, so you should already have a version when you clone the project. This command exists so that the docs can be recached next time the docs get updated.
 
