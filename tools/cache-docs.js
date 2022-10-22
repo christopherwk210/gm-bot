@@ -34,6 +34,14 @@ export async function cacheDocs() {
           const $ = cheerio.load(html);
           const p = $('p').first();
           topic.blurb = p.text().replace('\n', ' ');
+
+          const h4 = $('h4').toArray().find(element => $(element).text().toLowerCase().includes('syntax:'));
+          if (h4 && h4.next && h4.next.next) {
+            const syntax = $(h4.next.next).text().replace(';', '').trim();
+            if (syntax.includes(topic.name)) {
+              topic.syntax = syntax;
+            }
+          }
         } else {
           failedCount++;
         }

@@ -31,6 +31,7 @@ interface DocsTopic {
   type: 'topic';
   url: string;
   blurb: string;
+  syntax?: string;
 }
 
 console.log('Caching docs keys...');
@@ -133,7 +134,7 @@ async function selectMenu(interaction: SelectMenuInteraction<CacheType>): Promis
 
 function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APIInteractionGuildMember | null = null): EmbedBuilder {
   const topic = key.topics[topicIndex];
-  const title = key.name === topic.name ? key.name : `${key.name} - ${topic.name}`;
+  const title = key.name === topic.name ? (topic.syntax || key.name) : `${key.name} - ${topic.name}`;
 
   const embed = new EmbedBuilder()
   .setTitle(title)
