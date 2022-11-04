@@ -17,7 +17,7 @@ export const cmd: BotCommand = {
   command,
   execute: async interaction => {
     if (!interaction.guild || !interaction.channel || !interaction.member) return;
-    if (detectStaff(interaction.member) !== 'admin') {
+    if (detectStaff(interaction.member) !== 'admin' || detectStaff(interaction.member) !== 'cats') {
       await interaction.reply({
         content: `You don't have permission to do that!`,
         ephemeral: true

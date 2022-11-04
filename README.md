@@ -75,6 +75,6 @@ export const cmd: BotCommand = {
 The `./pm2.sh` script has a sensible default for creating a pm2 instance if you wish to run the bot with persistence and good logging.
 
 ## License
-MIT, see `./LICENSE.txt`.
+MIT, see `./LICENSE`.
 
 A special thanks to the GameMaker Discord community and staff for their feedback and support.
