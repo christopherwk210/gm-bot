@@ -3,6 +3,7 @@ import { Snowflake } from 'discord.js';
 import { Sequelize } from 'sequelize';
 import { Birthday, createBirthdayModel } from './models/birthday.js';
 import { RoleDistributorReactMessage, createRoleDistributorReactMessageModel } from './models/role-distributor-react.js';
+import { HelpChannelData, createHelpChannelModel } from './models/help-channel.js';
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -14,6 +15,7 @@ export async function auth() {
   await sequelize.authenticate().catch(() => process.exit(1));
   await createBirthdayModel(sequelize);
   await createRoleDistributorReactMessageModel(sequelize);
+  await createHelpChannelModel(sequelize);
   await sequelize.sync();
 }
 
@@ -71,6 +73,34 @@ export const db = {
       if (birthday) {
         birthday.needsRemoval = false;
         await birthday.save();
+      }
+    }
+  },
+  helpChannel: {
+    createOrUpdate: async (channelId: Snowflake, busyTimestamp: Date) => {
+      const [ helpChannelData, created ] = await HelpChannelData.findOrCreate({
+        where: { channelId },
+        defaults: {
+          channelId,
+          busyTimestamp
+        }
+      });
+
+      helpChannelData.set({ busyTimestamp });
+      const savedHelpChannelData = await helpChannelData.save();
+
+      return {
+        helpChannelData: savedHelpChannelData,
+        created
+      };
+    },
+
+    getBusyTimestampForChannel: async (channelId: Snowflake) => {
+      const result = await HelpChannelData.findOne({ where: { channelId } });
+      if (result) {
+        return new Date(result.busyTimestamp);
+      } else {
+        return new Date(0);
       }
     }
   }

@@ -31,6 +31,10 @@ const discordIds = {
       '880010995270033458'
     ],
   },
+  channelCategories: {
+    help: '515535429336825867',
+    helpBusy: '1040679011216543755'
+  },
   roles: {
     duckyCode: '262926334118985728',
     duckyHonourary: '390437904859660290',
@@ -53,6 +57,7 @@ const discordIds = {
 const devIds: typeof discordIds = devMode && devIdsExists ? require('../dev-ids.json') : {} as any;
 
 export const config = {
+  helpChannelBusyTimeout: 60_000 * 10, // 10 minutes
   defaultEmbedColor: 0x039e5c,
   discordIds: {
     ...discordIds,

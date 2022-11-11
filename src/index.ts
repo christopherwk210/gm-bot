@@ -6,6 +6,7 @@ import { getCommands } from './singletons/commands.js';
 import { config } from './data/config.js';
 import { getTextChannel } from './misc/discord-utils.js';
 import { setupBirthdayTicker } from './misc/birthday-ticker.js';
+import { setupHelpChannelTicker } from './misc/help-channel-ticker.js';
 
 console.clear();
 
@@ -21,6 +22,7 @@ const client = await login();
 
 console.log('Setting up timers...');
 setupBirthdayTicker(client);
+setupHelpChannelTicker(client);
 
 console.log('GameMakerBot is ready.');
 

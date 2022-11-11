@@ -4,11 +4,13 @@ import { handleHasteCodeBlockMessages } from '@/message-handlers/haste-code-bloc
 import { reactToMessage } from '@/message-handlers/reaction-handler.js';
 import { handleWrongCodeBlockMessages } from '@/message-handlers/wrong-code-block.js';
 import { handleMisc } from '@/message-handlers/misc-handlers.js';
+import { handleHelpChannelMessages } from '@/message-handlers/help-channel-handler.js';
 
 export async function onMessageCreate(message: Message<boolean>) {
   if (message.author.bot) return;
   
-  if (await handleExplodeCommandMessages(message)) return;
+  await handleHelpChannelMessages(message);
+  await handleExplodeCommandMessages(message);
   await handleHasteCodeBlockMessages(message);
   await handleWrongCodeBlockMessages(message);
   await reactToMessage(message);

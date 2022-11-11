@@ -1,5 +1,6 @@
-import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder, TextChannel } from 'discord.js';
 import { config } from '@/data/config.js';
+import { moveChannelToUnbusy } from '@/misc/help-channel-ticker.js';
 
 const command = new SlashCommandBuilder()
 .setName('done')
@@ -16,6 +17,9 @@ export const cmd: BotCommand = {
       .setTimestamp(new Date())
 
       await interaction.reply({ embeds: [embed] });
+
+      const channel = await interaction.channel.fetch();
+      await moveChannelToUnbusy(channel as TextChannel);
     } else {
       await interaction.reply({
         content: 'This command can only be used in a help channel!',
