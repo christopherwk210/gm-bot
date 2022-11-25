@@ -9,7 +9,14 @@ export function getGuild() {
 export async function getTextChannel(id: string) {
   const guild = await getGuild();
   const channel = await guild.channels.fetch(id).catch(() => {});
-  if (channel && channel.isTextBased()) return channel;
+  if (channel && channel.isTextBased && channel.isTextBased()) return channel;
+  return undefined;
+}
+
+export async function getRole(id: string) {
+  const guild = await getGuild();
+  const role = await guild.roles.fetch(id).catch(() => {});
+  if (role) return role;
   return undefined;
 }
 
