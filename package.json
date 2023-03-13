@@ -33,7 +33,7 @@
     "glob": "^8.0.3",
     "jimp": "^0.16.2",
     "sequelize": "^6.23.0",
-    "sqlite3": "^5.1.1",
+    "sqlite3": "^5.1.5",
     "utf-8-validate": "^5.0.9",
     "zlib-sync": "^0.1.7"
   },
