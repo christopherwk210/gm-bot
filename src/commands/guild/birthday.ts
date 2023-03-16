@@ -1,5 +1,4 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, GuildMember, SlashCommandBuilder } from 'discord.js';
-import { detectStaff } from '@/misc/discord-utils.js';
 import { db } from '@/database/db.js';
 import { config } from '@/data/config.js';
 
@@ -17,13 +16,6 @@ export const cmd: BotCommand = {
   command,
   execute: async interaction => {
     if (!interaction.guild || !interaction.channel || !interaction.member) return;
-    if (detectStaff(interaction.member) !== 'admin' || detectStaff(interaction.member) !== 'cats') {
-      await interaction.reply({
-        content: `You don't have permission to do that!`,
-        ephemeral: true
-      });
-      return;
-    }
 
     await interaction.deferReply({ ephemeral: true });
   
