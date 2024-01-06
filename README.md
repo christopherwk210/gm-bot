@@ -26,6 +26,10 @@ Replace the 0'd out placeholders with your own bot application and token. After 
     ],
     "securityChannel": "000000000000000000"
   },
+  "channelCategories": {
+    "help": "000000000000000000",
+    "helpBusy": "000000000000000000"
+  },
   "emojis": {
     "duckycode": ":wave:",
     "ask": ":wave:",
