@@ -45,7 +45,13 @@ Replace the 0'd out placeholders with your own bot application and token. After 
       "ask": "000000000000000000"
     },
 
-    "birthday": "000000000000000000"
+    "birthday": "000000000000000000",
+
+    "christmas": {
+      "A": "000000000000000000",
+      "B": "000000000000000000",
+      "C": "000000000000000000"
+    }
   }
 }
 

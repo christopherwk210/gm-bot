@@ -3,6 +3,7 @@ import { REST } from '@discordjs/rest';
 import { applicationId, token, projectRootPath } from './data/environment.js';
 import { config } from './data/config.js';
 import glob from 'glob';
+import path from 'path';
 
 type CommandScope = 'global' | 'guild';
 type CommandCollection = Collection<string, BotCommand | BotContextCommand>;
@@ -20,9 +21,9 @@ const appCommandsRoute = Routes.applicationCommands(applicationId);
  */
 function getProjectCommandPaths(scope: CommandScope): AsyncWrapF<string[], Error> {
 	return new Promise(resolve => {
-		glob(`${projectRootPath}/commands/**/*.js`, { nosort: true }, (err, files) => {
+		const commandPath = path.join(projectRootPath, '/commands/**/*.js');
+		glob(commandPath, { nosort: true, windowsPathsNoEscape: process.platform === 'win32' }, (err, files) => {
 			if (err !== null) return resolve({ err, data: [] });
-
 			const filteredFiles = files.filter(file => file.includes(`/${scope}/`));
 			resolve({ data: filteredFiles });
 		});
@@ -37,7 +38,8 @@ async function createProjectCommandCollection(scope: CommandScope) {
 	const commands = new Collection<string, BotCommand | BotContextCommand>();
 
 	for (const filePath of data) {
-		const module: { cmd: BotCommand } = await import(filePath);
+		let modulatedFilePath = process.platform === 'win32' ? `file://${filePath}` : filePath;
+		const module: { cmd: BotCommand } = await import(modulatedFilePath);
 		commands.set(module.cmd.command.name, module.cmd);
 	}
 
