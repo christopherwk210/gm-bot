@@ -13,37 +13,17 @@ import {
 } from 'discord.js';
 import { cjs } from '@/misc/node-utils.js';
 import { config } from '@/data/config.js';
+import type { parseDocs } from 'gm-docs-parser';
 
 const { require } = cjs(import.meta.url);
 
-// These interfaces correspond with the auto-generated JSON
-// created by running `npm run docs:cache`
-
-interface DocsKey {
-  name: string;
-  type: 'key';
-  topics: DocsTopic[];
-  keys: any[];
-}
-
-interface DocsTopic {
-  name: string;
-  type: 'topic';
-  url: string;
-  blurb: string;
-  syntax?: string;
-  args?: {
-    argument: string;
-    description: string;
-  }[];
-}
+type ParsedDocs = Extract<Awaited<ReturnType<typeof parseDocs>>, { success: true }>['docs'];
 
 console.log('Caching docs keys...');
 
 // Load the JSON and cache the key names
-const data = require('../../docs-index.json');
-const keys: DocsKey[] = data.keys;
-const keyNames = keys.map(key => key.name);
+const data = require('../../docs-index.json') as ParsedDocs;
+const docsKeys = Object.keys(data);
 
 const command = new SlashCommandBuilder()
 .setName('docs')
@@ -58,17 +38,9 @@ const command = new SlashCommandBuilder()
 
 async function execute(interaction: ChatInputCommandInteraction<CacheType>): Promise<void> {
   const keyword = interaction.options.getString('keyword')!;
-  let foundIndex!: number;
 
   // Search for the matching entry based on the key the user provided
-  const foundKey = keys.find((key, index) => {
-    if (key.name === keyword.toLowerCase()) {
-      foundIndex = index;
-      return true;
-    }
-
-    return false;
-  });
+  const foundKey = docsKeys.find(key => key === keyword.toLowerCase());
 
   if (!foundKey) {
     await interaction.reply({
@@ -78,8 +50,8 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
     return;
   }
 
-  if (foundKey.topics.length === 1) {
-    const embed = constructEmbed(foundKey);
+  if (data[foundKey].pages.length === 1) {
+    const embed = constructEmbed(data[foundKey]);
     await interaction.reply({ embeds: [embed] });
   } else {
     // Create a select that has every topic in it
@@ -89,15 +61,15 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
       .setCustomId(selectCustomId)
       .setPlaceholder('Select a topic...')
       .addOptions(
-        ...foundKey.topics.map((topic, topicIndex) => ({
-          label: topic.name,
-          value: JSON.stringify([foundIndex, topicIndex])
+        ...data[foundKey].pages.map((page, pageIndex) => ({
+          label: page.syntax || page.blurb,
+          value: JSON.stringify([foundKey, pageIndex])
         }))
       )
     )
 
     await interaction.reply({
-      content: 'This keyword has multiple topics! Please select one from the list:',
+      content: 'This keyword has multiple pages! Please select one from the list:',
       ephemeral: true,
       components: [row]
     });
@@ -110,7 +82,7 @@ async function autocomplete(interaction: AutocompleteInteraction<CacheType>): Pr
   // Filter to the first 6 commands
   const output: ApplicationCommandOptionChoiceData<string | number>[] = [];
   let count = 0;
-  for (const key of keyNames) {
+  for (const key of docsKeys) {
     if (key.startsWith(focusedValue)) {
       output.push({ name: key, value: key });
       if (++count > 5) break;
@@ -123,27 +95,26 @@ async function autocomplete(interaction: AutocompleteInteraction<CacheType>): Pr
 const selectCustomId = 'docs-topic-select';
 
 async function selectMenu(interaction: SelectMenuInteraction<CacheType>): Promise<void> {
-  const [keyIndex, topicIndex] = JSON.parse(interaction.values[0]);
-  const key = keys[keyIndex];
-  const topic = key.topics[topicIndex];
+  const [foundKey, pageIndex] = JSON.parse(interaction.values[0]);
+  const page = data[foundKey].pages[pageIndex];
 
   await interaction.update({
-    content: `Topic selected: ${topic.name}`,
+    content: `Page selected: ${foundKey}`,
     components: [],
   });
 
-  const embed = constructEmbed(key, topicIndex, interaction.member);
+  const embed = constructEmbed(data[foundKey], pageIndex, interaction.member);
   await interaction.message.channel.send({ embeds: [embed] });
 }
 
-function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APIInteractionGuildMember | null = null): EmbedBuilder {
-  const topic = key.topics[topicIndex];
-  const title = key.name === topic.name ? (topic.syntax || key.name) : `${key.name} - ${topic.name}`;
+function constructEmbed(obj: ParsedDocs[string], pageIndex = 0, member: GuildMember | APIInteractionGuildMember | null = null): EmbedBuilder {
+  const page = obj.pages[pageIndex];
+  const title = obj.name;
 
-  let description = topic.blurb;
-  if (topic.args && topic.args.length) {
+  let description = page.blurb;
+  if (page.args && page.args.length) {
     description += '\n\n**Arguments**\n';
-    for (const arg of topic.args) {
+    for (const arg of page.args) {
       description += `**${arg.argument}**: ${arg.description}\n`;
     }
   }
@@ -151,7 +122,7 @@ function constructEmbed(key: DocsKey, topicIndex = 0, member: GuildMember | APII
   const embed = new EmbedBuilder()
   .setTitle(title)
   .setColor(config.defaultEmbedColor)
-  .setURL('https://manual.yoyogames.com/' + topic.url)
+  .setURL(page.url)
   .setDescription(description)
   .setThumbnail('https://coal.gamemaker.io/sites/5d75794b3c84c70006700381/assets/61af4f38fbbc0c000748de57/features-gml.jpg')
   .setTimestamp(new Date());

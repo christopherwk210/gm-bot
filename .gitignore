@@ -6,3 +6,4 @@ static/dev-ids.json
 gmbot-db.sqlite
 .DS_Store
 /remote
+manual
