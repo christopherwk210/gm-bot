@@ -62,7 +62,7 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>): Pro
       .setPlaceholder('Select a topic...')
       .addOptions(
         ...data[foundKey].pages.map((page, pageIndex) => ({
-          label: page.syntax || page.blurb,
+          label: page.title,
           value: JSON.stringify([foundKey, pageIndex])
         }))
       )
@@ -96,7 +96,7 @@ const selectCustomId = 'docs-topic-select';
 
 async function selectMenu(interaction: SelectMenuInteraction<CacheType>): Promise<void> {
   const [foundKey, pageIndex] = JSON.parse(interaction.values[0]);
-  const page = data[foundKey].pages[pageIndex];
+  // const page = data[foundKey].pages[pageIndex];
 
   await interaction.update({
     content: `Page selected: ${foundKey}`,
