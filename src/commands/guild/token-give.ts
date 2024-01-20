@@ -77,7 +77,7 @@ export const cmd: BotCommand = {
     }
   
     // Ensure user has some to give
-    if (givingUserTokens - amount <= 0) {
+    if (givingUserTokens - amount < 0) {
       await interaction.editReply({
         content: `You don't have enough tokens for that! Your balance is ${givingUserTokens} and you tried to give ${amount}.`
       }).catch(() => {});
