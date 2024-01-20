@@ -77,6 +77,13 @@ async function handleTokenReacts(reaction: MessageReaction | PartialMessageReact
   let givingUserId = user.id;
   let receivingUserId = reaction.message.author.id;
 
+  if (givingUserId === receivingUserId) {
+    user.send({
+      content: `You can't give tokens to yourself!`
+    }).catch(() => {});
+    return;
+  }
+
   let givingUserName = user.username;
   let givingUserMember = await reaction.message.guild.members.fetch({ user: givingUserId }).catch(() => {});
   if (givingUserMember) {

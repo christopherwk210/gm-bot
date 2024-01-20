@@ -49,6 +49,13 @@ export const cmd: BotCommand = {
 
     let givingUserId = interaction.user.id;
     let receivingUserId = member.user.id;
+
+    if (givingUserId === receivingUserId) {
+      await interaction.editReply({
+        content: `You can't give tokens to yourself!`
+      }).catch(() => {});
+      return;
+    }
   
     let givingUserName = interaction.user.username;
     let givingUserMember = await interaction.guild.members.fetch({ user: givingUserId }).catch(() => {});
