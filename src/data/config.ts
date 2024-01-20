@@ -15,7 +15,7 @@ const discordIds = {
     hehim: '<:hehim:841517748558888991>',
     theythem: '<:theythem:841517748899151902>',
     sheher: '<:sheher:841535247140388895>',
-    tophtoken: '<:tophtoken:1198323907304894655>'
+    tophtoken: '<:tophtoken:286833109037613057>'
   },
   channels: {
     /** This channel is used for debug bot output and bot testing */

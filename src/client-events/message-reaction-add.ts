@@ -73,9 +73,7 @@ async function handleRoleDistributorReacts(reaction: MessageReaction | PartialMe
 
 async function handleTokenReacts(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
   if (!reaction.message.inGuild()) return;
-
-  // make sure the reaction is the tophtoken emoji
-  if (reaction.emoji.id !== config.discordIds.emojis.tophtoken) return;
+  if (!config.discordIds.emojis.tophtoken.includes(reaction.emoji.id || 'NOEMOJIIDWASFOUND')) return;
 
   let givingUserId = user.id;
   let receivingUserId = reaction.message.author.id;
