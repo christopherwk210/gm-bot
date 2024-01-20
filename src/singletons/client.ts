@@ -1,4 +1,4 @@
-import { Channel, Client, GatewayIntentBits } from 'discord.js';
+import { Channel, Client, GatewayIntentBits, Partials } from 'discord.js';
 import { token } from '@/data/environment.js';
 
 import { onInteractionCreate } from '@/client-events/interaction-create.js';
@@ -15,6 +15,12 @@ export const client = new Client({
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.DirectMessages,
     GatewayIntentBits.GuildMessageReactions
+  ],
+  partials: [
+    Partials.Message,
+    Partials.Channel,
+    Partials.Reaction,
+    Partials.User
   ]
 });
 

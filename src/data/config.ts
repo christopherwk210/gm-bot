@@ -14,7 +14,8 @@ const discordIds = {
     ask: '<:ask:841517748534247475>',
     hehim: '<:hehim:841517748558888991>',
     theythem: '<:theythem:841517748899151902>',
-    sheher: '<:sheher:841535247140388895>'
+    sheher: '<:sheher:841535247140388895>',
+    tophtoken: '<:tophtoken:1198323907304894655>'
   },
   channels: {
     /** This channel is used for debug bot output and bot testing */
@@ -68,5 +69,6 @@ export const config = {
   discordIds: {
     ...discordIds,
     ...devIds
-  }
+  },
+  tophersId: '144913457429348352'
 };

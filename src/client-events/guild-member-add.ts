@@ -12,6 +12,15 @@ Swing by **#lounge** to hang out and get to know other members! If you'd like he
 If you are new to GameMaker, and are unsure where to start, you can run the </starter-pack:1024100590118260826> command to recieve a list of resources to help you learn!`;
 
 export async function onGuildMemberAdd(member: GuildMember) {
+  if (member.partial) {
+    try {
+      await member.fetch();
+    } catch (error) {
+      console.error('Something went wrong when fetching the member:', error);
+      return;
+    }
+  }
+
   if (member.guild.id !== config.discordIds.guildId) return;
 
   const embed = new EmbedBuilder()

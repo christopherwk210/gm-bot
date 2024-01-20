@@ -3,6 +3,24 @@ import { db } from '@/database/db.js';
 import { MessageReaction, PartialMessageReaction, PartialUser, User } from 'discord.js';
 
 export async function onMessageReactionRemove(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
+  if (reaction.partial) {
+    try {
+      await reaction.fetch();
+    } catch (error) {
+      console.error('Something went wrong when fetching the message:', error);
+      return;
+    }
+  }
+
+  if (user.partial) {
+    try {
+      await user.fetch();
+    } catch (error) {
+      console.error('Something went wrong when fetching the message:', error);
+      return;
+    }
+  }
+
   await handleRoleDistributorReacts(reaction, user);
 }
 

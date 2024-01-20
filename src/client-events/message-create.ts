@@ -9,6 +9,24 @@ import { handleHelpChannelMessages } from '@/message-handlers/help-channel-handl
 export async function onMessageCreate(message: Message<boolean>) {
   if (message.author.bot) return;
   
+  if (message.partial) {
+    try {
+      await message.fetch();
+    } catch (error) {
+      console.error('Something went wrong when fetching the message:', error);
+      return;
+    }
+  }
+  
+  if (message.member && message.member.partial) {
+    try {
+      await message.member.fetch();
+    } catch (error) {
+      console.error('Something went wrong when fetching the member:', error);
+      return;
+    }
+  }
+  
   await handleHelpChannelMessages(message);
   await handleExplodeCommandMessages(message);
   await handleHasteCodeBlockMessages(message);

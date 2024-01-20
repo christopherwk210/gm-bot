@@ -12,7 +12,7 @@ import {
 import { getCommands } from '@/singletons/commands.js';
 
 export async function onInteractionCreate(interaction: Interaction<CacheType>) {
-  const command: BotCommand = await getCommand(interaction) as any;
+  const command: BotCommand = await getCommand(interaction as any) as any;
   if (!command) return handleInteractionErrors(interaction as any);
 
   if (interaction.isChatInputCommand()) {
