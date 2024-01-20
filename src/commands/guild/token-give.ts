@@ -116,7 +116,7 @@ export const cmd: BotCommand = {
   
     // Send a message to the giver
     await interaction.editReply({
-      content: `You gifted ${amount === 1 ? `${amount} token` : `${amount} tokens`} to ${receivingUserName}! Your remaining balance is ${givingUserTokens - 1}.`
+      content: `You gifted ${amount === 1 ? `${amount} token` : `${amount} tokens`} to ${receivingUserName}! Your remaining balance is ${givingUserTokens - amount}.`
     }).catch(() => {});
   
     // Send a message to the receiver
