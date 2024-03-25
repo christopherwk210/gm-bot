@@ -192,14 +192,3 @@ function debounceReaction(callback: () => any, reaction: MessageReaction | Parti
     activeReactMessages.splice(activeReactMessages.indexOf(messageId), 1);
   }, time);
 }
-
-
-// function debounceReaction(reaction: MessageReaction | PartialMessageReaction, time = 1000) {
-//   const messageId = reaction.message.id;
-//   if (activeReactMessages.includes(messageId)) return;
-
-//   activeReactMessages.push(messageId);
-//   setTimeout(() => {
-//     activeReactMessages.splice(activeReactMessages.indexOf(messageId), 1);
-//   }, time);
-// }
