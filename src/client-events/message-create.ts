@@ -1,4 +1,5 @@
 import { Message } from 'discord.js';
+import { handleGMLCodeBlockMessages } from '@/message-handlers/gml-formatter.js';
 import { handleExplodeCommandMessages } from '@/message-handlers/explode-handler.js';
 import { handleHasteCodeBlockMessages } from '@/message-handlers/haste-code-block.js';
 import { reactToMessage } from '@/message-handlers/reaction-handler.js';
@@ -31,6 +32,7 @@ export async function onMessageCreate(message: Message<boolean>) {
   await handleExplodeCommandMessages(message);
   await handleHasteCodeBlockMessages(message);
   await handleWrongCodeBlockMessages(message);
+  await handleGMLCodeBlockMessages(message);
   await reactToMessage(message);
   await handleMisc(message);
 }
