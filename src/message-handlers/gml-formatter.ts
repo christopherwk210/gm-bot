@@ -26,11 +26,14 @@ switch (process.platform) {
 
 let fileIndex = 0;
 
-export async function handleGMLCodeBlockMessages(message: Message<boolean>) {
+export async function handleGMLCodeBlockMessages(message: Message<boolean>, allowAny = false) {
   if (goboExecutable === '') return;
 
+  const lang = allowAny ? undefined : 'gobo';
+
   const codes: string[] = [];
-  for (const { code } of parseCodeBlocks(message.content, 'gobo')) codes.push(code);
+  for (const { code } of parseCodeBlocks(message.content, lang)) codes.push(code);
+  
   if (codes.length === 0) return;
 
   const results = await Promise.all(codes.map(code => new Promise(async resolve => {

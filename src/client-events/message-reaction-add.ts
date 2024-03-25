@@ -1,5 +1,6 @@
 import { config } from '@/data/config.js';
 import { db } from '@/database/db.js';
+import { handleGMLCodeBlockMessages } from '@/message-handlers/gml-formatter.js';
 import { MessageReaction, PartialMessageReaction, PartialUser, User } from 'discord.js';
 
 export async function onMessageReactionAdd(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
@@ -32,6 +33,7 @@ export async function onMessageReactionAdd(reaction: MessageReaction | PartialMe
 
   await handleRoleDistributorReacts(reaction, user);
   await handleTokenReacts(reaction, user);
+  await handleWandReacts(reaction, user);
 }
 
 async function handleRoleDistributorReacts(reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) {
@@ -170,3 +172,34 @@ async function handleTokenReacts(reaction: MessageReaction | PartialMessageReact
     content: `${givingUserName} gave you a token! You now have ${receivingUserTokensText}.`
   }).catch(() => {});
 }
+
+async function handleWandReacts(reaction: MessageReaction | PartialMessageReaction, _user: User | PartialUser) {
+  if (reaction.emoji.name !== '🪄' && reaction.emoji.name !== '🤢') return;
+  debounceReaction(async () => {
+    const message = await reaction.message.fetch();
+    handleGMLCodeBlockMessages(message, true);
+  }, reaction);
+}
+
+const activeReactMessages: string[] = [];
+function debounceReaction(callback: () => any, reaction: MessageReaction | PartialMessageReaction, time = 1000) {
+  const messageId = reaction.message.id;
+  if (activeReactMessages.includes(messageId)) return;
+
+  callback();
+  activeReactMessages.push(messageId);
+  setTimeout(() => {
+    activeReactMessages.splice(activeReactMessages.indexOf(messageId), 1);
+  }, time);
+}
+
+
+// function debounceReaction(reaction: MessageReaction | PartialMessageReaction, time = 1000) {
+//   const messageId = reaction.message.id;
+//   if (activeReactMessages.includes(messageId)) return;
+
+//   activeReactMessages.push(messageId);
+//   setTimeout(() => {
+//     activeReactMessages.splice(activeReactMessages.indexOf(messageId), 1);
+//   }, time);
+// }
