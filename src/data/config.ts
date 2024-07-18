@@ -64,7 +64,7 @@ const discordIds = {
 const devIds: typeof discordIds = devMode && devIdsExists ? require('../dev-ids.json') : {} as any;
 
 export const config = {
-  helpChannelBusyTimeout: 60_000 * 10, // 10 minutes
+  helpChannelBusyTimeout: 60_000 * 15, // 15 minutes
   defaultEmbedColor: 0x039e5c,
   discordIds: {
     ...discordIds,
