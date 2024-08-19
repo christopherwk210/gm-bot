@@ -6,6 +6,7 @@ import { onMessageCreate } from '@/client-events/message-create.js';
 import { onGuildMemberAdd } from '@/client-events/guild-member-add.js';
 import { onMessageReactionAdd } from '@/client-events/message-reaction-add.js';
 import { onMessageReactionRemove } from '@/client-events/message-reaction-remove.js';
+import { onMessageDelete } from '@/client-events/message-delete.js';
 
 export const client = new Client({
   intents: [
@@ -26,6 +27,7 @@ export const client = new Client({
 
 client.on('interactionCreate', onInteractionCreate);
 client.on('messageCreate', onMessageCreate);
+client.on('messageDelete', onMessageDelete);
 client.on('guildMemberAdd', onGuildMemberAdd);
 client.on('messageReactionAdd', onMessageReactionAdd);
 client.on('messageReactionRemove', onMessageReactionRemove);

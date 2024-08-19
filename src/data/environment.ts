@@ -5,7 +5,7 @@ dotenv.config();
 /** Absolute path to ./dist, the final source base path */
 const projectRootPath = url.fileURLToPath(new URL('../', import.meta.url));
 
-/** Detectd via --development command line argument */
+/** Detected via --development command line argument */
 const devMode = process.argv.includes('--development');
 
 /** Discord bot application ID, taken from `application_id` environment variable */

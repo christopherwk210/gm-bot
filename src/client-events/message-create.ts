@@ -7,17 +7,17 @@ import { handleWrongCodeBlockMessages } from '@/message-handlers/wrong-code-bloc
 import { handleMisc } from '@/message-handlers/misc-handlers.js';
 import { handleHelpChannelMessages } from '@/message-handlers/help-channel-handler.js';
 
-export async function onMessageCreate(message: Message<boolean>) {
-  if (message.author.bot) return;
-  
+export async function onMessageCreate(message: Message<boolean>) {  
   if (message.partial) {
     try {
-      await message.fetch();
+      message = await message.fetch();
     } catch (error) {
       console.error('Something went wrong when fetching the message:', error);
       return;
     }
   }
+
+  if (message.author.bot) return;
   
   if (message.member && message.member.partial) {
     try {
