@@ -31,9 +31,25 @@ async function handleHelpChannelOps(client: Client<boolean>) {
 }
 
 export async function moveChannelToBusy(channel: TextChannel) {
-  return await channel.setParent(config.discordIds.channelCategories.helpBusy).catch(() => {});
+  await channel.setParent(config.discordIds.channelCategories.helpBusy).catch(() => {});
+  await updateChannelPosition(channel);
 }
 
 export async function moveChannelToUnbusy(channel: TextChannel) {
-  return await channel.setParent(config.discordIds.channelCategories.help).catch(() => {});
+  await channel.setParent(config.discordIds.channelCategories.help).catch(() => {});
+  await updateChannelPosition(channel);
+}
+
+async function updateChannelPosition(channel: TextChannel) {
+  const parent = channel.parent;
+  if (!parent) return;
+
+  const category = await parent.fetch().catch(() => null);
+  if (!category) return;
+
+  category.children.cache.forEach(async ch => {
+    const position = config.discordIds.channels.helpChannels.indexOf(ch.id);
+    if (position === -1) return;
+    ch.setPosition(position).catch(() => {});
+  })
 }
