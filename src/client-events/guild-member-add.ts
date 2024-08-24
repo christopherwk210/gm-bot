@@ -31,7 +31,7 @@ export async function onGuildMemberAdd(member: GuildMember) {
     text: 'This is an automated message'
   });
 
-  member.send({ embeds: [embed] });
+  member.send({ embeds: [embed] }).catch(() => {});
 
   const securityChannel = await getTextChannel(config.discordIds.channels.securityChannel);
   if (!securityChannel) return;

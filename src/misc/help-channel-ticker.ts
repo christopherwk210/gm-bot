@@ -41,15 +41,17 @@ export async function moveChannelToUnbusy(channel: TextChannel) {
 }
 
 async function updateChannelPosition(channel: TextChannel) {
-  const parent = channel.parent;
-  if (!parent) return;
+  return;
 
-  const category = await parent.fetch().catch(() => null);
-  if (!category) return;
+  // const parent = channel.parent;
+  // if (!parent) return;
 
-  category.children.cache.forEach(async ch => {
-    const position = config.discordIds.channels.helpChannels.indexOf(ch.id);
-    if (position === -1) return;
-    ch.setPosition(position).catch(() => {});
-  })
+  // const category = await parent.fetch().catch(() => null);
+  // if (!category) return;
+
+  // category.children.cache.forEach(async ch => {
+  //   const position = config.discordIds.channels.helpChannels.indexOf(ch.id);
+  //   if (position === -1) return;
+  //   ch.setPosition(position).catch(() => {});
+  // });
 }
