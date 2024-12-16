@@ -27,7 +27,13 @@ export async function handleHelpChannelMessagesDelete(message: Message<boolean>)
 
     if (mostRecentMessage.author.bot) {
       for (const embed of mostRecentMessage.embeds) {
-        if (embed.description && embed.description.includes('This channel has been made available again due to inactivity.')) {
+        if (
+          embed.description &&
+          (
+            embed.description.includes('This channel has been made available again due to inactivity.') ||
+            embed.description.includes('This channel is now available for another question')
+          )
+        ) {
           const fetchedChannel = await channel.fetch();
           if (fetchedChannel instanceof TextChannel) {
             await moveChannelToUnbusy(fetchedChannel);
