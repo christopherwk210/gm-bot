@@ -1,4 +1,4 @@
-import { Channel, Client, GatewayIntentBits } from 'discord.js';
+import { Channel, Client, GatewayIntentBits, Partials } from 'discord.js';
 import { token } from '@/data/environment.js';
 
 import { onInteractionCreate } from '@/client-events/interaction-create.js';
@@ -6,6 +6,7 @@ import { onMessageCreate } from '@/client-events/message-create.js';
 import { onGuildMemberAdd } from '@/client-events/guild-member-add.js';
 import { onMessageReactionAdd } from '@/client-events/message-reaction-add.js';
 import { onMessageReactionRemove } from '@/client-events/message-reaction-remove.js';
+import { onMessageDelete } from '@/client-events/message-delete.js';
 
 export const client = new Client({
   intents: [
@@ -15,11 +16,18 @@ export const client = new Client({
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.DirectMessages,
     GatewayIntentBits.GuildMessageReactions
+  ],
+  partials: [
+    Partials.Message,
+    Partials.Channel,
+    Partials.Reaction,
+    Partials.User
   ]
 });
 
 client.on('interactionCreate', onInteractionCreate);
 client.on('messageCreate', onMessageCreate);
+client.on('messageDelete', onMessageDelete);
 client.on('guildMemberAdd', onGuildMemberAdd);
 client.on('messageReactionAdd', onMessageReactionAdd);
 client.on('messageReactionRemove', onMessageReactionRemove);

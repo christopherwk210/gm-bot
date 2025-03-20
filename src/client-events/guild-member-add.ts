@@ -12,6 +12,15 @@ Swing by **#lounge** to hang out and get to know other members! If you'd like he
 If you are new to GameMaker, and are unsure where to start, you can check out this page in our [FAQ channel](https://discord.com/channels/262834612932182025/1351147798971809922) to help you get started!`;
 
 export async function onGuildMemberAdd(member: GuildMember) {
+  if (member.partial) {
+    try {
+      await member.fetch();
+    } catch (error) {
+      console.error('Something went wrong when fetching the member:', error);
+      return;
+    }
+  }
+
   if (member.guild.id !== config.discordIds.guildId) return;
 
   const embed = new EmbedBuilder()
@@ -22,7 +31,7 @@ export async function onGuildMemberAdd(member: GuildMember) {
     text: 'This is an automated message'
   });
 
-  member.send({ embeds: [embed] });
+  member.send({ embeds: [embed] }).catch(() => {});
 
   const securityChannel = await getTextChannel(config.discordIds.channels.securityChannel);
   if (!securityChannel) return;

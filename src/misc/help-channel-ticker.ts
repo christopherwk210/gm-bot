@@ -1,6 +1,6 @@
 import { config } from '@/data/config.js';
 import { db } from '@/database/db.js';
-import { Client, TextChannel } from 'discord.js';
+import { Client, EmbedBuilder, TextChannel } from 'discord.js';
 
 export function setupHelpChannelTicker(client: Client<boolean>) {
   setInterval(() => handleHelpChannelOps(client), 60_000);
@@ -18,6 +18,12 @@ async function handleHelpChannelOps(client: Client<boolean>) {
         channel.parent &&
         channel.parentId === config.discordIds.channelCategories.helpBusy
       ) {
+        const embed = new EmbedBuilder()
+        .setColor(config.defaultEmbedColor)
+        .setDescription(`This channel has been made available again due to inactivity.`)
+        .setTimestamp(new Date());
+
+        channel.send({ embeds: [embed] });
         moveChannelToUnbusy(channel);
       }
     }
@@ -25,9 +31,41 @@ async function handleHelpChannelOps(client: Client<boolean>) {
 }
 
 export async function moveChannelToBusy(channel: TextChannel) {
-  return await channel.setParent(config.discordIds.channelCategories.helpBusy).catch(() => {});
+  await channel.setParent(config.discordIds.channelCategories.helpBusy).catch(() => {});
+  await updateChannelPosition(channel);
 }
 
 export async function moveChannelToUnbusy(channel: TextChannel) {
-  return await channel.setParent(config.discordIds.channelCategories.help).catch(() => {});
+  await channel.setParent(config.discordIds.channelCategories.help).catch(() => {});
+  await updateChannelPosition(channel);
+}
+
+async function updateChannelPosition(channel: TextChannel) {
+  // const parent = channel.parent;
+  // if (!parent) return;
+
+  // const category = await parent.fetch().catch(() => null);
+  // if (!category) return;
+
+  // for (const helpid of config.discordIds.channels.helpChannels) {
+  //   const ch = await channel.guild.channels.fetch(helpid).catch(() => {});
+  //   if (!ch) continue;
+  //   const tc = await ch.fetch().catch(() => {});
+  //   if (!tc || !(tc instanceof TextChannel)) continue;
+  //   const position = config.discordIds.channels.helpChannels.indexOf(tc.id);
+  //   if (position === -1) continue;
+  //   await tc.setPosition(position).catch(() => {});
+  // }
+
+  // category.children.cache.forEach(async ch => {
+  //   const position = config.discordIds.channels.helpChannels.indexOf(ch.id);
+  //   if (position === -1) return;
+  //   ch.setPosition(position).catch(() => {});
+  // });
+
+  // for (const ch of category.children.cache.toJSON()) {
+  //   const position = config.discordIds.channels.helpChannels.indexOf(ch.id);
+  //   if (position === -1) continue;
+  //   await ch.setPosition(position).catch(() => {});
+  // }
 }

@@ -14,7 +14,8 @@ const discordIds = {
     ask: '<:ask:841517748534247475>',
     hehim: '<:hehim:841517748558888991>',
     theythem: '<:theythem:841517748899151902>',
-    sheher: '<:sheher:841535247140388895>'
+    sheher: '<:sheher:841535247140388895>',
+    tophtoken: '<:tophtoken:286833109037613057>'
   },
   channels: {
     /** This channel is used for debug bot output and bot testing */
@@ -28,7 +29,8 @@ const discordIds = {
       '295210810823802882',
       '331106795378442240',
       '490232902110674964',
-      '880010995270033458'
+      '880010995270033458',
+      '1275490840264966257'
     ],
   },
   channelCategories: {
@@ -53,9 +55,9 @@ const discordIds = {
     },
 
     christmas: {
-      A: '926957515818811442',
-      B: '926957504561287208',
-      C: '926957611708993577'
+      A: '1318045611894902876',
+      B: '1318045751749644348',
+      C: '1318045784914133073'
     }
   }
 };
@@ -63,10 +65,11 @@ const discordIds = {
 const devIds: typeof discordIds = devMode && devIdsExists ? require('../dev-ids.json') : {} as any;
 
 export const config = {
-  helpChannelBusyTimeout: 60_000 * 10, // 10 minutes
+  helpChannelBusyTimeout: 60_000 * 15, // 15 minutes
   defaultEmbedColor: 0x039e5c,
   discordIds: {
     ...discordIds,
     ...devIds
-  }
+  },
+  tophersId: '144913457429348352'
 };

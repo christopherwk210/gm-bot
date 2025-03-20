@@ -1,4 +1,7 @@
 import { SlashCommandBuilder } from 'discord.js';
+import { join } from 'path';
+import { cjs } from '@/misc/node-utils.js';
+const { __dirname } = cjs(import.meta.url);
 
 const command = new SlashCommandBuilder()
 .setName('commandment')
@@ -28,21 +31,21 @@ const command = new SlashCommandBuilder()
 );
 
 const commandmentURLs = [
-  'https://gfycat.com/gifs/detail/KindlyKeenGrayreefshark',
-  'https://gfycat.com/gifs/detail/HarmlessBlondIchneumonfly',
-  'https://gfycat.com/gifs/detail/ElderlyShadowyFishingcat',
-  'https://gfycat.com/gifs/detail/ThreadbareBareDonkey',
-  'https://gfycat.com/gifs/detail/MediocreYellowishHapuka',
-  'https://gfycat.com/gifs/detail/ExhaustedDistantCutworm',
-  'https://gfycat.com/gifs/detail/FriendlyVengefulJackal',
-  'https://gfycat.com/gifs/detail/DishonestHorribleGopher',
-  'https://gfycat.com/gifs/detail/UniformLiquidAlbacoretuna',
-  'https://gfycat.com/gifs/detail/SparseRevolvingGavial',
-  'https://gfycat.com/gifs/detail/LongAnchoredFlee',
-  'https://gfycat.com/gifs/detail/MiserablePhysicalKob',
-  'https://gfycat.com/gifs/detail/IllustriousFinishedBernesemountaindog',
-  'https://gfycat.com/gifs/detail/RapidDisfiguredDegus',
-  'https://gfycat.com/gifs/detail/PiercingSatisfiedAoudad'
+  join(__dirname, '../../../media/commandments/1.gif'),
+  join(__dirname, '../../../media/commandments/2.gif'),
+  join(__dirname, '../../../media/commandments/3.gif'),
+  join(__dirname, '../../../media/commandments/4.gif'),
+  join(__dirname, '../../../media/commandments/5.gif'),
+  join(__dirname, '../../../media/commandments/6.gif'),
+  join(__dirname, '../../../media/commandments/7.gif'),
+  join(__dirname, '../../../media/commandments/8.gif'),
+  join(__dirname, '../../../media/commandments/9.gif'),
+  join(__dirname, '../../../media/commandments/10.gif'),
+  join(__dirname, '../../../media/commandments/11.gif'),
+  join(__dirname, '../../../media/commandments/12.gif'),
+  join(__dirname, '../../../media/commandments/13.gif'),
+  join(__dirname, '../../../media/commandments/14.gif'),
+  join(__dirname, '../../../media/commandments/15.gif')
 ];
 
 /**
@@ -67,6 +70,9 @@ export const cmd: BotCommand = {
   execute: async interaction => {
     const romanNumeral = interaction.options.getString('roman_numeral', true);
     const numeral = fromRoman(romanNumeral);
-    await interaction.reply(commandmentURLs[numeral - 1]);
+    await interaction.reply({
+      files: [commandmentURLs[numeral - 1]]
+    })
+    // await interaction.reply(commandmentURLs[numeral - 1]);
   }
 };

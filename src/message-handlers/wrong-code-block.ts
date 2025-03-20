@@ -9,8 +9,17 @@ export async function handleWrongCodeBlockMessages(message: Message<boolean>) {
   formatted = formatted.replace(/(@everyone)/g, '@ everyone');
   formatted = formatted.replace(/(@here)/g, '@ here');
 
-  await message.reply({
-    content: `Hey! You tried formatting your code with \`\`'''\`\` or \`\`´´´\`\`, ` +
-    `however the correct symbol is the backtick: \`\` \`\`\` \`\`. Here is your message formatted properly:\n\n${formatted}`
-  });
+  const messageContent = `Hey! You tried formatting your code with \`\`'''\`\` or \`\`´´´\`\`, ` +
+  `however the correct symbol is the backtick: \`\` \`\`\` \`\`. Here is your message formatted properly:\n\n${formatted}`;
+
+  const isMessageTooLong = messageContent.length > 2000;
+
+  if (isMessageTooLong) {
+    await message.reply({
+      content: `Hey! You tried formatting your code with \`\`'''\`\` or \`\`´´´\`\`, ` +
+        `however the correct symbol is the backtick: \`\` \`\`\` \`\`. Hope that helps!`
+    });
+  } else {
+    await message.reply({ content: messageContent });
+  }
 }

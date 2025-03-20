@@ -12,7 +12,7 @@ import {
 import { getCommands } from '@/singletons/commands.js';
 
 export async function onInteractionCreate(interaction: Interaction<CacheType>) {
-  const command: BotCommand = await getCommand(interaction) as any;
+  const command: BotCommand = await getCommand(interaction as any) as any;
   if (!command) return handleInteractionErrors(interaction as any);
 
   if (interaction.isChatInputCommand()) {
@@ -48,7 +48,7 @@ export async function onInteractionCreate(interaction: Interaction<CacheType>) {
     return;
   }
   
-  if (interaction.isSelectMenu()) handleSubInteraction(interaction, command, 'selectMenu');
+  if (interaction.isStringSelectMenu()) handleSubInteraction(interaction, command, 'selectMenu');
   if (interaction.isModalSubmit() && command.modal) handleSubInteraction(interaction, command, 'modal');
   if (interaction.isButton() && command.button) handleSubInteraction(interaction, command, 'button');
 }
@@ -75,7 +75,7 @@ async function getCommand(
   const commands = await getCommands();
   const commandsCollection = commands.guild.concat(commands.global);
 
-  if (interaction.isSelectMenu()) {
+  if (interaction.isStringSelectMenu()) {
     return commandsCollection.find(value =>
       !!(value.selectMenu && value.selectMenu.ids.includes(interaction.customId))
     );

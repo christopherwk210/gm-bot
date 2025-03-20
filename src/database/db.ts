@@ -1,9 +1,11 @@
 import { tomorrow } from '@/misc/node-utils.js';
 import { Snowflake } from 'discord.js';
-import { Sequelize } from 'sequelize';
+import { Sequelize, Op } from 'sequelize';
 import { Birthday, createBirthdayModel } from './models/birthday.js';
 import { RoleDistributorReactMessage, createRoleDistributorReactMessageModel } from './models/role-distributor-react.js';
 import { HelpChannelData, createHelpChannelModel } from './models/help-channel.js';
+import { UserToken, createUserTokenModel } from './models/tokens.js';
+import { config } from '@/data/config.js';
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -16,6 +18,7 @@ export async function auth() {
   await createBirthdayModel(sequelize);
   await createRoleDistributorReactMessageModel(sequelize);
   await createHelpChannelModel(sequelize);
+  await createUserTokenModel(sequelize);
   await sequelize.sync();
 }
 
@@ -38,6 +41,75 @@ export const db = {
     exists: async (messageId: string) => {
       const message = await RoleDistributorReactMessage.findOne({ where: { messageId } });
       return !!message;
+    }
+  },
+  userToken: {
+    getUserTokens: async (userId: Snowflake) => {
+      const result = await UserToken.findOne({ where: { userId } });
+      if (result) {
+        return result.tokens;
+      } else {
+        return 0;
+      }
+    },
+
+    setUserTokens: async (userId: Snowflake, tokens: number) => {
+      const [ userToken, created ] = await UserToken.findOrCreate({
+        where: { userId },
+        defaults: { userId, tokens }
+      });
+
+      userToken.set({ tokens });
+      const savedUserToken = await userToken.save();
+
+      return {
+        userToken: savedUserToken,
+        created
+      };
+    },
+
+    addTokens: async (userId: Snowflake, tokens: number) => {
+      const [ userToken, created ] = await UserToken.findOrCreate({
+        where: { userId },
+        defaults: { userId, tokens }
+      });
+
+      userToken.set({ tokens: userToken.tokens + tokens });
+      const savedUserToken = await userToken.save();
+
+      return {
+        userToken: savedUserToken,
+        created
+      };
+    },
+
+    removeTokens: async (userId: Snowflake, tokens: number) => {
+      const [ userToken, created ] = await UserToken.findOrCreate({
+        where: { userId },
+        defaults: { userId, tokens }
+      });
+
+      userToken.set({ tokens: userToken.tokens - tokens });
+      const savedUserToken = await userToken.save();
+
+      return {
+        userToken: savedUserToken,
+        created
+      };
+    },
+
+    getTopFiveUsersWithMostTokensNotIncludingTopher: async () => {
+      const tophersUserId = config.tophersId;
+
+      return await UserToken.findAll({
+        where: {
+          userId: {
+            [Op.not]: tophersUserId
+          }
+        },
+        order: [['tokens', 'DESC']],
+        limit: 5
+      });
     }
   },
   birthday: {
