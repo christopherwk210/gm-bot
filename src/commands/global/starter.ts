@@ -24,7 +24,7 @@ export interface ResourceList {
   }[];
 }
  */
-const starterPackMessage = `We have a thread in our FAQ channel that has anwers to questions we're often asked, for both within GameMaker and outside of it, which you can find here: [Getting Started](https://discord.com/channels/262834612932182025/1351147798971809922)`;
+const starterPackMessage = `We have a thread in our FAQ channel that has anwers to questions we're often asked, for both within GameMaker and outside of it, which you can find here: [**# Getting Started**](https://discord.com/channels/262834612932182025/1351147798971809922)`;
 const embed = new EmbedBuilder()
   .setColor(config.defaultEmbedColor)
   .setTitle(`__**GameMaker Resource Pack**__`)
