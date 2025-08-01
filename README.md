@@ -24,7 +24,11 @@ Replace the 0'd out placeholders with your own bot application and token. After 
     "helpChannels": [
       "000000000000000000"
     ],
-    "securityChannel": "000000000000000000"
+    "securityChannel": "000000000000000000",
+    "faq":{
+      "forum": "000000000000000000",
+      "directory": "000000000000000000"
+    }
   },
   "channelCategories": {
     "help": "000000000000000000",

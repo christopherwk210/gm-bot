@@ -12,7 +12,7 @@ console.clear();
 
 // Sync all slash commands with remote
 console.log('Syncing commands...');
-// await getCommands();
+//await getCommands();
 
 console.log('Setting up database...');
 await auth();
