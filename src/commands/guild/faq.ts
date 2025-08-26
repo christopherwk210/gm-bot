@@ -50,7 +50,7 @@ async function getFaqPosts() {
     }
 
     faq.posts.push(...posts.map(v=>({title: v.name, id: v.id})).filter(v=>v.id!=config.discordIds.channels.faq.directory));
-    
+    faq.last_updated = Date.now();
   }
   return [...faq.posts];
 }
