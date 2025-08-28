@@ -6,6 +6,7 @@ import { reactToMessage } from '@/message-handlers/reaction-handler.js';
 import { handleWrongCodeBlockMessages } from '@/message-handlers/wrong-code-block.js';
 import { handleMisc } from '@/message-handlers/misc-handlers.js';
 import { handleHelpChannelMessages } from '@/message-handlers/help-channel-handler.js';
+import { handleHelpAnyDone } from '@/message-handlers/help-any-done-handler.js';
 
 export async function onMessageCreate(message: Message<boolean>) {  
   if (message.partial) {
@@ -35,4 +36,5 @@ export async function onMessageCreate(message: Message<boolean>) {
   await handleGMLCodeBlockMessages(message);
   await reactToMessage(message);
   await handleMisc(message);
+  await handleHelpAnyDone(message);
 }
