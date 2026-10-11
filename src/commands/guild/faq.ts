@@ -100,7 +100,7 @@ async function execute(interaction: ChatInputCommandInteraction<CacheType>) {
   for (let i=0;i<num;i++) {
     const embed = new EmbedBuilder()
                         .setTitle(post.title)
-                        .setDescription(chunk + `\n\nSee full post: <#${id}>`)
+                        .setDescription(chunk + `\n\nRead the full post here: <#${id}>`)
                         .setAuthor({name: msg.author.displayName, iconURL: msg.author.displayAvatarURL()})
                         .setColor(config.defaultEmbedColor)
                         .setURL(url);
